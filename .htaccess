@@ -9,6 +9,10 @@ RewriteEngine on
 RewriteRule ^admin$ /admin/ [R]
 RewriteRule ^admin/$ /admin/index.php
 
+# Just use the directory or filename if that's what we're going for
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+
 # Mainly for "'page_name/index/"
 # And if the query is blank, just goes to index.php by default anyway
 RewriteRule ^([A-Za-z0-9_-]+)$ /$1/ [R]
