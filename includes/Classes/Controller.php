@@ -20,6 +20,7 @@
 		private var $javascript;
 		private var $view;
 		
+		public var $name;
 		public var $title;
 		public var $keywords;
 		public var $description;
@@ -29,7 +30,8 @@
 			$this->css = ( is_array($css) ) ? $css : array();
 			$this->javascript = ( is_array($javascript) ) ? $javascript : array();
 			
-			$this->title = SITE_NAME;
+			$this->name = __CLASS__;
+			$this->title = $this->title;
 			$this->keywords = DEFAULT_KEYWORDS;
 			$this->description = DEFAULT_DESCRIPTION;
 		

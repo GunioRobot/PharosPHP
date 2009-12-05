@@ -7,45 +7,34 @@
 	<meta name="keywords" content="<?=KEYWORDS?>" />
 	<meta name="description" content="<?=DESCRIPTION?>" />
 	<meta name="author" content="Matt Brewer" />
-	<!--[if lt IE 7.]>
-	<script defer type="text/javascript" src="includes/jscripts/pngfix.js"></script>
-	<![endif]-->
 
-	<style type="text/css" media="screen">@import "<?=INCLUDES_SERVER?>jscripts/css/cupertino/jquery-ui-1.7.2.custom.css"; </style>
-	
 
 	<?
 
 		
-			
-		$folder = TEMPLATE_DIR.'css/';
-		if ($handle = opendir($folder)) {
-			while (false !== ($file = readdir($handle))){
-				if ($file != "." && $file != ".." && !is_dir($folder.$file) ) {
-					echo '<style type="text/css" media="screen">@import "'.TEMPLATE_SERVER.'css/'.$file.'";</style>'."\n";
-				}
-			}
+		write_css();
+		
+		if ( !empty($controller->css()) ) {
+			$css = $controller->css();
+			foreach($css as $style) : ?>
+			<style type="text/css" media="<?=$style['type']?>">@import url(<?=TEMPLATE_SERVER.'css/'.$style['path']?>);</style>
+			<? endforeach ?>
 		}
 		
+		write_js();	
 		
-		// Include all the Javascript files - If .php type, then it's directly inserted in here
-		if ( is_array($js_array) ) {
-			for ( $i=0; $i < count($js_array); $i++ ) {
-								
-				if ( isset($js_array[$i]['pid_limits']) ) {
-					$active = array_search($_GET['pid'], $js_array[$i]['pid_limits']); 
-				} else $active = true;
-				
-				if ( $active !== false ) {
-					if ( $js_array[$i]['type'] == '.php' ) {
-						require INCLUDES_DIR.'jscripts/'.$js_array[$i]['file'];
-						echo "\n";
-					} else if ( $js_array[$i]['type'] == '.js' ) {
-						echo '<script type="text/javascript" src="'.INCLUDES_SERVER.'jscripts/'.$js_array[$i]['file'].'"></script>'."\n";
-					}
-				}
-			}
+		if ( !empty($controller->javascript()) ) {
+			$javascript = $controller->javascript();
+			foreach($javascript as $js) : ?>
+				<? if ( $js['type'] == JAVASCRIPT_INCLUDE ) : ?>
+				<script type="text/javascript">
+				<? require TEMPLATE_DIR.'js/'.$js['path'] ?>
+				</script>
+				<? else : ?>
+				<script type="text/javascript" src="<?=TEMPLATE_SERVER?>/js/<?=$js['path']?>"></script>
+			<? endif; endforeach; ?>
 		}
+		
 	?>
 </head>
 <body>

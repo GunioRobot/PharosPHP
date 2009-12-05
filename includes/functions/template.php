@@ -80,11 +80,11 @@
 	
 	function write_css() {
 		$css = array();
-		$folder = SERVER_DIR.'css/';
+		$folder = TEMPLATE_DIR.'css/';
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle))){
 				if ($file != "." && $file != ".." && !is_dir($folder.$file) && preg_match('/^style_(.*)/', basename($file)) ) {
-					$css[] = HTTP_SERVER.'css/'.$file;
+					$css[] = TEMPLATE_SERVER.'css/'.$file;
 				}
 			}
 		}		
@@ -107,11 +107,11 @@
 	
 	function write_js() {
 		$js = array();
-		$folder = SERVER_DIR.'js/';
+		$folder = TEMPLATE_DIR.'js/';
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle))){
 				if ($file != "." && $file != ".." && !is_dir($folder.$file) && $file != 'pngfix.js' && preg_match('/^js_(.*)/', basename($file)) ) {
-					$js[] = HTTP_SERVER.'js/'.$file;
+					$js[] = TEMPLATE_SERVER.'js/'.$file;
 				}
 			}
 		}

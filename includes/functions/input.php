@@ -70,5 +70,19 @@
 	function server($key, $default=false) {
 		return ( isset($_SERVER[$key]) AND $_SERVER[$key] != '' ) ? $_SERVER[$key] : $default;
 	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	controller_name(String)
+	//
+	//	Returns properly formatted controller name, ie 
+	//		/admin/applications/ => 'Applications'
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function controller_name($string) {
+		return str_replace(' ', '', ucwords(str_replace(array('_','-'), ' ', make_clean_filename($string))));
+	}
 
 ?>
