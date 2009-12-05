@@ -3,11 +3,6 @@
 	// Site includes
 	require_once 'includes/app_header.php';
 	
-	// Supporting logout in sidebar
-	if ( get('pid', "false") == '6' ) {
-		redirect('log.php?logout=true');
-	}
-	
 	// Validate login information
 	validate_login();
 	
