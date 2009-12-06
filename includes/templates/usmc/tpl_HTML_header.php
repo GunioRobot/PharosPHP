@@ -2,10 +2,10 @@
 <!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">-->
 <html>
 <head>
-	<title><?=TITLE?></title>
+	<title><?=SITE_NAME.TITLE_SEPARATOR.$controller->title?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
-	<meta name="keywords" content="<?=KEYWORDS?>" />
-	<meta name="description" content="<?=DESCRIPTION?>" />
+	<meta name="keywords" content="<?=$controller->keywords?>" />
+	<meta name="description" content="<?=$controller->description?>" />
 	<meta name="author" content="Matt Brewer" />
 
 
