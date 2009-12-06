@@ -1,12 +1,11 @@
 <?php
 
-	class Applications {
+	class Applications extends Controller {
 		
 		public function __construct() {
-			Parent::contruct();
 			
+			parent::Controller();
 			$this->title = "Manage Applications";
-			
 			
 		}
 		
