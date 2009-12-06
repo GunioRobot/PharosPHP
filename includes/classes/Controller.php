@@ -41,7 +41,7 @@
 			return $view;
 		}
 		
-		public function view($string) {
+		public function setView($string) {
 			$this->view = $string;
 		}
 		
@@ -49,7 +49,7 @@
 			return $this->css;
 		}
 		
-		public function css($path, $type=CSS_TYPE_ALL) {
+		public function addCSS($path, $type=CSS_TYPE_ALL) {
 			if ( $path != '' ) {
 			
 				switch($type) {
@@ -72,7 +72,7 @@
 			return $this->javascript;
 		}
 		
-		public function javascript($path) {
+		public function addJavascript($path) {
 			if ( $path != '' ) {
 				$this->javascript[] = array('path' => $path, 'type' => (strrpos('.php')===false?JAVASCRIPT_EXTERNAL:JAVASCRIPT_INCLUDE));
 			}
