@@ -4,7 +4,7 @@
 		
 		public function __construct() {
 			
-			parent::Controller();
+			parent::__construct();
 			$this->title = "Manage Applications";
 			
 		}
