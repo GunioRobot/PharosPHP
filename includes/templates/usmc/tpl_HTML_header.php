@@ -18,7 +18,7 @@
 			$css = $controller->css();
 			foreach($css as $style) : ?>
 			<style type="text/css" media="<?=$style['type']?>">@import url(<?=TEMPLATE_SERVER.'css/'.$style['path']?>);</style>
-			<? endforeach ?>
+			<? endforeach
 		}
 		
 		write_js();	
@@ -32,7 +32,7 @@
 				</script>
 				<? else : ?>
 				<script type="text/javascript" src="<?=TEMPLATE_SERVER?>/js/<?=$js['path']?>"></script>
-			<? endif; endforeach; ?>
+			<? endif; endforeach;
 		}
 		
 	?>
