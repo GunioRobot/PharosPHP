@@ -4,7 +4,7 @@
 		
 		public function __construct() {
 			
-			parent::Controller();
+			parent::__contruct();
 			$this->name = "Session Manager";
 			
 		}
