@@ -26,7 +26,7 @@
 				$c = count($args);
 				for ( $i = 2; $i < $c; $i++ ) {
 					if ( $args[$i] !== false ) {
-						$funcArgs[] $args[$i];
+						$funcArgs[] = $args[$i];
 					}
 				}
 				
@@ -43,17 +43,10 @@
 				$controller->_willLoadView();
 			}
 			
-			
-			define('TITLE', SITE_NAME.' Admin - '.$controller->title);
-			define('KEYWORDS', $controller->keywords);
-			define('DESCRIPTION', $controller->description);
-			
-			
 			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
 			require_once TEMPLATE_DIR.'tpl_header.php';
 			require_once TEMPLATE_DIR.'tpl_body.php';
 			require_once TEMPLATE_DIR.'tpl_footer.php';
-			
 				
 		}
 		
