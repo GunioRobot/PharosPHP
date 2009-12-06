@@ -36,6 +36,7 @@
 		define('SITE_NAME', get_setting('Site Name', 'CMS Lite Install', true));
 		define('SITE_TAGLINE', get_setting('Site Tagline', 'CMS Framework for Developers', true));
 		define('TEMPLATE_NAME', get_setting('Template Name', 'default', true));
+		define('TITLE_SEPARATOR', get_setting('Title Separator', ' | ', true));
 	}
 	
 ?>
