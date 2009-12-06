@@ -1,9 +1,12 @@
 <?
 
-	class Session {
+	class Session extends Controller {
 		
 		public function __construct() {
+			
+			parent::Controller();
 			$this->name = "Session Manager";
+			
 		}
 
 	
