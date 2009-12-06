@@ -15,7 +15,8 @@
 	
 	if ( $args[0] ) {
 		
-		$file = CONTROLLER_DIR.controller_name($args[0]).'.php';		
+		$controllerClass = controller_name($args[0]);
+		$file = CONTROLLER_DIR.$controllerClass.'.php';		
 		if ( file_exists($file) ) {
 			
 		
