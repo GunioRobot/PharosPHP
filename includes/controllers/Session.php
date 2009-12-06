@@ -10,7 +10,7 @@
 		public function index() {
 			
 			if ( session('uid') ) {
-				redirect('index.php');
+				redirect('/'.ADMIN_DIR);
 			} else {
 				redirect('session/login/');
 			}
