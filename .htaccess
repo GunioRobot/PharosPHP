@@ -1,13 +1,14 @@
 Options +FollowSymLinks
 
 # Just a simple redirect for all non-accessible items
-ErrorDocument 404 /index.php?arg1=not-found
+ErrorDocument 404 /cms-lite/index.php?arg1=not-found
 
-RewriteEngine on
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteBase /cms-lite/
 
 # Allowing access to the admin area of the site with mod_rewrite
-RewriteRule ^admin$ /admin/ [R]
-RewriteRule ^admin/$ /admin/index.php
+RewriteRule ^$ index.php
 
 # Just use the directory or filename if that's what we're going for
 RewriteCond %{REQUEST_FILENAME} !-f
@@ -37,6 +38,8 @@ RewriteRule ^([A-Za-z_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+
 # Mainly for 'page_name/method_name/arg1/arg2/arg3/' style links
 RewriteRule ^([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)$ /$1/$2/$3/$4/$5/$6/ [R]
 RewriteRule ^([A-Za-z_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/([A-Za-z0-9_\-]+)/$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4&arg5=$5&arg6=$6
+
+</IfModule>
 
 # Hide our directory contents to prying eyes
 IndexIgnore .*
