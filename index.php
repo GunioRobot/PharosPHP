@@ -5,7 +5,7 @@
 	
 	// Validate login information
 	validate_login();
-	
+		
 	$args[] = get('arg1');		// Page we're looking for...
 	$args[] = get('arg2');		// Var for the page itself to use
 	$args[] = get('arg3');		// Var for the page itself to use
@@ -15,8 +15,9 @@
 	
 	if ( $args[0] ) {
 		
-		$file = CONTOLLER_DIR.$arg1;
+		$file = CONTROLLER_DIR.controller_name($args[0]).'.php';		
 		if ( file_exists($file) ) {
+			
 		
 			require $file;
 			$controller = new $controllerClass();
