@@ -5,32 +5,25 @@
 	
 	// Validate login information
 	validate_login();
-		
-	$args[] = get('arg1');		// Page we're looking for...
-	$args[] = get('arg2');		// Var for the page itself to use
-	$args[] = get('arg3');		// Var for the page itself to use
-	$args[] = get('arg4');		// Var for the page itself to use
-	$args[] = get('arg5');		// Var for the page itself to use
-	$args[] = get('arg6');		// Var for the page itself to use
 	
+	// Build array of args
+	for ( $i = 1; $i < 10; $i++ ) {
+		if ( ($arg = get("arg$i")) ) $args[] = $arg;
+	}
+				
 	if ( $args[0] ) {
 		
 		$controllerClass = controller_name($args[0]);
 		$file = CONTROLLER_DIR.$controllerClass.'.php';		
 		if ( file_exists($file) ) {
 			
-		
 			require $file;
 			$controller = new $controllerClass();
 					
 			if ( $args[1] ) {
 				
 				$c = count($args);
-				for ( $i = 2; $i < $c; $i++ ) {
-					if ( $args[$i] !== false ) {
-						$funcArgs[] = $args[$i];
-					}
-				}
+				$funcArgs = array_slice($args,2);	// Skip the first two arguments (class name and method) to pass along
 				
 				call_user_func_array(array($controller, $args[1]), $funcArgs);
 							
