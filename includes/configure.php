@@ -9,18 +9,17 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	define('HTTP_SERVER', 'http://'.$_SERVER['HTTP_HOST'].'/');
-	define('ADMIN_DIR', '');
+	define('ADMIN_DIR', 'cms-lite/');
 	define('UPLOAD_TO', 'content/');
 	define('XML_TO', 'xml/');	
 	
-	@define('WELCOME_PID', 43);
-	@define('IPHONE_WELCOME_PID', '46');
-	@define('IS_ADMIN_FLAG', false);
-	@define('SHOW_PROFILER_RESULTS', false);	
-	@define('jQuery_src', 'jquery-1.3.2.min.js');
-	@define('DELETE_OLD_WHEN_UPLOADING_NEW', true);
-	@define('RESET_PASSWORD_RANDOM_WORD', '_marines');
-	@define('USE_IPHONE_OPTIMIZED_SITE', false);
+	define('IS_ADMIN_FLAG', false);
+	define('SHOW_PROFILER_RESULTS', false);	
+	define('jQuery_src', 'jquery-1.3.2.min.js');
+	define('DELETE_OLD_WHEN_UPLOADING_NEW', true);
+	define('RESET_PASSWORD_RANDOM_WORD', '_marines');
+	
+	define('DEFAULT_CONTROLLER_NAME', 'Applications');
 	
 	
 	
