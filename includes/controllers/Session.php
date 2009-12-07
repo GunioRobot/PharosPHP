@@ -4,18 +4,19 @@
 		
 		public function __construct() {
 			
-			parent::__contruct();
+			parent::__construct();
 			$this->name = "Session Manager";
-			
+			$this->title = "Login";
+						
 		}
 
 	
 		public function index() {
-			
+						
 			if ( session('uid') ) {
-				redirect('/'.ADMIN_DIR);
+				redirect(site_link());
 			} else {
-				redirect('session/login/');
+				redirect(site_link('session/login/'));
 			}
 		
 		}
@@ -31,8 +32,8 @@
 			}
 			
 			else if ( ($user = post('user')) AND ($pass = post('pass')) ) {
-
-				$info = $db->Execute("SELECT * FROM users WHERE user_username = '$user' AND user_password = '$pass' AND user_level >= ".BASIC_USER_LVL." LIMIT 1");
+				
+				$info = $this->db->Execute("SELECT * FROM users WHERE user_username = '$user' AND user_password = '$pass' AND user_level >= ".BASIC_USER_LVL." LIMIT 1");
 				if ( $info->fields['user_id'] ) {
 
 					// Info needed by system
@@ -44,11 +45,15 @@
 					$_SESSION['fullname'] = $info->fields['user_first_name'] . ' ' . $info->fields['user_last_name'];
 
 					// Update last login
-					$db->Execute("UPDATE users SET user_last_login = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
+					$this->db->Execute("UPDATE users SET user_last_login = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
 
 					// Finish redirecting
 					redirect('/'.ADMIN_DIR);
 				}
+			} else {
+				
+				echo "Should show login page itself";
+				
 			}			
 		
 		}
