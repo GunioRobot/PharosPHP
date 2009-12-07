@@ -37,6 +37,8 @@
 		define('SITE_TAGLINE', get_setting('Site Tagline', 'CMS Framework for Developers', true));
 		define('TEMPLATE_NAME', get_setting('Template Name', 'default', true));
 		define('TITLE_SEPARATOR', get_setting('Title Separator', ' | ', true));
+		define('DEFAULT_KEYWORDS', get_setting('Default Keywords', 'CMS, Content Management System, CMS-Lite, Matt Brewer, PHP', true));
+		define('DEFAULT_DESCRIPTION', get_setting('Default Description', SITE_TAGLINE, true));
 	}
 	
 ?>
