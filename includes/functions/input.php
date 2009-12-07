@@ -84,5 +84,31 @@
 	function controller_name($string) {
 		return str_replace(' ', '', ucwords(str_replace(array('_','-'), ' ', make_clean_filename($string))));
 	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	controller_link(className)
+	//
+	//	Takes "ManageSession" => "/admin/manage-session/"
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function controller_link($class) {
+		return site_link(strtolower(implode('-',splitCamelCase($class))));
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	splitCamelCase(string)
+	//
+	//	Takes "ManageSession" => array('manage', 'session')
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function splitCamelCase($str) {
+	  return preg_split('/(?<=\\w)(?=[A-Z])/', $str);
+	}
 
 ?>
