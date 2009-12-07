@@ -13,51 +13,71 @@
 
 	class Table {
 
-		private $id, $class, $head_class, $display_pages, $columns, $data, $pid, $target, $iframe_src, $extra_href, $ordred_row;
+		public $id, $class, $head_class, $display_pages, $columns, $data, $pid, $target, $iframe_src, $extra_href, $ordered_row, $rows_per_page;
+		protected $db;
 
-		public function __construct($info) {
-	
-			if ( is_array($info) ) {
+		public function __construct($info=null) {
+			global $db;
+			$this->db =& $db;
+			$this->setInfo($info);
+		}
 		
+		public function setInfo($info) {
+			if ( is_array($info) ) {
+
 				// Store vars
 				if ( isset($info['table_id']) AND $info['table_id'] != '' ) $this->id = $info['table_id'];	
 				else die("Table() requires id");
-			
+
 				if ( isset($info['table_class']) AND $info['table_class'] != '' ) $this->class = $info['table_class'];
-			
+
 				if ( isset($info['head_class']) AND $info['head_class'] != '' ) $this->head_class = $info['head_class'];
-			
+
 				if ( isset($info['columns']) AND is_array($info['columns']) ) $this->columns = $info['columns'];
 				else die("Table() requires columns");
-			
+
 				if ( isset($info['data']) AND is_array($info['data']) ) $this->data = $info['data'];
 				else die("Table() requires data");		
-			
+
 				if ( isset($info['pid']) AND $info['pid'] != '' ) $this->pid = $info['pid'];
 				else $this->pid = 0;
-			
+
 				if ( isset($info['basic_a']) ) $this->basic_a = $info['basic_a'];
-			
+
 				if ( isset($info['iframe']) AND $info['iframe'] != '' ) $this->target = 'target="'.$info['iframe'].'"';
 				else $this->target = '';
-			
+
 				if ( isset($info['iframe_src']) AND $info['iframe_src'] != '') $this->iframe_src = $info['iframe_src'];
 				else $this->iframe_src = '';
-			
+
 				if ( isset($info['extra_href']) AND $info['extra_href'] != '') $this->extra_href = $info['extra_href'];
 				else $this->extra_href = '';
-			
+
 				if ( isset($info['ordered_row']) AND $info['ordered_row'] != '' ) $this->ordered_row = $info['ordered_row'];
 				else $this->ordered_row = '';
-			
+
 				if ( isset($info['order']) AND $info['order'] != '' ) $this->order = $info['order'];
 				else $this->order = 'asc';
-			
+
 				$this->display_pages = 5;
 			}
-	
 		}
 	
+	
+		public function get_current_page() {
+			return ( $this->id ) ? intval(get($table_id.'_page', 1)) : 1;
+		}
+		
+		public function paginate($sql) {
+			if ( $this->id && $this->rows_per_page > 0 && $sql ) {
+				$total = $this->db->Execute($sql);
+				$total = $total->fields['total'] != '' ? $total->fields['total'] : '0';
+				$page_count = intval(ceil($total/$this->rows_per_page));
+				$page_count = $page_count > 0 ? $page_count : 1;
+				$start = ($this->get_current_page()-1) * $this->rows_per_page;
+				return array($total,$page_count,$start);
+			}
+		}
 	
 		public function get_html($page, $page_count, $showing, $total) {
 	
