@@ -95,7 +95,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function controller_link($class) {
-		return site_link(strtolower(implode('-',splitCamelCase($class))));
+		return site_link(strtolower(implode('-',split_camel_case($class))));
 	}
 	
 	
@@ -107,7 +107,7 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	function splitCamelCase($str) {
+	function slit_camel_case($str) {
 	  return preg_split('/(?<=\\w)(?=[A-Z])/', $str);
 	}
 
