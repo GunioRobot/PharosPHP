@@ -67,13 +67,7 @@
 	        <b class="bbot"><b></b></b>
 	    </div> 
 	    <div id="content">
-			<? 
-				if ( ($function = get("function")) ) {
-					 require INCLUDES_DIR.$function.".php";
-				} else { 
-					if ( file_exists($myFile[0]) ) require $myFile[0]; 
-				}
-			?>
+			<?=$controller->view()?>
 	    </div>
 	
 <? endif ?>
