@@ -19,6 +19,7 @@
 		private $css;
 		private $javascript;
 		private $view;
+		private $db;
 		
 		public $name;
 		public $title;
@@ -26,26 +27,36 @@
 		public $description;
 		
 		public function __construct($css=array(),$javascript=array()) {
+			
+			global $db;
 		
 			$this->css = ( is_array($css) ) ? $css : array();
 			$this->javascript = ( is_array($javascript) ) ? $javascript : array();
 			
+			$this->db =& $db;
+						
 			$this->name = __CLASS__;
 			$this->title = $this->title;
 			$this->keywords = DEFAULT_KEYWORDS;
 			$this->description = DEFAULT_DESCRIPTION;
-		
-		}
-		
-		public function view($string='') {
-			if ( $string != '' ) {
-				$this->view = $string;
-			} else return $string;
-		}
-
-		
-		public function css($path='', $type=CSS_TYPE_ALL) {
 			
+			$this->view = "";
+		
+		}
+		
+		public function view() {
+			return $view;
+		}
+		
+		public function setView($string) {
+			$this->view = $string;
+		}
+		
+		public function css() {
+			return $this->css;
+		}
+		
+		public function addCSS($path, $type=CSS_TYPE_ALL) {
 			if ( $path != '' ) {
 			
 				switch($type) {
@@ -60,18 +71,17 @@
 			
 				$this->css[] = array('path' => $path, 'type' => $type);
 				
-			} else {
-				return $this->css;
 			}
 			
 		}
 		
+		public function javascript() {
+			return $this->javascript;
+		}
 		
-		public function addJavascript($path='') {
+		public function addJavascript($path) {
 			if ( $path != '' ) {
 				$this->javascript[] = array('path' => $path, 'type' => (strrpos('.php')===false?JAVASCRIPT_EXTERNAL:JAVASCRIPT_INCLUDE));
-			} else {
-				return $this->javascript;
 			}
 		}
 		
