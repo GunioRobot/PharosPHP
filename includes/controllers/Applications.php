@@ -10,9 +10,7 @@
 		}
 		
 		public function index() {
-			
-			echo "Calling ".__CLASS__."::index()";
-			
+						
 			define('TABLE', 'applications');
 			define('ID', 'app_id');
 			
@@ -49,7 +47,7 @@
 			if ( isset($_GET['search']) AND $_GET['search'] != '' ) {
 
 				$where = ' WHERE (';
-				$columns = array_keys($db->metaColumns(TABLE));
+				$columns = array_keys($this->db->metaColumns(TABLE));
 
 				// Search individual words
 				$words = explode(' ', $_GET['search']);
@@ -87,7 +85,7 @@
 
 
 			// Stuff for pagination later
-			$total = $db->Execute("SELECT COUNT(".TABLE.'.'.ID.") as total FROM ".TABLE." ".$where.$order);
+			$total = $this->db->Execute("SELECT COUNT(".TABLE.'.'.ID.") as total FROM ".TABLE." ".$where.$order);
 			$total = $total->fields['total'] != '' ? $total->fields['total'] : '0';
 			$page_count = intval(ceil($total/$rows_per_page));
 			$page_count = $page_count > 0 ? $page_count : 1;
@@ -97,7 +95,7 @@
 
 			// Actually pull the information.  Will be ordered and/or filtered, or just straight results if nothing used
 			$sql = "SELECT * FROM ".TABLE." ".$where.$order." LIMIT ".$start.",".$rows_per_page;
-			$info = $db->Execute($sql);
+			$info = $this->db->Execute($sql);
 
 			// Build the data array to pass to the table
 			for ( $i = 1; !$info->EOF; $i++ ) {
