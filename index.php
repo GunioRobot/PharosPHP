@@ -40,22 +40,47 @@
 				
 			}
 			
-			
 			if ( method_exists($controller, "_willLoadView") ) {
 				$controller->_willLoadView();
 			}
-			
+
 			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
 			require_once TEMPLATE_DIR.'tpl_header.php';
 			require_once TEMPLATE_DIR.'tpl_body.php';
 			require_once TEMPLATE_DIR.'tpl_footer.php';
 				
+		} else {
+
+			Console::log("Unable to load class (".$args.")");
+
 		}
 		
 	} else {
 		
-		Console::log("Unable to load class (".$args.")");
+		$controllerClass = controller_name(DEFAULT_CONTROLLER_NAME);
+		$file = CONTROLLER_DIR.$controllerClass.'.php'; 
+		if ( file_exists($file) ) {
 		
-	}		
+			require $file;
+			$controller = new $controllerClass();
+			
+			$controller->index();
+			
+			if ( method_exists($controller, "_willLoadView") ) {
+				$controller->_willLoadView();
+			}
+
+			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
+			require_once TEMPLATE_DIR.'tpl_header.php';
+			require_once TEMPLATE_DIR.'tpl_body.php';
+			require_once TEMPLATE_DIR.'tpl_footer.php';
+			
+		} else {
+			
+			Console::log("Unable to load default controller class (".DEFAULT_CONTROLLER_NAME.")");
+			
+		}
+		
+	}
 	
 ?>
