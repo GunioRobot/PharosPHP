@@ -9,7 +9,7 @@
 					<div class="clearBoth"></div>
 					<p>Log in here for access to the <?=SITE_NAME?> Area, which provides access to your account and functions for: managing content and users.</p>		
 
-		       		<form name="login" action="<?=ADMIN_DIR?>session/login/" method="post">
+		       		<form name="login" action="<?=site_link('session/login/')?>" method="post">
 					<input type="submit" style="width:0px;height:0px;border:none;margin:0px;padding:0px;"/>
 					<div class="greyBox">
 				        <b class="btop"><b></b></b>
