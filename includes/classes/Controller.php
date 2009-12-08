@@ -18,7 +18,7 @@
 	
 		protected $css;
 		protected $javascript;
-		protected $view;
+		protected $output;
 		protected $db;
 		
 		public $name;
@@ -40,15 +40,15 @@
 			$this->keywords = DEFAULT_KEYWORDS;
 			$this->description = DEFAULT_DESCRIPTION;
 			
-			$this->view = "";
+			$this->output = "";
 		
 		}
 		
-		public function view($string='') {
+		public function output($string='') {
 			if ( $string != '' ) {
-				$this->view = $string;
+				$this->output = $string;
 			} else {
-				return $this->view;
+				return $this->output;
 			}
 		}
 		
