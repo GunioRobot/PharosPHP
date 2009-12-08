@@ -71,44 +71,5 @@
 		return ( isset($_SERVER[$key]) AND $_SERVER[$key] != '' ) ? $_SERVER[$key] : $default;
 	}
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	controller_name(String)
-	//
-	//	Returns properly formatted controller name, ie 
-	//		/admin/applications/ => 'Applications'
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function controller_name($string) {
-		return str_replace(' ', '', ucwords(str_replace(array('_','-'), ' ', make_clean_filename($string))));
-	}
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	controller_link(className)
-	//
-	//	Takes "ManageSession" => "/admin/manage-session/"
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function controller_link($class) {
-		return site_link(strtolower(implode('-',split_camel_case($class))));
-	}
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	splitCamelCase(string)
-	//
-	//	Takes "ManageSession" => array('manage', 'session')
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function slit_camel_case($str) {
-	  return preg_split('/(?<=\\w)(?=[A-Z])/', $str);
-	}
 
 ?>
