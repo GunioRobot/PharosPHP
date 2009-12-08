@@ -278,6 +278,25 @@
 	
 	
 	
+	
+	function view($class,$id) {
+		return controller_link($class)."/view/$id/";
+	}
+	
+	function edit($class,$id) {
+		return controller_link($class)."/edit/$id/";
+	}
+	
+	function delete($class,$id) {
+		return controller_link($class)."/delete/$id/";
+	}
+	
+	function create($class) {
+		return controller_link($class)."/create/";
+	}
+	
+	
+	
 
 
 ?>
