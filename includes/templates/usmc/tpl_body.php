@@ -67,7 +67,7 @@
 	        <b class="bbot"><b></b></b>
 	    </div> 
 	    <div id="content">
-			<?=$controller->view()?>
+			<?=$controller->output()?>
 	    </div>
 	
 <? endif ?>
