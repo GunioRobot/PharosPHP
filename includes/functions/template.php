@@ -69,19 +69,6 @@
 	
 	
 	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	site_link(string $link) 
-	//
-	//	Returns root level path, ie "/admin/".$link
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function site_link($link='') {
-		return '/'.ADMIN_DIR.$link;
-	}
-	
-	
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -185,6 +172,11 @@
 	}
 	
 	
+	function site_link($link='') {
+		return '/'.ADMIN_DIR.$link;
+	}
+	
+	
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -278,24 +270,62 @@
 	
 	
 	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	controller_name(String)
+	//
+	//	Returns properly formatted controller name, ie 
+	//		/admin/applications/ => 'Applications'
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function controller_name($string) {
+		return str_replace(' ', '', ucwords(str_replace(array('_','-'), ' ', make_clean_filename($string))));
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	controller_link(className)
+	//
+	//	Takes "ManageSession" => "/admin/manage-session/"
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function controller_link($class,$action='') {
+		return site_link(strtolower(implode('-',split_camel_case($class)))).$action;
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	splitCamelCase(string)
+	//
+	//	Takes "ManageSession" => array('manage', 'session')
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function split_camel_case($str) {
+	  return preg_split('/(?<=\\w)(?=[A-Z])/', $str);
+	}
+	
+	
 	
 	function view($class,$id) {
-		return controller_link($class)."/view/$id/";
+		return controller_link($class,"/view/$id/");
 	}
 	
 	function edit($class,$id) {
-		return controller_link($class)."/edit/$id/";
+		return controller_link($class,"/edit/$id/");
 	}
 	
 	function delete($class,$id) {
-		return controller_link($class)."/delete/$id/";
+		return controller_link($class,"/delete/$id/");
 	}
 	
 	function create($class) {
-		return controller_link($class)."/create/";
+		return controller_link($class,"/create/");
 	}
-	
-	
 	
 
 
