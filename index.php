@@ -25,7 +25,11 @@
 				$c = count($args);
 				$funcArgs = array_slice($args,2);	// Skip the first two arguments (class name and method) to pass along
 				
-				call_user_func_array(array($controller, $args[1]), $funcArgs);
+				if ( method_exists($controller, $args[1]) ) {
+					call_user_func_array(array($controller, $args[1]), $funcArgs);
+				} else {
+					Console::log("Unknown method (".$args[1].") for class($controllerClass)");
+				}
 							
 			} else {
 				
