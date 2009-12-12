@@ -312,7 +312,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function site_link($link='') {
-		return HTTP_SERVER.ADMIN_DIR.$link;
+		return HTTP_SERVER.ADMIN_DIR.(substr($link,0,1)==="/"?substr($link,1):$link);
 	}
 	
 	
