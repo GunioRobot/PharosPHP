@@ -208,49 +208,6 @@
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
-	//	choose_form_type($form_array, $id, $value, $field_id, $link_value='null')
-	//
-	//	Most of the params are passed through to the require() form_type
-	//	Returns a string of html to insert into the template
-	//
-	////////////////////////////////////////////////////////////////////////////////
-
- 	function choose_form_type($form_array,$id,$value,$field_id,$link_value = 'null') {
-	
-		global $db;
-				
-		$file = CLASSES_DIR.'form_types/'.$form_array['type'].'.php';
-		
-		if ( file_exists($file) )  require($file);
-		else $item = ' Form Function Not Set ('.$form_array['type'].')';
-		
-		return $item;
-	}
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	process_repost_type($string)
-	//
-	//	Runs the corresponding code to process the original "form_type" after form
-	//	submittal.
-	//
-	////////////////////////////////////////////////////////////////////////////////	
-	
-	function process_repost_type($type) {
-		
-		$file = INCLUDES_DIR.'repost_mods/form_types/'.$type.'.php';
-		if ( file_exists($file) ) return $file;
-		else throw new Exception("Repost form_type did not exist: ($file)");
-		
-	}
-	
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
 	//	make_id($string)
 	//
 	//	Returns sanitized string for use as DOM element id attribute
