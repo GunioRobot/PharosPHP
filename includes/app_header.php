@@ -23,9 +23,6 @@
 	
 	// Load in all the content types
 	load_content_types();
-	
-	// Load in the extra supported modues
-	load_modules();
 		
 	// Load in extra defines in files
 	require_once DEFINES_DIR.'autoload.php';
