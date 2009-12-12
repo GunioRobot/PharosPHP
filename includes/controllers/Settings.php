@@ -225,7 +225,7 @@
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);
 				
-				$obj = array('error' => false, 'redirect' => controller_link(__CLASS__,'/manage/'));
+				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
 				echo json_encode((object)$obj);
 				exit;
 				
