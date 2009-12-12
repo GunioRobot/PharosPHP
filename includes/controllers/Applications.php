@@ -122,7 +122,7 @@
 		//
 		//////////////////////////////////////////////////////////////////
 		
-		public function manage($orderField='last_updated',$orderVal='asc',$page=1,$filter='') {
+		public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='') {
 			
 			$this->javascript('confirmDelete.php');
 												
