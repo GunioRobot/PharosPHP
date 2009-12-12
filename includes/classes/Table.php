@@ -13,7 +13,7 @@
 
 	class Table {
 
-		public $id, $class, $head_class, $display_pages, $columns, $data, $pid, $target, $iframe_src, $extra_href, $ordered_row, $rows_per_page;
+		public $id, $class, $head_class, $display_pages, $columns, $data, $target, $iframe_src, $extra_href, $ordered_row, $order, $rows_per_page, $current_page;
 		protected $db;
 
 		public function __construct($info=null) {
@@ -39,9 +39,6 @@
 				if ( isset($info['data']) AND is_array($info['data']) ) $this->data = $info['data'];
 				else die("Table() requires data");		
 
-				if ( isset($info['pid']) AND $info['pid'] != '' ) $this->pid = $info['pid'];
-				else $this->pid = 0;
-
 				if ( isset($info['basic_a']) ) $this->basic_a = $info['basic_a'];
 
 				if ( isset($info['iframe']) AND $info['iframe'] != '' ) $this->target = 'target="'.$info['iframe'].'"';
@@ -58,15 +55,16 @@
 
 				if ( isset($info['order']) AND $info['order'] != '' ) $this->order = $info['order'];
 				else $this->order = 'asc';
+				
+				if ( isset($info['current_page']) AND $info['current_page'] != '' ) $this->current_page = $info['current_page'];
+				else $this->current_page = 1;
 
-				$this->display_pages = 5;
+				if ( isset($info['display_pages']) AND $info['display_pages'] != '' ) $this->display_pages = $info['display_pages'];
+				else $this->display_pages = 5;
+				
 			}
 		}
 	
-	
-		public function get_current_page() {
-			return ( $this->id ) ? intval(get($table_id.'_page', 1)) : 1;
-		}
 		
 		public function paginate($sql) {
 			if ( $this->id && $this->rows_per_page > 0 && $sql ) {
@@ -74,7 +72,7 @@
 				$total = $total->fields['total'] != '' ? $total->fields['total'] : '0';
 				$page_count = intval(ceil($total/$this->rows_per_page));
 				$page_count = $page_count > 0 ? $page_count : 1;
-				$start = ($this->get_current_page()-1) * $this->rows_per_page;
+				$start = ($this->current_page-1) * $this->rows_per_page;
 				return array($total,$page_count,$start);
 			}
 		}
@@ -89,8 +87,8 @@
 			
 				// Build the basic <a> ( used with iframes as well )
 				if ( $this->target != '' ) {	// IFrames
-					$basic_a = '<a '.$this->target.' href="'.$this->iframe_src.'&table_id='.$this->id;
-				} else $basic_a = '<a href="index.php?pid='.$this->pid.'&table_id='.$this->id;
+					$basic_a = '<a '.$this->target.' href="'.$this->iframe_src;
+				} else $basic_a = '<a href="index.php?';
 			}
 		
 			if ( $this->extra_href != '' ) $basic_a .= $this->extra_href;	// Just extra GET vars most likely
@@ -116,23 +114,32 @@
 					// Support for classes on the <th>
 					$html .= '<th';
 					if ( $c['class'] != '' ) $html .= ' class="'.$c['class'].'" ';
-					$html .= '>'.$basic_a.'&order_field='.$c['key'];
+					$html .= '>'.$basic_a.$c['key'].'/';
 				
 					if ( $this->ordered_row == $c['key'] ) {
-						$html .= $this->order == "asc" ? "&order=desc" : "&order=asc";
+						$html .= $this->order == "asc" ? "desc/" : "asc/";
 						$ORDER = $this->order == "asc" ? "ordered-up" : "ordered-down";
-						$html .= '" class="'. $ORDER .'"';
-					} else $html .= '"';
-				
+						$class = '" class="'. $ORDER . '"';
+					} else {
+						$html .= "asc/";
+						$class = "";
+					}
+					
+					// Always on page 1 when we reorder
+					$html .= "1/";
+					
+					if ( $this->search != '' ) {
+						$html .= $this->search."/";
+					}
+					
+					$html .= '"';
+					$html .= $class;
 				
 					$html .= '>'.format_title($c['name']).'</a></th>';
 				
 				} else $html .= '<th>'.format_title($c['name']).'</th>';
 			} $html .= '</tr></thead>';
 		
-			// Some more links that are used everywhere else
-			if ( isset($_GET['order']) AND $_GET['order'] != '' ) $get_links .= '&order='.$_GET['order'];
-			if ( isset($_GET['order_field']) AND $_GET['order_field'] != '' ) $get_links .= '&order_field='.$_GET['order_field'];
 		
 			// Build the body of the table
 			$html .= '<tbody>';
@@ -166,7 +173,7 @@
 			if ( count($this->data) == 0 ) $s = 0;
 			else $s = $showing + 1;
 			$html .= '<div class="floatLeft">Showing <strong>'.$s.'</strong> to <strong>'.($showing+count($this->data)).'</strong> of <strong>'.$total.'</strong> Results';
-			if ( isset($_GET['search']) AND $_GET['search'] != '' ) $html .= ' ( Filtered for: <strong>"'.$_GET['search'].'"</strong> )';
+			if ( $this->search != '' ) $html .= ' ( Filtered for: <strong>"'.$this->search.'"</strong> )';
 			$html .= '</div>';		
 		
 		
@@ -182,19 +189,19 @@
 			if ( $end > $page_count ) {
 				$end = $page_count;
 			}
-		
+
 			// If can go left a set of pages
-			if ( $page - $this->display_pages > 0 ) $html .= $basic_a.$get_links.'&'.$this->id.'_page='.($start-1).'">&laquo;</a>';
+			if ( $page - $this->display_pages > 0 ) $html .= $basic_a.$this->get_links.($start-1).'/">&laquo;</a>';
 			$html .= ' Page ';
 				
 			// Print out the page links
 			for ( $i = $start; $i <= $end; $i++ ) {
 				$page_class = ($i == $page) ? 'pagSelected' : 'pagLink';
-				$html .= $basic_a.$get_links.'&'.$this->id.'_page='.$i.'" class="'.$page_class.'">'.$i.'</a>';
+				$html .= $basic_a.$this->get_links.$i.'/" class="'.$page_class.'">'.$i.'</a>';
 			} 
 		
 			// if can go right a set of pages
-			if ( $page_count > $end ) $html .= $basic_a.$get_links.'&'.$this->id.'_page='.++$end.'">&raquo;</a>';
+			if ( $page_count > $end ) $html .= $basic_a.$get_links.++$end.'/">&raquo;</a>';
 		
 			$html .= '</div><br clear="all" /><br /><br />';
 				
