@@ -25,8 +25,8 @@
 	
 
 	define('TEMPLATE_DIR', INCLUDES_DIR.'templates/'.TEMPLATE_NAME.'/');
-	define('REPOST_DIR', INCLUDES_DIR.'repost_mods/');
 	define('CONTROLLER_DIR', INCLUDES_DIR.'controllers/');
+	define('MODULES_DIR', INCLUDES_DIR.'modules/');
 	
 	
 	
