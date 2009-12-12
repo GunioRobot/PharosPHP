@@ -1,6 +1,10 @@
-<?php
-
-	$_item = format_date($value,true);
-	$item .= $_item == '' ? "Never" : "$_item";
-
+<?
+	
+	if ( $id > 0 ) {
+		$data = false;
+	} else {
+		$_POST[$data] = 'NOW()';
+		$quoteValue = false;
+	}
+	
 ?>
