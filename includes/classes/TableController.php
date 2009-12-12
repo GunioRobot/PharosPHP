@@ -43,6 +43,8 @@
 			$this->table->class = 'list';
 			$this->table->head_class = 'contentTitleBar';
 			
+			load_module("profiles");
+						
 		}
 		
 		
@@ -129,11 +131,8 @@
 		//////////////////////////////////////////////////////////////////
 
 		public function save($id=0) {
-
-			global $db;					
-			require_once REPOST_DIR.'profile.php';
+			process_profile($id);
 			redirect(edit(get_class($this),$id));
-
 		}
 
 	
