@@ -22,7 +22,7 @@
 			}
 			
 			// Grab the information for all the kids
-			$sql = "SELECT * FROM admin_nav WHERE parent_id = '".(int)$parent->id."' AND display != 'hidden' AND device_type != 'iphone' AND ".SECURITY_LVL." >= min_lvl AND ".SECURITY_LVL." <= max_lvl ORDER BY order_num ASC";
+			$sql = "SELECT * FROM admin_nav WHERE parent_id = '".(int)$parent->id."' AND display != 'hidden' AND ".SECURITY_LVL." >= min_lvl AND ".SECURITY_LVL." <= max_lvl ORDER BY order_num ASC";
 			for ( $info = $this->db->Execute($sql); !$info->EOF; $info->moveNext() ) {
 				
 				// Pull the info, let the name be dynamic and figure that out
