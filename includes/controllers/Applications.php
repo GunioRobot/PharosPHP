@@ -283,7 +283,7 @@
 				
 				select_app(DEFAULT_APP_ID);
 				
-				$obj = array('error' => false, 'redirect' => controller_link(__CLASS__,'/manage/'));
+				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
 				echo json_encode((object)$obj);
 				exit;
 				
