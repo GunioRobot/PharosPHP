@@ -174,7 +174,7 @@
 			
 
 			// Run throught the parser and spit out the page
-			require_once CLASSES_DIR.'Profile.php';
+			load_module("profiles");
 			$profile = new Profile($fields);
 			
 			if ( $id > 0 ) $this->output($profile->display($this->dataKey, $id));
