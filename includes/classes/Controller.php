@@ -52,9 +52,14 @@
 			}
 		}
 		
-		public function css($path, $type=CSS_TYPE_ALL) {
+		public function css($path='', $type=CSS_TYPE_ALL) {
 			
 			if ( $path != '' ) {
+				
+				// Don't keep adding the same thing
+				if ( in_array($path,$this->css) ) {
+					return false;
+				}
 			
 				switch($type) {
 					case CSS_TYPE_ALL:
@@ -75,12 +80,23 @@
 		}
 	
 		
-		public function javascript($path) {
+		public function javascript($path='') {
+		
 			if ( $path != '' ) {
-				$this->javascript[] = array('path' => $path, 'type' => (strrpos('.php')===false?JAVASCRIPT_EXTERNAL:JAVASCRIPT_INCLUDE));
+				
+				// Don't keep adding the same thing
+				if ( in_array($path,$this->javascript) ) {
+					return false;
+				} else {
+					$this->javascript[] = array('path' => $path, 'type' => (strrpos($path,'.php')===false?JAVASCRIPT_EXTERNAL:JAVASCRIPT_INCLUDE));
+				}
+				
 			} else {
+				
 				return $this->javascript;
+				
 			}
+			
 		}
 		
 		public function __destruct() {
