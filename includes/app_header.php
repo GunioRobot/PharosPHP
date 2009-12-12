@@ -7,7 +7,7 @@
 	
 	// Load the classes that are barebones
 	require_once CLASSES_DIR.'query_factory.php';
-	require_once CLASSES_DIR.'image.php';
+	require_once CLASSES_DIR.'Image.php';
 	require_once CLASSES_DIR.'Controller.php';
 	
 	// Load the functions
