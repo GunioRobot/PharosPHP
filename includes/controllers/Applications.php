@@ -20,8 +20,7 @@
 						
 		}
 		
-		
-		
+
 		//////////////////////////////////////////////////////////////////
 		//
 		//	Builds the columns array to use for the Table output
@@ -101,17 +100,6 @@
 
 			} $this->table->data = $data;
 			
-		}
-		
-		
-		//////////////////////////////////////////////////////////////////
-		// 
-		//	Default controller action
-		//
-		//////////////////////////////////////////////////////////////////
-		
-		public function index() {
-			redirect(manage(__CLASS__));
 		}
 		
 		
@@ -230,33 +218,7 @@
 						
 		}
 		
-		
-		//////////////////////////////////////////////////////////////////
-		//
-		//	For creating new entry, but just calls the edit code
-		//
-		//////////////////////////////////////////////////////////////////
-		
-		public function create() {
-			$this->edit(0);
-		}
-		
-		
-		
-		//////////////////////////////////////////////////////////////////
-		//
-		//	Performs save operations (whether new or old entry)
-		//
-		//////////////////////////////////////////////////////////////////
-		
-		public function save($id=0) {
-
-			global $db;					
-			require_once REPOST_DIR.'profile.php';
-			redirect(edit(__CLASS__,$id));
-			
-		}
-		
+				
 		
 		//////////////////////////////////////////////////////////////////
 		//
@@ -293,6 +255,46 @@
 				echo "This will remove the application and all it's tracking information from the system.<br /><br />";
 				echo "<strong>This action cannot be undone.</strong><br />";
 				exit;
+				
+			}
+			
+		}
+		
+		
+		
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Publishes an application's XML feeds
+		//
+		//////////////////////////////////////////////////////////////////
+		
+		public function publish($id) {
+		
+			// App info
+			$sql = "SELECT * FROM applications WHERE app_id = '".(int)$id."' LIMIT 1";
+			$app = $this->db->Execute($sql);
+
+			// Just as a precaution, ignore if the app_id doesn't match anything in the system
+			if ( !$app->EOF ) {
+
+				// Update the xml version and write a new xml file
+				$newVersion = floatval($app->fields['xml_version']) + 0.1;
+				$app->fields['xml_version'] = $newVersion;
+
+				$status = write_xml($app->fields);
+				if ( !$status->error ) {
+
+					// Place new version in the db
+					$sql = "UPDATE applications SET xml_version = '$newVersion' WHERE app_id = '$appID' LIMIT 1";
+					$this->db->Execute($sql);
+					
+					// SHOW SUCCESS PAGE
+					
+				} else {
+					
+					// SHOW ERROR PAGE
+					
+				}
 				
 			}
 			
