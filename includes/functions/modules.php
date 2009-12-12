@@ -1,6 +1,6 @@
 <?
 
-	load_modules() {
+	function load_modules() {
 		$folder = MODULES_DIR;
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle)) ) {
@@ -12,6 +12,19 @@
 								include $folder.$file.$f2;
 							}
 						}
+					}
+				}
+			}
+		}
+	}
+	
+	function load_module($name) {
+		$folder = MODULES_DIR;
+		if ($handle = opendir($folder)) {
+			while (false !== ($file = readdir($handle)) ) {
+				if ($file != "." && $file != ".." && is_dir($folder.$file) && $file === $name ) {
+					if ( @file_exists($folder.$file.'/include.php') ) {
+						include $folder.$file.'/include.php';
 					}
 				}
 			}
