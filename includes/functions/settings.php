@@ -40,6 +40,7 @@
 		define('DEFAULT_KEYWORDS', get_setting('Default Keywords', 'CMS, Content Management System, CMS-Lite, Matt Brewer, PHP', true));
 		define('DEFAULT_DESCRIPTION', get_setting('Default Description', SITE_TAGLINE, true));
 		define('DEFAULT_ROWS_PER_TABLE_PAGE', get_setting('Default Rows per Table Page', 25, true));
+		define('DEFAULT_PAGES_PER_PAGINATION', get_setting('Default Pages per Pagination', 5, true));
 	}
 	
 ?>
