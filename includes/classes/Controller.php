@@ -35,7 +35,7 @@
 			
 			$this->db =& $db;
 						
-			$this->name = __CLASS__;
+			$this->name = get_class($this);
 			$this->title = $this->title;
 			$this->keywords = DEFAULT_KEYWORDS;
 			$this->description = DEFAULT_DESCRIPTION;
@@ -99,12 +99,13 @@
 			
 		}
 		
+		
 		public function __destruct() {
 					
 			unset($this->css);
 			unset($this->javascript);
 			
-			Console::log("Unloading (".__CLASS__.")");
+			Console::log("Unloading (".get_class($this).")");
 		
 		}
 	

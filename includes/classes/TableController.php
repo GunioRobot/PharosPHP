@@ -17,7 +17,9 @@
 		
 		abstract protected function tableColumns();
 		abstract protected function buildData($sql);
-		abstract public function manage($orderField='last_updated',$orderVal='asc',$page=1,$filter='');
+		abstract protected function edit($id);
+		abstract protected function delete($id);
+		abstract public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='');
 		
 		
 	
@@ -30,7 +32,7 @@
 		public function __construct($type="", $tableID="") {
 
 			parent::__construct();
-			$this->title = $type ? "Manage ".$this->type : __CLASS__;
+			$this->title = $type ? "Manage ".$this->type : get_class($this);
 			$this->type = $type;
 
 			$this->table = new Table();
@@ -40,7 +42,7 @@
 			$this->table->id = $tableID;
 			$this->table->class = 'list';
 			$this->table->head_class = 'contentTitleBar';
-
+			
 		}
 		
 		
@@ -105,7 +107,7 @@
 		//////////////////////////////////////////////////////////////////
 
 		public function index() {
-			redirect(manage(__CLASS__));
+			redirect(manage(get_class($this)));
 		}
 		
 		
@@ -130,7 +132,7 @@
 
 			global $db;					
 			require_once REPOST_DIR.'profile.php';
-			redirect(edit(__CLASS__,$id));
+			redirect(edit(get_class($this),$id));
 
 		}
 
