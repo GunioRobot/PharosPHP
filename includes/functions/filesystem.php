@@ -96,7 +96,6 @@
 		if ( $file != '' ) {
 			return UPLOAD_SERVER.'push.php?f='.$file;
 		} else return '';
-//		return UPLOAD_SERVER.$file;
 	}
 	
 	
@@ -129,10 +128,8 @@
 	////////////////////////////////////////////////////////////////////////////////	
 	
 	function redirect($url) {
-
 		header("Location: $url");
 		exit;
-		
 	}
 	
 
