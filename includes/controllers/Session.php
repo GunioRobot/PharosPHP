@@ -52,7 +52,7 @@
 				}
 			} else {
 				
-				echo "Should show login page itself";
+				// Special, b/c the system shows the login page and doesn't use a provided view
 				
 			}			
 		
