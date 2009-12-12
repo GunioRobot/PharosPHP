@@ -24,25 +24,21 @@
 			
 		}
 	
-		function display() {
+		function display($key=false, $id=false) {
 						
 			$template = get_template(CURRENT_HTML_FILE);
 					
-			if ( ($key = get("key")) AND ($id = get($key)) ) {
+			if ( $key && $id ) {
 								
 				$profile = $this->db->Execute("SELECT * FROM ".PROFILE_TABLE." WHERE $key = '$id' LIMIT 1");
 
 				$template = str_replace('{table title}','Edit '.PROFILE_TITLE, $template);
 				$template = str_replace('{button_text}','Save Changes', $template);
-				$template = str_replace('{key}',"&key=$key&$key=$id", $template);
-				$template = str_replace('{key_temp}', '', $template);	// How repost-mod knows this wasn't just created
 				
 			} else {
 				
 				$template = str_replace('{table title}','Create '.PROFILE_TITLE, $template);
 				$template = str_replace('{button_text}','Create '.PROFILE_TITLE, $template);
-				$template = str_replace('{key}','', $template);
-				$template = str_replace('{key_temp}', '&key_temp='.PROFILE_ID, $template);
 				
 			}
 			
@@ -76,7 +72,6 @@
 		 
 			$template = str_replace('{field_list}',$field_list, $template);
 			$template = str_replace('{table}', PROFILE_TABLE, $template);
-			$template = str_replace('{pid}', '&pid='.get("pid", WELCOME_PID), $template);
 		
 			$alert = ( get("repost") == "true" ) ? '<div id="alert">'.PROFILE_TITLE.' has been updated</div>' : '';
 
