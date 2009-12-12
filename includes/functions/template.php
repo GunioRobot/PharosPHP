@@ -83,7 +83,7 @@
 		$folder = TEMPLATE_DIR.'css/';
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle))){
-				if ($file != "." && $file != ".." && !is_dir($folder.$file) && preg_match('/^style_(.*)/', basename($file)) ) {
+				if ($file != "." && $file != ".." && !is_dir($folder.$file) && preg_match('/^style(.*)/', basename($file)) ) {
 					$css[] = TEMPLATE_SERVER.'css/'.$file;
 				}
 			}
