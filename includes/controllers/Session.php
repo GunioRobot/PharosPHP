@@ -16,7 +16,7 @@
 			if ( session('uid') ) {
 				redirect(site_link());
 			} else {
-				redirect(site_link('session/login/'));
+				redirect(controller_link(__CLASS__,'login/'));
 			}
 		
 		}
