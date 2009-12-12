@@ -4,13 +4,28 @@
 	
 	abstract class TableController extends Controller {
 	
+	
 		protected $table;
 		protected $type = "";
 		protected $dataKey = "";
 		
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Following 3 functions must be included in subclass!
+		//
+		//////////////////////////////////////////////////////////////////
+		
 		abstract protected function tableColumns();
 		abstract protected function buildData($sql);
 		abstract public function manage($orderField='last_updated',$orderVal='asc',$page=1,$filter='');
+		
+		
+	
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Optionally pass a type and id when initializing
+		//
+		//////////////////////////////////////////////////////////////////
 	
 		public function __construct($type="", $tableID="") {
 
@@ -20,7 +35,7 @@
 
 			$this->table = new Table();
 			$this->table->rows_per_page = DEFAULT_ROWS_PER_TABLE_PAGE;
-			$this->table->display_pages = 5;
+			$this->table->display_pages = DEFAULT_PAGES_PER_PAGINATION;
 
 			$this->table->id = $tableID;
 			$this->table->class = 'list';
@@ -28,14 +43,25 @@
 
 		}
 		
+		
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Get/Set the title of the controller
+		//
+		//////////////////////////////////////////////////////////////////
+		
 		public function title($string="") {
 			if ( $string != "" ) {
 				$this->title = $string;
 			} else return $this->title;
 		}
 		
-		
 	
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Basic search functionality
+		//
+		//////////////////////////////////////////////////////////////////
 
 		protected function search($search) {
 
@@ -54,7 +80,14 @@
 
 		}
 
-		protected function order($orderField='last_updated',$orderVal='asc') {
+
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Basic ordering functionality
+		//
+		//////////////////////////////////////////////////////////////////
+
+		protected function order($orderField='last_updated',$orderVal='desc') {
 
 			$order = ' ORDER BY '.$this->table->id.'.'.$orderField.' '.$orderVal;
 			$this->table->ordered_row = $orderField;
@@ -64,8 +97,41 @@
 
 		}
 
+
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Default controller operation
+		//
+		//////////////////////////////////////////////////////////////////
+
 		public function index() {
-			redirect(controller_link(__CLASS__).'/manage/');
+			redirect(manage(__CLASS__));
+		}
+		
+		
+		//////////////////////////////////////////////////////////////////
+		//
+		//	For creating new entry, but just calls the edit code
+		//
+		//////////////////////////////////////////////////////////////////
+
+		public function create() {
+			$this->edit(0);
+		}
+
+
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Performs save operations (whether new or old entry)
+		//
+		//////////////////////////////////////////////////////////////////
+
+		public function save($id=0) {
+
+			global $db;					
+			require_once REPOST_DIR.'profile.php';
+			redirect(edit(__CLASS__,$id));
+
 		}
 
 	
