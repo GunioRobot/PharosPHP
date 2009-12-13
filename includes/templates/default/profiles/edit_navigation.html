@@ -1,0 +1,44 @@
+ <div class="titleTabs">
+  	<h1>{table title}</h1>
+		<div class="contentTabCap"></div><div class="contentTab"><a href="{manage}" class="tabText">Manage {TYPE}s</a></div>
+		<div class="contentTabCap"></div><div class="contentTab"><a href="{new}" class="tabAdd">New {TYPE}</a></div>
+	    <br clear="all" />
+	</div>
+	<div class="contentTitleBar titleBar"><b class="btop"><b></b></b>
+	</div>
+	
+	<div class="nonTableContent">
+	
+	<form id="profile" action="{form_link}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="field_list" value="{field_list}">
+	<input type="hidden" name="table" value="{table}">
+	<input type="hidden" name="data_key" value="{data_key}">
+	<div class="col3col">
+       	<div class="floatLeft"><strong>Title:</strong><br />[name]</div>
+	    <div class="floatLeft" style="margin-left:20px;"><strong>Order:</strong><br />[order_num]</div>
+		<div class="floatLeft" style="margin-left:20px;"><strong>Min Level:</strong><br />[min_lvl]</div>
+    	<div class="floatLeft" style="margin-left:20px;"><strong>Max Level:</strong><br />[max_lvl]</div>
+       	<div class="clearBoth"></div><br />
+    </div>
+	<div class="col3col">
+		 <div class="floatLeft"><strong>Url:</strong><br />[page]</div>
+        <div class="floatLeft" style="margin-left:20px;"><strong>Parent:</strong><br />[parent_id]</div>
+	    <div class="floatLeft" style="margin-left:20px;"><strong>Display:</strong><br />[display]</div>
+	    <div class="floatLeft" style="margin-left:20px;"><strong>Date Added:</strong><br />[date_added]</div>
+	    <div class="floatLeft" style="margin-left:20px;"><strong>Last Updated:</strong><br />[last_updated]</div>
+	   	<div class="clearBoth"></div><br />
+    </div>
+
+	<br /><br />
+	<div class="col3col">
+	    <div class="floatLeft"><strong>Description:</strong><br />[description]</div>
+    </div>
+    <div class="clearBoth"></div>
+	<br /><br />
+
+    </form>
+</div>
+<div class="contentBottomBar"><b class="bbot"><b></b></b></div>
+<div class="floatLeft" align="center"><a href="#" onclick="$('#profile').submit();" class="buttons2">{button_text}</a></div>
+<br clear="all" />
+
