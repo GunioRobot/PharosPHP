@@ -111,14 +111,21 @@
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle))){
 				if ($file != "." && $file != ".." && !is_dir($folder.$file) && $file != 'pngfix.js' && preg_match('/^js_(.*)/', basename($file)) ) {
-					$js[] = TEMPLATE_SERVER.'js/'.$file;
+					$info = pathinfo($folder.$file);
+					$js[$info['extension']][] = $file;
 				}
 			}
 		}
 		
-		sort($js);
-		foreach($js as $j) {
-			echo '	<script type="text/javascript" src="'.$j.'"></script>'."\n";
+		sort($js['php']);
+		sort($js['js']);
+		
+		foreach($js['js'] as $j) {
+			echo '	<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$j.'"></script>'."\n";
+		}
+		
+		foreach($js['php'] as $j) {
+			require_once TEMPLATE_DIR.'js/'.$j;
 		}
 	}
 	
