@@ -9,9 +9,6 @@
  * @license http://www.zen-cart.com/license/2_0.txt GNU Public License V2.0
  * @version $Id: query_factory.php 4854 2006-10-28 06:50:01Z drbyte $
  */
-if (!defined('IS_ADMIN_FLAG')) {
-  die('Illegal Access');
-}
 /**
  * Queryfactory - A simple database abstraction layer
  *
