@@ -10,13 +10,15 @@
 	for ( $i = 1; $i < 10; $i++ ) {
 		if ( ($arg = get("arg$i")) ) $args[] = $arg;
 	}
+	
 				
 	if ( $args[0] ) {
+		
 		
 		$controllerClass = controller_name($args[0]);
 		$file = CONTROLLER_DIR.$controllerClass.'.php';		
 		if ( file_exists($file) ) {
-			
+
 			require $file;
 			$controller = new $controllerClass();
 					
@@ -37,10 +39,6 @@
 				
 			}
 			
-			if ( method_exists($controller, "_willLoadView") ) {
-				$controller->_willLoadView();
-			}
-
 			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
 			require_once TEMPLATE_DIR.'tpl_header.php';
 			require_once TEMPLATE_DIR.'tpl_body.php';
@@ -63,10 +61,6 @@
 			
 			$controller->index();
 			
-			if ( method_exists($controller, "_willLoadView") ) {
-				$controller->_willLoadView();
-			}
-
 			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
 			require_once TEMPLATE_DIR.'tpl_header.php';
 			require_once TEMPLATE_DIR.'tpl_body.php';
