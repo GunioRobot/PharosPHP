@@ -43,7 +43,7 @@
 			$this->table->class = 'list';
 			$this->table->head_class = 'contentTitleBar';
 			
-			load_module("profiles");
+			Controller::loadModule("profiles");
 						
 		}
 		
