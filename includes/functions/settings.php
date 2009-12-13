@@ -41,6 +41,10 @@
 		define('DEFAULT_DESCRIPTION', get_setting('Default Description', SITE_TAGLINE, true));
 		define('DEFAULT_ROWS_PER_TABLE_PAGE', get_setting('Default Rows per Table Page', 25, true));
 		define('DEFAULT_PAGES_PER_PAGINATION', get_setting('Default Pages per Pagination', 5, true));
+		define('SHOW_PROFILER_RESULTS', (bool)get_setting('Show Profiler Results', false, true));	
+		define('DELETE_OLD_WHEN_UPLOADING_NEW', (bool)get_setting('Delete Old When Uploading New',true,true));
+		define('RESET_PASSWORD_RANDOM_WORD', get_setting('Reset Password Random Word', '_cmslite',true));
+		define('DEFAULT_CONTROLLER_NAME', get_setting('Default Controller Name', 'Users', true));
 	}
 	
 ?>
