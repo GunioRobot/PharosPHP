@@ -10,7 +10,7 @@
 	
 	define('CSS_TYPE_ALL', 'all');
 	define('CSS_TYPE_PRINT', 'print');
-	define('CSS_TYPE_MEDIA', 'media');
+	define('CSS_TYPE_SCREEN', 'screen');
 	define('JAVASCRIPT_INCLUDE', 'php_include_js');
 	define('JAVASCRIPT_EXTERNAL', 'link_js');
 
@@ -25,6 +25,8 @@
 		public $title;
 		public $keywords;
 		public $description;
+		
+		protected static $modules = array();
 		
 		public function __construct($css=array(),$javascript=array()) {
 			
@@ -64,7 +66,7 @@
 				switch($type) {
 					case CSS_TYPE_ALL:
 					case CSS_TYPE_PRINT:
-					case CSS_TYPE_MEDIA:
+					case CSS_TYPE_SCREEN:
 						break;
 					default:
 						$type = CSS_TYPE_ALL;
@@ -97,6 +99,23 @@
 				
 			}
 			
+		}
+		
+		
+		public static function loadModule($name) {
+			if ( !isset(self::$modules[$name]) ) {
+				$folder = MODULES_DIR;
+				if ($handle = opendir($folder)) {
+					while (false !== ($file = readdir($handle)) ) {
+						if ($file != "." && $file != ".." && is_dir($folder.$file) && $file === $name ) {
+							if ( @file_exists($folder.$file.'/include.php') ) {
+								include $folder.$file.'/include.php';
+								$modules[$name] = $folder.$file.'/include.php';
+							}
+						}
+					}
+				}
+			}
 		}
 		
 		
