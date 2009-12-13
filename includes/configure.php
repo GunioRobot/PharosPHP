@@ -13,14 +13,6 @@
 	define('UPLOAD_TO', 'content/');
 	define('XML_TO', 'xml/');	
 	
-	define('IS_ADMIN_FLAG', false);
-	define('SHOW_PROFILER_RESULTS', false);	
-	define('jQuery_src', 'jquery-1.3.2.min.js');
-	define('DELETE_OLD_WHEN_UPLOADING_NEW', true);
-	define('RESET_PASSWORD_RANDOM_WORD', '_marines');
-	
-	define('DEFAULT_CONTROLLER_NAME', 'Applications');
-	
 	
 	
 	////////////////////////////////////////////////////////////////////////////////
