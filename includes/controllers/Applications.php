@@ -299,6 +299,20 @@
 			
 		}
 		
+		
+		
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Used with some javascript to get app switching via a dropdown
+		//
+		//////////////////////////////////////////////////////////////////
+		
+		public function change($id) {
+			select_app($id);
+			echo json_encode((object)array("error" => false, "redirect" => post('redirect', controller_link(DEFAULT_CONTROLLER_NAME))));
+			exit;
+		}
+		
 	}
           
 
