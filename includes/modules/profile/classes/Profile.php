@@ -10,21 +10,20 @@
 	///////////////////////////////////////////////////////////////////////////
 	
 
-
 	class Profile {
 		
 		private $fields;
 		private $db;
-		
-		function Profile($field_array=array()) {
+				
+		public function __construct($field_array=array()) {
 			
 			global $db;
 			$this->fields = is_array($field_array) ? $field_array : array();
 			$this->db =& $db;
 			
 		}
-	
-		function display($key=false, $id=false) {
+
+		public function display($key=false, $id=false) {
 						
 			$template = get_template(CURRENT_HTML_FILE);
 					
