@@ -1,3 +1,7 @@
-Attempting to get the project off and running is my main focus right now.
+CMS Lite is a lightweight way for developers to quickly launch a CMS tool.
 
-Want to have a lightweight way for developers to quickly launch a CMS tool - that is just for the administrative area.  Comes with robust template system.
+Main features include:
+	- Robust template system, similar to RoR for quickly creating/editing/updating/deleting (CRUD) content
+	- Several built in classes, for easily managing content (ie, TableController)
+	- Lots of bundled modules, like SWFUpload, jQuery, PHP Quick Profiler, RMail and more
+	- Easy to get started quickly
