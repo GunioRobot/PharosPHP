@@ -51,6 +51,7 @@
 	function process_profile($id) {
 		global $db;
 		require_once FORM_TYPE_DIR.'/process_profile.php';
+		return $id;
 	}
 
 ?>
