@@ -232,11 +232,11 @@
 				
 				// Delete the tracking info for this app
 				$sql = "DELETE FROM tracking WHERE app_id = '$id'";
-				$db->Execute($sql);
+				$this->db->Execute($sql);
 
 				// Delete the application to content links
 				$sql = "DELETE FROM applications_to_content WHERE app_id = '$id'";
-				$db->Execute($sql);
+				$this->db->Execute($sql);
 
 				// Delete the application itself
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
