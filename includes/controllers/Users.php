@@ -33,7 +33,7 @@
 			$this->table->columns[] =  array('name' => 'Name', 'key' => 'user_first_name', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Email', 'key' => 'user_primary_email', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Date Added', 'key' => 'date_added', 'class' => 'center');
-			$this->table->columns[] =  array('name' => 'Last Updated', 'key' => 'user_last_login', 'class' => 'center');
+			$this->table->columns[] =  array('name' => 'Last Login', 'key' => 'user_last_login', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Action', 'class' => 'actions');
 		}
 		
