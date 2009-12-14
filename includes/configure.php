@@ -29,7 +29,6 @@
 	define('UPLOAD_DIR', SERVER_DIR.ADMIN_DIR.UPLOAD_TO);
 	define('XML_DIR', SERVER_DIR.ADMIN_DIR.XML_TO);
 	define('DEFINES_DIR', INCLUDES_DIR.'defines/');
-	define('EXTRA_FUNCTIONS_DIR', FUNCTIONS_DIR.'extra_functions/');
 
 
 	
