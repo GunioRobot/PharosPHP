@@ -90,7 +90,7 @@
 				if ( in_array($path,$this->javascript) ) {
 					return false;
 				} else {
-					$this->javascript[] = array('path' => $path, 'type' => (strrpos($path,'.php')===false?JAVASCRIPT_EXTERNAL:JAVASCRIPT_INCLUDE));
+					$this->javascript[] = array('path' => $path, 'type' => (strrpos($path,'.php')===false?JAVASCRIPT_EXTERNAL:JAVASCRIPT_INCLUDE), 'data' => $data);
 				}
 				
 			} else {
