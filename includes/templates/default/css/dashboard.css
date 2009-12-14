@@ -188,7 +188,7 @@ a.current-tab {
 }
 
 
-#document-popularity, #product-popularity, #video-popularity, #industries-popularity, #update-popularity, #view-popularity {
+#download-popularity, #photo-popularity, #video-popularity, #industries-popularity, #update-popularity, #view-popularity {
 	width:136px;
 	border-left:1px solid #999;
 	border-right:1px solid #999;
