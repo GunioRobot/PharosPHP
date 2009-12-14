@@ -164,7 +164,7 @@
 						$(this).dialog('close'); 
 						if ( file.filestatus == SWFUpload.FILE_STATUS.COMPLETE ) {
 	
-							var aLink = $('a[title=Preview File]');
+							var aLink = $('a[title=Download File]');
 							if ( aLink.length ) {
 								
 								aLink.css('color', '#ffffff')
@@ -179,7 +179,7 @@
 								
 							} else {
 								
-								$(' <a target="_self" title="Preview File" href="'+savedFileName+'">Preview</a>')
+								$(' <a target="_self" title="Download File" href="'+savedFileName+'">Download</a>')
 									.insertAfter($('strong:contains(File:)'))
 									.css('color', '#ffffff')
 									.animate({
@@ -209,25 +209,35 @@
 	}
 	
 	function uploadError(file, errorCode, message) {
+		
+		if ( console ) console.error(message);
+		uploadInProgress = false;
+		
 		$('#dialog').html('<strong>There was an error (code:'+errorCode+') attempting to upload your file, &quot;'+file.name+'&quot;.</strong><br />Please reload the page and try again.');
+		$('#dialog').dialog('option', 'buttons', {
+			"Ok" : function() {
+				$(this).dialog('close');
+			}
+		});
+		
 	}
-	
-	<? if ( get(get("key")) ) : ?>
+		
+	<? if ( $data['visible'] ) : ?>
 
 	$(function() {
 		
 		swfu = new SWFUpload({
 		
 			upload_url : "<?=UPLOAD_SERVER?>pull.php?",
-			flash_url : "<?=INCLUDES_SERVER?>modules/swfupload/swfupload.swf",
+			flash_url : "<?=swf_upload_path()?>",
 			file_size_limit : fileSizeLimit,
-			file_post_name : 'file_path',
+			file_post_name : 'download_path',
 			post_params: {
-				"key" 	: "<?=get("key")?>",
-				"<?=get("key")?>"	: "<?=get(get("key"))?>",
-				"table"	: "company_files",
+				"key" 	: "<?=$data['key']?>",
+				"<?=$data['key']?>"	: "<?=$data['id']?>",
+				"table"	: "<?=$data['table']?>s",	// Assuming "download_id" or "photo_id", etc -> "download" or -> "photo" + 's' -> "downloads"
 				"store_filesize" : "true",
-				"company_id" : "<?=get("company_id")?>",
+				"store_file_type" : "true",
 				"username" : "<?=session("fullname")?>"
 			},
 			
