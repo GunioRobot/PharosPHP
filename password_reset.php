@@ -1,7 +1,8 @@
 <?
-	require_once('includes/app_header.php');
+	require_once 'includes/app_header.php';
 	
-	@define('TITLE', SITE_NAME .'Admin - Password Reset');
+	$controller = new Controller();
+	$controller->title = "Password Reset";
 
 	if ( isset($_GET['success']) AND $_GET['success'] == 'true' ) {
 		$title = 'Password Successfully Reset';
@@ -17,7 +18,7 @@
 		}
 	}
 
-	require_once TEMPLATE_DIR.'HTML_header.php';
+	require_once TEMPLATE_DIR.'tpl_HTML_header.php';
 	require_once TEMPLATE_DIR.'tpl_header.php';
 
 ?>
@@ -29,7 +30,7 @@
 		<h1><?=$title?></h1>
 		<div class="clearBoth"></div>
 			<p><?=$message?></p><hr>
-			<p>Try again at: <a href="<? echo HTTP_SERVER.ADMIN_DIR ?>"><? echo HTTP_SERVER.ADMIN_DIR ?></a></p>
+			<p>Try again at: <a href="<?=site_link()?>"><?=site_link()?></a></p>
 		</div>
 	</div>
 </div>
