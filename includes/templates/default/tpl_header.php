@@ -10,7 +10,7 @@
 					<div class="clearBoth"></div>
 				</div>
 			<? endif ?>
-	        <a href="index.php" title="Dashboard"><img style="margin-left:50px;" src="<?=TEMPLATE_SERVER.'images/logo.jpg'?>" id="logo" alt="Logo" /></a>
+	        <a href="<?=site_link()?>" title="Dashboard"><img style="margin-left:50px;" src="<?=TEMPLATE_SERVER.'images/logo.jpg'?>" id="logo" alt="Logo" /></a>
 			<div class="clearBoth"></div>
                
 	        <br clear="all" />
