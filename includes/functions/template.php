@@ -252,6 +252,8 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function controller_link($class,$action='') {
+		$action = substr($action,0,1)==="/"?substr($action,1):$action;
+		$action = preg_replace('/\/\/+/', '/', $action);
 		return site_link(strtolower(implode('-',split_camel_case($class)))).'/'.$action;
 	}
 	
