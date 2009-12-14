@@ -1,5 +1,5 @@
 <?
 
-	require_once dirname(__FILE__).'/library/autoload.php';
+	require_once dirname(__FILE__).'/library/Rmail.php';
 	
 ?>
