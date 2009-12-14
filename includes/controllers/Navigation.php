@@ -134,7 +134,7 @@
 		//////////////////////////////////////////////////////////////////
 		
 		public function edit($id) {
-			
+									
 			$this->javascript('tiny_mce_include.php');
 			
 			// Required by profile class and repost_mod
@@ -193,7 +193,7 @@
 				
 				// Delete the tracking info 
 				$sql = "DELETE FROM tracking WHERE content_type_id = '".NAVIGATION_TYPE_ID."' AND table_index = '$id'";
-				$db->Execute($sql);
+				$this->db->Execute($sql);
 
 				// Delete the navigtaion entry itself
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
