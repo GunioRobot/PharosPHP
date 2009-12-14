@@ -26,6 +26,7 @@
 	define('TEMPLATE_DIR', INCLUDES_DIR.'templates/'.TEMPLATE_NAME.'/');
 	define('CONTROLLER_DIR', INCLUDES_DIR.'controllers/');
 	define('MODULES_DIR', INCLUDES_DIR.'modules/');
+	define('MODULES_SERVER', INCLUDES_SERVER.'modules/');
 	
 	
 	
