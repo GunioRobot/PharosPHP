@@ -82,7 +82,7 @@
 		}
 	
 		
-		public function javascript($path='') {
+		public function javascript($path='',$data=array()) {
 		
 			if ( $path != '' ) {
 				
