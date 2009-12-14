@@ -9,7 +9,8 @@
 	*/
 
 	require_once '../app_header.php';
-	require_once SERVER_DIR.ADMIN_DIR.INCLUDES_DIR.'classes/Rmail/Rmail.php';
+	
+	Controller::loadModule("rmail");
 	
 	$fullName		= 	$db->prepare_input($_REQUEST['name']);
 	$company 		= 	$db->prepare_input($_REQUEST['company']);
