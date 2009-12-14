@@ -26,7 +26,7 @@
 			$this->title = "Login";
 			
 			// If resetting password
-			if ( ($user = post('user') AND post('forgot_password') ) {
+			if ( ($user = post('user')) AND post('forgot_password') ) {
 				reset_password($user);
 				exit;
 			}
