@@ -83,12 +83,18 @@
 	
 		
 		public function javascript($path='',$data=array()) {
+			
+			if ( !is_array($data) ) $data = array();
 		
 			if ( $path != '' ) {
 				
 				// Don't keep adding the same thing
-				if ( in_array($path,$this->javascript) ) {
-					return false;
+				if ( ($index = array_search($path,$this->javascript)) !== false ) {
+					
+					// Replace data array if called a second time
+					$this->javascript[$index]['data'] = $data;
+					return true;
+					
 				} else {
 					$this->javascript[] = array('path' => $path, 'type' => (strrpos($path,'.php')===false?JAVASCRIPT_EXTERNAL:JAVASCRIPT_INCLUDE), 'data' => $data);
 				}
