@@ -23,7 +23,6 @@ class PhpQuickProfiler {
 	public function __construct($startTime, $config = '/pqp/') {
 		$this->startTime = $startTime;
 		$this->config = $config;
-		require_once CLASSES_DIR.'Console.php';
 	}
 	
 	/*-------------------------------------------
@@ -99,7 +98,7 @@ class PhpQuickProfiler {
 		$queries = array();
 		
 		if($this->db != '') {
-			$queryTotals['count'] += $this->db->queryCount;
+			$queryTotals['count'] += $this->db->count_queries;
 			foreach($this->db->queries as $key => $query) {
 				$query = $this->attemptToExplainQuery($query);
 				$queryTotals['time'] += $query['time'];
@@ -107,7 +106,7 @@ class PhpQuickProfiler {
 				$queries[] = $query;
 			}
 		}
-		
+				
 		$queryTotals['time'] = $this->getReadableTime($queryTotals['time']);
 		$this->output['queries'] = $queries;
 		$this->output['queryTotals'] = $queryTotals;
@@ -121,10 +120,12 @@ class PhpQuickProfiler {
 		try {
 			$sql = 'EXPLAIN '.$query['sql'];
 			$rs = $this->db->Execute($sql);
+//			var_dump($rs);
 		}
 		catch(Exception $e) {}
 		if($rs) {
-			$row = mysql_fetch_array($rs, MYSQL_ASSOC);
+//			$row = mysql_fetch_array($rs, MYSQL_ASSOC);
+			$row = $rs->fields;
 			$query['explain'] = $row;
 		}
 		return $query;
@@ -188,7 +189,7 @@ class PhpQuickProfiler {
 	-----------------------------------------------------------*/
 	
 	public function display($db = '', $master_db = '') {
-		
+				
 		$this->db = $db;
 		$this->master_db = $master_db;
 		$this->gatherConsoleData();
@@ -196,8 +197,9 @@ class PhpQuickProfiler {
 		$this->gatherMemoryData();
 		$this->gatherQueryData();
 		$this->gatherSpeedData();
+		
 		// a function, autoloaded
-		displayPqp($this->output, TEMPLATE_DIR);
+		displayPqp($this->output, MODULES_SERVER.'console/');
 	}
 	
 }
