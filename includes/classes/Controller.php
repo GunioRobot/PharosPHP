@@ -109,8 +109,31 @@
 					while (false !== ($file = readdir($handle)) ) {
 						if ($file != "." && $file != ".." && is_dir($folder.$file) && $file === $name ) {
 							if ( @file_exists($folder.$file.'/include.php') ) {
-								include $folder.$file.'/include.php';
-								$modules[$name] = $folder.$file.'/include.php';
+								
+								// Make sure the version of the module is correct, then load
+								if ( @file_exists($folder.$file.'/version.php') ) {
+									include $folder.$file.'/version.php';
+									$upperName = strtoupper($name);
+									if ( defined($upperName."_VERSION_MAJOR") && defined($upperName."_VERSION_MINOR") ) {
+										
+										if ( constant($upperName."_VERSION_MAJOR") >= CMS_VERSION_MAJOR && constant($upperName."_VERSION_MINOR") >= CMS_VERSION_MINOR ) {
+											include $folder.$file.'/include.php';
+											$modules[$name] = $folder.$file.'/include.php';
+											Console::log("Loaded ($name) successfully");
+										} else {
+											$err = "Unable to load ($name) -- Incorrect Version (".constant($upperName."_VERSION_MAJOR").".".constant($upperName."_VERSION_MINOR")." < ".CMS_VERSION_MAJOR.".".CMS_VERSION_MINOR.")";
+											Console::log($err);
+											throw new Exception($err);
+										}
+										
+									} else {
+										$err = "Unable to load ($name) -- Missing versioning information";
+										Console::log($err);
+										throw new Exception($err);
+									}
+									
+								}
+								
 							}
 						}
 					}
