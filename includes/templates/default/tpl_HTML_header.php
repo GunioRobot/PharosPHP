@@ -28,7 +28,7 @@
 		if ( !empty($javascript) ) {
 			foreach($javascript as $js) : ?>
 				<? if ( $js['type'] == JAVASCRIPT_INCLUDE ) : ?>
-					<? require TEMPLATE_DIR.'js/'.$js['path'] ?>
+					<? $data = $js['data']; require TEMPLATE_DIR.'js/'.$js['path']; ?>
 				<? else : ?>
 					<script type="text/javascript" src="<?=TEMPLATE_SERVER?>js/<?=$js['path']?>"></script>
 			<? endif; endforeach;
