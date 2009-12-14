@@ -82,7 +82,7 @@
 					$row['data'][] = format_date($info->fields['date_added'],true);
 					$row['data'][] = format_date($info->fields['last_updated'],true);
 
-					$actions = '<a href="'.controller_link(__CLASS__,"/publish/$id/").'" title="Publish this '.$this->type.'">Publish</a>';
+					$actions = '<a href="'.controller_link(__CLASS__,"publish/$id/").'" title="Publish this '.$this->type.'">Publish</a>';
 					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
 					$actions .= '<a href="'.edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
 
