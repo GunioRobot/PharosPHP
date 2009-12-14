@@ -131,7 +131,7 @@
 		//////////////////////////////////////////////////////////////////
 
 		public function save($id=0) {
-			process_profile($id);
+			$id = process_profile($id);
 			redirect(edit(get_class($this),$id));
 		}
 
