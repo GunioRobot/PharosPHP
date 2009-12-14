@@ -26,8 +26,8 @@
 			$this->title = "Login";
 			
 			// If resetting password
-			if ( post('user') AND post('forgot_password') ) {
-				reset_password($_POST['user']);
+			if ( ($user = post('user') AND post('forgot_password') ) {
+				reset_password($user);
 				exit;
 			}
 			
@@ -70,7 +70,7 @@
 			unset($_SESSION['user_level']);
 			unset($_SESSION['app_id']);
 			
-			redirect('index.php');
+			redirect(site_link());
 			
 		}
 	
