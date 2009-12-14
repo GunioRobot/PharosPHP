@@ -28,7 +28,7 @@
 	require_once DEFINES_DIR.'autoload.php';
 	
 	// Profiler support
-	require_once CLASSES_DIR.'PhpQuickProfiler.php';
+	Controller::loadModule("console");
 	$profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
 	
 	// Setting the app values for use sitewide
