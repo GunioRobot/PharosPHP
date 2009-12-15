@@ -17,7 +17,7 @@
 		
 		abstract protected function tableColumns();
 		abstract protected function buildData($sql);
-		abstract protected function edit($id);
+		abstract protected function edit($id,$repost);
 		abstract protected function delete($id);
 		abstract public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='');
 		
@@ -132,7 +132,7 @@
 
 		public function save($id=0) {
 			$id = process_profile($id);
-			redirect(edit(get_class($this),$id));
+			redirect(edit(get_class($this),$id)."true/");
 		}
 
 	
