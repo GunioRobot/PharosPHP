@@ -130,6 +130,11 @@
 				// Final sql for information
 				$sql = "SELECT users.*, CONCAT(users.user_first_name, ' ', users.user_last_name) as full_name, t1.hits FROM users".$join.$industry.$order." LIMIT ".$limit;			
 
+
+				// The USA Map for user location
+				echo '<embed width="550" height="400" flashvars="" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.TEMPLATE_SERVER.'usa_map.swf" type="application/x-shockwave-flash"/>';
+
+
 				// Table header
 				echo '<h2>Top Users</h2>'.$top_whatever_dropdown.'&nbsp;'.content_type_dropdown($content_type_id).'<div class="clearBoth"></div>
 				<table cellpadding="0" cellspacing="0">
