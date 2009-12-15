@@ -94,13 +94,15 @@ $render_chart = <<<RENDERCHART
 		Chart.
 	</div>
 	<script type="text/javascript">	
+	
 		//Instantiate the Chart	
 		var chart_$chartId = new FusionCharts("$chartSWF", "$chartId", "$chartWidth", "$chartHeight", "$ndebugMode", "$nregisterWithJS");
-      chart_$chartId.setTransparent("$nsetTransparent");
+      	chart_$chartId.setTransparent("$nsetTransparent");
     
 		$tempData
 		//Finally, render the chart.
 		chart_$chartId.render("$chartIdDiv");
+		
 	</script>	
 	<!-- END Script Block for Chart $chartId -->
 RENDERCHART;
