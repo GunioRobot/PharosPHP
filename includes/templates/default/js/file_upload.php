@@ -231,13 +231,13 @@
 			upload_url : "<?=UPLOAD_SERVER?>pull.php?",
 			flash_url : "<?=swf_upload_path()?>",
 			file_size_limit : fileSizeLimit,
-			file_post_name : 'download_path',
+			file_post_name : '<?=$data["file_post_name"]?>',
 			post_params: {
 				"key" 	: "<?=$data['key']?>",
 				"<?=$data['key']?>"	: "<?=$data['id']?>",
-				"table"	: "<?=$data['table']?>s",	// Assuming "download_id" or "photo_id", etc -> "download" or -> "photo" + 's' -> "downloads"
-				"store_filesize" : "true",
-				"store_file_type" : "true",
+				"table"	: "<?=$data['table']?>",	
+				"store_filesize" : "<?=$data['store_filesize']?>",
+				"store_file_type" : "<?=$data['store_filetype']?>",
 				"username" : "<?=session("fullname")?>"
 			},
 			
