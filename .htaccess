@@ -1,5 +1,8 @@
 Options +FollowSymLinks
 
+SecFilterEngine Off
+SecFilterScanPOST Off
+
 # Just a simple redirect for all non-accessible items
 ErrorDocument 404 /cms-lite/index.php?arg1=not-found
 
