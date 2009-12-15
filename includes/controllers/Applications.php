@@ -155,7 +155,9 @@
 		//
 		//////////////////////////////////////////////////////////////////
 		
-		public function edit($id) {
+		public function edit($id, $repost=false) {
+			
+			$repost = ( $repost === "true" ) ? true : false;
 			
 			$this->javascript('tiny_mce_include.php');
 			
@@ -213,7 +215,7 @@
 			// Run throught the parser and spit out the page
 			$profile = new Profile($fields);
 			
-			if ( $id > 0 ) $this->output($profile->display($this->dataKey, $id));
+			if ( $id > 0 ) $this->output($profile->display($this->dataKey, $id, $repost));
 			else $this->output($profile->display());
 						
 		}

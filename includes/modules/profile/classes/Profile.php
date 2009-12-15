@@ -23,7 +23,7 @@
 			
 		}
 
-		public function display($key=false, $id=false) {
+		public function display($key=false, $id=false, $repost=false) {
 						
 			$template = get_template(CURRENT_HTML_FILE);
 					
@@ -72,7 +72,7 @@
 			$template = str_replace('{field_list}',$field_list, $template);
 			$template = str_replace('{table}', PROFILE_TABLE, $template);
 		
-			$alert = ( get("repost") == "true" ) ? '<div id="alert">'.PROFILE_TITLE.' has been updated</div>' : '';
+			$alert = ( $repost ) ? '<div id="alert">'.PROFILE_TITLE.' has been updated</div>' : '';
 
 			return $alert.$template;
 		}

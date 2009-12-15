@@ -17,7 +17,7 @@
 		
 		abstract protected function tableColumns();
 		abstract protected function buildData($sql);
-		abstract protected function edit($id,$repost);
+		abstract protected function edit($id,$repost=false);
 		abstract protected function delete($id);
 		abstract public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='');
 		
