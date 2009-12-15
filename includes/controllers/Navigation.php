@@ -159,7 +159,7 @@
 				array('name' => 'name' ,'type' => 'text', 'size' => '50' , 'max' => '200'),
 				array('name' => 'page' ,'type' => 'text', 'size' => '50' , 'max' => '100'),
 				array('name' => 'order_num' ,'type' => 'text', 'size' => '2' , 'max' => '2'),
-				array('name' => 'display', 'type' => 'dropdown', 'option' => array('hidden' => 'None', 'visible' => 'Visible'), 'default' => ADMIN_LVL),
+				array('name' => 'display', 'type' => 'dropdown', 'option' => array('hidden' => 'None', 'visible' => 'Visible'), 'default' => 'visible'),
 				array('name' => 'min_lvl', 'type' => 'dropdown', 'option' => $levels, 'default' => ADMIN_LVL),
 				array('name' => 'max_lvl', 'type' => 'dropdown', 'option' => $levels, 'default' => SUPER_LVL),
 				
