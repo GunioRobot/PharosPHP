@@ -113,6 +113,7 @@
 		public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='') {
 			
 			$this->javascript('confirmDelete.php');
+			$this->javascript('manage_applications.php');
 												
 			$this->table->current_page = intval($page);
 
