@@ -31,17 +31,14 @@
 		public function index() {
 			
 			global $CURRENT_APP_NAME, $CURRENT_APP_ID;
-			
-			Controller::loadModule("fusion_charts");
-			
+						
 			$this->css("dashboard.css");
+			$this->javascript("dashboard.php");
 			
 			$template = get_template("dashboard.html", "views/");
 					
 			$template = str_replace('{app_name}', "&quot;".$CURRENT_APP_NAME."&quot;", $template);
 			$template = str_replace('{INCLUDES_DIR}', INCLUDES_SERVER, $template);
-
-			$template = str_replace('{ACTIVITY_CHART}', include_fusion_chart_js().renderChart(fusion_chart("FCF_Area2D.swf"), $strURL, controller_link(__CLASS__,"data/"), "activity_chart", 569, 350), $template);
 
 /*
 
@@ -68,7 +65,7 @@
 		}
 		
 		
-		public function data() {
+		public function activityData() {
 		
 			$timePeriod = 10;
 			$previous = new DateTime();
@@ -84,6 +81,228 @@
 			$xml .= "</graph>";
 
 			printXML($xml);
+			
+		}
+		
+		
+		public function content($table='users-top10', $content_type_id='all', $limit="0,9") {
+			
+			global $CURRENT_APP_ID, $CURRENT_APP_NAME;
+			Controller::loadModule("fusion_charts");
+			
+			
+			// Top 10 table for users
+			if ( $table == "users-top10" ) {
+				
+				$content_type = ( $content_type_id != '' && $content_type_id != 'all' ) ? " AND content_type_id = '".(int)$content_type_id."' " : '';
+
+				// Build the sql
+				$join = " JOIN( SELECT user_id, app_id, COUNT(track_id) as hits FROM tracking WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY user_id ) t1 ON t1.user_id = users.user_id ";
+				$order = " ORDER BY t1.hits DESC ";
+
+				// Build the pagination dropdown
+				$total_users = $this->db->Execute("SELECT COUNT(users.user_id) as total, t1.hits, t1.app_id FROM users".$join." GROUP BY t1.app_id  ".$order);	// don't limit!
+
+				$ll = $limit;
+
+				$top_whatever_dropdown = '<select id="paginate"><option value="0,9" ';
+				if ( $ll == "0,9" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>Top 10</option>';
+
+				if ( $total_users->fields['total'] > 10 ) $top_whatever_dropdown .= '<option value="10,19"';
+				if ( $ll == "10,19" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>11 - 20</option>';
+
+				if ( $total_users->fields['total'] > 20 ) $top_whatever_dropdown .= '<option value="20,29"';
+				if ( $ll == "20,29" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>21 - 30</option>';
+
+				if ( $total_users->fields['total'] > 30 ) $top_whatever_dropdown .= '<option value="30,39"';
+				if ( $ll == "30,39" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>31 - 40</option>';
+
+				if ( $total_users->fields['total'] > 40 ) $top_whatever_dropdown .= '<option value="40,49"';
+				if ( $ll == "40,49" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>41 - 50</option>';
+
+				$top_whatever_dropdown .= '</select>';			
+
+				// Final sql for information
+				$sql = "SELECT users.*, CONCAT(users.user_first_name, ' ', users.user_last_name) as full_name, t1.hits FROM users".$join.$industry.$order." LIMIT ".$limit;			
+
+				// Table header
+				echo '<h2>Top Users</h2>'.$top_whatever_dropdown.'&nbsp;'.content_type_dropdown($content_type_id).'<div class="clearBoth"></div>
+				<table cellpadding="0" cellspacing="0">
+					<tr class="dashboard-table-header-row dashboard-table-row">
+						<th class="dashboard-table-header number">&nbsp;</th>
+						<th class="dashboard-table-header name">Name</th>
+						<th class="dashboard-table-header company">Email</th>
+						<th class="dashboard-table-header industry">Phone</th>
+						<th class="dashboard-table-header state-zip">State / Zip</th>
+					</tr>';
+
+				// Loop out the user information
+				for ( $rr = $this->db->Execute($sql), $index = 1; !$rr->EOF; $rr->moveNext(), $index++ ) {
+
+					$userName = format_title($rr->fields['full_name']);
+
+					echo '<tr class="dashboard-table-row">
+						<td class="number">'.$rr->fields['hits'].'</td>
+						<td><div class="floatLeft"><a href="index.php?pid=5&key=user_id&user_id='.$rr->fields['user_id'].'" title="Edit &quot;'.$userName.'&quot;">'.$userName.'</a></div><br /><div class="floatLeft">';
+						echo '<br /></div><div class="clearBoth"></div></td>';
+
+						echo '<td>';
+						if ( $rr->fields['user_primary_email'] != '' ) {
+							echo '<a href="mailto:'.$rr->fields['user_primary_email'].'" title="Email '.$userName.'">'.$rr->fields['user_primary_email'].'</a>';
+
+						} else echo '<a href="#" onClick="return false;" title="No Email">no email</a>';
+						echo '</td>';
+
+						echo '<td>'.format_title($rr->fields['user_phone_number']).'</td>'.
+						'<td class="state-zip">'.strtoupper($rr->fields['user_state']).' - '.$rr->fields['user_zip'].'</td>
+					</tr>';
+				} echo '</table>';	// Close the table
+			}
+
+
+
+
+
+
+
+
+			// Top 10 table for content
+			else if ( $table == 'content-top10' ) {			
+
+				$content_type_id = ( !isset($content_type_id) || $content_type_id == NULL ) ? APPLICATION_TYPE_ID : $content_type_id;
+				$content_type = ($content_type_id != '' && $content_type_id != 'all') ? " AND tracking.content_type_id = '".$content_type_id."' " : " AND tracking.content_type_id = '".APPLICATION_TYPE_ID."' ";
+
+				// Build the sql
+				switch ( $content_type_id ) {
+					
+					case SONG_TYPE_ID:
+						$table = 'songs';
+						$id = 'song_id';
+						$TYPE = 'Song';
+						$name = 'song_name';
+						$notes = 'song_notes';
+						$pid = '?pid=22&key=song_id&song_id=';
+						break;
+						
+					case PHOTO_TYPE_ID:
+						$table = 'photos';
+						$id = 'photo_id';
+						$TYPE = 'Photo';
+						$name = 'photo_name';
+						$notes = 'photo_notes';
+						$pid = '?pid=66&key=photo_id&photo_id=';
+						break;
+				
+					case VIDEO_TYPE_ID:
+						$table = 'videos';
+						$id = 'video_id';
+						$TYPE = 'Video';
+						$name = 'video_name';
+						$notes = 'video_notes';
+						$pid = '?pid=67&key=video_id&video_id=';
+						break;				
+						
+					case DOWNLOAD_TYPE_ID:
+						$table = "downloads";
+						$id = "download_id";
+						$TYPE = "Download";
+						$name = "download_name";
+						$notes = "download_notes";
+						$pid = "?pid=65&key=download_id&download_id=";
+						break;
+						
+					case APPLICATION_TYPE_ID:
+					default:
+						$table = "applications";
+						$id = "app_id";
+						$TYPE = "Application";
+						$name = "app_name";
+						$notes = "app_notes";
+						$pid = "";						
+						break;
+					
+				}
+
+
+				$sql = "SELECT * FROM $table JOIN ( SELECT tracking.*, COUNT(tracking.track_id) as hits FROM tracking JOIN ( SELECT users.user_id FROM users JOIN ( SELECT * FROM applications_to_content WHERE app_id = '$CURRENT_APP_ID' AND content_type_id = '".USER_TYPE_ID."') t4 ON t4.table_index = users.user_id )  t1 ON t1.user_id = tracking.user_id WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY tracking.app_id,tracking.content_type_id,tracking.table_index ) t2 ON t2.table_index = $table.$id ORDER BY t2.hits DESC LIMIT $limit";
+
+				// For selecting the right <option></option>
+				$ll = $limit;
+
+
+				// Build the pagination dropdown
+				$total_users = $this->db->Execute("SELECT COUNT($table.$id) as total, t1.app_id FROM ".$table." JOIN (SELECT t2.* FROM users JOIN( SELECT tracking.*, COUNT(track_id) as hits FROM tracking WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY app_id,content_type_id,table_index ) t2 ON t2.user_id = users.user_id ) t1 ON t1.table_index = ".$table.".".$id."  GROUP BY t1.app_id ORDER BY t1.hits DESC ");	// don't limit!
+
+				$top_whatever_dropdown = '<select id="paginate"><option value="0,9" ';
+				if ( $ll == "0,9" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>Top 10</option>';
+
+				if ( $total_users->fields['total'] > 10 ) $top_whatever_dropdown .= '<option value="10,19"';
+				if ( $ll == "10,19" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>11 - 20</option>';
+
+				if ( $total_users->fields['total'] > 20 ) $top_whatever_dropdown .= '<option value="20,29"';
+				if ( $ll == "20,29" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>21 - 30</option>';
+
+				if ( $total_users->fields['total'] > 30 ) $top_whatever_dropdown .= '<option value="30,39"';
+				if ( $ll == "30,39" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>31 - 40</option>';
+
+				if ( $total_users->fields['total'] > 40 ) $top_whatever_dropdown .= '<option value="40,49"';
+				if ( $ll == "40,49" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown .= '>41 - 50</option>';
+
+				$top_whatever_dropdown .= '</select>';
+				
+
+				// The gorgeous area chart
+				echo include_fusion_chart_js().renderChart(fusion_chart("FCF_Area2D.swf"), encodeDataURL(controller_link(__CLASS__,"activityData/")), "", "activity_chart", 569, 350);
+				
+
+				// Table header
+				echo '<h2>Top Content</h2>'.$top_whatever_dropdown.'&nbsp;'.content_type_dropdown($content_type_id, false).'<div class="clearBoth"></div>
+				<table cellpadding="0" cellspacing="0">
+					<tr class="dashboard-table-header-row dashboard-table-row">
+						<th class="dashboard-table-header number">&nbsp;</th>
+						<th class="dashboard-table-header content-name">Name</th>';
+
+						if ( $content_type_id != APPLICATION_TYPE_ID ) echo '<th class="dashboard-table-header size">Size</th>';
+
+						echo '<th class="dashboard-table-header notes">Notes</th>
+					</tr>';
+
+				// Loop out the user information
+				for ( $rr = $this->db->Execute($sql), $index = 1; !$rr->EOF; $rr->moveNext(), $index++ ) {
+					echo '<tr class="dashboard-table-row">
+						<td class="number">'.$rr->fields['hits'].'</td>';
+
+						if ( $pid != '' ) {
+							echo '<td><div class="floatLeft"><a href="index.php'.$pid.$rr->fields[$id].'" title="Edit '.$TYPE.'">'.truncate_str(format_title($rr->fields[$name]),60,'...').'</a>';
+						} else echo '<td><div class="floatLeft">'.truncate_str(format_title($rr->fields[$name]), 60,'...');
+
+						echo '</div><br /></div><div class="clearBoth"></div></td>';
+
+						if ( $content_type_id != APPLICATION_TYPE_ID ) echo '<td>'.format_filesize($rr->fields['file_size']).'</td>';
+
+						if ( strlen(strip_tags($rr->fields[$notes])) > 0 ) {
+							$n = truncate_str(strip_tags($rr->fields[$notes]),200,'...');
+						} else $n = '<em>None</em>';
+
+						if ( $content_type_id == APPLICATION_TYPE_ID ) echo '<td style="width:315px;">'.$n.'</td>';
+						else echo '<td>'.$n.'</td>';
+
+					echo '</tr>';
+				} echo '</table>';	// Close the table
+
+			} 
+			
+			exit;	// Don't want system to start loading header, footer, etc as this is just an ajax response
 			
 		}
 		
