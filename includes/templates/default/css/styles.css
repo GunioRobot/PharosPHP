@@ -631,3 +631,8 @@ a.ordered-down {
 	background-position:top right;
 	padding-right:15px;
 }
+
+#loginInfo span {
+	color:#990000;
+	float:right;
+}

@@ -5,8 +5,8 @@
 		
 			<? if ( session('uid') ) : ?>
 		        <div id="loginInfo">
-					<span style="color:#82aacd;">Welcome to the <?=SITE_NAME?>, <?=$_SESSION['fullname']?></span><br />
-					<span style="color:#82aacd;float:right;">Active Location: <select id="application" name="application"><?=list_applications($CURRENT_APP_ID);?></select></span>
+					<span>Welcome to the <?=SITE_NAME?>, <?=$_SESSION['fullname']?></span><br />
+					<span>Active Location: <select id="application" name="application"><?=list_applications($CURRENT_APP_ID);?></select></span>
 					<div class="clearBoth"></div>
 				</div>
 			<? endif ?>
