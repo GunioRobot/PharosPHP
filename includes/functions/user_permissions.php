@@ -15,12 +15,13 @@
 	function validate_login() {
 	
 		global $db;
-	
-		// Check that user is logging on to right domain
-		if ( session('domain_id') != DOMAIN_ID ) $failed = true;
-	
-		if ( !session("uid") ) {
-			redirect(HTTP_SERVER.ADMIN_DIR.'session/login/');
+		
+		if ( get("arg1") === "session" && get("arg2") === "login" ) {
+			return;
+		}
+		
+		if ( !session("uid") || session('domain_id') !== DOMAIN_ID ) {
+			redirect(controller_link('Session','login/'));
 		}
 		
 		// If good to go
@@ -28,6 +29,7 @@
 	
 	}
 	
+
 	
 	
 	////////////////////////////////////////////////////////////////////////////////
