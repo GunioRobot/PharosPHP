@@ -6,7 +6,7 @@
 		try {
 			if (numFilesQueued > 0) {
 				
-				<? if ( !get(get("key")) ) : ?>
+				<? if ( !$data['visible'] ) : ?>
 				
 				var div = $('<p>For technical reasons, we require you to first create your text and then upload.<br /><br />Clicking &quot;Ok&quot; below will save your work and reload the page for you. Then you will be able select your file to upload.</p>').appendTo($('body'));
 				div.dialog({
