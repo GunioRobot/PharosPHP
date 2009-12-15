@@ -77,7 +77,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_updated` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`app_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `applications`
@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `applications_to_content` (
   `content_type_id` bigint(20) NOT NULL default '0',
   `content_type_name` varchar(75) NOT NULL default '',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=19 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `applications_to_content`
@@ -108,7 +108,7 @@ CREATE TABLE IF NOT EXISTS `applications_to_content` (
 INSERT INTO `applications_to_content` (`id`, `app_id`, `table_index`, `content_type_id`, `content_type_name`) VALUES
 (1, 1, 1, 1, 'user'),
 (2, 1, 2, 1, 'user'),
-(10, 0, 22, 2, 'setting');
+(3, 1, 1, 2, 'setting');
 
 -- --------------------------------------------------------
 
@@ -148,14 +148,14 @@ CREATE TABLE IF NOT EXISTS `general_settings` (
   `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_updated` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`setting_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=23 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
 
 --
 -- Dumping data for table `general_settings`
 --
 
 INSERT INTO `general_settings` (`setting_id`, `setting_name`, `setting_value`, `setting_notes`, `date_added`, `last_updated`) VALUES
-(22, 'Site Name', '<p>CMS Testing Center</p>', '', '2009-12-12 08:54:05', '2009-12-12 08:54:05');
+(1, 'Site Name', '<p>CMS Testing Center</p>', '', '2009-12-12 08:54:05', '2009-12-12 08:54:05');
 
 -- --------------------------------------------------------
 
@@ -181,15 +181,8 @@ CREATE TABLE IF NOT EXISTS `pages` (
   `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_updated` datetime NOT NULL default '0000-00-00 00:00:00',
   PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
---
--- Dumping data for table `pages`
---
-
-INSERT INTO `pages` (`id`, `name`, `input1`, `input2`, `input3`, `input4`, `input5`, `input6`, `text1`, `text2`, `text3`, `text4`, `text5`, `text6`, `date_added`, `last_updated`) VALUES
-(1, 'Social Networking', 'http://www.twitter.com/eric_barton', 'http://www.linkedin.com/in/ericbbarton', 'http://www.flickr.com/photos/ericbarton/', '', '', '', '<p>Follow Eric on Twitter</p>', '<p>Network with Eric on LinkedIn</p>', '<p>See Eric&rsquo;s photos on Flickr</p>', '', '', '', '2009-11-18 16:40:10', '2009-11-25 12:11:30'),
-(2, 'Biography Page', '', '', '', '', '', '', '<p>Since my first days in the U.S. Marine Corps at the age of 17, I&rsquo;ve been on the go. Initially, my pursuits were simple enough&mdash;join the military and get a good education. Maybe I&rsquo;d even become a success one day.<br /><br />Over the years, I have happily learned there is a greater mission to life than the pursuits that generally dominate our time. I have also learned that success cannot be calculated by the sums in your bank accounts.<br /><br />Success, as I see it, is something you have to build with your own two hands. That doesn&rsquo;t mean you necessarily build it alone. There are other hands reaching out to help you, if you are willing to also help yourself, and I have been blessed to have many hands reach out to help me on my missions. Each hand that has reached out to guide me and steady me&mdash; whether from my mother, my brothers and sisters in the Corps, my wife and children, and countless others in the communities where I have lived and worked&mdash;has provided me with an opportunity to also reach out to others.<br /><br />I am fortunate that my work has allowed me the opportunity to see the need people all over the world have for the most basic elements&mdash;food, shelter, security, and compassion&mdash;and to provide me with the opportunity to address those needs.<br /><br />I am still on the go. On a mission, you might say. I want to make the world safer for my children, for your children, and for the children who have no one to speak for them yet. It is why I proudly work with non-governmental organizations to create new international adoption programs for children. And, here, as well as any other aspect of my life&mdash;I try to lead by example. My family is fortunate to include the loving addition of two children Mechelle and I adopted from Ethiopia. I have had many job titles &ndash; Marine, chaplain, senior operations manager, and President&mdash; but the title of father is the one I cherish and protect more than any other. <br /><br />Through work in companies I own, my teams have had the honor of taking on goodwill opportunities around the globe. Some recent work includes establishing school complexes in Palestine and Pakistan, the creation of emergency villages in Greece and Saudi Arabia, and setting up medical centers in Burma.<br /><br />When I need to re-energize, I turn to the love and comfort of my family in East Tennessee, where my wife, five kids and I spend time working on our horse ranch, and breeding and raising show Dobermans.<br /><br />Thank you for visiting my blog. I hope you&rsquo;ll join and enjoy the conversations as I share news of my life at home and in the world. It seems I&rsquo;m always on the go to a new mission, but I&rsquo;m happy to have you along.</p>', 'bioHead.jpg', '<p>Since my first days in the U.S. Marine Corps at the age of 17, I&rsquo;ve been on the go. Initially, my pursuits were simple enough&mdash;join the military and get a good education. Maybe I&rsquo;d even become a success one day.</p>\r\n<p>Over the years, I have happily learned there is a greater mission to life than the pursuits that generally dominate our time. I have also learned that success cannot be calculated by the sums in your bank accounts.</p>', '', '', '', '2009-11-18 16:52:00', '2009-11-19 16:00:28');
 
 -- --------------------------------------------------------
 
@@ -246,7 +239,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_last_login` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
   PRIMARY KEY  (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=11 ;
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `users`
