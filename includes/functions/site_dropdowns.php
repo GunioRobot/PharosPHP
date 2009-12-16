@@ -67,12 +67,12 @@
 		
 		if ( $show_all_option ) $html .= '<option id="all-content_types" value="all">All Content</option>';
 		
-		$sql = "SELECT * FROM content_types WHERE type_name != 'user' ORDER BY type_name ASC";
+		$sql = "SELECT * FROM content_types WHERE type_name != 'user' AND type_name != 'setting' AND type_name != 'navigation' ORDER BY type_name ASC";
 		for ( $rr = $db->Execute($sql); !$rr->EOF; $rr->moveNext() ) {
 			$html .= '<option id="content-'.$rr->fields['type_id'].'" value="'.$rr->fields['type_id'].'"';
 			if ( $sel == $rr->fields['type_id'] ) $html .= ' selected="selected" ';
 			
-			$title = ( $rr->fields['type_name'] == 'view' ) ? 'Views' : format_title($rr->fields['type_table']);
+			$title = format_title($rr->fields['type_table']);
 			$html .= '>'.$title.'</option>';
 		} $html .= '</select>';
 		
