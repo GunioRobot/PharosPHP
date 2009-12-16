@@ -200,7 +200,7 @@
 						$current = $appFolder.'current.xml';
 						if ( @file_exists($current) ) {
 
-							$archivedXML = $archiveFolder.date('Y-m-d G:i').'.xml';
+							$archivedXML = $archiveFolder.date('Y-m-d_G:i').'.xml';
 							if ( @rename($current, $archivedXML ) === FALSE ) {
 								$ret->error = true;
 								$ret->message .= "<br />There was an error copying the current xml to the archive folder.";
