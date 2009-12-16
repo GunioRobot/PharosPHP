@@ -106,7 +106,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function write_js() {
-		$js = array();
+		$js = array("php" => array(), "js" => array());
 		$folder = TEMPLATE_DIR.'js/';
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle))){
