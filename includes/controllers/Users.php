@@ -75,7 +75,26 @@
 			
 		}
 		
-	
+		
+		
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Adding a little more filtering to basic searching and display
+		//
+		//////////////////////////////////////////////////////////////////
+		
+		public function search($search) {
+			
+			$where = parent::search($search);
+			if ( $this->table->search != '' ) {
+				$where .= " AND ".$this->table->id.".user_level >= '".(int)ADMIN_LVL."' ";
+			} else $where  = " WHERE ".$this->table->id.".user_level >= '".(int)ADMIN_LVL."' ";
+			
+			return $where;
+			
+		}
+		
+		
 		
 		
 		//////////////////////////////////////////////////////////////////
