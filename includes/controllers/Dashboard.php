@@ -40,7 +40,6 @@
 			$template = str_replace('{app_name}', "&quot;".$CURRENT_APP_NAME."&quot;", $template);
 			$template = str_replace('{INCLUDES_DIR}', INCLUDES_SERVER, $template);
 
-/*
 
 			// Find the top 5 downloads
 			$html = '';
@@ -48,15 +47,44 @@
 			for ( $rr = $this->db->Execute($sql); !$rr->EOF; $rr->moveNext() ) {
 
 				$title = format_title($rr->fields['download_name']);
-				$key = '&key=download_id&download_id='.$rr->fields['download_id'];
-				$html .= '<li><a href="index.php?pid=65'.$key.'" title="Edit &quot;'.$title.'&quot;">'.truncate_str($title,15,'...').' ('.$rr->fields['hits'].')</a></li>';
+				$link = controller_link('Downloads',$rr->fields['download_id']);
+				$html .= '<li><a href="'.$link.'" title="Edit &quot;'.$title.'&quot;">'.truncate_str($title,15,'...').' ('.$rr->fields['hits'].')</a></li>';
 			} 
 
 			// Replace in the template
 			$html = ( $html != '' ) ? $html : "<li><em>No Downloads.</em></li>";
 			$template = str_replace('[top_downloads]', $html, $template);
+			
+			
+			// Find the top 5 photos
+			$html = '';
+			$sql = "SELECT photos.*, t1.hits FROM photos JOIN ( SELECT COUNT(track_id) as hits, table_index FROM tracking WHERE content_type_id = ".PHOTO_TYPE_ID." AND app_id = '".$CURRENT_APP_ID."' GROUP BY content_type_id,table_index) t1 ON t1.table_index = photos.photo_id ORDER BY t1.hits DESC LIMIT 5";
+			for ( $rr = $this->db->Execute($sql); !$rr->EOF; $rr->moveNext() ) {
 
-*/
+				$title = format_title($rr->fields['photo_name']);
+				$link = controller_link('Photos',$rr->fields['photo_id']);
+				$html .= '<li><a href="'.$link.'" title="Edit &quot;'.$title.'&quot;">'.truncate_str($title,15,'...').' ('.$rr->fields['hits'].')</a></li>';
+			} 
+
+			// Replace in the template
+			$html = ( $html != '' ) ? $html : "<li><em>No Photos.</em></li>";
+			$template = str_replace('[top_photos]', $html, $template);
+
+
+			// Find the top 5 videos
+			$html = '';
+			$sql = "SELECT videos.*, t1.hits FROM videos JOIN ( SELECT COUNT(track_id) as hits, table_index FROM tracking WHERE content_type_id = ".VIDEO_TYPE_ID." AND app_id = '".$CURRENT_APP_ID."' GROUP BY content_type_id,table_index) t1 ON t1.table_index = videos.video_id ORDER BY t1.hits DESC LIMIT 5";
+			for ( $rr = $this->db->Execute($sql); !$rr->EOF; $rr->moveNext() ) {
+
+				$title = format_title($rr->fields['video_name']);
+				$link = controller_link('Videos',$rr->fields['photo_id']);
+				$html .= '<li><a href="'.$link.'" title="Edit &quot;'.$title.'&quot;">'.truncate_str($title,15,'...').' ('.$rr->fields['hits'].')</a></li>';
+			} 
+
+			// Replace in the template
+			$html = ( $html != '' ) ? $html : "<li><em>No Videos.</em></li>";
+			$template = str_replace('[top_videos]', $html, $template);
+
 
 	
 			
@@ -65,20 +93,32 @@
 		}
 		
 		
-		public function activityData() {
+		public function activity_data($timePeriod=10) {
+			
+			global $CURRENT_APP_ID;
 		
-			$timePeriod = 10;
+			$timePeriod = intval($timePeriod);
+			$timePeriod = ($timePeriod > 5 && $timePeriod <= 50) ? $timePeriod : 10;
+			
 			$previous = new DateTime();
 			$previous->modify('-'.$timePeriod.' days');
 
-			$xml = "<graph caption='Application Activity' subcaption='(".$previous->format('m/d/Y')." to ".date("m/d/Y").")' hovercapbg='FFECAA' hovercapborder='F47E00' formatNumberScale='0' decimalPrecision='0' showvalues='0' numdivlines='3' numVdivlines='0' yaxisminvalue='1000' yaxismaxvalue='1800'  rotateNames='1'>";
-
-
-			for ( $i = 0; $i <= $timePeriod; $i++, $previous->modify('+1 day') ) {
-				$xml .= "<set name='".$previous->format('m/d/Y')."' value='".rand(1000,5000)."' />";
+			$data = array();
+			$maxValue = 1;
+			
+			$sql = "SELECT COUNT(track_id) as hits, DATE(timestamp) as date FROM tracking WHERE CURDATE() >= DATE(DATE_SUB(timestamp, INTERVAL ".(int)$timePeriod." DAY)) AND app_id = '".(int)$CURRENT_APP_ID."' GROUP BY DATE(timestamp) ORDER BY timestamp ASC";
+			for ( $info = $this->db->Execute($sql); !$info->EOF; $info->moveNext() ) {
+				$data[$info->fields['date']] = $info->fields['hits'];
+				if ( $info->fields['hits'] > $mavValue ) $maxValue = $info->fields['hits'];
 			}
-
-			$xml .= "</graph>";
+			
+			$maxValue = ($maxValue % 5 > 0) ? $maxValue += (5-($maxValue % 5)) : $maxValue;
+			$xml = "<graph caption='Application Activity in Last ".$timePeriod." Days' subcaption='(".$previous->format('m/d/Y')." to ".date("m/d/Y").")' hovercapbg='FFECAA' hovercapborder='CC0000' formatNumberScale='0' decimalPrecision='0' showvalues='0' numdivlines='3' numVdivlines='0' yAxisMaxValue='".$maxValue."' rotateNames='1'>";
+			
+			for ( $i = 0; $i <= $timePeriod; $previous->modify('+1 day'), $i++ ) {
+				$value = isset($data[$previous->format('Y-m-d')]) ? $data[$previous->format('Y-m-d')] : 0;
+				$xml .= "<set name='".$previous->format('m/d/Y')."' value='".$value."' color='990000'/>";
+			} $xml .= "</graph>";
 
 			printXML($xml);
 			
@@ -132,7 +172,7 @@
 
 
 				// The USA Map for user location
-				echo '<embed width="550" height="400" flashvars="" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.TEMPLATE_SERVER.'usa_map.swf" type="application/x-shockwave-flash"/>';
+				echo '<embed width="550" height="400" flashvars="xml='.urlencode(MODULES_SERVER.'air_application/pages/map_demographic_data.php').'" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.TEMPLATE_SERVER.'usa_map.swf" type="application/x-shockwave-flash"/>';
 
 
 				// Table header
@@ -267,7 +307,7 @@
 				
 
 				// The gorgeous area chart
-				echo include_fusion_chart_js().renderChart(fusion_chart("FCF_Area2D.swf"), encodeDataURL(controller_link(__CLASS__,"activityData/")), "", "activity_chart", 569, 350);
+				echo include_fusion_chart_js().renderChart(fusion_chart("FCF_Area2D.swf"), encodeDataURL(controller_link(__CLASS__,"activity_data/")), "", "activity_chart", 569, 350);
 				
 
 				// Table header
@@ -418,6 +458,9 @@
 		            <form id="'.$this->table->id.'_form" action="'.$this->table->basic_a."$orderField/$orderVal/$page/".'" method="post">
 		            <div class="contentTabCap"></div><div class="contentTab"><input id="search" name="search" value="'.$this->table->search.'"/><a href="#" onClick="$('."'".'#'.$this->table->id.'_form'."'".').submit();" class="inputPress">Search</a></div>';
 
+			$view .= '<div class="contentTabCap"></div><div class="contentTab"><a href="'.controller_link(__CLASS__,'export_users/').'" title="Export Users" class="tabArrow">Export</a></div>';
+				
+
 		    $view .= '</form>
 		            <br clear="all" />
 		          </div>'.
@@ -434,23 +477,24 @@
 		//
 		//////////////////////////////////////////////////////////////////
 		
-		public function edit($id) {
+		public function edit($id, $repost=false) {
 			
 			$this->javascript('tiny_mce_include.php');
+			
+			$repost = ( $repost === "true" ) ? true : false;
 			
 			// Required by profile class and repost_mod
 			@define('PROFILE_TABLE', $this->table->id);
 			@define('PROFILE_TITLE', $this->type);
 			@define('PROFILE_ID', $this->dataKey);
-			@define('CURRENT_HTML_FILE', "edit_user.html");
+			@define('CURRENT_HTML_FILE', "edit_basic_user.html");
 
 			// Template tags to pull from database and replace
 			$fields = array(
 
 				array('name' => PROFILE_ID, 'type' => 'display'),
 				array('name' => '{TYPE}', 'type' => 'static', 'value' => PROFILE_TITLE),
-				array('name' => '{manage}', 'type' => 'static', 'value' => controller_link(__CLASS__)),
-				array('name' => '{new}', 'type' => 'static', 'value' => create(__CLASS__)),
+				array('name' => '{Tracking Link}', 'type' => 'static', 'value' => controller_link(__CLASS__,'manage/')),
 				array('name' => '{form_link}', 'type' => 'static', 'value' => save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
@@ -471,8 +515,6 @@
 				array('name' => 'user_birthday', 'type' => 'dob'),
 				array('name' => 'user_notes', 'type' => 'text_area', 'class' => 'notes'),
 				
-				array('name' => 'user_level', 'type' => 'dropdown', 'option' => user_levels_array($id>0?level_for_user($id):SUPER_LVL), 'default' => ADMIN_LVL),
-	
 				array('name' => 'date_added', 'type' => 'date_added'),
 				array('name' => 'last_updated', 'type' => 'last_updated'),
 				array('name' => 'content_type_id', 'type' => 'hidden', 'value' => USER_TYPE_ID),
@@ -484,13 +526,36 @@
 			// Run throught the parser and spit out the page
 			$profile = new Profile($fields);
 			
-			if ( $id > 0 ) $this->output($profile->display($this->dataKey, $id));
+			if ( $id > 0 ) $this->output($profile->display($this->dataKey, $id, $repost));
 			else $this->output($profile->display());
 						
 		}
 		
 		
 
+		public function export_users() {
+			
+			$filename = 'User Export '.date('m-d-Y');
+			$output = 'Last Name, First Name, City, State, Zip, Phone, Email, Date Registered'."\n";
+
+			$sql = "SELECT * FROM users WHERE user_level = '".BASIC_USER_LVL."' ORDER BY user_last_name,user_first_name";
+			for ( $info = $this->db->Execute($sql); !$info->EOF; $info->moveNext() ) {
+
+				$output .= $info->fields['user_last_name'].',';
+				$output .= $info->fields['user_first_name'].',';
+				$output .= $info->fields['user_city'].',';
+				$output .= $info->fields['user_state'].',';
+				$output .= $info->fields['user_zip'].',';
+				$output .= $info->fields['user_phone_number'].',';
+				$output .= $info->fields['user_primary_email'].',';
+				$output .= $info->fields['date_added'];
+				$output .= "\n";		
+
+			}
+
+			csv_download($filename, $output);
+			
+		}
 		
 		
 		//////////////////////////////////////////////////////////////////
