@@ -291,11 +291,14 @@
 					$this->db->Execute($sql);
 					
 					// SHOW SUCCESS PAGE
+					echo json_encode((object)array("error" => false, "title" => "Published Successfully", "message" => "Application was successfully published."));
+					exit;
 					
 				} else {
 					
 					// SHOW ERROR PAGE
-					
+					echo json_encode((object)array("error" => false, "title" => "Publication Error", "message" => "Error publishing application!<br /><br />Please try again or contact the system administrator."));
+					exit;
 				}
 				
 			}
