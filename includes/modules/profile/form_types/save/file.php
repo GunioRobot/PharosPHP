@@ -19,13 +19,33 @@
 		}
 		
 	
-		// Add the filesize to the sql statement, if it's the main video and not thumbnails, etc
-		if ( $input['varx'] == 'store_filesize' ) {
+		// Create the options array
+		$options = explode(':', trim($input['varx']));
+
+		// Add the filesize to the sql statement, if it's the main video and not thumbnails, etc		
+		if ( in_array('store_filesize', $options) ) {
 			$size = filesize(UPLOAD_DIR.post($data));
 			$sqlUpdate .= $data.'_file_size = "'.$size.'", ';
 			$sqlFields .= $data.'_file_size,';
 			$sqlValues .= '"'.$size.'",';
 		}
+		
+		// Possible store the file type
+		if ( in_array('store_file_type', $options) ) {
+
+			$info = pathinfo(UPLOAD_DIR.post($data));
+			$ext = $info['extension'];
+			if ( $ext != "" ) {
+				$sqlUpdate .= $data.'_file_type = "'.$ext.'", ';
+				$sqlFields .= $data.'_file_type,';
+				$sqlValues .= '"'.$ext.'",';
+			}
+			
+		}
+		
+	
+		
+		// Store the filetype if given the option to
 		
 	} else $data = false;	// To skip
 	
