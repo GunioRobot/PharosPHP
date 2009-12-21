@@ -79,6 +79,25 @@
 		
 		
 		
+		
+		//////////////////////////////////////////////////////////////////
+		//
+		//	Adding additional filtering functionality
+		//
+		//////////////////////////////////////////////////////////////////
+		
+		public function search($search) {
+			
+			$where = parent::search($search);
+			if ( $this->table->search != '' ) {
+				$where .= " AND ".$this->table->id.".setting_level <= '".(int)SECURITY_LVL."' ";
+			} else $where = " WHERE ".$this->table->id.".setting_level <= '".(int)SECURITY_LVL."' ";
+			
+			return $where;
+			
+		}
+		
+		
 		//////////////////////////////////////////////////////////////////
 		//
 		//	Lists out the table of settings
@@ -152,7 +171,6 @@
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
 				
-				array('name' => 'setting_name', 'type' => 'text', 'size' => '50' , 'max' => '200'),
 				array('name' => 'setting_value', 'type' => 'text_area', 'row' => '8', 'col' > '92', 'width' => '738px', 'height' => '100px'),
 				array('name' => 'setting_notes', 'type' => 'text_area', 'row' => '8', 'col' > '92', 'width' => '738px', 'height' => '100px'),
 				array('name' => 'date_added', 'type' => 'date_added'),
@@ -162,6 +180,25 @@
 				array('name' => 'content_type_name', 'type' => 'hidden', 'value' => strtolower(PROFILE_TITLE))
 
 			);
+			
+			
+			if ( is_super() ) {
+				
+				$fields[] = array('name' => 'setting_name', 'type' => 'text', 'size' => '50' , 'max' => '200');
+				
+				$fields[] = array('name' => 'level', 'type' => 'static', 'value' => '<div class="floatLeft" style="margin-left:15px;"><strong>Setting Level:</strong><br />', 'varx' => 'hide');
+				$fields[] = array('name' => 'setting_level', 'type' => 'dropdown', 'option' => user_levels_array(SECURITY_LVL), 'default' => ADMIN_LVL);
+				$fields[] = array('name' => '/level', 'type' => 'static', 'value' => '</div>', 'varx' => 'hide');
+				
+			} else {
+				
+				$fields[] = array('name' => 'setting_name', 'type' => 'display');
+				
+				$fields[] = array('name' => 'level', 'type' => 'static', 'value' => '', 'varx' => 'hide');
+				$fields[] = array('name' => 'setting_level', 'type' => 'static', 'value' => '', 'varx' => 'hide');
+				$fields[] = array('name' => '/level', 'type' => 'static', 'value' => '', 'varx' => 'hide');			
+				
+			}
 			
 
 			// Run throught the parser and spit out the page
