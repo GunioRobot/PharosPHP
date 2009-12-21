@@ -25,7 +25,7 @@
 		$response = $dom->createElement('response');
 		$name = $dom->createElement('name');
 		$error = $dom->createElement('error');
-		$error->appendChild($dom->createTextNode($status));
+		$error->appendChild($dom->createTextNode(($status==="true"||$status===true)?"true":"false"));
 		$name->appendChild($dom->createTextNode($reason));
 		$response->appendChild($name);
 		$response->appendChild($error);
