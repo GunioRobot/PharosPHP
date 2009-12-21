@@ -144,6 +144,7 @@ CREATE TABLE IF NOT EXISTS `general_settings` (
   `setting_id` int(11) NOT NULL auto_increment,
   `setting_name` varchar(200) NOT NULL default '',
   `setting_value` text NOT NULL,
+  `setting_level` smallint(6) NOT NULL,
   `setting_notes` text NOT NULL,
   `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
   `last_updated` datetime NOT NULL default '0000-00-00 00:00:00',
