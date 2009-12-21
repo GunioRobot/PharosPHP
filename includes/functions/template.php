@@ -8,7 +8,7 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	function truncate_str($str, $length, $delim) {
+	function truncate_str($str, $length, $delim='...') {
 	
 		if ( strlen($str) > $length ) {
 			$new_str = substr($str, 0, $length - strlen($delim));
