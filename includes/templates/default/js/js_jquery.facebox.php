@@ -1,3 +1,5 @@
+<script type="text/javascript">
+
 /*
  * Facebox (for jQuery)
  * version: 1.2 (05/05/2008)
@@ -79,8 +81,8 @@
     settings: {
       opacity      : 0,
       overlay      : true,
-      loadingImage : 'images/facebox/loading.gif',
-      closeImage   : 'images/facebox/closelabel.gif',
+      loadingImage : '<?=TEMPLATE_SERVER?>images/facebox/loading.gif',
+      closeImage   : '<?=TEMPLATE_SERVER?>images/facebox/closelabel.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
@@ -97,7 +99,7 @@
                 </div> \
                 <div class="footer"> \
                   <a href="#" class="close"> \
-                    <img src="/facebox/closelabel.gif" title="close" class="close_image" /> \
+                    <img src="<?=TEMPLATE_SERVER?>facebox/closelabel.gif" title="close" class="close_image" /> \
                   </a> \
                 </div> \
               </td> \
@@ -317,3 +319,5 @@
   })
 
 })(jQuery);
+
+</script>
