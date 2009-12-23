@@ -50,7 +50,7 @@
 			    	if ( !is_null($quality) && is_int($quality) ) $this->set_quality($quality);
 				} catch(Exception $e) {
 					unset($this);
-					throw new Exeception($e->getMessage());
+					throw new Exception($e->getMessage());
 				}
 				
 	    	} 
