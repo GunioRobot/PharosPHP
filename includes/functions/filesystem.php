@@ -145,10 +145,14 @@
 	
 		global $db;
 		
+		// Trash all the files that are earmarked in the table
 		$sql = "SELECT * FROM trashed_files WHERE app_id = '".(int)$app."'";
 		for ( $info = $db->Execute($sql); !$info->EOF; $info->moveNext() ) {
 			@unlink(UPLOAD_DIR.$info->fields['path']);
 		}
+		
+		// Have removed those files now, so remove them from the table
+		$db->Execute("DELETE FROM trashed_files WHERE app_id = '".(int)$app."'");
 		
 		return $info->RecordCount();
 		
