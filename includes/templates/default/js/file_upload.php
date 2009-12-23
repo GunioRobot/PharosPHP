@@ -238,7 +238,8 @@
 				"table"	: "<?=$data['table']?>",	
 				"store_filesize" : "<?=$data['store_filesize']?>",
 				"store_file_type" : "<?=$data['store_filetype']?>",
-				"username" : "<?=session("fullname")?>"
+				"username" : "<?=session("fullname")?>",
+				"session_id" : "<?=session_id()?>"
 				
 				<? if ( isset($data['save_as_image']) && $data['save_as_image'] === true ) : ?>
 				,	// Super important!
