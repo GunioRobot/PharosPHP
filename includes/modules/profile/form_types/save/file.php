@@ -9,21 +9,25 @@
 				@unlink(UPLOAD_DIR.$existing->fields[$data]);
 			}
 		} 
+		
+		$options = get_options($input);
 	
-		// Attempt to save the file, if get an error will print error xml, otherwise continue by printing good xml
+		// Attempt to save the file
 		try {
-			$_POST[$data] = save_uploaded_file($data);
+						
+			if ( $options['save_as_image'] && $options['resize_image'] && $options['image_width'] && $options['image_height'] ) { 
+				$filename = save_uploaded_file($data, UPLOAD_DIR, array(), true, array('width' => $options['image_width'], 'height' => $options['image_height']));
+			} else $filename = save_uploaded_file($data);
+			
+			$_POST[$data] = $filename;
+			
 		} catch ( Exception $e ) {
 			Console::log($e->getMessage());
 			continue;
 		}
-		
-	
-		// Create the options array
-		$options = explode(':', trim($input['varx']));
 
 		// Add the filesize to the sql statement, if it's the main video and not thumbnails, etc		
-		if ( in_array('store_filesize', $options) ) {
+		if ( isset($options['store_filesize']) && $options['store_filesize'] === true ) {
 			$size = filesize(UPLOAD_DIR.post($data));
 			$sqlUpdate .= $data.'_file_size = "'.$size.'", ';
 			$sqlFields .= $data.'_file_size,';
@@ -31,7 +35,7 @@
 		}
 		
 		// Possible store the file type
-		if ( in_array('store_file_type', $options) ) {
+		if ( isset($options['store_file_type']) && $options['store_file_type'] === true ) {
 
 			$info = pathinfo(UPLOAD_DIR.post($data));
 			$ext = $info['extension'];
