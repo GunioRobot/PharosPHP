@@ -1,6 +1,6 @@
 <script type="text/javascript">
 
-	fileSizeLimit = "200 MB";
+	fileSizeLimit = "<?=$data['filesize_limit']?>";
 	
 	function fileDialogComplete(numFilesSelected, numFilesQueued) {
 		try {
@@ -239,6 +239,17 @@
 				"store_filesize" : "<?=$data['store_filesize']?>",
 				"store_file_type" : "<?=$data['store_filetype']?>",
 				"username" : "<?=session("fullname")?>"
+				
+				<? if ( isset($data['save_as_image']) && $data['save_as_image'] === true ) : ?>
+				,	// Super important!
+					"save_as_image" : "true",
+					<? if ( isset($data['resize_image']) ) : ?>
+					"resize_image" : "<?=$data['resize_image']?>",
+					"image_width" : "<?=$data['image_width']?>",
+					"image_height" : "<?=$data['image_height']?>"
+					<? endif ?>
+				<? endif ?>
+							
 			},
 			
 			file_types : "*.*",
@@ -261,7 +272,7 @@
 			button_placeholder_id : "uploadFilePlaceholder",
 			button_width: 180,
 			button_height: 40,
-			button_text : '<span class="button">Select a File<span class="buttonSmall">(200 MB Max)</span></span>',
+			button_text : '<span class="button">Select a File<span class="buttonSmall">(<?=$data["filesize_limit"]?> Max)</span></span>',
 			button_text_style : '.button { font-family: Helvetica, Arial, sans-serif; font-size: 12pt; } .buttonSmall { font-size: 10pt; }',
 			button_text_top_padding: 12,
 			button_text_left_padding: 32,

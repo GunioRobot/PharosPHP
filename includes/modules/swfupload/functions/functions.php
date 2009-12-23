@@ -19,8 +19,21 @@
 	//
 	/////////////////////////////////////////////////////////////////////////////////
 	
-	function swf_data_array($id, $key, $table, $postName, $storeFileSize=true, $storeFileType=true) {
-		return array("visible" => ($id>0), "key" => $key, "id" => $id, "table" => $table, "file_post_name" => $postName, "store_filesize" => ($storeFileSize?"true":"false"), "store_filetype" => ($storeFileType)?"true":"false");
+	function swf_data_array($id, $key, $table, $postName, $storeFileSize=true, $storeFileType=true, $filesizeLimit="5 MB", $isImage=false, $width=false, $height=false) {
+		return array(
+			"visible" => ($id>0), 
+			"key" => $key, 
+			"id" => $id, 
+			"table" => $table, 
+			"file_post_name" => $postName, 
+			"store_filesize" => ($storeFileSize?"true":"false"), 
+			"store_filetype" => ($storeFileType)?"true":"false", 
+			"filesize_limit" => $filesizeLimit,
+			"save_as_image" => $isImage, 
+			"resize_image" => (($width!==false&&$height!==false)?"true":"false"), 
+			"image_width" => $width, 
+			"image_height" => $height
+		);
 	}
 
 ?>

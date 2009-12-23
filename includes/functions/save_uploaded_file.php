@@ -23,7 +23,7 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 
-	function save_uploaded_file($uploadName, $dir=UPLOAD_DIR, $supported_filetypes = array(), $isImage=false) {
+	function save_uploaded_file($uploadName, $dir=UPLOAD_DIR, $supported_filetypes = array(), $isImage=false, $resize=array('width' => false, 'height' => false)) {
 		
 		global $db;
 		
@@ -58,7 +58,13 @@
 			} else { // Since it's an image, do image type checking
 				
 				try {
-					$image = new Image($_FILES[$uploadName]['tmp_name']);		
+					
+					if ( $resize['width'] && $resize['height'] ) {
+						$image = new Image($_FILES[$uploadName]['tmp_name'], $resize['width'], $resize['height']);
+					} else $image = new Image($_FILES[$uploadName]['tmp_name']);
+					
+					$image->save_img($_FILES[$uploadName]['tmp_name']);
+							
 				} catch ( Exception $e ) {
 					unset($image);	// Cleanup
 					throw new Exception($e->getMessage());
