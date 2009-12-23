@@ -189,7 +189,8 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	function format_filesize($size) {
-		if ( $size > 1000000 ) $size = round($size/1000000,1) . ' MB';
+		if ( $size > 1000000000 ) $size = round($size/1000000000,1) . ' GB';
+		else if ( $size > 1000000 ) $size = round($size/1000000,1) . ' MB';
 		else if ( $size > 1000 ) $size = round($size/1000,1) . ' KB';
 		else $size = $size . ' Bytes';
 		return $size;
