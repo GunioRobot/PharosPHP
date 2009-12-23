@@ -28,15 +28,20 @@
 		global $db;
 		
 		if ( isset($_FILES[$uploadName]) && $_FILES[$uploadName]['tmp_name'] ) {
-			
-			// If existing entry, look for an existing file.  If there, remove it before moving the new one to keep our directories tidy.
-			if ( ($key = request("key")) AND ($id = request($key)) AND ($table = request("table")) ) {
+						
+			// Want to remove old file is updating existing entry - whether coming from swfupload module or from "file" form_type in profile module
+			if ( 	( ($method = request("arg2")) === "save" && ($id = request("arg3")) > 0 && ($key = request("data_key")) && ($table = request("table")) ) ||
+			 		( ($key = request("key")) && ($id = request($key)) && ($table = request("table")) ) 	) {
+				
 				$existing = $db->Execute("SELECT $uploadName FROM $table WHERE $key = '$id' LIMIT 1");
-				if ( defined('DELETE_OLD_WHEN_UPLOADING_NEW') && DELETE_OLD_WHEN_UPLOADING_NEW && $existing->fields[$uploadName] != '' ) {
-					@unlink($dir.$existing->fields[$uploadName]);
+				if ( defined('DELETE_OLD_WHEN_UPLOADING_NEW') && DELETE_OLD_WHEN_UPLOADING_NEW === true ) {
+					if ( $existing->fields[$uploadName] != '' ) @unlink($dir.$existing->fields[$uploadName]);
+				} else {
+					if ( $existing->fields[$uploadName] != '' ) remove_file($existing->fields[$uploadName]);	// Places in "trashed_files" table
 				}
+				
 			}
-			
+						
 			// If it's just a file, do extension checking
 			if ( !$isImage ) {
 							

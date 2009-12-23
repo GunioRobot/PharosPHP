@@ -132,5 +132,55 @@
 		exit;
 	}
 	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	Removes all extraneous files from the content directory when publishing
+	//	XML for an application
+	//
+	////////////////////////////////////////////////////////////////////////////////
+
+	function clean_upload_dir($app) {
+	
+		global $db;
+		
+		$sql = "SELECT * FROM trashed_files WHERE app_id = '".(int)$app."'";
+		for ( $info = $db->Execute($sql); !$info->EOF; $info->moveNext() ) {
+			@unlink(UPLOAD_DIR.$info->fields['path']);
+		}
+		
+		return $info->RecordCount();
+		
+	}
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	Places a path in the "trashed_files" table, creating the table if needed
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function remove_file($path) {
+		
+		global $db, $CURRENT_APP_ID;
+		
+		$sql = "CREATE TABLE IF NOT EXISTS `trashed_files` (
+		  `id` int(11) NOT NULL auto_increment,
+		  `path` text NOT NULL,
+		  `app_id` int(11) NOT NULL default '0',
+		  `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
+		  PRIMARY KEY  (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+		
+		$db->Execute($sql);
+		
+		$sql = "INSERT INTO trashed_files VALUES(NULL,'".$path."','".$CURRENT_APP_ID."',NOW())";
+		$db->Execute($sql);
+		
+		return $db->insert_ID();
+		
+	}
 
 ?>

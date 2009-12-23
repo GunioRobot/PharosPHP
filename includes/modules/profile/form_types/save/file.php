@@ -1,14 +1,6 @@
 <?
 
-	if ( isset($_FILES[$data]) AND $_FILES[$data]['name'] != '' ) {
-	
-		// If existing entry, look for an existing file.  If there, remove it before moving the new one to keep our directories tidy.
-		if ( ($key = get("key")) AND ($id = get($key)) AND ($table = post("table")) ) {
-			$existing = $db->Execute("SELECT $data FROM $table WHERE $key = '$id' LIMIT 1");
-			if ( defined('DELETE_OLD_WHEN_UPLOADING_NEW') && DELETE_OLD_WHEN_UPLOADING_NEW && $existing->fields[$data] != '' ) {
-				@unlink(UPLOAD_DIR.$existing->fields[$data]);
-			}
-		} 
+	if ( isset($_FILES[$data]) AND $_FILES[$data]['name'] != '' ) {	
 		
 		$options = get_options($input);
 	

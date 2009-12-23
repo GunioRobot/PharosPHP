@@ -290,6 +290,9 @@
 					$sql = "UPDATE applications SET xml_version = '$newVersion' WHERE app_id = '$appID' LIMIT 1";
 					$this->db->Execute($sql);
 					
+					// Clean out all the old files that are no longer being used 
+					$numFilesRemoved = clean_upload_dir($id);
+					
 					// SHOW SUCCESS PAGE
 					echo json_encode((object)array("error" => false, "title" => "Published Successfully", "message" => "Application was successfully published."));
 					exit;
@@ -314,14 +317,14 @@
 		//////////////////////////////////////////////////////////////////
 		
 		public function change($id) {
-
+			
 			select_app($id);
 			$redirect = post('redirect', controller_link(DEFAULT_CONTROLLER_NAME));
 			$redirect = preg_replace('/(.*)\/edit\/\d+\/?/', "$1/", $redirect);
-
+			
 			echo json_encode((object)array("error" => false, "redirect" => $redirect));
 			exit;
-
+			
 		}
 		
 	}
