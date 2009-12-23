@@ -62,7 +62,11 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function get_options($input) {
-		return explode(':', trim($input['varx']));
+		$options = explode(':', trim($input['varx']));
+		foreach($options as $op) {
+			$_1 = explode('@',trim($op));
+			$temp[trim($_1[0])] = trim($_1[1]);
+		} return $temp;
 	}
 	
 ?>
