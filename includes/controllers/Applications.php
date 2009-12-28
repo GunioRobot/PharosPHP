@@ -287,7 +287,7 @@
 				if ( !$status->error ) {
 
 					// Place new version in the db
-					$sql = "UPDATE applications SET xml_version = '$newVersion' WHERE app_id = '$appID' LIMIT 1";
+					$sql = "UPDATE applications SET xml_version = '$newVersion' WHERE app_id = '$id' LIMIT 1";
 					$this->db->Execute($sql);
 					
 					// Clean out all the old files that are no longer being used 
