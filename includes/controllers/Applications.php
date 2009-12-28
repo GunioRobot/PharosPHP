@@ -320,7 +320,7 @@
 			
 			select_app($id);
 			$redirect = post('redirect', controller_link(DEFAULT_CONTROLLER_NAME));
-			$redirect = preg_replace('/(.*)\/edit\/\d+\/?/', "$1/", $redirect);
+			$redirect = preg_replace('/(.*)\/edit\/\d+\/?.*/', "$1/", $redirect);
 			
 			echo json_encode((object)array("error" => false, "redirect" => $redirect));
 			exit;
