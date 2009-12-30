@@ -62,7 +62,7 @@
 			$this->db =& $db;
 						
 			$this->name = get_class($this);
-			$this->title = $this->title;
+			$this->title = "";
 			$this->keywords = DEFAULT_KEYWORDS;
 			$this->description = DEFAULT_DESCRIPTION;
 			

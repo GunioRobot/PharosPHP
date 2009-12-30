@@ -32,8 +32,8 @@
 		public function __construct($type="", $tableID="") {
 
 			parent::__construct();
-			$this->title = $type ? "Manage ".$this->type : get_class($this);
 			$this->type = $type;
+			$this->title = $type ? "Manage ".$this->type." Library" : get_class($this);
 
 			$this->table = new Table();
 			$this->table->rows_per_page = DEFAULT_ROWS_PER_TABLE_PAGE;
