@@ -57,9 +57,9 @@
 				$sqlFields .= $data.',';
 				$sqlValues .= $_POST[$data].',';
 			} else { 
-				$sqlUpdate .= $data.'="'.$_POST[$data].'",';
+				$sqlUpdate .= $data.'="'.$db->prepare_input($_POST[$data]).'",';
 				$sqlFields .= $data.',';
-				$sqlValues .= '"'.$_POST[$data].'",';
+				$sqlValues .= '"'.$db->prepare_input($_POST[$data]).'",';
 			}
 			
 		}
