@@ -89,7 +89,10 @@
 			}
 		}		
 
-		sort($css);
+		if ( !empty($css) ) {
+			sort($css);
+		}
+
 		foreach($css as $c) {
 			echo '	<style type="text/css" media="screen">@import "'.$c.'";</style>'."\n";
 		}
@@ -117,8 +120,10 @@
 			}
 		}
 		
-		sort($js['php']);
-		sort($js['js']);
+		if ( !empty($js) ) {
+			sort($js['php']);
+			sort($js['js']);
+		}
 		
 		foreach($js['js'] as $j) {
 			echo '	<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$j.'"></script>'."\n";
