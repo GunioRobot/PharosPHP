@@ -10,7 +10,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	function is_valid_phone_number($PhoneNumber) {
-		return preg_match("/^\(?[0-9]{3}\)?-?[0-9]{3}-?[0-9]{4}/", str_replace(" ", "", $PhoneNumber));
+		return preg_match("/^\(?[0-9]{3}\)?(-|.)?[0-9]{3}(-|.)?[0-9]{4}/", str_replace(" ", "", $PhoneNumber));
 	}
 	
 	
