@@ -121,17 +121,26 @@
 		}
 		
 		if ( !empty($js) ) {
-			sort($js['php']);
-			sort($js['js']);
+			
+			if ( !empty($js['php']) ) {
+				
+				sort($js['php']);
+				foreach($js['js'] as $j) {
+					echo '	<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$j.'"></script>'."\n";
+				}
+			}
+				
+			if ( !empty($js['js']) ) {
+			
+				sort($js['js']);
+				foreach($js['php'] as $j) {
+					require_once TEMPLATE_DIR.'js/'.$j;
+				}
+				
+			}
+			
 		}
 		
-		foreach($js['js'] as $j) {
-			echo '	<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$j.'"></script>'."\n";
-		}
-		
-		foreach($js['php'] as $j) {
-			require_once TEMPLATE_DIR.'js/'.$j;
-		}
 	}
 	
 	
