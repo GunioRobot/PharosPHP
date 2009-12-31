@@ -121,24 +121,24 @@
 		}
 		
 		if ( !empty($js) ) {
-			
+
 			if ( !empty($js['php']) ) {
-				
+
 				sort($js['php']);
-				foreach($js['js'] as $j) {
+				foreach($js['php'] as $j) {
 					echo '	<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$j.'"></script>'."\n";
 				}
 			}
-				
+
 			if ( !empty($js['js']) ) {
-			
+
 				sort($js['js']);
-				foreach($js['php'] as $j) {
+				foreach($js['js'] as $j) {
 					require_once TEMPLATE_DIR.'js/'.$j;
 				}
-				
+
 			}
-			
+
 		}
 		
 	}
