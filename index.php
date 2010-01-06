@@ -8,7 +8,7 @@
 	
 	// Build array of args
 	for ( $i = 1; $i < 10; $i++ ) {
-		if ( ($arg = get("arg$i")) ) $args[] = $arg;
+		if ( ($arg = get("arg$i")) !== false ) $args[] = $arg;
 	}
 	
 				
