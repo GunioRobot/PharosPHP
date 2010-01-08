@@ -18,6 +18,8 @@
 		$controllerClass = controller_name($args[0]);
 		$file = CONTROLLER_DIR.$controllerClass.'.php';		
 		if ( file_exists($file) ) {
+			
+			ob_start();
 
 			require $file;
 			$controller = new $controllerClass();
@@ -39,6 +41,9 @@
 				
 			}
 			
+			if ( $controller->output() === "" ) $controller->output(ob_get_contents());
+			ob_end_clean();
+			
 			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
 			require_once TEMPLATE_DIR.'tpl_header.php';
 			require_once TEMPLATE_DIR.'tpl_body.php';
@@ -55,11 +60,16 @@
 		$controllerClass = controller_name(DEFAULT_CONTROLLER_NAME);
 		$file = CONTROLLER_DIR.$controllerClass.'.php'; 
 		if ( file_exists($file) ) {
+			
+			ob_start();
 		
 			require $file;
 			$controller = new $controllerClass();
 			
 			$controller->index();
+			
+			if ( $controller->output() === "" ) $controller->output(ob_get_contents());
+			ob_end_clean();
 			
 			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
 			require_once TEMPLATE_DIR.'tpl_header.php';
