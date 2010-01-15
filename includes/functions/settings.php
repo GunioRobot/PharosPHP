@@ -15,7 +15,7 @@
 		
 		$setting = $db->Execute("SELECT * FROM general_settings WHERE setting_name RLIKE '$key' LIMIT 1");
 		if ( !$setting->EOF ) {
-			return $stripTags ? strip_tags($setting->fields['setting_value']) : $setting->fields['setting_value'];
+			return $stripTags ? strip_tags(html_entity_decode($setting->fields['setting_value'])) : $setting->fields['setting_value'];
 		} else return $default;
 	
 	}
@@ -33,7 +33,7 @@
 	function load_dynamic_system_settings() {
 		define('SYS_ADMIN_EMAIL', get_setting('Admin Email', 'matt@dmgx.com', true));
 		define('SERVER_MAILER', get_setting('Server Email', 'matt@dmgx.com', true));
-		define('SITE_NAME', get_setting('Site Name', 'CMS Lite Install', true));
+		define('SITE_NAME', get_setting('Site Name', 'CMS Lite Install', true) . ' Admin');
 		define('SITE_TAGLINE', get_setting('Site Tagline', 'CMS Framework for Developers', true));
 		define('TEMPLATE_NAME', get_setting('Template Name', 'default', true));
 		define('TITLE_SEPARATOR', get_setting('Title Separator', ' | ', true));

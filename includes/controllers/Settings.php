@@ -4,6 +4,8 @@
 
 	class Settings extends TableController {
 		
+		protected	$levels;
+		
 		
 		//////////////////////////////////////////////////////////////////
 		//
@@ -17,6 +19,8 @@
 						
 			$this->dataKey = "setting_id";			
 			$this->tableColumns();
+			
+			$this->levels = user_levels_array(SUPER_LVL);
 						
 		}
 		
@@ -31,6 +35,7 @@
 		protected function tableColumns() {
 			$this->table->columns = array();
 			$this->table->columns[] =  array('name' => 'Name', 'key' => 'setting_name', 'class' => 'center');
+			$this->table->columns[] =  array('name' => 'Acess', 'key' => 'setting_level', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Date Added', 'key' => 'date_added', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Last Updated', 'key' => 'last_updated', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Action', 'class' => 'actions');
@@ -57,6 +62,7 @@
 					$row = array('class' => $class, 'data' => array());
 
 					$row['data'][] = format_title($info->fields['setting_name']);
+					$row['data'][] = $this->levels[$info->fields['setting_level']];
 					$row['data'][] = format_date($info->fields['date_added'],true);
 					$row['data'][] = format_date($info->fields['last_updated'],true);
 
@@ -184,6 +190,7 @@
 			
 			if ( is_super() ) {
 				
+				$fields[] = array('name' => '{new_button}', 'type' => 'static', 'value' => '<div class="contentTabCap"></div><div class="contentTab"><a href="'.create(get_class($this)).'" class="tabAdd">New '.PROFILE_TITLE.'</a></div>', 'varx' => 'hide');
 				$fields[] = array('name' => 'setting_name', 'type' => 'text', 'size' => '50' , 'max' => '200');
 				
 				$fields[] = array('name' => 'level', 'type' => 'static', 'value' => '<div class="floatLeft" style="margin-left:15px;"><strong>Setting Level:</strong><br />', 'varx' => 'hide');
@@ -191,7 +198,8 @@
 				$fields[] = array('name' => '/level', 'type' => 'static', 'value' => '</div>', 'varx' => 'hide');
 				
 			} else {
-				
+
+				$fields[] = array('name' => '{new_button}', 'type' => 'static', 'value' => '', 'varx' => 'hide');
 				$fields[] = array('name' => 'setting_name', 'type' => 'display');
 				
 				$fields[] = array('name' => 'level', 'type' => 'static', 'value' => '', 'varx' => 'hide');
