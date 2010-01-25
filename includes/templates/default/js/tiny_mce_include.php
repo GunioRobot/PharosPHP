@@ -10,13 +10,38 @@
 
 			// General options
 			theme : "advanced",
-			plugins : "safari,pagebreak,style,layer,table,save,advhr,advimage,inlinepopups,searchreplace,contextmenu,paste,directionality,fullscreen,noneditable,visualchars,nonbreaking,xhtmlxtras,template",
+			plugins : "safari,pagebreak,style,advhr,inlinepopups,searchreplace,contextmenu,paste,directionality,xhtmlxtras,template",			
 
+			convert_fonts_to_spans: false,
+			inline_styles : false,
+
+			valid_elements : ""
+			+"a[href|target],"
+			+"b,"
+			+"br,"
+			+"font[color|face|size],"
+			+"img[src|id|width|height|align|hspace|vspace],"
+			+"i,"
+			+"li,"
+			+"p[align|class],"
+			+"h1,"
+			+"h2,"
+			+"h3,"
+			+"h4,"
+			+"h5,"
+			+"h6,"
+			+"span[class],"
+			+"textformat[blockindent|indent|leading|leftmargin|rightmargin|tabstops],"
+			+"u",
+		
+			
 			// Theme options
-			theme_advanced_buttons1 : "bold,italic,underline,|,undo,redo,|,link,unlink",
+			theme_advanced_buttons1 : "bold,italic,underline,|,bullist,numlist,charmap,formatselect,|,undo,redo,|,link,unlink,|,forecolor",
 			theme_advanced_buttons2 : "",
 			theme_advanced_buttons3 : "",
 			theme_advanced_buttons4 : "",
+			theme_advanced_blockformats : "p,div,h1,h2,h3",
+	
 			theme_advanced_toolbar_location : "top",
 			theme_advanced_toolbar_align : "center",
 			theme_advanced_statusbar_location : "bottom",
