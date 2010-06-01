@@ -13,6 +13,7 @@
 	//	Loads the current application into the system
 	//
 	////////////////////////////////////////////////////////////////////////////////
+	
 	function app_bootstrap() {
 		
 		global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
