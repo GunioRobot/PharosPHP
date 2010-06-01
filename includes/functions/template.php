@@ -27,13 +27,8 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	function format_title($title){
-		$tite = trim($title);
-		$title = stripslashes($title);
-		$title = str_replace('_',' ',$title);
-		$title = str_replace('-', ' ', $title);
-		$title = ucwords($title);
-		return $title;
+	function format_title($str){
+		return ucwords(str_replace(array("_","-")," ",stripslashes(trim($str))));	
 	}
 	
 	
@@ -89,10 +84,7 @@
 			}
 		}		
 
-		if ( !empty($css) ) {
-			sort($css);
-		}
-
+		if ( !empty($css) ) sort($css);
 		foreach($css as $c) {
 			echo '	<style type="text/css" media="screen">@import "'.$c.'";</style>'."\n";
 		}
@@ -109,11 +101,11 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function write_js() {
-		$js = array("php" => array(), "js" => array());
-		$folder = TEMPLATE_DIR.'js/';
+		$js = array();
+		$folder = TEMPLATE_DIR.'js/autoload/';
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle))){
-				if ($file != "." && $file != ".." && !is_dir($folder.$file) && $file != 'pngfix.js' && preg_match('/^js_(.*)/', basename($file)) ) {
+				if ($file != "." && $file != ".." && !is_dir($folder.$file) && $file != 'pngfix.js' && $file != "CMSLite.php" && $file != "jquery.js" ) {
 					$info = pathinfo($folder.$file);
 					$js[$info['extension']][] = $file;
 				}
@@ -121,24 +113,26 @@
 		}
 		
 		if ( !empty($js) ) {
-
+			
+			require_once TEMPLATE_DIR.'js/autoload/CMSLite.php';
+			
 			if ( !empty($js['js']) ) {
-
+				
 				sort($js['js']);
 				foreach($js['js'] as $j) {
-					echo '	<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$j.'"></script>'."\n";
+					echo '	<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/autoload/'.$j.'"></script>'."\n";
 				}
 			}
-
+				
 			if ( !empty($js['php']) ) {
-
+			
 				sort($js['php']);
 				foreach($js['php'] as $j) {
-					require_once TEMPLATE_DIR.'js/'.$j;
+					require_once TEMPLATE_DIR.'js/autoload/'.$j;
 				}
-
+				
 			}
-
+			
 		}
 		
 	}
@@ -203,9 +197,9 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	function format_filesize($size) {
-		if ( $size > 1000000000 ) $size = round($size/1000000000,1) . ' GB';
-		else if ( $size > 1000000 ) $size = round($size/1000000,1) . ' MB';
-		else if ( $size > 1000 ) $size = round($size/1000,1) . ' KB';
+		if ( $size >= 1000000000 ) $size = round($size/1000000000,1) . ' GB';
+		else if ( $size >= 1000000 ) $size = round($size/1000000,1) . ' MB';
+		else if ( $size >= 1000 ) $size = round($size/1000,1) . ' KB';
 		else $size = $size . ' Bytes';
 		return $size;
 	}
@@ -223,6 +217,36 @@
 	
 	function page_class($file) {
 		return basename($_SERVER['SCRIPT_FILENAME'], '.php') === basename($file,'.php') ? 'btnOn' : '';
+	}
+	
+	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	is_current_parent_nav($page) - database object
+	//
+	//	Returns true if one of the top level nav items kid is currently on display
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function is_current_parent_nav($page) {
+		
+		global $controller;
+		
+		$controllerClass = get_class($controller);
+		foreach($page->children as $p) {
+			
+			$parts = explode("/", trim($p->page, " /"));
+			$controllerName = controller_name($parts[0]);
+			if ( $controllerClass === $controllerName ) {
+				return true;
+			}
+			
+		}
+		
+		return false;
+		
 	}
 	
 	
@@ -273,6 +297,19 @@
 	}
 	
 	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	splitCamelCase(string)
+	//
+	//	Takes "ManageSession" => array('manage', 'session')
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function split_camel_case($str) {
+	  return preg_split('/(?<=\\w)(?=[A-Z])/', $str);
+	}
+	
+	
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -284,19 +321,6 @@
 
 	function p_to_br($s) {
 		return str_replace("<p>","",str_replace("</p>","<br />",$s));
-	}
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	splitCamelCase(string)
-	//
-	//	Takes "ManageSession" => array('manage', 'session')
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function split_camel_case($str) {
-	  return preg_split('/(?<=\\w)(?=[A-Z])/', $str);
 	}
 	
 	
