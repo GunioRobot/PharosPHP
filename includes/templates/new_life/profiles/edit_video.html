@@ -1,0 +1,57 @@
+<div class="titleTabs">
+	<h1>{table title}</h1>
+	<div class="contentTabCap"></div><div class="contentTab"><a href="{manage}" class="tabText">Manage {TYPE}s</a></div>
+	<div class="contentTabCap"></div><div class="contentTab"><a href="{new}" class="tabAdd">New {TYPE}</a></div>
+	<br clear="all" />
+   </div>
+<div class="contentTitleBar titleBar"><b class="btop"><b></b></b>
+	<div></div>
+</div>
+
+<div class="nonTableContent">
+
+ 	<form id="profile" action="{form_link}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="field_list" value="{field_list}">
+	<input type="hidden" name="table" value="{table}">
+	<input type="hidden" name="data_key" value="{data_key}">
+	[content_type_id]
+	[content_type_name]
+   	<div class="col3col">
+		 <p><strong>Title:</strong><br />
+	     [video_name]</p><br />
+         
+		 <p><strong>Ordering Number:</strong><br />
+	     [order_num] </p><br /><br />
+         
+		<div class="floatLeft"><p><strong>Flash Video File: ({largeWidth}x{largeHeight})</strong> {download_path}<br />
+		[download_path]</p></div>
+		<br />
+		<div class="clearBoth"></div><br />
+		<div class="floatLeft"><p><strong>Thumbnail: ({thumbWidth}x{thumbHeight}) </strong>{thumb_path}<br />
+		[thumb_path]</p></div><br />
+		<div class="clearBoth"></div><br />
+		<div class="floatLeft"><p><strong>Large Image: ({largeWidth}x{largeHeight}) </strong>{large_path}<br />
+		[large_path]</p></div><br />
+		<div class="clearBoth"></div><br />
+    </div>
+	<div class="col3col">
+       	<div class="floatLeft"><p class="singleText"><strong>Date Created:</strong><br />
+	    [date_added]</p><br /></div>
+	   	<div class="floatLeft"><p><strong>Date Modified:</strong><br />
+	    [last_updated]</p><br /></div>
+	    <div class="clearBoth"></div>	    
+    </div>
+    <div class="clearBoth"></div>
+
+	<br />
+	<div class="col3col">
+    	<p><strong>Description:</strong><br />
+        [video_description]</p><br />
+    </div>	
+    <div class="clearBoth"></div>
+	</form>
+</div>
+
+<div class="contentBottomBar"><b class="bbot"><b></b></b></div>
+<div class="floatLeft" align="center"><a href="#" onclick="$('#profile').submit();" class="buttons2">{button_text}</a></div>
+<br clear="all" />

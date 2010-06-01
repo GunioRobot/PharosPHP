@@ -1,0 +1,34 @@
+
+ul#product-types {
+	float:left;
+}
+
+div#template {
+	float:left;
+	margin-left:10px;
+}
+
+div#template ul li {
+	height:32px;
+	cursor:default;
+}
+
+div#template ul li input[type=text] {
+	border:1px solid #FFF;
+	background:transparent;
+	width:175px;
+	padding:4px;
+	float:right;
+	margin:3px 10px 0 0;
+}
+
+input#submit, input#delete {
+	width:125px;
+	margin:7px 0 0 76px;
+}
+
+div#template label {
+	font-weight:bold;
+	float:left;
+	margin:10px 0 0 2px;
+}
