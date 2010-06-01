@@ -90,9 +90,7 @@
 					$basic_a = '<a '.$this->target.' href="'.$this->iframe_src;
 				} else $basic_a = '<a href="index.php?';
 			}
-		
-			if ( $this->extra_href != '' ) $basic_a .= $this->extra_href;	// Just extra GET vars most likely
-		
+				
 		
 				
 			// Opening table line
@@ -130,7 +128,9 @@
 					
 					if ( $this->search != '' ) {
 						$html .= $this->search."/";
-					}
+					} else $html .= "_/";
+					
+					if ( $this->extra_href != '' ) $html .= $this->extra_href;
 					
 					$html .= '"';
 					$html .= $class;
@@ -191,17 +191,17 @@
 			}
 
 			// If can go left a set of pages
-			if ( $page - $this->display_pages > 0 ) $html .= $basic_a.$this->get_links.($start-1).'/">&laquo;</a>';
+			if ( $page - $this->display_pages > 0 ) $html .= $basic_a.$this->get_links.($start-1).'/'.($this->search!=""?$this->search."/":"_/").'">&laquo;</a>';
 			$html .= ' Page ';
 				
 			// Print out the page links
 			for ( $i = $start; $i <= $end; $i++ ) {
 				$page_class = ($i == $page) ? 'pagSelected' : 'pagLink';
-				$html .= $basic_a.$this->get_links.$i.'/" class="'.$page_class.'">'.$i.'</a>';
+				$html .= $basic_a.$this->get_links.$i.'/'.($this->search!=""?$this->search."/":"_/").'" class="'.$page_class.'">'.$i.'</a>';
 			} 
 		
 			// if can go right a set of pages
-			if ( $page_count > $end ) $html .= $basic_a.$get_links.++$end.'/">&raquo;</a>';
+			if ( $page_count > $end ) $html .= $basic_a.$get_links.++$end.'/'.($this->search!=""?$this->search."/":"_/").'">&raquo;</a>';
 		
 			$html .= '</div><br clear="all" /><br /><br />';
 				
