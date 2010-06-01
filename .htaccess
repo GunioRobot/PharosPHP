@@ -1,14 +1,16 @@
 Options +FollowSymLinks
 
+<IfModule mod_security.c>
 SecFilterEngine Off
 SecFilterScanPOST Off
+</IfModule>
 
 # Just a simple redirect for all non-accessible items
-ErrorDocument 404 /cms-lite/index.php?arg1=not-found
+ErrorDocument 404 /cms-admin/index.php?arg1=not-found
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /cms-lite/
+RewriteBase /cms-admin/
 
 # Allowing access to the admin area of the site with mod_rewrite
 RewriteRule ^$ index.php
