@@ -15,7 +15,7 @@
 		
 		$setting = $db->Execute("SELECT * FROM general_settings WHERE setting_name RLIKE '$key' LIMIT 1");
 		if ( !$setting->EOF ) {
-			return $stripTags ? strip_tags(html_entity_decode($setting->fields['setting_value'])) : $setting->fields['setting_value'];
+			return $stripTags ? strip_tags(html_entity_decode(stripslashes($setting->fields['setting_value']))) : $setting->fields['setting_value'];
 		} else return $default;
 	
 	}
@@ -31,6 +31,9 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	function load_dynamic_system_settings() {
+		
+		global $DEFAULT_CONTROLLER_NAME;
+		
 		define('SYS_ADMIN_EMAIL', get_setting('Admin Email', 'matt@dmgx.com', true));
 		define('SERVER_MAILER', get_setting('Server Email', 'matt@dmgx.com', true));
 		define('SITE_NAME', get_setting('Site Name', 'CMS Lite Install', true) . ' Admin');
@@ -44,7 +47,9 @@
 		define('SHOW_PROFILER_RESULTS', get_setting('Show Profiler Results', false, true)==="true"?true:false);	
 		define('DELETE_OLD_WHEN_UPLOADING_NEW', get_setting('Delete Old When Uploading New',"true",true)==="true"?true:false);
 		define('RESET_PASSWORD_RANDOM_WORD', get_setting('Reset Password Random Word', '_cmslite',true));
-		define('DEFAULT_CONTROLLER_NAME', get_setting('Default Controller Name', 'Users', true));
+
+		$DEFAULT_CONTROLLER_NAME = get_setting('Default Controller Name', 'Users', true);
+		
 	}
 	
 ?>
