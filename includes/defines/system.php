@@ -38,7 +38,15 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	define('SECURE_KEYWORD',md5(SITE_NAME));
+	define('APPLICATION_SECRET_KEY', md5(SITE_NAME));
 	define('CMS_VERSION_MAJOR', 1);
 	define('CMS_VERSION_MINOR', 0);
+	define('CMS_VERSION', '1.5');
+	
+	
+	
+	// Associate system actions with action hooks
+	add_hook(HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
+	add_hook(HOOK_APPLICATION_BOOTSTRAP, 'app_bootstrap');
 		
 ?>
