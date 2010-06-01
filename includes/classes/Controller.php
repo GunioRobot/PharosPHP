@@ -169,26 +169,45 @@
 								
 								// Make sure the version of the module is correct, then load
 								if ( @file_exists($folder.$file.'/version.php') ) {
+									
+									unset($module_version);
 									include $folder.$file.'/version.php';
-									$upperName = strtoupper($name);
-									if ( defined($upperName."_VERSION_MAJOR") && defined($upperName."_VERSION_MINOR") ) {
+									if ( isset($module_version) ) {
 										
-										if ( constant($upperName."_VERSION_MAJOR") >= CMS_VERSION_MAJOR && constant($upperName."_VERSION_MINOR") >= CMS_VERSION_MINOR ) {
-											include $folder.$file.'/include.php';
-											$modules[$name] = $folder.$file.'/include.php';
+										include $folder.$file.'/include.php';
+										$modules[$name] = $folder.$file.'/include.php';
+										
+										// Try to validate using the newer string version comparison instead of nasty defines
+										if ( ($comp = version_compare($module_version, CMS_VERSION)) >= 0 ) {
 											Console::log("Loaded ($name) successfully");
 										} else {
-											$err = "Unable to load ($name) -- Incorrect Version (".constant($upperName."_VERSION_MAJOR").".".constant($upperName."_VERSION_MINOR")." < ".CMS_VERSION_MAJOR.".".CMS_VERSION_MINOR.")";
+											$err = "Unable to load ($name) -- Incorrect Version (".$module_version." < ".CMS_VERSION.")";
 											Console::log($err);
-											throw new Exception($err);
 										}
 										
 									} else {
-										$err = "Unable to load ($name) -- Missing versioning information";
-										Console::log($err);
-										throw new Exception($err);
-									}
 									
+										// Try using the defines method as a failsafe for older CMSLite installs
+										$upperName = strtoupper($name);
+										if ( defined($upperName."_VERSION_MAJOR") && defined($upperName."_VERSION_MINOR") ) {
+
+											include $folder.$file.'/include.php';
+											$modules[$name] = $folder.$file.'/include.php';
+
+											if ( constant($upperName."_VERSION_MAJOR") >= CMS_VERSION_MAJOR && constant($upperName."_VERSION_MINOR") >= CMS_VERSION_MINOR ) {
+												Console::log("Loaded ($name) successfully");
+											} else {
+												$err = "Unable to load ($name) -- Incorrect Version (".constant($upperName."_VERSION_MAJOR").".".constant($upperName."_VERSION_MINOR")." < ".CMS_VERSION_MAJOR.".".CMS_VERSION_MINOR.")";
+												Console::log($err);
+											}
+
+										} else {
+											$err = "Unable to load ($name) -- Missing versioning information";
+											throw new Exception($err);
+										}
+										
+									}
+																		
 								}
 								
 							}
