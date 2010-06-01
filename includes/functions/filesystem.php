@@ -10,17 +10,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	function get_template($filename, $path='profiles/', $desired_extension='.html') {
-
-		$html_file = explode('?',$filename);
-		$html_file = str_replace('.php', $desired_extension, $html_file[0]);
-		$filename = TEMPLATE_DIR.$path.$html_file;
-		$f = @fopen($filename, "r");
-		if ( $f ) {
-			$template = fread($f, filesize($filename));
-			fclose($f);
-		} unset($f);
-		
-		return $template;
+		return @file_get_contents(TEMPLATE_DIR.$path.basename($filename,"php").$desired_extension);
 	}
 	
 	
