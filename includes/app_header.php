@@ -23,15 +23,14 @@
 	
 	// Load in all the content types
 	load_content_types();
-		
+			
 	// Load in extra defines in files
 	require_once DEFINES_DIR.'autoload.php';
 	
-	// Profiler support
-	Controller::loadModule("console");
-	$profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
+	// Load the modules we automatically load (defined in "modules.php" in the defines dir)
+	load_automatic_modules();
 	
 	// Setting the app values for use sitewide
-	app_bootstrap();
+	call_hook(HOOK_APPLICATION_BOOTSTRAP);
 		
 ?>
