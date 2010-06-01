@@ -5,4 +5,9 @@
 	require_once dirname(__FILE__).'/classes/PhpQuickProfiler.php';
 	require_once dirname(__FILE__).'/functions/autoload.php';
 	
+	global $profiler;
+	
+	// Profiler support
+	$profiler = new PhpQuickProfiler(PhpQuickProfiler::getMicroTime());
+	
 ?>
