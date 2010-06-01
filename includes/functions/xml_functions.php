@@ -92,52 +92,38 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	function flash_xml_data($s, $color="#f09bc2") {
-
+						
 		$s = str_replace('<strong>', '<font color="#000000">', $s);
 		$s = str_replace('</strong>', '</font>', $s);
 		$s = str_replace('<em>', '<i>', $s);
 		$s = str_replace('</em>', '</i>', $s);
 
-		$s = str_replace('&trade;', '&#8482;', $s);
-		$s = str_replace('&amp;trade;', '&#8482;', $s);
+		$s = str_replace(array('&amp;trade;','&trade;','™'), '&#8482;', $s);
+		$s = str_replace(array('&amp;copy;','&copy;',"©"), '&#169;', $s);
+		$s = str_replace(array('&amp;reg;','&reg;','®'), '&#174;', $s);
+		$s = str_replace(array('&rsquo;','&apos;','&rlquo;'), "'", $s);
 
-		$s = str_replace('&copy;', '&#169;', $s);
-		$s = str_replace('&amp;copy;', '&#169;', $s);
-
-		$s = str_replace('&reg;', '&#174;', $s);
-		$s = str_replace('&amp;reg;', '&#174;', $s);
-
-		$s = str_replace('&rsquo;', "'", $s);
-		$s = str_replace('&rlquo;', "'", $s);
-		$s = str_replace('&apos;', "'", $s);
-
-		$search = '<a href=';
-		$cons = '<font color="'.$color.'"><u>';
-
-		$ppos = strpos($s, $search);
-		$pos = 0;
-		while ( $ppos !== FALSE ) {
-
-			$s = insert_substr($s, $ppos, $cons);
-			$pos = $ppos+1+strlen($cons);
-
-			$ppos = strpos($s, $search, $pos);
+		return preg_replace('/<a([^>]*)>([^<]*)<\/a>/i', '<a$1><u><font color="'.$color.'">$2</font></u></a>', $s);
+		
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	fixStringEncoding($string)
+	//
+	//	Converts input string to the proper encoding 
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function fixStringEncoding($in_str) {
+ 		
+		$cur_encoding = mb_detect_encoding($in_str);
+		if ( $cur_encoding == "UTF-8" && mb_check_encoding($in_str,"UTF-8") ) {
+			return $in_str;
+		} else {
+		    return utf8_encode($in_str);
 		}
-
-		$search = '</a>';
-		$cons = '</font></u>';
-
-		$ppos = strpos($s, $search);
-		$pos = 0;
-		while ( $ppos !== FALSE ) {
-
-			$s = insert_substr($s, $ppos+strlen($search), $cons);
-			$pos = $ppos+1+strlen($cons);
-
-			$ppos = strpos($s, $search, $pos);
-		}
-
-		return $s;
 	}
 	
 ?>
