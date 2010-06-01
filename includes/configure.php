@@ -8,8 +8,9 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	define('HTTP_SERVER', 'http://'.$_SERVER['HTTP_HOST'].'/');
-	define('ADMIN_DIR', 'cms-lite/');
+	$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
+	define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/');
+	define('ADMIN_DIR', 'cms-admin/');
 	define('UPLOAD_TO', 'content/');
 	define('XML_TO', 'xml/');	
 	
