@@ -17,13 +17,26 @@
 			return;
 		}
 		
-		if ( !session("uid") || session('domain_id') !== DOMAIN_ID ) {
+		if ( !is_logged_in() ) {
 			redirect(controller_link('Session','login/'));
 		}
 		
 		// If good to go
 		define('SECURITY_LVL', $_SESSION['user_level']);	
 	
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	is_logged_in()
+	//
+	// 	Validates rear login different than front login
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function is_logged_in() {
+		return session("uid") !== false && session("domain_id") === SECURE_KEYWORD;
 	}
 	
 
