@@ -367,6 +367,28 @@
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
+	//	Renders the template, calling the specific hooks
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function render_template() {
+		
+		global $controller;
+		
+		call_hook(HOOK_TEMPLATE_PRE_RENDER);
+		
+		require_once TEMPLATE_DIR.'tpl_HTML_header.php';
+		require_once TEMPLATE_DIR.'tpl_header.php';
+		require_once TEMPLATE_DIR.'tpl_body.php';
+		require_once TEMPLATE_DIR.'tpl_footer.php';
+		
+		call_hook(HOOK_TEMPLATE_POST_RENDER);
+		
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
 	//	Helper function for "class/view/id/" like links
 	//
 	////////////////////////////////////////////////////////////////////////////////

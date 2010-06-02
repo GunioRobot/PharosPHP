@@ -46,10 +46,7 @@
 			if ( $controller->output() === "" ) $controller->output(ob_get_contents());
 			ob_end_clean();
 			
-			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
-			require_once TEMPLATE_DIR.'tpl_header.php';
-			require_once TEMPLATE_DIR.'tpl_body.php';
-			require_once TEMPLATE_DIR.'tpl_footer.php';
+			render_template();
 				
 		} else {
 
@@ -73,10 +70,7 @@
 			if ( $controller->output() === "" ) $controller->output(ob_get_contents());
 			ob_end_clean();
 			
-			require_once TEMPLATE_DIR.'tpl_HTML_header.php';
-			require_once TEMPLATE_DIR.'tpl_header.php';
-			require_once TEMPLATE_DIR.'tpl_body.php';
-			require_once TEMPLATE_DIR.'tpl_footer.php';
+			render_template();
 			
 		} else {
 			
