@@ -12,11 +12,28 @@
 	function get_setting($key, $default="", $stripTags=false) {
 	
 		global $db;
+		static $_application_settings = array();
 		
-		$setting = $db->Execute("SELECT * FROM general_settings WHERE setting_name RLIKE '$key' LIMIT 1");
-		if ( !$setting->EOF ) {
-			return $stripTags ? strip_tags(html_entity_decode(stripslashes($setting->fields['setting_value']))) : $setting->fields['setting_value'];
-		} else return $default;
+		$hash = md5($key);
+		if ( in_array($hash, array_keys($_application_settings)) ) {
+			return $_application_settings[$hash] !== false ? $_application_settings[$hash] : $default;
+		} else {
+		
+			$setting = $db->Execute("SELECT * FROM general_settings WHERE setting_name RLIKE '$key' LIMIT 1");
+			if ( !$setting->EOF ) {
+				
+				$value = $stripTags ? strip_tags(html_entity_decode(stripslashes($setting->fields['setting_value']))) : $setting->fields['setting_value'];
+				$_application_settings[$hash] = $value;
+				return $value;
+				
+			} else {
+				
+				$_application_settings[$hash] = false;
+				return $default;
+				
+			}
+			
+		}
 	
 	}
 	
