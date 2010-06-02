@@ -387,6 +387,12 @@
 	}
 	
 	
+	
+	function load_defines() {
+		autoload(DEFINES_DIR);
+	}
+	
+	
 	////////////////////////////////////////////////////////////////////////////////
 	//
 	//	Helper function for "class/view/id/" like links

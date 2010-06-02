@@ -126,6 +126,30 @@
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
+	//	autoload($dir)
+	//
+	// 	Simple way to include whatever is in a directory
+	//
+	////////////////////////////////////////////////////////////////////////////////	
+	
+	function autoload($dir) {
+		if ( file_exists($dir.'autoload.php') ) {
+			require $dir.'autoload.php';
+		} else {
+			$folder = $dir;
+			if ($handle = opendir($folder)) {
+				while (false !== ($file = readdir($handle)) ) {
+					if ($file != "." && $file != ".." &&!is_dir($folder.$file) ) {
+						include $folder.$file;
+					}
+				}
+			}
+		}
+	}
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
 	//	Removes all extraneous files from the content directory when publishing
 	//	XML for an application
 	//

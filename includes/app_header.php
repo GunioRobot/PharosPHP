@@ -8,29 +8,18 @@
 	// Load the classes that are barebones
 	require_once CLASSES_DIR.'QueryFactory.php';
 	require_once CLASSES_DIR.'Controller.php';
+	require_once CLASSES_DIR.'Hooks.php';
 	
 	// Load the functions
-	require_once FUNCTIONS_DIR.'autoload.php';
+	autoload(FUNCTIONS_DIR);
 	
 	// Database init
 	$db = new queryFactory();
 	if ( !$db->connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD, DB_DATABASE, USE_PCONNECT, false) ) {
 		die("Error connecting to database");
 	}
-	
-	// Load settings from the database
-	load_dynamic_system_settings();
-	
-	// Load in all the content types
-	load_content_types();
-			
-	// Load in extra defines in files
-	require_once DEFINES_DIR.'autoload.php';
-	
-	// Load the modules we automatically load (defined in "modules.php" in the defines dir)
-	load_automatic_modules();
-	
-	// Setting the app values for use sitewide
+		
+	// Finish initializing the application (load defines, settings, modules, set session variables, etc)
 	call_hook(HOOK_APPLICATION_BOOTSTRAP);
 		
 ?>
