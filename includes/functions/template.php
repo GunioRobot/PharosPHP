@@ -74,6 +74,8 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function write_css() {
+		
+		// Grab array of autoloaded CSS files  
 		$css = array();
 		$folder = TEMPLATE_DIR.'css/';
 		if ($handle = opendir($folder)) {
@@ -84,9 +86,18 @@
 			}
 		}		
 
+		// Sort the CSS alphatbetically, then include
 		if ( !empty($css) ) sort($css);
 		foreach($css as $c) {
 			echo '	<style type="text/css" media="screen">@import "'.$c.'";</style>'."\n";
+		}
+		
+		// Grab CSS files the controller requested
+		$css = $controller->css();
+		if ( !empty($css) ) {
+			foreach($css as $style) {
+				echo '<style type="text/css" media="'.$style['type'].'">@import url('.TEMPLATE_SERVER.'css/'.$style['path'].');</style>';
+			} 
 		}
 	}
 	
@@ -101,6 +112,10 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function write_js() {
+	
+		global $controller;
+	
+		// Grab all the autoload files from the directory
 		$js = array();
 		$folder = TEMPLATE_DIR.'js/autoload/';
 		if ($handle = opendir($folder)) {
@@ -112,20 +127,23 @@
 			}
 		}
 		
+		
+		// Now include those autoloaded JS files
 		if ( !empty($js) ) {
 			
+			// Always first
 			require_once TEMPLATE_DIR.'js/autoload/CMSLite.php';
 			
+			// Include any .js files (alphabetically sorted)
 			if ( !empty($js['js']) ) {
-				
 				sort($js['js']);
 				foreach($js['js'] as $j) {
 					echo '	<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/autoload/'.$j.'"></script>'."\n";
 				}
 			}
 				
+			// Include any .php JS files (alphabetically sorted)	
 			if ( !empty($js['php']) ) {
-			
 				sort($js['php']);
 				foreach($js['php'] as $j) {
 					require_once TEMPLATE_DIR.'js/autoload/'.$j;
@@ -133,6 +151,18 @@
 				
 			}
 			
+		}
+		
+		// Now include controller specific files
+		$javascript = $controller->javascript();		
+		if ( !empty($javascript) ) {
+			foreach($javascript as $js) {
+				if ( $js['type'] == JAVASCRIPT_INCLUDE ) {
+					$data = $js['data']; 
+					require TEMPLATE_DIR.'js/'.$js['path']; 
+				} else {
+					echo '<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$js['path'].'"></script>';
+			}
 		}
 		
 	}

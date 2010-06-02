@@ -8,33 +8,7 @@
 	<meta name="description" content="<?=$controller->description?>" />
 	<meta name="author" content="Matt Brewer" />
 
-
-	<?
-
-		
-		write_css();
-		
-		$css = $controller->css();
-		if ( !empty($css) ) {
-			
-			foreach($css as $style) : ?>
-				<style type="text/css" media="<?=$style['type']?>">@import url(<?=TEMPLATE_SERVER.'css/'.$style['path']?>);</style>
-			<? endforeach; 
-		}
-		
-		write_js();	
-
-		$javascript = $controller->javascript();		
-		if ( !empty($javascript) ) {
-			foreach($javascript as $js) : ?>
-				<? if ( $js['type'] == JAVASCRIPT_INCLUDE ) : ?>
-					<? $data = $js['data']; require TEMPLATE_DIR.'js/'.$js['path']; ?>
-				<? else : ?>
-					<script type="text/javascript" src="<?=TEMPLATE_SERVER?>js/<?=$js['path']?>"></script>
-			<? endif; endforeach;
-		}
-		
-	?>
+	<? call_hook(HOOK_TEMPLATE_HEADER); ?>
 	
 	<!--[if IE 6]>
 		

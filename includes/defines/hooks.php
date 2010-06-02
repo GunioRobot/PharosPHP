@@ -12,5 +12,12 @@
 		HOOK_USER_CREATED => null,
 		HOOK_USER_DELETED => null
 	);
+	
+	
+	// Associate system actions with action hooks
+	add_hook(HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
+	add_hook(HOOK_APPLICATION_BOOTSTRAP, 'app_bootstrap');
+	add_hook(HOOK_TEMPLATE_HEADER, 'write_css');
+	add_hook(HOOK_TEMPLATE_HEADER, 'write_js');
 
 ?>

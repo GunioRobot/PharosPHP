@@ -55,11 +55,5 @@
 	define('BASIC_USER_LVL', '1');
 	define('ADMIN_LVL', '4');
 	define('SUPER_LVL', '5');
-	
-	
-	
-	// Associate system actions with action hooks
-	add_hook(HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
-	add_hook(HOOK_APPLICATION_BOOTSTRAP, 'app_bootstrap');
 		
 ?>
