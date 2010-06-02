@@ -9,6 +9,7 @@
 	require_once CLASSES_DIR.'QueryFactory.php';
 	require_once CLASSES_DIR.'Controller.php';
 	require_once CLASSES_DIR.'Hooks.php';
+	$Hooks = new Hooks();
 	
 	// Load the functions
 	autoload(FUNCTIONS_DIR);
