@@ -1,7 +1,5 @@
 <?php
 
-	require_once CLASSES_DIR.'TableController.php';
-
 	class Settings extends TableController {
 		
 		protected	$levels;

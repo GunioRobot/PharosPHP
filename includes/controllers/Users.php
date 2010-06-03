@@ -1,7 +1,5 @@
 <?php
 
-	require_once CLASSES_DIR.'TableController.php';
-
 	class Users extends TableController {
 		
 		
@@ -17,6 +15,8 @@
 						
 			$this->dataKey = "user_id";			
 			$this->tableColumns();
+			
+			$this->levels = user_levels_array(SUPER_LVL);
 						
 		}
 		
@@ -32,6 +32,7 @@
 			$this->table->columns = array();
 			$this->table->columns[] =  array('name' => 'Name', 'key' => 'user_first_name', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Email', 'key' => 'user_primary_email', 'class' => 'center');
+			$this->table->columns[] =  array('name' => 'Level', 'key' => 'user_level', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Date Added', 'key' => 'date_added', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Last Login', 'key' => 'user_last_login', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Action', 'class' => 'actions');
@@ -59,12 +60,16 @@
 
 					$row['data'][] = $info->fields['user_first_name'] . ' ' .$info->fields['user_last_name'];
 					$row['data'][] = '<a href="mailto:'.$info->fields['user_primary_email'].'">'.$info->fields['user_primary_email'].'</a>';
+					$row['data'][] = $this->levels[$info->fields['user_level']];
 					$row['data'][] = format_date($info->fields['date_added'],true);
-					$row['data'][] = format_date($info->fields['user_last_login'],true);
+					
+					$loginDate = format_date($info->fields['user_last_login'],true);
+					if ( $loginDate == "" ) $loginDate = "<em>Never</em>";
+					$row['data'][] = $loginDate;
 
 					$actions = '<a href="'.edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
 					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					$actions .= '<a href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
+					$actions .= '<a class="confirm-with-popup" href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 
 					$row['data'][] = $actions;
 
@@ -87,9 +92,9 @@
 			
 			$where = parent::search($search);
 			if ( $this->table->search != '' ) {
-				$where .= " AND ".$this->table->id.".user_level >= '".(int)ADMIN_LVL."' ";
-			} else $where  = " WHERE ".$this->table->id.".user_level >= '".(int)ADMIN_LVL."' ";
-			
+				$where .= " AND ".$this->table->id.".user_level <= '".(int)SECURITY_LVL."' ";
+			} else $where  = " WHERE ".$this->table->id.".user_level <= '".(int)SECURITY_LVL."' ";
+						
 			return $where;
 			
 		}
@@ -104,9 +109,7 @@
 		//////////////////////////////////////////////////////////////////
 		
 		public function manage($orderField='user_last_login',$orderVal='desc',$page=1,$filter='') {
-			
-			$this->javascript('confirmDelete.php');
-												
+															
 			$this->table->current_page = intval($page);
 
 			$where = $this->search($filter);
@@ -148,9 +151,7 @@
 		public function edit($id,$repost=false) {
 			
 			$repost = ( $repost === "true" ) ? true : false;
-			
-			$this->javascript('tiny_mce_include.php');
-			
+						
 			// Required by profile class and repost_mod
 			@define('PROFILE_TABLE', $this->table->id);
 			@define('PROFILE_TITLE', $this->type);
@@ -184,7 +185,7 @@
 				array('name' => 'user_birthday', 'type' => 'dob'),
 				array('name' => 'user_notes', 'type' => 'text_area', 'class' => 'notes'),
 				
-				array('name' => 'user_level', 'type' => 'dropdown', 'option' => user_levels_array($id>0?level_for_user($id):SUPER_LVL), 'default' => ADMIN_LVL),
+				array('name' => 'user_level', 'type' => 'dropdown', 'option' => user_levels_array(SECURITY_LVL), 'default' => ADMIN_LVL),
 	
 				array('name' => 'date_added', 'type' => 'date_added'),
 				array('name' => 'last_updated', 'type' => 'last_updated'),

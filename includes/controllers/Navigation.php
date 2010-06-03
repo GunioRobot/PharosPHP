@@ -1,7 +1,5 @@
 <?php
 
-	require_once CLASSES_DIR.'TableController.php';
-
 	class Navigation extends TableController {
 		
 		

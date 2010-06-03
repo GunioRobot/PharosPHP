@@ -8,6 +8,7 @@
 	// Load the classes that are barebones
 	require_once CLASSES_DIR.'QueryFactory.php';
 	require_once CLASSES_DIR.'Controller.php';
+	require_once CLASSES_DIR.'TableController.php';
 	require_once CLASSES_DIR.'Hooks.php';
 	
 	// Load the functions
