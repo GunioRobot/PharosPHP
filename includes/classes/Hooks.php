@@ -30,6 +30,7 @@
 			
 			self::$hooks = array(
 				HOOK_APPLICATION_BOOTSTRAP => null,
+				HOOK_APPLICATION_DELETED => null,
 				HOOK_APPLICATION_PUBLISH => null,
 
 				HOOK_MODULE_LOADED => null,

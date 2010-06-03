@@ -1,7 +1,5 @@
 <?php
 
-	require_once CLASSES_DIR.'TableController.php';
-
 	class Applications extends TableController {
 		
 		
@@ -89,7 +87,7 @@
 
 					if ( is_super() ) {
 						$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-						$actions .= '<a href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
+						$actions .= '<a class="confirm-with-popup" href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 					}
 
 
@@ -111,10 +109,7 @@
 		//////////////////////////////////////////////////////////////////
 		
 		public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='') {
-			
-			$this->javascript('confirmDelete.php');
-			$this->javascript('manage_applications.php');
-												
+															
 			$this->table->current_page = intval($page);
 
 			$where = $this->search($filter);
@@ -158,9 +153,7 @@
 		public function edit($id, $repost=false) {
 			
 			$repost = ( $repost === "true" ) ? true : false;
-			
-			$this->javascript('tiny_mce_include.php');
-			
+						
 			// Required by profile class and repost_mod
 			@define('PROFILE_TABLE', $this->table->id);
 			@define('PROFILE_TITLE', $this->type);
@@ -245,6 +238,8 @@
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);
 				
+				Hooks::call_hook(HOOK_APPLICATION_DELETED, array($id));
+				
 				select_app(DEFAULT_APP_ID);
 				
 				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
@@ -283,7 +278,8 @@
 				$newVersion = floatval($app->fields['xml_version']) + 0.1;
 				$app->fields['xml_version'] = $newVersion;
 
-				$status = write_xml($app->fields);
+				$status = write_xml(clean_object($app->fields));
+				// $status = write_plist(clean_object($app->fields));
 				if ( !$status->error ) {
 
 					// Place new version in the db
@@ -326,6 +322,19 @@
 			exit;
 			
 		}
+		
+		
+		
+		
+		
+		
+		public function switch_task($task) {
+			
+			$_SESSION['current_task'] = $task;
+			redirect(site_link());
+			
+		}
+		
 		
 	}
           

@@ -16,8 +16,9 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 
-	define('HOOK_APPLICATION_PUBLISH', 'application_published_hook');		// function($app_id) {}
 	define('HOOK_APPLICATION_BOOTSTRAP', 'application_bootstrap_hook');		// function() {}
+	define('HOOK_APPLICATION_DELETED', 'application_deleted_hook');			// function($app_id) {}
+	define('HOOK_APPLICATION_PUBLISH', 'application_published_hook');		// function($app_id) {}
 	
 	define('HOOK_MODULE_LOADED', 'module_loaded_hook');						// function($module_name) {}
 	
