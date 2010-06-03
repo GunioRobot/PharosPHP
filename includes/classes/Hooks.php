@@ -19,6 +19,21 @@
 	class Hooks {
 	
 		protected static $hooks = array();
+		
+		const HOOK_APPLICATION_BOOTSTRAP = 'application_bootstrap_hook';		// function() {}
+		const HOOK_APPLICATION_DELETED = 'application_deleted_hook';			// function($app_id) {}
+		const HOOK_APPLICATION_PUBLISH = 'application_published_hook';			// function($app_id) {}
+
+		const HOOK_MODULE_LOADED = 'module_loaded_hook';						// function($module_name) {}
+
+		const HOOK_TEMPLATE_HEADER = 'template_header_hook';					// function() {}
+		const HOOK_TEMPLATE_PRE_RENDER = 'template_pre_render_hook';			// function() {}
+		const HOOK_TEMPLATE_POST_RENDER = 'template_post_render_hook';			// function() {}
+
+		const HOOK_USER_CREATED = 'user_created_hook';							// function($user_id) {}
+		const HOOK_USER_DELETED = 'user_deleted_hook';							// function($user_id) {}
+		
+		
 	
 		////////////////////////////////////////////////////////////////////////////////
 		//
@@ -29,18 +44,18 @@
 		public static function init() {
 			
 			self::$hooks = array(
-				HOOK_APPLICATION_BOOTSTRAP => null,
-				HOOK_APPLICATION_DELETED => null,
-				HOOK_APPLICATION_PUBLISH => null,
+				self::HOOK_APPLICATION_BOOTSTRAP => null,
+				self::HOOK_APPLICATION_DELETED => null,
+				self::HOOK_APPLICATION_PUBLISH => null,
 
-				HOOK_MODULE_LOADED => null,
+				self::HOOK_MODULE_LOADED => null,
 
-				HOOK_TEMPLATE_HEADER => null,
-				HOOK_TEMPLATE_PRE_RENDER => null,
-				HOOK_TEMPLATE_POST_RENDER => null,
+				self::HOOK_TEMPLATE_HEADER => null,
+				self::HOOK_TEMPLATE_PRE_RENDER => null,
+				self::HOOK_TEMPLATE_POST_RENDER => null,
 
-				HOOK_USER_CREATED => null,
-				HOOK_USER_DELETED => null
+				self::HOOK_USER_CREATED => null,
+				self::HOOK_USER_DELETED => null
 			);
 			
 			self::_register_default_hooks();
@@ -196,9 +211,9 @@
 		
 		private static function _register_default_hooks() {
 			
-			self::add_hook(HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
+			self::add_hook(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
 			
-			self::add_hook(HOOK_APPLICATION_BOOTSTRAP, array(
+			self::add_hook(self::HOOK_APPLICATION_BOOTSTRAP, array(
 					'load_content_types', 
 					'load_dynamic_system_settings',
 					'load_defines',
@@ -206,8 +221,8 @@
 					'app_bootstrap')
 			);
 			
-			self::add_hook(HOOK_TEMPLATE_HEADER, 'write_css');
-			self::add_hook(HOOK_TEMPLATE_HEADER, 'write_js');
+			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_css');
+			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_js');
 			
 		}
 	

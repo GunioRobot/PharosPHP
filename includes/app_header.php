@@ -21,6 +21,6 @@
 	}
 		
 	// Finish initializing the application (load defines, settings, modules, set session variables, etc)
-	Hooks::call_hook(HOOK_APPLICATION_BOOTSTRAP);
+	Hooks::call_hook(Hooks::HOOK_APPLICATION_BOOTSTRAP);
 		
 ?>

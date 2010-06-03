@@ -180,7 +180,7 @@
 										// Try to validate using the newer string version comparison instead of nasty defines
 										if ( ($comp = version_compare($module_version, CMS_VERSION)) >= 0 ) {
 											Console::log("Loaded ($name) successfully");
-											call_hook(HOOK_MODULE_LOADED, array($name));
+											call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
 										} else {
 											$err = "Unable to load ($name) -- Incorrect Version (".$module_version." < ".CMS_VERSION.")";
 											Console::log($err);
@@ -197,7 +197,7 @@
 
 											if ( constant($upperName."_VERSION_MAJOR") >= CMS_VERSION_MAJOR && constant($upperName."_VERSION_MINOR") >= CMS_VERSION_MINOR ) {
 												Console::log("Loaded ($name) successfully");
-												Hooks::call_hook(HOOK_MODULE_LOADED, array($name));
+												Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
 											} else {
 												$err = "Unable to load ($name) -- Incorrect Version (".constant($upperName."_VERSION_MAJOR").".".constant($upperName."_VERSION_MINOR")." < ".CMS_VERSION_MAJOR.".".CMS_VERSION_MINOR.")";
 												Console::log($err);

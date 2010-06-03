@@ -238,7 +238,7 @@
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);
 				
-				Hooks::call_hook(HOOK_APPLICATION_DELETED, array($id));
+				Hooks::call_hook(Hooks::HOOK_APPLICATION_DELETED, array($id));
 				
 				select_app(DEFAULT_APP_ID);
 				
