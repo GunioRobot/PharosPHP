@@ -11,7 +11,7 @@
 	require_once CLASSES_DIR.'Hooks.php';
 	
 	// Load the functions
-	autoload(FUNCTIONS_DIR);
+	require_once FUNCTIONS_DIR.'autoload.php';
 	
 	// Database init
 	$db = new queryFactory();
