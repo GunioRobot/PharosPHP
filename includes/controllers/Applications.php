@@ -282,7 +282,7 @@
 				if ( !$status->error ) {
 
 					// Place new version in the db
-					$sql = "UPDATE applications SET xml_version = '$newVersion' WHERE app_id = '$id' LIMIT 1";
+					$sql = "UPDATE applications SET xml_version = '$newVersion', previous_publish_timestamp = current_publish_timestamp, current_publish_timestamp = NOW() WHERE app_id = '$id' LIMIT 1";
 					$this->db->Execute($sql);
 					
 					Hooks::call_hook(Hooks::HOOK_APPLICATION_PUBLISH, array($id));
