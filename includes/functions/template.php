@@ -162,6 +162,7 @@
 					require TEMPLATE_DIR.'js/'.$js['path']; 
 				} else {
 					echo '<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$js['path'].'"></script>';
+				}
 			}
 		}
 		

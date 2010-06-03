@@ -16,6 +16,7 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 
+	Hooks::init();	// Want to call this automatically when this file is included
 	class Hooks {
 	
 		protected static $hooks = array();
@@ -87,9 +88,9 @@
 				$functions =& self::$hooks[$name];
 				foreach($function as $f) {
 					if ( !is_null($functions) && is_array($functions) ) {
-						$functions[$function] = $function;
+						$functions[] = $f;
 					} else {
-						$functions = array($function);
+						$functions = array($f);
 					} 
 				} return true;
 				
@@ -116,13 +117,17 @@
 						if ( function_exists($func) ) {
 							call_user_func_array($func, $params);
 						} else {
-							Console::log("Hooks::call_hook($name): skipping function ($func) - undefined.");
+							if ( class_exists("Console") ) {
+								Console::log("Hooks::call_hook($name): skipping function ($func) - undefined.");
+							}
 						}
 					}
 				} else return false;
 
 			} else {
-				Console::log("Call to Hooks::call_hook($name) failed.  Hook was undefined.");
+				if ( class_exists("Console") ) {
+					Console::log("Call to Hooks::call_hook($name) failed.  Hook was undefined.");
+				}
 				return false;
 			}
 
@@ -196,7 +201,7 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		private static function _valid_hook($name) {
+		private static function _valid_hook($name) {			
 			return in_array($name, array_keys(self::$hooks));
 		}
 		
