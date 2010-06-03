@@ -132,15 +132,17 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////	
 	
-	function autoload($dir) {
+	function autoload($dir, $extension="") {
 		if ( file_exists($dir.'autoload.php') ) {
 			require $dir.'autoload.php';
 		} else {
 			$folder = $dir;
 			if ($handle = opendir($folder)) {
 				while (false !== ($file = readdir($handle)) ) {
-					if ($file != "." && $file != ".." &&!is_dir($folder.$file) ) {
-						include $folder.$file;
+					if ($file != "." && $file != ".." && !is_dir($folder.$file) ) {
+						if ( $extension != "" ) {
+							if ( preg_match('/.*'.$extension.'$/i', $file) ) include $folder.$file; 
+						} else include $folder.$file;
 					}
 				}
 			}

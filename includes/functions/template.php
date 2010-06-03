@@ -390,7 +390,7 @@
 	
 	
 	function load_defines() {
-		autoload(DEFINES_DIR);
+		autoload(DEFINES_DIR, "php");
 	}
 	
 	

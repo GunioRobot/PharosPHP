@@ -41,7 +41,7 @@
 										// Try to validate using the newer string version comparison instead of nasty defines
 										if ( ($comp = version_compare($module_version, CMS_VERSION)) >= 0 ) {
 											Console::log("Loaded ($name) successfully");
-											call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
+											Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
 										} else {
 											$err = "Unable to load ($name) -- Incorrect Version (".$module_version." < ".CMS_VERSION.")";
 											Console::log($err);
@@ -93,9 +93,9 @@
 				
 		private static function load_automatic_modules() {
 
-			foreach(self::$config['autoload'] as $m) {
+			foreach(self::$config['system'] as $m) {
 				try {
-					self::load_module($m);
+					self::load($m);
 				} catch (Exception $e) {
 					if ( class_exists("Console") ) {
 						Console::log($e->getMessage());

@@ -1,0 +1,5 @@
+system:
+    - "console"
+    - "images"
+    - "cron"
+user:

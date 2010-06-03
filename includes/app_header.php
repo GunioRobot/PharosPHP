@@ -12,6 +12,7 @@
 	require_once CLASSES_DIR.'YAML/sfYaml.php';
 	require_once CLASSES_DIR.'QueryFactory.php';
 	require_once CLASSES_DIR.'Controller.php';
+	require_once CLASSES_DIR.'Modules.php';
 	require_once CLASSES_DIR.'TableController.php';
 	require_once CLASSES_DIR.'Hooks.php';
 	
