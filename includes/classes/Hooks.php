@@ -1,5 +1,21 @@
 <?
 
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	System Actions, aka "Hooks"
+	//	Hooks provide the foundation for a flexible framework.
+	//
+	//	The file contains the core system actions defined in this version of 
+	//	CMSLite.  The Hooks API allows for developers to easily register custom
+	//	callback functions to be executed whenever the specified system action 
+	//	occurs.
+	//
+	//	For even more flexibilty, CMSLite allows developers to register their own
+	//	"system action" so that other developers can register callback functions,
+	//	creating a rich collobarative framework architecture.
+	//
+	////////////////////////////////////////////////////////////////////////////////
+
 	class Hooks {
 	
 		protected static $hooks = array();
