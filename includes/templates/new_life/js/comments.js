@@ -1,4 +1,0 @@
-
-	$(function() {
-		$("#comments-tabs").tabs();
-	});
