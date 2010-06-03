@@ -279,15 +279,13 @@
 				$app->fields['xml_version'] = $newVersion;
 
 				$status = write_xml(clean_object($app->fields));
-				// $status = write_plist(clean_object($app->fields));
 				if ( !$status->error ) {
 
 					// Place new version in the db
 					$sql = "UPDATE applications SET xml_version = '$newVersion' WHERE app_id = '$id' LIMIT 1";
 					$this->db->Execute($sql);
 					
-					// Clean out all the old files that are no longer being used 
-					$numFilesRemoved = clean_upload_dir($id);
+					Hooks::call_hook(Hooks::HOOK_APPLICATION_PUBLISH, array($id));
 					
 					// SHOW SUCCESS PAGE
 					echo json_encode((object)array("error" => false, "title" => "Published Successfully", "message" => "Application was successfully published."));
