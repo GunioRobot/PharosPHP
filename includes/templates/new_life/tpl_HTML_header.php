@@ -8,7 +8,7 @@
 	<meta name="description" content="<?=$controller->description?>" />
 	<meta name="author" content="Matt Brewer" />
 
-	<? call_hook(HOOK_TEMPLATE_HEADER); ?>
+	<? Hooks::call_hook(HOOK_TEMPLATE_HEADER); ?>
 	
 	<!--[if IE 6]>
 		

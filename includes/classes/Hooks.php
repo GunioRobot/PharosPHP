@@ -2,8 +2,7 @@
 
 	class Hooks {
 	
-		protected $hooks;
-	
+		protected static $hooks = array();
 	
 		////////////////////////////////////////////////////////////////////////////////
 		//
@@ -11,9 +10,9 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		public function __construct() {
+		public static function init() {
 			
-			$this->hooks = array(
+			self::$hooks = array(
 				HOOK_APPLICATION_BOOTSTRAP => null,
 				HOOK_APPLICATION_PUBLISH => null,
 
@@ -27,9 +26,11 @@
 				HOOK_USER_DELETED => null
 			);
 			
-			$this->_register_default_hooks();
+			self::_register_default_hooks();
 			
 		}
+		
+
 		
 		
 		
@@ -39,9 +40,9 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		public function add_hook($name, $function) {
+		public static function add_hook($name, $function) {
 			
-			if ( $function != "" && $this->_valid_hook($name) ) {
+			if ( $function != "" && self::_valid_hook($name) ) {
 			
 				// Convert string to one element array so we can easily iterate
 				if ( is_string($function) ) {
@@ -51,7 +52,7 @@
 				}
 				
 				// Attach multiple functions to one system action
-				$functions =& $this->hooks[$name];
+				$functions =& self::$hooks[$name];
 				foreach($function as $f) {
 					if ( !is_null($functions) && is_array($functions) ) {
 						$functions[$function] = $function;
@@ -72,12 +73,12 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 		
-		public function call_hook($name, $params=array()) {
+		public static function call_hook($name, $params=array()) {
 
-			if ( $this->_valid_hook($name) ) {
+			if ( self::_valid_hook($name) ) {
 
 				// Call all functions associated with this task
-				$functions = $this->hooks[$name];
+				$functions = self::$hooks[$name];
 				if ( !is_null($functions) && is_array($functions) && !empty($functions) ) {
 					foreach($functions as $func) {
 						if ( function_exists($func) ) {
@@ -105,12 +106,12 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		public function register_new_hook_action($name) {
+		public static function register_new_hook_action($name) {
 
-			if ( $this->_valid_hook($name) ) {
+			if ( self::_valid_hook($name) ) {
 				throw new Exception("Hook ($name) already registered!");
 			} else {
-				$this->hooks[$name] = null;
+				self::$hooks[$name] = null;
 			}
 
 		}
@@ -123,11 +124,11 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		public function remove_hook($name, $function) {
+		public static function remove_hook($name, $function) {
 
-			if ( $this->_valid_hook($name) ) {
+			if ( self::_valid_hook($name) ) {
 
-				$functions = $this->hooks[$name];
+				$functions = self::$hooks[$name];
 				if ( !is_null($functions) && is_array($functions) && in_array($function, $functions) ) {
 					unset($functions[$function]);
 				} return true;
@@ -144,8 +145,8 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		public function remove_hooks_for_name($name) {
-			unset($this->hooks[$name]);	// Don't care if it's valid or not
+		public static function remove_hooks_for_name($name) {
+			unset(self::$hooks[$name]);	// Don't care if it's valid or not
 		}
 		
 		
@@ -163,8 +164,8 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		private function _valid_hook($name) {
-			return in_array($name, array_keys($this->hooks));
+		private static function _valid_hook($name) {
+			return in_array($name, array_keys(self::$hooks));
 		}
 		
 		
@@ -176,11 +177,11 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 		
-		private function _register_default_hooks() {
+		private static function _register_default_hooks() {
 			
-			$this->add_hook(HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
+			self::add_hook(HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
 			
-			$this->add_hook(HOOK_APPLICATION_BOOTSTRAP, array(
+			self::add_hook(HOOK_APPLICATION_BOOTSTRAP, array(
 					'load_content_types', 
 					'load_dynamic_system_settings',
 					'load_defines',
@@ -188,8 +189,8 @@
 					'app_bootstrap')
 			);
 			
-			$this->add_hook(HOOK_TEMPLATE_HEADER, 'write_css');
-			$this->add_hook(HOOK_TEMPLATE_HEADER, 'write_js');
+			self::add_hook(HOOK_TEMPLATE_HEADER, 'write_css');
+			self::add_hook(HOOK_TEMPLATE_HEADER, 'write_js');
 			
 		}
 	

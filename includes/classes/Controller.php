@@ -197,7 +197,7 @@
 
 											if ( constant($upperName."_VERSION_MAJOR") >= CMS_VERSION_MAJOR && constant($upperName."_VERSION_MINOR") >= CMS_VERSION_MINOR ) {
 												Console::log("Loaded ($name) successfully");
-												call_hook(HOOK_MODULE_LOADED, array($name));
+												Hooks::call_hook(HOOK_MODULE_LOADED, array($name));
 											} else {
 												$err = "Unable to load ($name) -- Incorrect Version (".constant($upperName."_VERSION_MAJOR").".".constant($upperName."_VERSION_MINOR")." < ".CMS_VERSION_MAJOR.".".CMS_VERSION_MINOR.")";
 												Console::log($err);

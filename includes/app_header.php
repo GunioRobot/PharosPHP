@@ -9,7 +9,6 @@
 	require_once CLASSES_DIR.'QueryFactory.php';
 	require_once CLASSES_DIR.'Controller.php';
 	require_once CLASSES_DIR.'Hooks.php';
-	$Hooks = new Hooks();
 	
 	// Load the functions
 	autoload(FUNCTIONS_DIR);
@@ -21,6 +20,6 @@
 	}
 		
 	// Finish initializing the application (load defines, settings, modules, set session variables, etc)
-	call_hook(HOOK_APPLICATION_BOOTSTRAP);
+	Hooks::call_hook(HOOK_APPLICATION_BOOTSTRAP);
 		
 ?>
