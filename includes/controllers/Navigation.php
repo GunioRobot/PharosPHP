@@ -68,7 +68,7 @@
 
 					$actions = '<a href="'.edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
 					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					$actions .= '<a href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
+					$actions .= '<a class="confirm-with-popup" href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 
 					$row['data'][] = $actions;
 
@@ -88,9 +88,7 @@
 		//////////////////////////////////////////////////////////////////
 		
 		public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='') {
-			
-			$this->javascript('confirmDelete.php');
-												
+															
 			$this->table->current_page = intval($page);
 
 			$where = $this->search($filter);
@@ -134,9 +132,7 @@
 		public function edit($id, $repost=false) {
 									
 			$repost = ( $repost === "true" ) ? true : false;
-									
-			$this->javascript('tiny_mce_include.php');
-			
+												
 			// Required by profile class and repost_mod
 			@define('PROFILE_TABLE', $this->table->id);
 			@define('PROFILE_TITLE', $this->type);
@@ -157,6 +153,7 @@
 				
 				array('name' => 'parent_id' ,'type' => 'text', 'size' => '3' , 'max' => '3'),
 				array('name' => 'name' ,'type' => 'text', 'size' => '50' , 'max' => '200'),
+				array('name' => 'task', 'type' => 'dropdown', 'option' => array('both' => 'Both', 'iphone' => 'iPhone', 'site' => 'Microsite'), 'default' => 'both'),
 				array('name' => 'page' ,'type' => 'text', 'size' => '50' , 'max' => '100'),
 				array('name' => 'order_num' ,'type' => 'text', 'size' => '2' , 'max' => '2'),
 				array('name' => 'display', 'type' => 'dropdown', 'option' => array('hidden' => 'None', 'visible' => 'Visible'), 'default' => 'visible'),
