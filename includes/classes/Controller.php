@@ -7,14 +7,14 @@
 	//	Parent class for all pages - subclass to load in particular page
 	//
 	///////////////////////////////////////////////////////////////////////////
-	
-	define('CSS_TYPE_ALL', 'all');
-	define('CSS_TYPE_PRINT', 'print');
-	define('CSS_TYPE_SCREEN', 'screen');
-	define('JAVASCRIPT_INCLUDE', 'php_include_js');
-	define('JAVASCRIPT_EXTERNAL', 'link_js');
 
 	class Controller {
+		
+		const CSS_TYPE_ALL = "all";
+		const CSS_TYPE_PRINT = "print";
+		const CSS_TYPE_SCREEN = "screen";
+		const JAVASCRIPT_INCLUDE = "php_include_js";
+		const JAVASCRIPT_EXTERNAL = "link_js";
 	
 		///////////////////////////////////////////////////////////////////////////
 		//
@@ -92,7 +92,7 @@
 		//	Either returns array, or adds a stylesheet to be used
 		//
 		///////////////////////////////////////////////////////////////////////////
-		public function css($path='', $type=CSS_TYPE_ALL) {
+		public function css($path='', $type=self::CSS_TYPE_ALL) {
 			
 			if ( $path != '' ) {
 				
@@ -102,12 +102,12 @@
 				}
 			
 				switch($type) {
-					case CSS_TYPE_ALL:
-					case CSS_TYPE_PRINT:
-					case CSS_TYPE_SCREEN:
+					case self::CSS_TYPE_ALL:
+					case self::CSS_TYPE_PRINT:
+					case self::CSS_TYPE_SCREEN:
 						break;
 					default:
-						$type = CSS_TYPE_ALL;
+						$type = self::CSS_TYPE_ALL;
 						break;
 				}
 			
@@ -141,7 +141,7 @@
 					return true;
 					
 				} else {
-					$this->javascript[] = array('path' => $path, 'type' => (strrpos($path,'.php')===false?JAVASCRIPT_EXTERNAL:JAVASCRIPT_INCLUDE), 'data' => $data);
+					$this->javascript[] = array('path' => $path, 'type' => (strrpos($path,'.php')===false?self::JAVASCRIPT_EXTERNAL:self::JAVASCRIPT_INCLUDE), 'data' => $data);
 				}
 				
 			} else {
@@ -152,18 +152,7 @@
 			
 		}
 		
-		
-		
-		///////////////////////////////////////////////////////////////////////////
-		//
-		//	Controller::loadModule() loads a module into the sysetm
-		//
-		///////////////////////////////////////////////////////////////////////////
-		public static function loadModule($name) {
-			Modules::load($name);
-		}
-		
-		
+				
 		
 		///////////////////////////////////////////////////////////////////////////
 		//
