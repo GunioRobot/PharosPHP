@@ -119,7 +119,7 @@
 		}
 		
 		
-		public function content($table='users-top10', $content_type_id='all', $limit="0,9") {
+		public function content($table='users-top10', $content_type_id='all', $limit="0,10") {
 			
 			$limit = str_replace('-',',',$limit);	// Can't use comma in URL
 			
@@ -140,27 +140,27 @@
 
 				$ll = $limit;
 
-				$top_whatever_dropdown = '<select id="paginate"><option value="0-9" ';
-				if ( $ll == "0,9" ) $top_whatever_dropdown .= ' selected="selected"';
+				$top_whatever_dropdown = '<select id="paginate"><option value="0-10" ';
+				if ( $ll == "0,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>Top 10</option>';
 
-				if ( $total_users->fields['total'] > 10 ) $top_whatever_dropdown .= '<option value="10-19"';
-				if ( $ll == "10,19" ) $top_whatever_dropdown .= ' selected="selected"';
+				if ( $total_users->fields['total'] > 10 ) $top_whatever_dropdown .= '<option value="10-10"';
+				if ( $ll == "10,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>11 - 20</option>';
 
-				if ( $total_users->fields['total'] > 20 ) $top_whatever_dropdown .= '<option value="20-29"';
-				if ( $ll == "20,29" ) $top_whatever_dropdown .= ' selected="selected"';
+				if ( $total_users->fields['total'] > 20 ) $top_whatever_dropdown .= '<option value="20-10"';
+				if ( $ll == "20,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>21 - 30</option>';
 
-				if ( $total_users->fields['total'] > 30 ) $top_whatever_dropdown .= '<option value="30-39"';
-				if ( $ll == "30,39" ) $top_whatever_dropdown .= ' selected="selected"';
+				if ( $total_users->fields['total'] > 30 ) $top_whatever_dropdown .= '<option value="30-10"';
+				if ( $ll == "30,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>31 - 40</option>';
 
-				if ( $total_users->fields['total'] > 40 ) $top_whatever_dropdown .= '<option value="40-49"';
-				if ( $ll == "40,49" ) $top_whatever_dropdown .= ' selected="selected"';
+				if ( $total_users->fields['total'] > 40 ) $top_whatever_dropdown .= '<option value="40-10"';
+				if ( $ll == "40,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>41 - 50</option>';
 
-				$top_whatever_dropdown .= '</select>';			
+				$top_whatever_dropdown .= '</select>';		
 
 				// Final sql for information
 				$sql = "SELECT users.*, CONCAT(users.user_first_name, ' ', users.user_last_name) as full_name, t1.hits FROM users".$join.$industry.$order." LIMIT ".$limit;			
@@ -251,37 +251,41 @@
 				}
 
 
-				$sql = "SELECT * FROM $table JOIN ( SELECT tracking.*, COUNT(tracking.track_id) as hits FROM tracking JOIN ( SELECT users.user_id FROM users JOIN ( SELECT * FROM applications_to_content WHERE app_id = '$CURRENT_APP_ID' AND content_type_id = '".USER_TYPE_ID."') t4 ON t4.table_index = users.user_id )  t1 ON t1.user_id = tracking.user_id WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY tracking.app_id,tracking.content_type_id,tracking.table_index ) t2 ON t2.table_index = $table.$id ORDER BY t2.hits DESC LIMIT $limit";
+				// $sql = "SELECT * FROM $table JOIN ( SELECT tracking.*, COUNT(tracking.track_id) as hits FROM tracking JOIN ( SELECT users.user_id FROM users JOIN ( SELECT * FROM applications_to_content WHERE app_id = '$CURRENT_APP_ID' AND content_type_id = '".USER_TYPE_ID."') t4 ON t4.table_index = users.user_id )  t1 ON t1.user_id = tracking.user_id WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY tracking.app_id,tracking.content_type_id,tracking.table_index ) t2 ON t2.table_index = $table.$id ORDER BY t2.hits DESC LIMIT $limit";
+				$sql = "SELECT * FROM $table JOIN ( SELECT tracking.*, COUNT(tracking.track_id) as hits FROM tracking WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY tracking.app_id,tracking.content_type_id,tracking.table_index ) t2 ON t2.table_index = $table.$id ORDER BY t2.hits DESC LIMIT $limit";
+				// die($sql);
 
 				// For selecting the right <option></option>
 				$ll = $limit;
 
 
 				// Build the pagination dropdown
-				$total_users = $this->db->Execute("SELECT COUNT($table.$id) as total, t1.app_id FROM ".$table." JOIN (SELECT t2.* FROM users JOIN( SELECT tracking.*, COUNT(track_id) as hits FROM tracking WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY app_id,content_type_id,table_index ) t2 ON t2.user_id = users.user_id ) t1 ON t1.table_index = ".$table.".".$id."  GROUP BY t1.app_id ORDER BY t1.hits DESC ");	// don't limit!
-
-				$top_whatever_dropdown = '<select id="paginate"><option value="0-9" ';
-				if ( $ll == "0,9" ) $top_whatever_dropdown .= ' selected="selected"';
+				// $pagination_sql = "SELECT COUNT($table.$id) as total, t1.app_id FROM ".$table." JOIN (SELECT t2.* FROM users JOIN( SELECT tracking.*, COUNT(track_id) as hits FROM tracking WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY app_id,content_type_id,table_index ) t2 ON t2.user_id = users.user_id ) t1 ON t1.table_index = ".$table.".".$id."  GROUP BY t1.app_id ORDER BY t1.hits DESC";/
+				$pagination_sql = "SELECT COUNT($table.$id) as total, t1.app_id, t1.hits FROM ".$table." JOIN ( SELECT tracking.*, COUNT(track_id) as hits FROM tracking WHERE tracking.app_id = '$CURRENT_APP_ID' $content_type GROUP BY app_id,content_type_id,table_index ) t1 ON t1.table_index = ".$table.".".$id."  GROUP BY t1.app_id ORDER BY t1.hits DESC";
+				// die($pagination_sql);
+				$total_users = $this->db->Execute($pagination_sql);	// don't limit!
+		
+				$top_whatever_dropdown = '<select id="paginate"><option value="0-10" ';
+				if ( $ll == "0,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>Top 10</option>';
 
-				if ( $total_users->fields['total'] > 10 ) $top_whatever_dropdown .= '<option value="10-19"';
-				if ( $ll == "10,19" ) $top_whatever_dropdown .= ' selected="selected"';
+				if ( $total_users->fields['total'] > 10 ) $top_whatever_dropdown .= '<option value="10-10"';
+				if ( $ll == "10,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>11 - 20</option>';
 
-				if ( $total_users->fields['total'] > 20 ) $top_whatever_dropdown .= '<option value="20-29"';
-				if ( $ll == "20,29" ) $top_whatever_dropdown .= ' selected="selected"';
+				if ( $total_users->fields['total'] > 20 ) $top_whatever_dropdown .= '<option value="20-10"';
+				if ( $ll == "20,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>21 - 30</option>';
 
-				if ( $total_users->fields['total'] > 30 ) $top_whatever_dropdown .= '<option value="30-39"';
-				if ( $ll == "30,39" ) $top_whatever_dropdown .= ' selected="selected"';
+				if ( $total_users->fields['total'] > 30 ) $top_whatever_dropdown .= '<option value="30-10"';
+				if ( $ll == "30,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>31 - 40</option>';
 
-				if ( $total_users->fields['total'] > 40 ) $top_whatever_dropdown .= '<option value="40-49"';
-				if ( $ll == "40,49" ) $top_whatever_dropdown .= ' selected="selected"';
+				if ( $total_users->fields['total'] > 40 ) $top_whatever_dropdown .= '<option value="40-10"';
+				if ( $ll == "40,10" ) $top_whatever_dropdown .= ' selected="selected"';
 				$top_whatever_dropdown .= '>41 - 50</option>';
 
-				$top_whatever_dropdown .= '</select>';
-				
+				$top_whatever_dropdown .= '</select>';			
 
 				// The gorgeous area chart
 				echo include_fusion_chart_js().renderChart(fusion_chart("FCF_Area2D.swf"), encodeDataURL(controller_link(__CLASS__,"activity-data/10/$content_type_id/")), "", "activity_chart", 569, 350);
