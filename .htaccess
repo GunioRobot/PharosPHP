@@ -1,4 +1,6 @@
-Options +FollowSymLinks
+# For security reasons, Option followsymlinks cannot be overridden.
+#Options +FollowSymLinks
+Options +SymLinksIfOwnerMatch
 
 <IfModule mod_security.c>
 SecFilterEngine Off
@@ -6,54 +8,18 @@ SecFilterScanPOST Off
 </IfModule>
 
 # Just a simple redirect for all non-accessible items
-ErrorDocument 404 /cms-admin/index.php?arg1=not-found
+ErrorDocument 404 index.php?arg1=not-found
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
-RewriteBase /cms-admin/
-
-# Allowing access to the admin area of the site with mod_rewrite
-RewriteRule ^$ index.php
 
 # Just use the directory or filename if that's what we're going for
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME} !-d
 
-# "'controller/index/"
-# And if the query is blank, just goes to index.php by default anyway
-RewriteRule ^([A-Za-z0-9_-]+)/?$ index.php?arg1=$1
-
-# 'controller/method_name/' style links, but passes the second arg on it's way
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2
-
-# 'controller/method_name/arg1/' style links
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2&arg3=$3
-
-# 'controller/method_name/arg1/arg2/' style links
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4
-
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4&arg5=$5
-
-# 'controller/method_name/arg1/arg2/arg3/arg4/' style links
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4&arg5=$5&arg6=$6
-
-# 'controller/method_name/arg1/arg2/arg3/arg4/arg5/' style links
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4&arg5=$5&arg6=$6&arg7=$7
-
-# 'controller/method_name/arg1/arg2/arg3/arg4/arg5/arg6/' style links
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4&arg5=$5&arg6=$6&arg7=$7&arg8=$8
-
-# 'controller/method_name/arg1/arg2/arg3/arg4/arg5/arg6/arg7/' style links
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4&arg5=$5&arg6=$6&arg7=$7&arg8=$8&arg9=$9
-
-# 'controller/method_name/arg1/arg2/arg3/arg4/arg5/arg6/arg7/arg8/' style links
-RewriteRule ^([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/([A-Za-z0-9_\-\+]+)/?$ index.php?arg1=$1&arg2=$2&arg3=$3&arg4=$4&arg5=$5&arg6=$6&arg7=$7&arg8=$8&arg9=$9&arg10=$10
+RewriteRule (.*) index.php?args=$1
 
 </IfModule>
 
 # Hide our directory contents to prying eyes
 IndexIgnore .*
-
-
-
-

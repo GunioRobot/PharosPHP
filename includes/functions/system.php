@@ -1,9 +1,4 @@
 <?php
-
-	define('DEFAULT_APP_ID', 1);
-	$CURRENT_APP_ID = DEFAULT_APP_ID;
-	$CURRENT_APP_NAME = "Some App";
-	
 	
 	
 	////////////////////////////////////////////////////////////////////////////////
@@ -23,7 +18,6 @@
 		
 		load_content_types();
 		load_dynamic_system_settings();
-		load_defines();
 		load_automatic_modules();
 						
 		$CURRENT_APP_ID = session("app_id", DEFAULT_APP_ID);
@@ -37,6 +31,7 @@
 	
 	
 	function load_static_settings() {
+		
 		
 		////////////////////////////////////////////////////////////////////////////////
 		//
@@ -54,12 +49,52 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		define('INCLUDES_DIR', SERVER_DIR.ADMIN_DIR.'includes/');
+		define('INCLUDES_DIR', SERVER_DIR.APP_PATH.'includes/');
 		define('CLASSES_DIR', INCLUDES_DIR.'classes/');
 		define('FUNCTIONS_DIR', INCLUDES_DIR.'functions/');
-		define('UPLOAD_DIR', SERVER_DIR.ADMIN_DIR.Settings::get("upload_directory"););
-		define('XML_DIR', SERVER_DIR.ADMIN_DIR.Settings::get("xml_directory"););
+		define('UPLOAD_DIR', SERVER_DIR.APP_PATH.Settings::get("filesystem.upload_directory"));
+		define('XML_DIR', SERVER_DIR.APP_PATH.Settings::get("filesystem.xml_directory"));
 		define('DEFINES_DIR', INCLUDES_DIR.'defines/');
+		
+		
+		
+		////////////////////////////////////////////////////////////////////////////////
+		//
+		//	Server Path Information
+		//
+		////////////////////////////////////////////////////////////////////////////////
+
+		define('INCLUDES_SERVER', HTTP_SERVER.'includes/');
+		define('CLASSES_SERVER', INCLUDES_SERVER.'classes/');
+		define('FUNCTIONS_SERVER', INCLUDES_SERVER.'functions/');
+		define('TEMPLATE_SERVER', INCLUDES_SERVER.'templates/'.Settings::get('system.template.name').'/');
+		define('UPLOAD_SERVER', HTTP_SERVER.UPLOAD_TO);
+		define('XML_SERVER', HTTP_SERVER.XML_TO);
+
+
+
+		////////////////////////////////////////////////////////////////////////////////
+		//
+		//	File System Information
+		//
+		////////////////////////////////////////////////////////////////////////////////
+
+
+		define('TEMPLATE_DIR', INCLUDES_DIR.'templates/'.Settings::get('system.template.name').'/');
+		define('CONTROLLER_DIR', INCLUDES_DIR.'controllers/');
+		define('MODULES_DIR', INCLUDES_DIR.'modules/');
+		define('MODULES_SERVER', INCLUDES_SERVER.'modules/');
+
+
+
+		////////////////////////////////////////////////////////////////////////////////
+		//
+		//	System software settings
+		//
+		////////////////////////////////////////////////////////////////////////////////
+
+		define('SECURE_KEYWORD',md5(Settings::get('system.site.name')));
+		define('APPLICATION_SECRET_KEY', md5(Settings::get('system.site.name')));
 		
 	}
 	

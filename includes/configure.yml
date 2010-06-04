@@ -1,10 +1,35 @@
 database:
-    server: localhost
+    host: localhost
     username: macfanat_matt
     password: '6513#*trin'
-    database: macfanat_cms
+    name: macfanat_cms
     
 filesystem:
     uploads_directory: content
     xml_direcotry: xml
+    
+modules:
+    system:
+        - console
+        - images
+        - cron
+    user:
+        
+routes:
+    root: UsersController
+    
+system:
+    version: 1.5
+    default_app_id: 1
+    site:
+        name: "CMSLite"
+    template: 
+        name: "new_life"
+    
+users:
+    levels:
+        basic: 1
+        admin: 4
+        super: 5
+    
     

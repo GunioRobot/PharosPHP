@@ -6,8 +6,6 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	if ( !defined("SITE_NAME") ) die("Restricted Access");
-
 	$folder = dirname(__FILE__).'/';
 	if ($handle = opendir($folder)) {
 		while (false !== ($file = readdir($handle)) ) {

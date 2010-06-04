@@ -17,7 +17,7 @@
 
 				for ( $i = 0; $i < $length; $i++ ) {
 					
-					$sql = "SELECT DISTINCT MONTH(date_added) as month FROM users WHERE user_level = '".(int)BASIC_USER_LVL."' AND YEAR(date_added) = '".$years[$i]."' ORDER BY month ASC";
+					$sql = "SELECT DISTINCT MONTH(date_added) as month FROM users WHERE user_level = '".(int)Settings::get( 'users.levels.basic')."' AND YEAR(date_added) = '".$years[$i]."' ORDER BY month ASC";
 					for ( $info = $db->Execute($sql); !$info->EOF; $info->moveNext() ) {
 						$month = $info->fields['month'] < 10 ? "0".$info->fields['month'] : $info->fields['month'];
 						$dates[] = new DateTime($years[$i]."-".$month."-01");

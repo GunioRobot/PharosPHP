@@ -1,7 +1,7 @@
 
 	<div id="smallWrap" align="left">	
 
-		<h1><?=SITE_NAME?> | <?=$this->title?></h1>
+		<h1><?=Settings::get('system.site.name')?> | <?=$this->title?></h1>
 		<div class="clearBoth"></div>
 		<p>Provide the username/email that is on file.  An email containing a new password will be sent to this address.</p>		
 

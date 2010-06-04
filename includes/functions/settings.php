@@ -48,14 +48,10 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	function load_dynamic_system_settings() {
-		
-		global $DEFAULT_CONTROLLER_NAME;
-		
+				
 		define('SYS_ADMIN_EMAIL', get_setting('Admin Email', 'matt@dmgx.com', true));
 		define('SERVER_MAILER', get_setting('Server Email', 'matt@dmgx.com', true));
-		define('SITE_NAME', get_setting('Site Name', 'CMS Lite Install', true) . ' Admin');
 		define('SITE_TAGLINE', get_setting('Site Tagline', 'CMS Framework for Developers', true));
-		define('TEMPLATE_NAME', get_setting('Template Name', 'default', true));
 		define('TITLE_SEPARATOR', get_setting('Title Separator', ' | ', true));
 		define('DEFAULT_KEYWORDS', get_setting('Default Keywords', 'CMS, Content Management System, CMS-Lite, Matt Brewer, PHP', true));
 		define('DEFAULT_DESCRIPTION', get_setting('Default Description', SITE_TAGLINE, true));
@@ -64,8 +60,6 @@
 		define('SHOW_PROFILER_RESULTS', get_setting('Show Profiler Results', false, true)==="true"?true:false);	
 		define('DELETE_OLD_WHEN_UPLOADING_NEW', get_setting('Delete Old When Uploading New',"true",true)==="true"?true:false);
 		define('RESET_PASSWORD_RANDOM_WORD', get_setting('Reset Password Random Word', '_cmslite',true));
-
-		$DEFAULT_CONTROLLER_NAME = get_setting('Default Controller Name', 'Users', true);
 		
 	}
 	

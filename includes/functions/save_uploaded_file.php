@@ -1,6 +1,4 @@
 <?php
-
-	require_once CLASSES_DIR.'Image.php';
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -61,6 +59,10 @@
 				}
 				
 			} else { // Since it's an image, do image type checking
+				
+				if ( !class_exists("Image") ) {
+					require_once CLASSES_DIR.'Image.php';
+				}
 				
 				try {
 					

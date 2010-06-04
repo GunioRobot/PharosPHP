@@ -24,7 +24,7 @@
 		const HOOK_APPLICATION_DELETED = 'application_deleted_hook';					// function($app_id) {}
 		const HOOK_APPLICATION_PUBLISH = 'application_published_hook';					// function($app_id) {}
 		
-		const HOOK_CONTROLLER_PRE_CREATED = "controller_pre_created_hook";				// function($class) {}
+		const HOOK_CONTROLLER_PRE_CREATED = "controller_pre_created_hook";				// function() {}
 		const HOOK_CONTROLLER_POST_CREATED = "controller_post_created_hook";			// function($class) {}
 
 		const HOOK_MODULES_PRE_LOADED = 'modules_pre_loaded_hook';						// function() {}

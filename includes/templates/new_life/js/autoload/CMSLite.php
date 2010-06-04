@@ -5,7 +5,7 @@
 	CMSLite.HTTP_SERVER = "<?=site_link()?>";
 	CMSLite.TEMPLATE_SERVER = "<?=TEMPLATE_SERVER?>";
 	CMSLite.UPLOAD_SERVER = "<?=UPLOAD_SERVER?>";
-	CMSLite.SITE_NAME = "<?=SITE_NAME?>";
+	CMSLite.SITE_NAME = "<?=Settings::get('system.site.name')?>";
 
 	$(function() {	
 		

@@ -6,10 +6,8 @@
 		private static $config = array();
 		
 		public function init() {
-		
-			self::$config = sfYaml::load(DEFINES_DIR.'modules.yml');
+			self::$config = Settings::get("modules");
 			self::load_automatic_modules();
-		
 		}
 		
 		
@@ -39,36 +37,17 @@
 										$modules[$name] = $folder.$file.'/include.php';
 
 										// Try to validate using the newer string version comparison instead of nasty defines
-										if ( ($comp = version_compare($module_version, CMS_VERSION)) >= 0 ) {
+										if ( ($comp = version_compare($module_version, Settings::get("system.version"))) >= 0 ) {
 											Console::log("Loaded ($name) successfully");
 											Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
 										} else {
-											$err = "Unable to load ($name) -- Incorrect Version (".$module_version." < ".CMS_VERSION.")";
+											$err = "Unable to load ($name) -- Incorrect Version (".$module_version." < ".Settings::get("system.version").")";
 											Console::log($err);
 										}
 
 									} else {
-
-										// Try using the defines method as a failsafe for older CMSLite installs
-										$upperName = strtoupper($name);
-										if ( defined($upperName."_VERSION_MAJOR") && defined($upperName."_VERSION_MINOR") ) {
-
-											include $folder.$file.'/include.php';
-											$modules[$name] = $folder.$file.'/include.php';
-
-											if ( constant($upperName."_VERSION_MAJOR") >= CMS_VERSION_MAJOR && constant($upperName."_VERSION_MINOR") >= CMS_VERSION_MINOR ) {
-												Console::log("Loaded ($name) successfully");
-												Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
-											} else {
-												$err = "Unable to load ($name) -- Incorrect Version (".constant($upperName."_VERSION_MAJOR").".".constant($upperName."_VERSION_MINOR")." < ".CMS_VERSION_MAJOR.".".CMS_VERSION_MINOR.")";
-												Console::log($err);
-											}
-
-										} else {
-											$err = "Unable to load ($name) -- Missing versioning information";
-											throw new Exception($err);
-										}
-
+										$err = "Unable to load ($name) -- Missing Version Information.";
+										Console::log($err);
 									}
 
 								}

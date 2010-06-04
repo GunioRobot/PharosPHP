@@ -5,6 +5,9 @@
 	// Start loading the system
 	require_once dirname(__FILE__).'/load.php';
 	
+	require_once CLASSES_DIR.'Router.php';
+	Router::parse();
+	
 	// Load the classes that are barebones
 	require_once CLASSES_DIR.'QueryFactory.php';
 	require_once CLASSES_DIR.'Controller.php';
@@ -14,11 +17,11 @@
 	
 	// Database init
 	$db = new queryFactory();
-	if ( !$db->connect(DB_SERVER, DB_SERVER_USERNAME, DB_SERVER_PASSWORD, DB_DATABASE, USE_PCONNECT, false) ) {
+	if ( !$db->connect(Settings::get('database.host'), Settings::get('database.username'), Settings::get('database.password'), Settings::get('database.name'), false, false) ) {
 		die("Error connecting to database");
 	}
 		
 	// Finish initializing the system (load defines, settings, modules, set session variables, etc)
-	bootsrap_system();
+	bootstrap_system();
 		
 ?>

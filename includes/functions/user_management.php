@@ -77,8 +77,8 @@
 		
 		if ( !is_null($user) ) {
 			$rr = $db->Execute("SELECT * FROM users WHERE user_id = '".$user."' LIMIT 1");
-			return $rr->fields['user_level'] >= SUPER_LVL;
-		} else return SECURITY_LVL >= SUPER_LVL;
+			return $rr->fields['user_level'] >= Settings::get( 'users.levels.super');
+		} else return SECURITY_LVL >= Settings::get( 'users.levels.super');
 	}
 	
 	
@@ -96,8 +96,8 @@
 			
 		if ( !is_null($user) ) {
 			$rr = $db->Execute("SELECT * FROM users WHERE user_id = '".$user."' LIMIT 1");
-			return $rr->fields['user_level'] >= ADMIN_LVL;
-		} else return SECURITY_LVL >= ADMIN_LVL;
+			return $rr->fields['user_level'] >= Settings::get( 'users.levels.admin');
+		} else return SECURITY_LVL >= Settings::get( 'users.levels.admin');
 	}
 	
 	
@@ -114,8 +114,8 @@
 			
 		if ( !is_null($user) ) {
 			$rr = $db->Execute("SELECT * FROM users WHERE user_id = '".$user."' LIMIT 1");
-			return $rr->fields['user_level'] >= BASIC_USER_LVL;
-		} else return SECURITY_LVL >= BASIC_USER_LVL;
+			return $rr->fields['user_level'] >= Settings::get( 'users.levels.basic');
+		} else return SECURITY_LVL >= Settings::get( 'users.levels.basic');
 	}
 	
 	
@@ -148,7 +148,7 @@
 		
 			$mail = new Rmail();
 			$mail->setFrom(SERVER_MAILER);
-			$mail->setSubject(SITE_NAME.': Password Reset');
+			$mail->setSubject(Settings::get('system.site.name').': Password Reset');
 			$mail->setPriority('high');
 			$mail->setHTML($html);
 						
