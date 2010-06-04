@@ -130,7 +130,7 @@
 	function reset_password($username) {
 		
 		global $db;
-		Controller::loadModule("rmail");
+		Modules::load("rmail");
 				
 		$info = $db->Execute("SELECT * FROM users WHERE user_username = '$username' LIMIT 1");
 		if ( $info->fields['user_primary_email'] != '' ) {

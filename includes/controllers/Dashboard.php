@@ -124,7 +124,7 @@
 			$limit = str_replace('-',',',$limit);	// Can't use comma in URL
 			
 			global $CURRENT_APP_ID, $CURRENT_APP_NAME;
-			Controller::loadModule("fusion_charts");
+			Modules::load("fusion_charts");
 			
 			// Top 10 table for users
 			if ( $table == "users-top10" ) {
