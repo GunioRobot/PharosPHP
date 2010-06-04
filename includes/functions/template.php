@@ -227,13 +227,24 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 
-	function format_filesize($size) {
-		if ( $size >= 1000000000 ) $size = round($size/1000000000,1) . ' GB';
-		else if ( $size >= 1000000 ) $size = round($size/1000000,1) . ' MB';
-		else if ( $size >= 1000 ) $size = round($size/1000,1) . ' KB';
-		else $size = $size . ' Bytes';
-		return $size;
+	function format_filesize($size,$decimals=1) {
+		
+		$sizes = array(
+			// ========================= Origin ====
+			'TB' => 1099511627776,  // pow( 1024, 4)
+			'GB' => 1073741824,     // pow( 1024, 3)
+			'MB' => 1048576,        // pow( 1024, 2)
+			'kB' => 1024,           // pow( 1024, 1)
+			'B ' => 1,              // pow( 1024, 0)
+		);
+		
+		foreach($sizes as $unit => $mag) {
+			if ( doubleval($size) >= $mag ) return number_format($size/$mag, $decimals) . ' ' . $unit;
+		} return false;
+	
 	}
+	
+
 
 	
 	
