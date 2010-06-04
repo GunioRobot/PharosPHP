@@ -12,6 +12,8 @@
 		if ( ($arg = get("arg$i")) !== false ) $args[] = $arg;
 	}
 		
+		
+	Hooks::call_hook(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
 				
 	if ( $args[0] ) {
 		
@@ -24,6 +26,7 @@
 
 			require_once $file;
 			$controller = new $controllerClass();
+			Hooks::call_hook(Hooks::HOOK_CONTROLLER_POST_CREATED);	
 					
 			if ( $args[1] ) {
 				
@@ -64,6 +67,7 @@
 		
 			require_once $file;
 			$controller = new $controllerClass();
+			Hooks::call_hook(Hooks::HOOK_CONTROLLER_POST_CREATED);	
 			
 			$controller->index();
 			

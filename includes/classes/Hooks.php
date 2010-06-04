@@ -21,18 +21,26 @@
 	
 		protected static $hooks = array();
 		
-		const HOOK_APPLICATION_BOOTSTRAP = 'application_bootstrap_hook';		// function() {}
-		const HOOK_APPLICATION_DELETED = 'application_deleted_hook';			// function($app_id) {}
-		const HOOK_APPLICATION_PUBLISH = 'application_published_hook';			// function($app_id) {}
+		const HOOK_APPLICATION_DELETED = 'application_deleted_hook';					// function($app_id) {}
+		const HOOK_APPLICATION_PUBLISH = 'application_published_hook';					// function($app_id) {}
+		
+		const HOOK_CONTROLLER_PRE_CREATED = "controller_pre_created_hook";				// function($class) {}
+		const HOOK_CONTROLLER_POST_CREATED = "controller_post_created_hook";			// function($class) {}
 
-		const HOOK_MODULE_LOADED = 'module_loaded_hook';						// function($module_name) {}
+		const HOOK_MODULES_PRE_LOADED = 'modules_pre_loaded_hook';						// function() {}
+		const HOOK_MODULE_LOADED = 'module_loaded_hook';								// function($module_name) {}
+		const HOOK_MODULES_POST_LOADED = 'modules_post_loaded_hook';					// function() {}
 
-		const HOOK_TEMPLATE_HEADER = 'template_header_hook';					// function() {}
-		const HOOK_TEMPLATE_PRE_RENDER = 'template_pre_render_hook';			// function() {}
-		const HOOK_TEMPLATE_POST_RENDER = 'template_post_render_hook';			// function() {}
+		const HOOK_SYSTEM_PRE_BOOTSTRAP = 'system_pre_bootstrap_hook';					// function() {}
+		const HOOK_SYSTEM_POST_BOOTSTRAP = 'system_post_bootstrap_hook';				// function() {}
+	
+		const HOOK_TEMPLATE_HEADER = 'template_header_hook';							// function() {}
+		const HOOK_TEMPLATE_FOOTER = 'template_footer_hook';							// function() {}
+		const HOOK_TEMPLATE_PRE_RENDER = 'template_pre_render_hook';					// function() {}
+		const HOOK_TEMPLATE_POST_RENDER = 'template_post_render_hook';					// function() {}
 
-		const HOOK_USER_CREATED = 'user_created_hook';							// function($user_id) {}
-		const HOOK_USER_DELETED = 'user_deleted_hook';							// function($user_id) {}
+		const HOOK_USER_CREATED = 'user_created_hook';									// function($user_id) {}
+		const HOOK_USER_DELETED = 'user_deleted_hook';									// function($user_id) {}
 		
 		
 	
@@ -45,13 +53,22 @@
 		public static function init() {
 			
 			self::$hooks = array(
-				self::HOOK_APPLICATION_BOOTSTRAP => null,
+								
 				self::HOOK_APPLICATION_DELETED => null,
 				self::HOOK_APPLICATION_PUBLISH => null,
+				
+				self::HOOK_CONTROLLER_PRE_CREATED => null,
+				self::HOOK_CONTROLLER_POST_CREATED => null,
 
+				self::HOOK_MODULES_PRE_LOADED => null,
 				self::HOOK_MODULE_LOADED => null,
+				self::HOOK_MODULES_POST_LOADED => null,
+				
+				self::HOOK_SYSTEM_PRE_BOOTSTRAP => null,
+				self::HOOK_SYSTEM_POST_BOOTSTRAP => null,
 
 				self::HOOK_TEMPLATE_HEADER => null,
+				self::HOOK_TEMPLATE_FOOTER => null,
 				self::HOOK_TEMPLATE_PRE_RENDER => null,
 				self::HOOK_TEMPLATE_POST_RENDER => null,
 
@@ -217,15 +234,7 @@
 		private static function _register_default_hooks() {
 			
 			self::add_hook(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
-			
-			self::add_hook(self::HOOK_APPLICATION_BOOTSTRAP, array(
-					'load_content_types', 
-					'load_dynamic_system_settings',
-					'load_defines',
-					'load_automatic_modules',
-					'app_bootstrap')
-			);
-			
+						
 			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_css');
 			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_js');
 			

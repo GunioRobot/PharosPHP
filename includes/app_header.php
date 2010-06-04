@@ -23,7 +23,7 @@
 		die("Error connecting to database");
 	}
 		
-	// Finish initializing the application (load defines, settings, modules, set session variables, etc)
-	Hooks::call_hook(Hooks::HOOK_APPLICATION_BOOTSTRAP);
+	// Finish initializing the system (load defines, settings, modules, set session variables, etc)
+	bootsrap_system();
 		
 ?>

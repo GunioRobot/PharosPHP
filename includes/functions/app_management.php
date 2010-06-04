@@ -14,14 +14,23 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	function app_bootstrap() {
+	function bootstrap_system() {
 		
 		global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
+		
+		Hooks::call_hook(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
+		
+		load_content_types();
+		load_dynamic_system_settings();
+		load_defines();
+		load_automatic_modules();
 						
 		$CURRENT_APP_ID = session("app_id", DEFAULT_APP_ID);
 				
 		$title = $db->Execute("SELECT app_name FROM applications WHERE app_id = '$CURRENT_APP_ID' LIMIT 1");
 		$CURRENT_APP_NAME = format_title($title->fields['app_name']);
+		
+		Hooks::call_hook(Hooks::HOOK_SYSTEM_POST_BOOTSTRAP);
 				
 	}	
 	
