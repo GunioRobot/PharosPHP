@@ -17,6 +17,7 @@
 	function bootstrap_system() {
 		
 		global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
+		load_static_settings();
 		
 		Hooks::call_hook(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
 		
@@ -33,6 +34,34 @@
 		Hooks::call_hook(Hooks::HOOK_SYSTEM_POST_BOOTSTRAP);
 				
 	}	
+	
+	
+	function load_static_settings() {
+		
+		////////////////////////////////////////////////////////////////////////////////
+		//
+		//	Main Site Information
+		//	
+		////////////////////////////////////////////////////////////////////////////////
+		$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
+		define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/'.APP_PATH);
+
+
+
+		////////////////////////////////////////////////////////////////////////////////
+		//
+		//	Basic File System Stuff
+		//
+		////////////////////////////////////////////////////////////////////////////////
+
+		define('INCLUDES_DIR', SERVER_DIR.ADMIN_DIR.'includes/');
+		define('CLASSES_DIR', INCLUDES_DIR.'classes/');
+		define('FUNCTIONS_DIR', INCLUDES_DIR.'functions/');
+		define('UPLOAD_DIR', SERVER_DIR.ADMIN_DIR.Settings::get("upload_directory"););
+		define('XML_DIR', SERVER_DIR.ADMIN_DIR.Settings::get("xml_directory"););
+		define('DEFINES_DIR', INCLUDES_DIR.'defines/');
+		
+	}
 	
 	
 	////////////////////////////////////////////////////////////////////////////////

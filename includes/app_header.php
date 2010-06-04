@@ -1,21 +1,16 @@
 <?
 
 	session_start();
-
-	// Define Global Vars and Config Information
-	require_once 'configure.php';
 	
-	// Load the functions
-	require_once FUNCTIONS_DIR.'autoload.php';
+	// Start loading the system
+	require_once dirname(__FILE__).'/load.php';
 	
 	// Load the classes that are barebones
-	require_once CLASSES_DIR.'YAML/sfYaml.php';
 	require_once CLASSES_DIR.'QueryFactory.php';
 	require_once CLASSES_DIR.'Controller.php';
 	require_once CLASSES_DIR.'Modules.php';
 	require_once CLASSES_DIR.'TableController.php';
 	require_once CLASSES_DIR.'Hooks.php';
-	
 	
 	// Database init
 	$db = new queryFactory();

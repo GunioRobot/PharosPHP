@@ -1,0 +1,10 @@
+database:
+    server: localhost
+    username: macfanat_matt
+    password: '6513#*trin'
+    database: macfanat_cms
+    
+filesystem:
+    uploads_directory: content
+    xml_direcotry: xml
+    

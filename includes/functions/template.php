@@ -75,6 +75,8 @@
 	
 	function write_css() {
 		
+		global $controller;
+		
 		// Grab array of autoloaded CSS files  
 		$css = array();
 		$folder = TEMPLATE_DIR.'css/';
