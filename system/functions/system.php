@@ -56,7 +56,12 @@
 		define('FUNCTIONS_DIR', SYSTEM_DIR.'functions/');
 		define('UPLOAD_DIR', APPLICATION_DIR.Settings::get("filesystem.upload_directory"));
 		define('XML_DIR', APPLICATION_DIR.Settings::get("filesystem.xml_directory"));
-		define('CACHE_DIR', SYSTEM_DIR.'cache/');		
+		define('CACHE_DIR', SYSTEM_DIR.'cache/');	
+		
+		define('VIEWS_DIR', APPLICATION_DIR.'views/');	
+		define('LAYOUTS_DIR', APPLICATION_DIR.'layouts/');
+		define('MODELS_DIR', APPLICATION_DIR.'models/');
+		define('CONFIGURE_DIR', APPLICATION_DIR.'configure/');
 		
 		
 		////////////////////////////////////////////////////////////////////////////////

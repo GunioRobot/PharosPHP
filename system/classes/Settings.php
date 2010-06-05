@@ -35,7 +35,7 @@
 		
 		
 		public static function load() {
-			self::$config = sfYaml::load(SERVER_DIR.APP_PATH.'includes/application.yml');
+			self::$config = sfYaml::load(CONFIGURE_DIR.'application.yml');
 		}
 		
 		

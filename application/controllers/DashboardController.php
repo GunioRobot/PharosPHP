@@ -577,7 +577,7 @@
 			}
 			
 			// Show the view
-			require_once TEMPLATE_DIR.'views/user-tracking-view.php';
+			require_once VIEWS_DIR.'views/user-tracking-view.php';
 			
 		}
 		

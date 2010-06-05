@@ -79,7 +79,7 @@
 		
 		// Grab array of autoloaded CSS files  
 		$css = array();
-		$folder = TEMPLATE_DIR.'css/';
+		$folder = VIEWS_DIR.'css/';
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle))){
 				if ($file != "." && $file != ".." && !is_dir($folder.$file) && preg_match('/^style(.*)/', basename($file)) ) {
@@ -119,7 +119,7 @@
 	
 		// Grab all the autoload files from the directory
 		$js = array();
-		$folder = TEMPLATE_DIR.'js/autoload/';
+		$folder = VIEWS_DIR.'js/autoload/';
 		if ($handle = opendir($folder)) {
 			while (false !== ($file = readdir($handle))){
 				if ($file != "." && $file != ".." && !is_dir($folder.$file) && $file != 'pngfix.js' && $file != "CMSLite.php" && $file != "jquery.js" ) {
@@ -134,7 +134,7 @@
 		if ( !empty($js) ) {
 			
 			// Always first
-			require_once TEMPLATE_DIR.'js/autoload/CMSLite.php';
+			require_once VIEWS_DIR.'js/autoload/CMSLite.php';
 			
 			// Include any .js files (alphabetically sorted)
 			if ( !empty($js['js']) ) {
@@ -148,7 +148,7 @@
 			if ( !empty($js['php']) ) {
 				sort($js['php']);
 				foreach($js['php'] as $j) {
-					require_once TEMPLATE_DIR.'js/autoload/'.$j;
+					require_once VIEWS_DIR.'js/autoload/'.$j;
 				}
 				
 			}
@@ -161,7 +161,7 @@
 			foreach($javascript as $js) {
 				if ( $js['type'] == JAVASCRIPT_INCLUDE ) {
 					$data = $js['data']; 
-					require TEMPLATE_DIR.'js/'.$js['path']; 
+					require VIEWS_DIR.'js/'.$js['path']; 
 				} else {
 					echo '<script type="text/javascript" src="'.TEMPLATE_SERVER.'js/'.$js['path'].'"></script>';
 				}
@@ -394,10 +394,10 @@
 		
 		Hooks::call_hook(Hooks::HOOK_TEMPLATE_PRE_RENDER);
 		
-		require_once TEMPLATE_DIR.'tpl_HTML_header.php';
-		require_once TEMPLATE_DIR.'tpl_header.php';
-		require_once TEMPLATE_DIR.'tpl_body.php';
-		require_once TEMPLATE_DIR.'tpl_footer.php';
+		require_once VIEWS_DIR.'tpl_HTML_header.php';
+		require_once VIEWS_DIR.'tpl_header.php';
+		require_once VIEWS_DIR.'tpl_body.php';
+		require_once VIEWS_DIR.'tpl_footer.php';
 		
 		Hooks::call_hook(Hooks::HOOK_TEMPLATE_POST_RENDER);
 		

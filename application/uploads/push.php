@@ -10,8 +10,8 @@
 		require_once '../includes/app_header.php';
 		
 		@define('TITLE', SITE_NAME.' - File Not Found');
-		require_once TEMPLATE_DIR.'tpl_HTML_header.php';
-		require_once TEMPLATE_DIR.'tpl_header.php';		
+		require_once VIEWS_DIR.'tpl_HTML_header.php';
+		require_once VIEWS_DIR.'tpl_header.php';		
 		
 	?>	
 	
@@ -23,6 +23,6 @@
 		</div>
 		
 	<?	
-		require_once TEMPLATE_DIR.'tpl_footer.php';	
+		require_once VIEWS_DIR.'tpl_footer.php';	
 	}
 ?>

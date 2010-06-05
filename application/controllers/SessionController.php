@@ -49,11 +49,11 @@
 				}
 				
 				$loginMessage = "Incorrect username/password combination.";
-				require_once TEMPLATE_DIR.'views/login-view.php';
+				require_once VIEWS_DIR.'views/login-view.php';
 							
 			} else {
 				
-				require_once TEMPLATE_DIR.'views/login-view.php';				
+				require_once VIEWS_DIR.'views/login-view.php';				
 				
 			}			
 		
@@ -76,7 +76,7 @@
 		
 		public function passwordReset() {
 			$this->title = "Reset Password";
-			require_once TEMPLATE_DIR.'views/password-reset-view.php';
+			require_once VIEWS_DIR.'views/password-reset-view.php';
 		}
 
 
@@ -95,7 +95,7 @@
 			$this->title = 'Password Successfully Reset';
 			$message = 'Your password was successfully reset.<br /><br />';
 			$message .= 'Check the email account you registered with for your new password and instructions.';
-			require_once TEMPLATE_DIR.'views/password-reset-finished-view.php';
+			require_once VIEWS_DIR.'views/password-reset-finished-view.php';
 
 		}
 
@@ -109,7 +109,7 @@
 				$message = 'We were unable to send an email to the email address specified in your profile.<br />Please contact the <a href="mailto:'.SYS_ADMIN_EMAIL.'subject?Failed Password Reset">system administrator</a> for help.';
 			}
 
-			require_once TEMPLATE_DIR.'views/password-reset-finished-view.php';
+			require_once VIEWS_DIR.'views/password-reset-finished-view.php';
 
 		}
 	

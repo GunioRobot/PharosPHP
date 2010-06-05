@@ -10,7 +10,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 
 	function get_template($filename, $path='profiles/', $desired_extension='.html') {
-		return @file_get_contents(TEMPLATE_DIR.$path.basename($filename,"php").$desired_extension);
+		return @file_get_contents(VIEWS_DIR.$path.basename($filename,"php").$desired_extension);
 	}
 	
 	
