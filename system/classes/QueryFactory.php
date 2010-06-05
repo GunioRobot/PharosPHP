@@ -13,6 +13,14 @@
  * Queryfactory - A simple database abstraction layer
  *
  */
+
+
+// Database init
+$db = new queryFactory();
+if ( !$db->connect(Settings::get('database.host'), Settings::get('database.username'), Settings::get('database.password'), Settings::get('database.name'), false, false) ) {
+	die("Error connecting to database");
+}
+
 class queryFactory {
 
   function queryFactory() {
