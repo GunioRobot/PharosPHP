@@ -16,7 +16,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 
-	require_once CLASSES_DIR 'Modules.base.php';
+	require_once CLASSES_DIR.'Module.base.php';
 	class Modules {
 	
 		private static $modules = array();
@@ -43,12 +43,13 @@
 					
 					include $folder.$name.".php";
 					$class = controllerName($name);
+					var_dump($class);
 					
 					if ( !class_exists($class) ) {
 						throw new Error("Error loading module ($name). Class ($class) did not exist.");
 					} else {
 						
-						if ( $module::load() === true ) {
+						if ( call_user_func($class,"load") === true ) {
 							self::$modules[$name] = $folder.$name.".php";
 							Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
 						} else {
