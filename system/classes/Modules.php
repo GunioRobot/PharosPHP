@@ -42,11 +42,19 @@
 				if ( @file_exists($folder) && is_dir($folder) && @file_exists($folder.$name.".php") ) {
 					
 					include $folder.$name.".php";
-					if ( !class_exists(controllerName($name)) ) {
-						throw new Error("Error loading module ($name). Class (".controllerName($name).") did not exist.");
+					$class = controllerName($name);
+					
+					if ( !class_exists($class) ) {
+						throw new Error("Error loading module ($name). Class ($class) did not exist.");
 					} else {
-						self::$modules[$name] = $folder.$name.".php";
-						Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
+						
+						if ( $module::load() === true ) {
+							self::$modules[$name] = $folder.$name.".php";
+							Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
+						} else {
+							throw new Exception("Error loading module ($name). ".$module."::load() returned value other than true.");
+						}
+						
 					}
 					
 				}
