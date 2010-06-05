@@ -5,7 +5,7 @@ database:
     name: macfanat_cms
     
 filesystem:
-    uploads_directory: content
+    uploads_directory: uploads
     xml_direcotry: xml
     
 modules:
@@ -23,8 +23,7 @@ system:
     default_app_id: 1
     site:
         name: "CMSLite"
-    template: 
-        name: "new_life"
+    
     
 users:
     levels:

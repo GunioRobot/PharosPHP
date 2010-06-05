@@ -49,13 +49,14 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		define('INCLUDES_DIR', SERVER_DIR.APP_PATH.'includes/');
-		define('CLASSES_DIR', INCLUDES_DIR.'classes/');
-		define('FUNCTIONS_DIR', INCLUDES_DIR.'functions/');
-		define('UPLOAD_DIR', SERVER_DIR.APP_PATH.Settings::get("filesystem.upload_directory"));
-		define('XML_DIR', SERVER_DIR.APP_PATH.Settings::get("filesystem.xml_directory"));
-		define('DEFINES_DIR', INCLUDES_DIR.'defines/');
+		define('SYSTEM_DIR', SERVER_DIR.APP_PATH.'system/');
+		define('APPLICATION_DIR', SERVER_DIR.APP_PATH.'application/');
 		
+		define('CLASSES_DIR', SYSTEM_DIR.'classes/');
+		define('FUNCTIONS_DIR', SYSTEM_DIR.'functions/');
+		define('UPLOAD_DIR', APPLICATION_DIR.Settings::get("filesystem.upload_directory"));
+		define('XML_DIR', APPLICATION_DIR.Settings::get("filesystem.xml_directory"));
+		define('CACHE_DIR', SYSTEM_DIR.'cache/');		
 		
 		
 		////////////////////////////////////////////////////////////////////////////////
@@ -64,12 +65,13 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		define('INCLUDES_SERVER', HTTP_SERVER.'includes/');
-		define('CLASSES_SERVER', INCLUDES_SERVER.'classes/');
-		define('FUNCTIONS_SERVER', INCLUDES_SERVER.'functions/');
-		define('TEMPLATE_SERVER', INCLUDES_SERVER.'templates/'.Settings::get('system.template.name').'/');
-		define('UPLOAD_SERVER', HTTP_SERVER.UPLOAD_TO);
-		define('XML_SERVER', HTTP_SERVER.XML_TO);
+		define('APPLICATION_SERVER', HTTP_SERVER.'application/');
+		define('SYSTEM_SERVER', HTTP_SERVER.'system/');
+
+		define('PUBLIC_SERVER', HTTP_SERVER.'public/');
+		define('UPLOAD_SERVER', APPLICATION_SERVER.Settings::get("filesystem.upload_directory"));
+		define('XML_SERVER', APPLICATION_SERVER.Settings::get("filesystem.xml_directory"));
+		define('CACHE_SERVER', SYSTEM_SERVER.'cache/');
 
 
 
@@ -79,12 +81,9 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-
-		define('TEMPLATE_DIR', INCLUDES_DIR.'templates/'.Settings::get('system.template.name').'/');
-		define('CONTROLLER_DIR', INCLUDES_DIR.'controllers/');
-		define('MODULES_DIR', INCLUDES_DIR.'modules/');
-		define('MODULES_SERVER', INCLUDES_SERVER.'modules/');
-
+		define('CONTROLLER_DIR', APPLICATION_DIR.'controllers/');
+		define('MODULES_DIR', APPLICATION_DIR.'modules/');
+		define('MODULES_SERVER', APPLICATION_SERVER.'modules/');
 
 
 		////////////////////////////////////////////////////////////////////////////////
