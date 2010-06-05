@@ -1,5 +1,23 @@
 <?
 
+	///////////////////////////////////////////////////////////////////////////
+	//
+	//	Router API
+	//
+	//	The Router API parses the browsers URL to determine which controller
+	//	create, which method to call on the controller, and any arguments to 
+	// 	be passed to that controller.
+	//
+	//	By default, a naming convention is used to determine controller & 
+	//	method.  To override the default convention, add custom routing actions
+	//	to the "application/configuration/application.yml" file under "routes".
+	//
+	//	When the site is loaded with no obvious URL structure (index.php), 
+	//	the Router API uses the "routes.root" as the controller with the default
+	//	method of "index()";
+	//
+	///////////////////////////////////////////////////////////////////////////
+	
 	class Router {
 
 		private static $raw;
