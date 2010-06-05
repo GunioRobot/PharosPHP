@@ -9,11 +9,11 @@
 	define('SERVER_DIR', substr(substr($f, 0, strrpos($f, "/"))."/", 0, -strlen(APP_PATH)));
 	
 	// Define Global Vars and Config Information
-	require_once SERVER_DIR.APP_PATH.'includes/classes/YAML/sfYaml.php';
-	require_once SERVER_DIR.APP_PATH.'includes/classes/Settings.php';
+	require_once SERVER_DIR.APP_PATH.'system/classes/YAML/sfYaml.php';
+	require_once SERVER_DIR.APP_PATH.'system/classes/Settings.php';
 	
 	// Load in all the functions (.php files) in this folder
-	require_once SERVER_DIR.APP_PATH.'includes/functions/autoload.php';
+	require_once SERVER_DIR.APP_PATH.'system/functions/autoload.php';
 	load_static_settings();
 	
 	// Load the Router and request parsing of the URL to controller class, method, and params	
