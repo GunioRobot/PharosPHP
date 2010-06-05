@@ -17,7 +17,7 @@
 	define('VIEWS_DIR', APPLICATION_DIR.'views/');	
 	define('LAYOUTS_DIR', APPLICATION_DIR.'layouts/');
 	define('MODELS_DIR', APPLICATION_DIR.'models/');
-	define('CONFIGURE_DIR', APPLICATION_DIR.'configure/');
+	define('CONFIGURATION_DIR', APPLICATION_DIR.'configure/');
 	define('CONTROLLER_DIR', APPLICATION_DIR.'controllers/');
 	define('MODULES_DIR', APPLICATION_DIR.'modules/');
 	
