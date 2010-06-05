@@ -1,5 +1,22 @@
 <?
 
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	MODULES API
+	//
+	// 	The modules API allows developers to easily extend core functionality and
+	// 	provide that functionality across applications.
+	//
+	// 	A module developer should start by subclassing the "Module" class and 
+	//	overriding the documented methods within.  Then the application code can 
+	//	explicity request for the system to load the method at runtime, or the
+	//	module can be configured to be autoloaded during application init by 
+	// 	entering it in the "application.yml" configuration file under "modules -> user"
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+
+	require_once CLASSES_DIR 'Modules.base.php';
 	class Modules {
 	
 		private static $modules = array();
@@ -20,42 +37,20 @@
 		public static function load($name) {
 			
 			if ( !isset(self::$modules[$name]) ) {
-				$folder = MODULES_DIR;
-				if ($handle = opendir($folder)) {
-					while (false !== ($file = readdir($handle)) ) {
-						if ($file != "." && $file != ".." && is_dir($folder.$file) && $file === $name ) {
-							if ( @file_exists($folder.$file.'/include.php') ) {
-
-								// Make sure the version of the module is correct, then load
-								if ( @file_exists($folder.$file.'/version.php') ) {
-
-									unset($module_version);
-									include $folder.$file.'/version.php';
-									if ( isset($module_version) ) {
-
-										include $folder.$file.'/include.php';
-										$modules[$name] = $folder.$file.'/include.php';
-
-										// Try to validate using the newer string version comparison instead of nasty defines
-										if ( ($comp = version_compare($module_version, Settings::get("system.version"))) >= 0 ) {
-											Console::log("Loaded ($name) successfully");
-											Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
-										} else {
-											$err = "Unable to load ($name) -- Incorrect Version (".$module_version." < ".Settings::get("system.version").")";
-											Console::log($err);
-										}
-
-									} else {
-										$err = "Unable to load ($name) -- Missing Version Information.";
-										Console::log($err);
-									}
-
-								}
-
-							}
-						}
+				
+				$folder = MODULES_DIR.$name;
+				if ( @file_exists($folder) && is_dir($folder) && @file_exists($folder.$name.".php") ) {
+					
+					include $folder.$name.".php";
+					if ( !class_exists(controllerName($name)) ) {
+						throw new Error("Error loading module ($name). Class (".controllerName($name).") did not exist.");
+					} else {
+						self::$modules[$name] = $folder.$name.".php";
+						Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
 					}
+					
 				}
+
 			}
 		}
 		
