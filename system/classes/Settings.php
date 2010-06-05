@@ -35,7 +35,8 @@
 		
 		
 		public static function load() {
-			self::$config = sfYaml::load(CONFIGURE_DIR.'application.yml');
+			self::$config = sfYaml::load(CONFIGURATION_DIR.'application.yml');
+			load_static_settings();
 		}
 		
 		
@@ -84,11 +85,19 @@
 				$components = array_slice($components,2);
 
 				if ( !empty($components) ) {
+					
+					$set = false;
 					foreach($components as $c) {
 						if ( isset($arr[$c]) ) {
 							$arr =& $arr[$c];
-						} else $arr = $value;
-					} else $arr = $value;
+						} else {
+							$arr = $value;
+							$set = true;
+						}
+					} 
+					
+					if ( !$set ) $arr = $value;
+					
 				} else $arr = $value;
 
 			}
