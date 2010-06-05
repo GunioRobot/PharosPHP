@@ -1,0 +1,69 @@
+ <div class="titleTabs">
+  	<h1>{table title}</h1>
+		<div class="contentTabCap"></div><div class="contentTab"><a href="{manage}" class="tabText">Manage {TYPE}s</a></div>
+		<div class="contentTabCap"></div><div class="contentTab"><a href="{new}" class="tabAdd">New {TYPE}</a></div>
+	    <br clear="all" />
+	</div>
+	<div class="contentTitleBar titleBar"><b class="btop"><b></b></b>
+	</div>
+	
+	<div class="nonTableContent">
+	
+	<form id="profile" action="{form_link}" method="post" enctype="multipart/form-data">
+	<input type="hidden" name="field_list" value="{field_list}">
+	<input type="hidden" name="table" value="{table}">
+	<input type="hidden" name="data_key" value="{data_key}">
+	[content_type_id]
+	[content_type_name]
+	<div class="col3col">
+       	<div class="floatLeft"><strong>Page Title:</strong><br />[title]</div>
+       	<div class="clearBoth"></div><br />
+       	[slug]<div class="floatLeft">View the page at: <a target="_blank" id="preview-slug" href="{SERVER}{slug}/">{SERVER}{slug}/</a><span id="save-text"></span></div>
+       	<div class="clearBoth"></div><br />
+		<div class="floatLeft"><strong>Date Added:</strong><br />[date_added]</div>
+        <div class="floatLeft" style="margin-left:25px;"><strong>Last Updated:</strong><br />[last_updated]</div>
+        {level_chooser}
+        <div class="floatLeft" style="margin-left:25px;"><strong>Template:</strong><br />[template]</div>
+       	<div class="clearBoth"></div><br />
+    </div>
+    <div class="clearBoth"></div>
+
+	<br /><br />
+	<div class="col3col">
+	    <div class="floatLeft"><strong>Page Text:</strong><br />[text]</div>
+    </div>
+    <div class="clearBoth"></div>
+
+	<br /><br /><hr />
+	<div class="col3col" id="image-area">
+		<div class="floatLeft"><strong>Images (Maximum of {number_images_per_item}):</strong><br /></div>
+		<div class="clearBoth"></div><br /><br />
+		{image_area}
+		<div class="clearBoth"></div>
+ 	</div>
+    <div class="clearBoth"></div>
+
+	<br /><br /><hr />
+	<div class="col3col" id="download-area">
+		<div class="floatLeft"><strong>Downloads (Maximum of {number_downloads_per_item}):</strong><br /></div>
+		<div class="clearBoth"></div><br /><br />
+		<div class="floatLeft"><strong>Downloads Area Title:</strong><br />[download_area_title]</div>
+		<div class="clearBoth"></div><br /><br />
+		{download_area}
+		<div class="clearBoth"></div>
+ 	</div>
+    <div class="clearBoth"></div>
+
+	<br /><br /><hr />
+	<div class="col3col">
+	    <div class="floatLeft"><strong>Notes: (Admin Use Only)</strong><br />[notes]</div>
+    </div>
+    <div class="clearBoth"></div>
+
+
+    </form>
+</div>
+<div class="contentBottomBar"><b class="bbot"><b></b></b></div>
+<div class="floatLeft" align="center"><a href="#" onclick="$('#profile').submit();" class="buttons2">{button_text}</a></div>
+<br clear="all" />
+

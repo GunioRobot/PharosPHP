@@ -1,0 +1,6 @@
+<?
+
+	define('FUSION_CHARTS_VERSION_MAJOR', 1);
+	define('FUSION_CHARTS_VERSION_MINOR', 0);
+	
+?>
