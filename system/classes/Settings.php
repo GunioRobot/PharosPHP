@@ -88,7 +88,7 @@
 						if ( isset($arr[$c]) ) {
 							$arr =& $arr[$c];
 						} else $arr = $value;
-					} else $arr = $value
+					} else $arr = $value;
 				} else $arr = $value;
 
 			}
