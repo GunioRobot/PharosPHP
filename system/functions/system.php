@@ -40,28 +40,11 @@
 		////////////////////////////////////////////////////////////////////////////////
 		$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
 		define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/'.APP_PATH);
-
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Basic File System Stuff
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		define('SYSTEM_DIR', SERVER_DIR.APP_PATH.'system/');
-		define('APPLICATION_DIR', SERVER_DIR.APP_PATH.'application/');
+	
 		
-		define('CLASSES_DIR', SYSTEM_DIR.'classes/');
-		define('FUNCTIONS_DIR', SYSTEM_DIR.'functions/');
 		define('UPLOAD_DIR', APPLICATION_DIR.Settings::get("filesystem.upload_directory"));
 		define('XML_DIR', APPLICATION_DIR.Settings::get("filesystem.xml_directory"));
-		define('CACHE_DIR', SYSTEM_DIR.'cache/');	
-		
-		define('VIEWS_DIR', APPLICATION_DIR.'views/');	
-		define('LAYOUTS_DIR', APPLICATION_DIR.'layouts/');
-		define('MODELS_DIR', APPLICATION_DIR.'models/');
-		define('CONFIGURE_DIR', APPLICATION_DIR.'configure/');
+	
 		
 		
 		////////////////////////////////////////////////////////////////////////////////
@@ -77,17 +60,6 @@
 		define('UPLOAD_SERVER', APPLICATION_SERVER.Settings::get("filesystem.upload_directory"));
 		define('XML_SERVER', APPLICATION_SERVER.Settings::get("filesystem.xml_directory"));
 		define('CACHE_SERVER', SYSTEM_SERVER.'cache/');
-
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	File System Information
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		define('CONTROLLER_DIR', APPLICATION_DIR.'controllers/');
-		define('MODULES_DIR', APPLICATION_DIR.'modules/');
 		define('MODULES_SERVER', APPLICATION_SERVER.'modules/');
 
 
