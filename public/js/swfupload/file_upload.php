@@ -278,7 +278,7 @@
 			upload_complete_handler : uploadComplete,
 
 			// Button Settings
-			button_image_url : "<?=TEMPLATE_SERVER?>images/up_alt.png",
+			button_image_url : "<?=PUBLIC_SERVER?>images/up_alt.png",
 			button_placeholder_id : "uploadFilePlaceholder",
 			button_width: 180,
 			button_height: 40,

@@ -32,9 +32,9 @@
 	$nextMonth = "&year=".date('Y&\m\o\n\t\h=m', mktime(0,0,0,$month+1,1,$year));
 	$previousMonth = "&year=".date('Y&\m\o\n\t\h=m', mktime(0,0,0,$month-1,1,$year));
 	
-	$calendar .= '<div id="next-month"><a href="index.php?'.$get_string.$nextMonth.'" title="See the next month"><img src="'.TEMPLATE_SERVER.'images/go-right-circle.png" /></a></div>';
+	$calendar .= '<div id="next-month"><a href="index.php?'.$get_string.$nextMonth.'" title="See the next month"><img src="'.PUBLIC_SERVER.'images/go-right-circle.png" /></a></div>';
 	$calendar .= '<h1>'.date('F Y', mktime(0,0,0,$month,1,$year)).'</h1>';
-	$calendar .= '<div id="previous-month"><a href="index.php?'.$get_string.$previousMonth.'" title="See the previous month"><img src="'.TEMPLATE_SERVER.'images/go-left-circle.png"/></a></div>';
+	$calendar .= '<div id="previous-month"><a href="index.php?'.$get_string.$previousMonth.'" title="See the previous month"><img src="'.PUBLIC_SERVER.'images/go-left-circle.png"/></a></div>';
 	$calendar .= '<div class="clearBoth"></div>';
 	
 	

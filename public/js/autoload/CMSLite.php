@@ -1,9 +1,9 @@
-<script type="text/javascript" src="<?=TEMPLATE_SERVER?>js/autoload/jquery.js"></script>
+<script type="text/javascript" src="<?=PUBLIC_SERVER?>js/autoload/jquery.js"></script>
 <script type="text/javascript">
 
 	CMSLite = {};
 	CMSLite.HTTP_SERVER = "<?=site_link()?>";
-	CMSLite.TEMPLATE_SERVER = "<?=TEMPLATE_SERVER?>";
+	CMSLite.PUBLIC_SERVER = "<?=PUBLIC_SERVER?>";
 	CMSLite.UPLOAD_SERVER = "<?=UPLOAD_SERVER?>";
 	CMSLite.SITE_NAME = "<?=Settings::get('system.site.name')?>";
 

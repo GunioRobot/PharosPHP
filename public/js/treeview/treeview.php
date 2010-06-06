@@ -1,4 +1,4 @@
-<script type="text/javascript" src="<?=TEMPLATE_SERVER?>js/treeview/jquery.treeview.pack.js"></script>
+<script type="text/javascript" src="<?=PUBLIC_SERVER?>js/treeview/jquery.treeview.pack.js"></script>
 <script type="text/javascript">
 
 	$(function() {

@@ -167,7 +167,7 @@
 
 
 				// The USA Map for user location
-				echo '<embed width="550" height="400" flashvars="xml='.urlencode(MODULES_SERVER.'corelabs/pages/map_demographic_data.php').'" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.TEMPLATE_SERVER.'usa_map.swf" type="application/x-shockwave-flash"/>';
+				echo '<embed width="550" height="400" flashvars="xml='.urlencode(MODULES_SERVER.'corelabs/pages/map_demographic_data.php').'" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.PUBLIC_SERVER.'usa_map.swf" type="application/x-shockwave-flash"/>';
 
 
 				// Table header
@@ -384,7 +384,7 @@
 					$row['data'][] = $industry;
 					
 					
-					$row['data'][] = '<img src="'.TEMPLATE_SERVER.'images/'. ($info->fields['user_is_active'] === "true" ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" />';
+					$row['data'][] = '<img src="'.PUBLIC_SERVER.'images/'. ($info->fields['user_is_active'] === "true" ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" />';
 					$row['data'][] = format_date($info->fields['last_updated'],true);
 
 					$actions = '<a href="'.edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';

@@ -82,8 +82,8 @@
     settings: {
       opacity      : 0,
       overlay      : true,
-      loadingImage : CMSLite.TEMPLATE_SERVER+'images/facebox/loading.gif',
-      closeImage   : CMSLite.TEMPLATE_SERVER+'images/facebox/closelabel.gif',
+      loadingImage : CMSLite.PUBLIC_SERVER+'images/facebox/loading.gif',
+      closeImage   : CMSLite.PUBLIC_SERVER+'images/facebox/closelabel.gif',
       imageTypes   : [ 'png', 'jpg', 'jpeg', 'gif' ],
       faceboxHtml  : '\
     <div id="facebox" style="display:none;"> \
@@ -100,7 +100,7 @@
                 </div> \
                 <div class="footer"> \
                   <a href="#" class="close"> \
-                    <img src="'+CMSLite.TEMPLATE_SERVER+'facebox/closelabel.gif" title="close" class="close_image" /> \
+                    <img src="'+CMSLite.PUBLIC_SERVER+'facebox/closelabel.gif" title="close" class="close_image" /> \
                   </a> \
                 </div> \
               </td> \

@@ -12,7 +12,7 @@
 	
 	<!--[if IE 6]>
 		
-		<script type="text/javascript" src="<?=TEMPLATE_SERVER.'js/'?>pngfix.js"></script>
+		<script type="text/javascript" src="<?=PUBLIC_SERVER.'js/'?>pngfix.js"></script>
 		<script type="text/javascript">
 			DD_belatedPNG.fix('img, a.ordered-down, a.ordered-up, #pointer, #iphone, #site, ul.iphone-list li');
 		</script>
