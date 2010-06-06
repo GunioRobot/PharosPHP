@@ -39,7 +39,7 @@
 			if ( !isset(self::$modules[$name]) ) {
 				
 				$folder = MODULES_DIR.$name;
-				$file = $folder."/load.php";
+				$file = $folder."/include.php";
 				
 				if ( @file_exists($folder) && is_dir($folder) && @file_exists($file)) ) {
 					
