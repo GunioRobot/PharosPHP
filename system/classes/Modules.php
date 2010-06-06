@@ -41,7 +41,7 @@
 				$folder = MODULES_DIR.$name;
 				$file = $folder."/include.php";
 				
-				if ( @file_exists($folder) && is_dir($folder) && @file_exists($file)) ) {
+				if ( @file_exists($folder) && is_dir($folder) && @file_exists($file) ) {
 					
 					include $file;					
 					self::$modules[$name] = $file;
