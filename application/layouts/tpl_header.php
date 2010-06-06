@@ -34,7 +34,7 @@
 				<? endforeach ?>
 				
 				<div class="clearBoth"></div>
-				<div id="pointer"><img src="<?=TEMPLATE_SERVER?>images/nav-pointer.png" alt="v" /></div>
+				<div id="pointer"><img src="<?=PUBLIC_SERVER?>images/nav-pointer.png" alt="v" /></div>
 				
 				
 				<?foreach($pages as $pid => $parent) : ?>
