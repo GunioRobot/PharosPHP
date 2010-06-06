@@ -276,17 +276,17 @@
 	
 	function is_current_parent_nav($page) {
 		
-		global $controller;
-		
-		$controllerClass = get_class($controller);
-		foreach($page->children as $p) {
+		$controllerClass = Router::controller();
+		if ( is_array($page->children) ) {
+			foreach($page->children as $p) {
 			
-			$parts = explode("/", trim($p->page, " /"));
-			$controllerName = controller_name($parts[0]);
-			if ( $controllerClass === $controllerName ) {
-				return true;
+				$parts = explode("/", trim($p->page, " /"));
+				$controllerName = controller_name($parts[0]);
+				if ( $controllerClass === $controllerName ) {
+					return true;
+				}
+			
 			}
-			
 		}
 		
 		return false;
