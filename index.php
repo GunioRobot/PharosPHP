@@ -5,7 +5,7 @@
 	
 	// Validate login information
 	validate_login();
-		
+			
 	// System action to allow post system-init, pre controller created actions to execute		
 	Hooks::call_hook(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
 	

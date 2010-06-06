@@ -13,7 +13,7 @@
 	
 		global $db;
 		
-		if ( get("arg1") === "session" && get("arg2") === "login" ) {
+		if ( !Router::requires_login() ) {
 			return;
 		}
 		
