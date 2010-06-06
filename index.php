@@ -29,7 +29,7 @@
 		}	
 
 		// Grab the contents of the buffer & give to controller to use. Turn off buffering as well
-		$controller->finalize(ob_get_flush());
+		$controller->finalize(ob_get_clean());
 		
 		// Render the template to the browser
 		render_template();

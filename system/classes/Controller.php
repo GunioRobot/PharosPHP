@@ -176,7 +176,9 @@
 			unset($this->css);
 			unset($this->javascript);
 			
-			Console::log("Unloading (".get_class($this).")");
+			if ( class_exists("Console") ) {
+				Console::log("Unloading (".get_class($this).")");
+			}
 		
 		}
 	

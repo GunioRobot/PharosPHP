@@ -394,14 +394,16 @@
 		
 		Hooks::call_hook(Hooks::HOOK_TEMPLATE_PRE_RENDER);
 		
-		require_once PUBLIC_DIR.'tpl_HTML_header.php';
-		require_once PUBLIC_DIR.'tpl_header.php';
-		require_once PUBLIC_DIR.'tpl_body.php';
-		require_once PUBLIC_DIR.'tpl_footer.php';
+		if ( ($layout = Router::layout()) !== false ) {
+			require_once $layout;
+		} else {
+			echo $controller->output();
+		}
 		
 		Hooks::call_hook(Hooks::HOOK_TEMPLATE_POST_RENDER);
 		
 	}
+	
 	
 	
 	////////////////////////////////////////////////////////////////////////////////
