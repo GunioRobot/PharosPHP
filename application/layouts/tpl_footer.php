@@ -11,7 +11,7 @@
 	
 	</div>
 	
-	<? if ( is_logged_in() && SHOW_PROFILER_RESULTS ) $profiler->display($db) ?>
+	<? if ( is_logged_in() && SHOW_PROFILER_RESULTS ) {global $profiler; $profiler->display($db);} ?>
 	
 	<? Hooks::call_hook(Hooks::HOOK_TEMPLATE_FOOTER) ?>
 
