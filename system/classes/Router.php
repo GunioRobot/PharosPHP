@@ -56,6 +56,13 @@
 			return count(self::$components) > 2 ? array_slice(self::$components,2) : array();
 		}
 		
+		public static function requires_login() {
+			
+			if ( Router::controller() === "SessionController" && Router::method() === "Login" ) return false;
+			else return true;
+			
+		}
+		
 		public static function raw_input() {
 			return self::$raw;
 		}
