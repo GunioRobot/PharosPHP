@@ -39,25 +39,16 @@
 			if ( !isset(self::$modules[$name]) ) {
 				
 				$folder = MODULES_DIR.$name;
-				if ( @file_exists($folder) && is_dir($folder) && @file_exists($folder.$name.".php") ) {
+				$file = $folder."/load.php";
+				
+				if ( @file_exists($folder) && is_dir($folder) && @file_exists($file)) ) {
 					
-					include $folder.$name.".php";
-					$class = controllerName($name);
-					var_dump($class);
+					include $file;					
+					self::$modules[$name] = $file;
+					Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
 					
-					if ( !class_exists($class) ) {
-						throw new Error("Error loading module ($name). Class ($class) did not exist.");
-					} else {
-						
-						if ( call_user_func($class,"load") === true ) {
-							self::$modules[$name] = $folder.$name.".php";
-							Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
-						} else {
-							throw new Exception("Error loading module ($name). ".$module."::load() returned value other than true.");
-						}
-						
-					}
-					
+				} else {
+					throw new Exception("Error loading module ($name).  File did not exist.");
 				}
 
 			}
