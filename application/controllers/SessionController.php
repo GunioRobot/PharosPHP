@@ -24,13 +24,7 @@
 			
 			$this->title = "Login";
 			
-			// If resetting password
-			if ( ($user = post('user')) AND post('forgot_password') ) {
-				reset_password($user);
-				exit;
-			}
-			
-			else if ( ($user = post('user')) AND ($pass = post('pass')) ) {
+			if ( ($user = post('user')) AND ($pass = post('pass')) ) {
 				
 				$info = $this->db->Execute("SELECT * FROM users WHERE user_username = '$user' AND user_password = '$pass' AND user_level >= ".Settings::get( 'users.levels.basic')." LIMIT 1");
 				if ( $info->fields['user_id'] ) {
