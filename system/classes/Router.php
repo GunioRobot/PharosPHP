@@ -21,8 +21,8 @@
 	Router::parse();
 	class Router {
 
-		private static $raw;
-		private static $components;
+		private static $raw = "";
+		private static $components = array();
 		
 		public static function parse() {
 			
@@ -43,12 +43,24 @@
 		}
 		
 		public static function controller() {
-			$c = !empty(self::$components) ? self::$components[0]."Controller" : Settings::get('routes.root');
+			$c = !empty(self::$components) ? self::$components[0]."Controller" : Settings::get('routes.root.controller');
 			return controller_name($c);
 		}
 		
 		public static function method() {
+			
 			$m = count(self::$components) > 1 ? controller_name(self::$components[1]) : "index";
+			if ( Router::controller() == Settings::get('routes.root.controller') ) {
+				try {
+				
+					$method = Settings::get('routes.root.action');
+					return $method;
+				
+				} catch (Exception $e) {
+					return $m;
+				}
+			}
+			
 			return $m;
 		}
 		

@@ -16,7 +16,8 @@ modules:
     user:
         
 routes:
-    root: UsersController
+    root: 
+        controller: UsersController
     
 system:
     version: 1.5

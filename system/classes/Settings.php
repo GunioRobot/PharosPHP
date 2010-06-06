@@ -55,11 +55,16 @@
 				$arr = self::$config[$components[0]][$components[1]];
 				$components = array_slice($components,2);
 				
+				$count = 0;
 				if ( !empty($components) ) {
 					foreach($components as $c) {
 						if ( isset($arr[$c]) ) {
 							$arr = $arr[$c];
-						} else return $arr;
+							$count++;
+						} else {
+							if ( $count == count($components) ) return $arr;
+							else throw new Exception("Setting not defined! (".$path.")");
+						}
 					} return $arr;
 				} else return $arr;
 				
