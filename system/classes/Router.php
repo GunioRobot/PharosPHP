@@ -72,10 +72,10 @@
 			
 				// Didn't have custom routing option setup, so use basic routing (the first portion of URL) or the root controller defined			
 				$c = !empty(self::$components) ? self::$components[0]."Controller" : Settings::get('routes.root.controller');
-				return controller_name($c);
+				return Template::controller_name($c);
 				
 			} else {
-				if ( $route['param_values'][':controller'] != "" ) return controller_name($route['param_values'][':controller'])."Controller";
+				if ( $route['param_values'][':controller'] != "" ) return Template::controller_name($route['param_values'][':controller'])."Controller";
 				else return $route['controller'];
 			}
 			
@@ -89,7 +89,7 @@
 			// Attempt to find a match based upon the custom routing defined
 			if ( ($route = self::_matching_route()) === false ) {
 								
-				$m = count(self::$components) > 1 ? controller_name(self::$components[1]) : "index";
+				$m = count(self::$components) > 1 ? Template::controller_name(self::$components[1]) : "index";
 				if ( Router::controller() == Settings::get('routes.root.controller') ) {
 					try {
 				
@@ -104,8 +104,8 @@
 				return $m;
 				
 			} else {
-				if ( $route['param_values'][':action'] != "" ) return controller_name($route['param_values'][':action']);
-				else return controller_name($route['action']);
+				if ( $route['param_values'][':action'] != "" ) return Template::controller_name($route['param_values'][':action']);
+				else return Template::controller_name($route['action']);
 			}
 			
 		}
