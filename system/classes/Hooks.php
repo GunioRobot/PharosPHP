@@ -131,13 +131,23 @@
 				$functions = self::$hooks[$name];
 				if ( !is_null($functions) && is_array($functions) && !empty($functions) ) {
 					foreach($functions as $func) {
-						if ( function_exists($func) ) {
+						
+						if ( strpos($func, "::") !== false ) {
+							
 							call_user_func_array($func, $params);
+							
 						} else {
-							if ( class_exists("Console") ) {
-								Console::log("Hooks::call_hook($name): skipping function ($func) - undefined.");
+						
+							if ( function_exists($func) ) {
+								call_user_func_array($func, $params);
+							} else {
+								if ( class_exists("Console") ) {
+									Console::log("Hooks::call_hook($name): skipping function ($func) - undefined.");
+								}
 							}
+							
 						}
+						
 					}
 				} else return false;
 
@@ -235,9 +245,9 @@
 			
 			self::add_hook(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
 						
-			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_header_meta');
-			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_css');
-			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_js');
+			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_header_meta');
+			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_css');
+			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_js');
 			
 		}
 	
