@@ -143,7 +143,7 @@
 			$html .= 'You requested to have your password reset.  If you did not make the request, please user the system administrator at: <a href="mailto:'.SYS_ADMIN_EMAIL.'?subject=Bad Password Reset">'.SYS_ADMIN_EMAIL.'</a>';
 			$html .= '<br /><br /><hr>';
 			$html .= 'Your new password is: <strong>'.$new_password.'</strong><br />';
-			$html .= 'Login at <a href="'.site_link().'">'.site_link().'</a> with your username and new password.';
+			$html .= 'Login at <a href="'.Template::site_link().'">'.Template::site_link().'</a> with your username and new password.';
 			$html .= '</body></html>';
 		
 			$mail = new Rmail();

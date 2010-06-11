@@ -5,7 +5,7 @@
 		<div class="clearBoth"></div>
 
 		<?=$message?>
-		<div class="floatLeft" align="center"><a href="<?=site_link()?>" title="Try logging in again" class="buttons">Log In</a></div>
+		<div class="floatLeft" align="center"><a href="<?=Template::site_link()?>" title="Try logging in again" class="buttons">Log In</a></div>
 		<div class="clearBoth"></div>
 	
 	</div>

@@ -329,7 +329,7 @@
 		public function switch_task($task) {
 			
 			$_SESSION['current_task'] = $task;
-			redirect(site_link());
+			redirect(Template::site_link());
 			
 		}
 		

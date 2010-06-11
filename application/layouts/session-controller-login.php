@@ -6,7 +6,7 @@
 		<div id="DCheader">
 
 
-		    <a id="logo" href="<?=site_link()?>" title="Home"></a>
+		    <a id="logo" href="<?=Template::site_link()?>" title="Home"></a>
 	    	<div class="clearBoth"></div>
 	        <br clear="all" />
 	

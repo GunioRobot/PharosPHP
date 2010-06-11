@@ -13,7 +13,7 @@
 		public function index() {
 						
 			if ( session('uid') ) {
-				redirect(site_link());
+				redirect(Template::site_link());
 			} else {
 				redirect(controller_link(__CLASS__,'login/'));
 			}
@@ -39,7 +39,7 @@
 					$this->db->Execute("UPDATE users SET user_last_login = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
 
 					// Finish redirecting
-					redirect(site_link());
+					redirect(Template::site_link());
 				}
 				
 				$loginMessage = "Incorrect username/password combination.";
@@ -63,7 +63,7 @@
 			unset($_SESSION['user_level']);
 			unset($_SESSION['app_id']);
 			
-			redirect(site_link());
+			redirect(Template::site_link());
 			
 		}
 	
