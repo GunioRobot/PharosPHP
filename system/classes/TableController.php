@@ -109,7 +109,7 @@
 		//////////////////////////////////////////////////////////////////
 
 		public function index() {
-			redirect(manage(get_class($this)));
+			redirect(Template::manage(get_class($this)));
 		}
 		
 		
@@ -132,7 +132,7 @@
 
 		public function save($id=0) {
 			$id = process_profile($id);
-			redirect(edit(get_class($this),$id)."true/");
+			redirect(Template::edit(get_class($this),$id)."true/");
 		}
 
 	
