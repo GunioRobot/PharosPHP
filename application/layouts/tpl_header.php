@@ -12,9 +12,9 @@
 		<? if ( is_logged_in() ) : ?>
 		
 		<div id="meta-area">
-			<a href="<?=site_link("users/edit/".session("uid")."/")?>" title="Edit My Account Information">My Account</a>
+			<a href="<?=Template::site_link("users/edit/".session("uid")."/")?>" title="Edit My Account Information">My Account</a>
 			&nbsp;|&nbsp;
-			<a href="<?=site_link("session/logout/")?>" title="Sign Out Now">Sign Out</a>
+			<a href="<?=Template::site_link("session/logout/")?>" title="Sign Out Now">Sign Out</a>
 		</div>
 		
 		
@@ -41,7 +41,7 @@
 					<div id="nav<?=$parent->id?>Sub" class="subNav">
 						<? $i = 0; $count = count($parent->children); ?>
 						<? if ( !empty($parent->children) ) : foreach($parent->children as $c) : ?>
-						<a href="<?=site_link($c->page)?>" id="<?=$c->id?>-nav"><?=$c->name?></a>
+						<a href="<?=Template::site_link($c->page)?>" id="<?=$c->id?>-nav"><?=$c->name?></a>
 						<? if ( ++$i != $count ): ?><span class="divider">|</span><? endif ?>
 					<? endforeach; endif; ?>
 					<div class="clearBoth"></div>
