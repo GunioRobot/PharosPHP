@@ -201,7 +201,7 @@
 			} 
 		
 			// if can go right a set of pages
-			if ( $page_count > $end ) $html .= $basic_a.$get_links.++$end.'/'.($this->search!=""?$this->search."/":"_/").'">&raquo;</a>';
+			if ( $page_count > $end ) $html .= $basic_a.$this->get_links.++$end.'/'.($this->search!=""?$this->search."/":"_/").'">&raquo;</a>';
 		
 			$html .= '</div><br clear="all" /><br /><br />';
 				
