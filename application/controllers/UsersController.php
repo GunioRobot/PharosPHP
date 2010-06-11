@@ -67,9 +67,9 @@
 					if ( $loginDate == "" ) $loginDate = "<em>Never</em>";
 					$row['data'][] = $loginDate;
 
-					$actions = '<a href="'.edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
+					$actions = '<a href="'.Template::edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
 					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					$actions .= '<a class="confirm-with-popup" href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
+					$actions .= '<a class="confirm-with-popup" href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 
 					$row['data'][] = $actions;
 
@@ -115,7 +115,7 @@
 			$where = $this->search($filter);
 			$order = $this->order($orderField,$orderVal);
 			
-			$this->table->basic_a = controller_link(__CLASS__,"/".__FUNCTION__."/");
+			$this->table->basic_a = Template::controller_link(__CLASS__,"/".__FUNCTION__."/");
 			$this->table->get_links = "$orderField/$orderVal/";
 
 			$sql = "SELECT COUNT(".$this->table->id.'.'.$this->dataKey.") as total FROM ".$this->table->id." ".$where.$order;
@@ -130,7 +130,7 @@
 		            <form id="'.$this->table->id.'_form" action="'.$this->table->basic_a."$orderField/$orderVal/$page/".'" method="post">
 		            <div class="contentTabCap"></div><div class="contentTab"><input id="search" name="search" value="'.$this->table->search.'"/><a href="#" onClick="$('."'".'#'.$this->table->id.'_form'."'".').submit();" class="inputPress">Search</a></div>';
 
-			$view .= '<div class="contentTabCap"></div><div class="contentTab"><a href="'.create(__CLASS__).'" title="Create New '.$this->type.'" class="tabAdd">Add</a></div>';
+			$view .= '<div class="contentTabCap"></div><div class="contentTab"><a href="'.Template::create(__CLASS__).'" title="Create New '.$this->type.'" class="tabAdd">Add</a></div>';
 
 		    $view .= '</form>
 		            <br clear="all" />
@@ -163,9 +163,9 @@
 
 				array('name' => PROFILE_ID, 'type' => 'display'),
 				array('name' => '{TYPE}', 'type' => 'static', 'value' => PROFILE_TITLE),
-				array('name' => '{manage}', 'type' => 'static', 'value' => controller_link(__CLASS__)),
-				array('name' => '{new}', 'type' => 'static', 'value' => create(__CLASS__)),
-				array('name' => '{form_link}', 'type' => 'static', 'value' => save(__CLASS__,$id)),
+				array('name' => '{manage}', 'type' => 'static', 'value' => Template::controller_link(__CLASS__)),
+				array('name' => '{new}', 'type' => 'static', 'value' => Template::create(__CLASS__)),
+				array('name' => '{form_link}', 'type' => 'static', 'value' => Template::save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
 				array('name' => 'user_first_name', 'type' => 'text', 'size' => 32, 'max' => 200, 'class' => 'fname'),
@@ -230,7 +230,7 @@
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);
 				
-				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
+				$obj = array('error' => false, 'redirect' => Template::manage(__CLASS__));
 				echo json_encode((object)$obj);
 				exit;
 				
