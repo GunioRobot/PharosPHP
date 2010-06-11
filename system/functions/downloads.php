@@ -30,8 +30,7 @@
 		header('Expires: 0');
 
 		// Push file through to browser
-		ob_clean();
-		flush();
+		ob_end_clean();
 		readfile($tmpfile);
 	
 	}
