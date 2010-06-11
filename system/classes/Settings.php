@@ -41,15 +41,47 @@
 		
 		
 		
-		public static function get($path="") {
+		public static function get($path, $default=false, $stripTags=false) {
 			
 			$components = explode(".", trim($path,". "));
-			if ( empty($components) ) {
-				throw new Exception("Invalid key path ($path)");
-			} else if ( count($components) == 1 ) {
+			if ( empty($components) ) throw new Exception("Invalid key path ($path)");
+			
+			
+			if ( count($components) == 1 ) {
+				
 				return self::$config[$components[0]];
+				
 			} else if ( count($components) == 2 ) {
-				return self::$config[$components[0]][$components[1]];
+				
+				if ( $components[0] == "dynamic" ) {
+				
+					global $db;
+					static $_application_settings = array();
+
+					$key = $components[0];
+					$hash = md5($key);
+					if ( in_array($hash, array_keys($_application_settings)) ) {
+						return $_application_settings[$hash] !== false ? $_application_settings[$hash] : $default;
+					} else {
+
+						$setting = $db->Execute("SELECT * FROM general_settings WHERE setting_name RLIKE '$key' LIMIT 1");
+						if ( !$setting->EOF ) {
+
+							$value = $stripTags ? strip_tags(html_entity_decode(stripslashes($setting->fields['setting_value']))) : $setting->fields['setting_value'];
+							$_application_settings[$hash] = $value;
+							return $value;
+
+						} else {
+
+							$_application_settings[$hash] = false;
+							return $default;
+
+						}
+
+					}
+				
+				} else return self::$config[$components[0]][$components[1]];
+				
 			} else {
 			
 				$arr = self::$config[$components[0]][$components[1]];
@@ -107,6 +139,33 @@
 
 			}
 						
+		}
+		
+		
+		
+		
+		////////////////////////////////////////////////////////////////////////////////
+		//
+		//	load_dynamic_system_settings()
+		//
+		//	Grabs known system settings from db to use throughout site
+		//
+		////////////////////////////////////////////////////////////////////////////////
+		
+		public static function load_dynamic_system_settings() {
+			
+			define('SYS_ADMIN_EMAIL', Settings::get('dynamic.Admin Email', 'matt@dmgx.com', true));
+			define('SERVER_MAILER', Settings::get('dynamic.Server Email', 'matt@dmgx.com', true));
+			define('SITE_TAGLINE', Settings::get('dynamic.Site Tagline', 'CMS Framework for Developers', true));
+			define('TITLE_SEPARATOR', Settings::get('dynamic.Title Separator', ' | ', true));
+			define('DEFAULT_KEYWORDS', Settings::get('dynamic.Default Keywords', 'CMS, Content Management System, CMS-Lite, Matt Brewer, PHP', true));
+			define('DEFAULT_DESCRIPTION', Settings::get('dynamic.Default Description', SITE_TAGLINE, true));
+			define('DEFAULT_ROWS_PER_TABLE_PAGE', Settings::get('dynamic.Default Rows per Table Page', 25, true));
+			define('DEFAULT_PAGES_PER_PAGINATION', Settings::get('dynamic.Default Pages per Pagination', 5, true));
+			define('SHOW_PROFILER_RESULTS', Settings::get('dynamic.Show Profiler Results', false, true)==="true"?true:false);	
+			define('DELETE_OLD_WHEN_UPLOADING_NEW', Settings::get('dynamic.Delete Old When Uploading New',"true",true)==="true"?true:false);
+			define('RESET_PASSWORD_RANDOM_WORD', Settings::get('dynamic.Reset Password Random Word', '_cmslite',true));
+				
 		}
 		
 			
