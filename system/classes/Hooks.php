@@ -235,6 +235,7 @@
 			
 			self::add_hook(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
 						
+			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_header_meta');
 			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_css');
 			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'write_js');
 			
