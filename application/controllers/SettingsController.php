@@ -64,11 +64,11 @@
 					$row['data'][] = format_date($info->fields['date_added'],true);
 					$row['data'][] = format_date($info->fields['last_updated'],true);
 
-					$actions = '<a href="'.edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
+					$actions = '<a href="'.Template::edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
 
 					if ( is_super() ) {
 						$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-						$actions .= '<a href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
+						$actions .= '<a href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 					}
 
 
@@ -117,7 +117,7 @@
 			$where = $this->search($filter);
 			$order = $this->order($orderField,$orderVal);
 			
-			$this->table->basic_a = controller_link(__CLASS__,"/".__FUNCTION__."/");
+			$this->table->basic_a = Template::controller_link(__CLASS__,"/".__FUNCTION__."/");
 			$this->table->get_links = "$orderField/$orderVal/";
 
 			$sql = "SELECT COUNT(".$this->table->id.'.'.$this->dataKey.") as total FROM ".$this->table->id." ".$where.$order;
@@ -133,7 +133,7 @@
 		            <div class="contentTabCap"></div><div class="contentTab"><input id="search" name="search" value="'.$this->table->search.'"/><a href="#" onClick="$('."'".'#'.$this->table->id.'_form'."'".').submit();" class="inputPress">Search</a></div>';
 
 				if ( is_super() ) {
-					$view .= '<div class="contentTabCap"></div><div class="contentTab"><a href="'.create(__CLASS__).'" title="Create New '.$this->type.'" class="tabAdd">Add</a></div>';
+					$view .= '<div class="contentTabCap"></div><div class="contentTab"><a href="'.Template::create(__CLASS__).'" title="Create New '.$this->type.'" class="tabAdd">Add</a></div>';
 				}
 
 		       $view .= '</form>
@@ -169,9 +169,9 @@
 
 				array('name' => PROFILE_ID, 'type' => 'display'),
 				array('name' => '{TYPE}', 'type' => 'static', 'value' => PROFILE_TITLE),
-				array('name' => '{manage}', 'type' => 'static', 'value' => controller_link(__CLASS__)),
-				array('name' => '{new}', 'type' => 'static', 'value' => create(__CLASS__)),
-				array('name' => '{form_link}', 'type' => 'static', 'value' => save(__CLASS__,$id)),
+				array('name' => '{manage}', 'type' => 'static', 'value' => Template::controller_link(__CLASS__)),
+				array('name' => '{new}', 'type' => 'static', 'value' => Template::create(__CLASS__)),
+				array('name' => '{form_link}', 'type' => 'static', 'value' => Template::save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
 				
@@ -188,7 +188,7 @@
 			
 			if ( is_super() ) {
 				
-				$fields[] = array('name' => '{new_button}', 'type' => 'static', 'value' => '<div class="contentTabCap"></div><div class="contentTab"><a href="'.create(get_class($this)).'" class="tabAdd">New '.PROFILE_TITLE.'</a></div>', 'varx' => 'hide');
+				$fields[] = array('name' => '{new_button}', 'type' => 'static', 'value' => '<div class="contentTabCap"></div><div class="contentTab"><a href="'.Template::create(get_class($this)).'" class="tabAdd">New '.PROFILE_TITLE.'</a></div>', 'varx' => 'hide');
 				$fields[] = array('name' => 'setting_name', 'type' => 'text', 'size' => '50' , 'max' => '200');
 				
 				$fields[] = array('name' => 'level', 'type' => 'static', 'value' => '<div class="floatLeft" style="margin-left:15px;"><strong>Setting Level:</strong><br />', 'varx' => 'hide');
@@ -232,7 +232,7 @@
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);
 				
-				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
+				$obj = array('error' => false, 'redirect' => Template::manage(__CLASS__));
 				echo json_encode((object)$obj);
 				exit;
 				
