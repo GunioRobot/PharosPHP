@@ -29,7 +29,7 @@
 				$i = 0;
 				$count = count($pages);
 				foreach($pages as $pid => $parent) : ?>
-					<a href="#" class="topNav<? if ( is_current_parent_nav($parent) ): ?> current<? endif?>" id="nav<?=$parent->id?>"><?=$parent->name?></a>
+					<a href="#" class="topNav<? if ( Template::is_current_parent_nav($parent) ): ?> current<? endif?>" id="nav<?=$parent->id?>"><?=$parent->name?></a>
 					<? if ( ++$i != $count ): ?><span class="divider">|</span><? endif ?>
 				<? endforeach ?>
 				
