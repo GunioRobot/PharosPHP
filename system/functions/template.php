@@ -172,6 +172,19 @@
 	
 	
 	
+	
+	function write_header_meta() {
+		
+		global $controller;
+		
+		foreach($controller->meta() as $meta) {
+			echo sprintf('<meta name="%s" content="%s" %s />', $meta['name'], $meta['content'], ($meta['http-equiv']!="" ? 'http-equiv="'.$meta['http-equiv'].'"' : ""));
+		}
+		
+	}
+	
+	
+	
 	////////////////////////////////////////////////////////////////////////////////
 	//
 	//	format_date($date, $use_time=null, $pretty=null, $hourOffset=0)
