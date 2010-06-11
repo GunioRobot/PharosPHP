@@ -1,5 +1,5 @@
 
-   	<div id="smallWrap" align="left">	
+	<div id="smallWrap" align="left">	
 
 		<h1><?=Settings::get('system.site.name')?></h1>
 		<div class="clearBoth"></div>
@@ -8,8 +8,8 @@
 		<? if ( $loginMessage != "" ): ?>
 		<p class="error-message"><?=$loginMessage?></p>
 		<? endif ?>
-	
-      		<form name="login" action="<?=site_link('session/login/')?>" method="post">
+
+	  		<form name="login" action="<?=Template::site_link('session/login/')?>" method="post">
 		<input type="submit" style="width:0px;height:0px;border:none;margin:0px;padding:0px;"/>
 		<div class="greyBox">
 	        <b class="btop"><b></b></b>
@@ -18,7 +18,7 @@
 	        	<div class="floatLeft">Password:<br /><input type="password" size="41" name="pass"/></div>
 				<div class="clearBoth"></div>
 				<div class="floatLeft">
-					<a href="<?=site_link("session/password-reset/")?>">Reset my password</a>
+					<a href="<?=Template::site_link("session/password-reset/")?>">Reset my password</a>
 				</div>
 				<div class="clearBoth"></div>
 				<div class="floatLeft" align="center"><a href="#" onclick="document.login.submit();" class="buttons">Login</a></div>
