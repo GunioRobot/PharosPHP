@@ -23,7 +23,13 @@
 		// Call a method on the class (determined by the Router) & capture the output		
 		$method = Router::method();	
 		if ( method_exists($controller, $method) ) {
-			call_user_func(array($controller, $method), Router::params());
+			
+			if ( Router::using_named_params() ) {
+				call_user_func(array($controller, $method), Router::params());
+			} else {
+				call_user_func_array(array($controller, $method), Router::params());
+			}
+			
 		} else {
 			Console::log("Unknown method (".$method.") for class($controllerClass)");
 		}	

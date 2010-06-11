@@ -200,6 +200,20 @@
 			return $route;
 			
 		}
+		
+		
+		public function using_named_params() {
+			
+			if ( ($route = self::_matching_route()) !== false ) {
+			
+				$keys = array_keys($route['param_values']);
+				if ( !empty($keys) && substr($keys[0],0,1) === ":" ) {
+					return true;
+				} else return false;
+				
+			} else return false;
+			
+		}
 			
 	}
 
