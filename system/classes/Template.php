@@ -167,7 +167,7 @@
 				foreach($page->children as $p) {
 
 					$parts = explode("/", trim($p->page, " /"));
-					$controllerName = controller_name($parts[0]);
+					$controllerName = self::controller_name($parts[0]);
 					if ( $controllerClass === $controllerName ) {
 						return true;
 					}
