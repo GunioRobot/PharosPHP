@@ -172,13 +172,21 @@
 	
 	
 	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	write_header_meta()
+	//
+	//	Simply writes out <meta/> tags in the HTML header for any provided for the 
+	//	active global controller object
+	//
+	////////////////////////////////////////////////////////////////////////////////
 	
 	function write_header_meta() {
 		
 		global $controller;
 		
 		foreach($controller->meta() as $meta) {
-			echo sprintf('<meta name="%s" content="%s" %s />', $meta['name'], $meta['content'], ($meta['http-equiv']!="" ? 'http-equiv="'.$meta['http-equiv'].'"' : ""));
+			echo sprintf('<meta name="%s" content="%s" %s />'."\n", $meta['name'], $meta['content'], ($meta['http-equiv']!="" ? 'http-equiv="'.$meta['http-equiv'].'"' : ""));
 		}
 		
 	}
