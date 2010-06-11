@@ -66,9 +66,9 @@
 					$row['data'][] = format_date($info->fields['date_added'],true);
 					$row['data'][] = format_date($info->fields['last_updated'],true);
 
-					$actions = '<a href="'.edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
+					$actions = '<a href="'.Template::edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
 					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					$actions .= '<a class="confirm-with-popup" href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
+					$actions .= '<a class="confirm-with-popup" href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 
 					$row['data'][] = $actions;
 
@@ -94,7 +94,7 @@
 			$where = $this->search($filter);
 			$order = $this->order($orderField,$orderVal);
 			
-			$this->table->basic_a = controller_link(__CLASS__,"/".__FUNCTION__."/");
+			$this->table->basic_a = Template::controller_link(__CLASS__,"/".__FUNCTION__."/");
 			$this->table->get_links = "$orderField/$orderVal/";
 
 			$sql = "SELECT COUNT(".$this->table->id.'.'.$this->dataKey.") as total FROM ".$this->table->id." ".$where.$order;
@@ -110,7 +110,7 @@
 		            <div class="contentTabCap"></div><div class="contentTab"><input id="search" name="search" value="'.$this->table->search.'"/><a href="#" onClick="$('."'".'#'.$this->table->id.'_form'."'".').submit();" class="inputPress">Search</a></div>';
 
 				if ( is_super() ) {
-					$view .= '<div class="contentTabCap"></div><div class="contentTab"><a href="'.create(__CLASS__).'" title="Create New '.$this->type.'" class="tabAdd">Add</a></div>';
+					$view .= '<div class="contentTabCap"></div><div class="contentTab"><a href="'.Template::create(__CLASS__).'" title="Create New '.$this->type.'" class="tabAdd">Add</a></div>';
 				}
 
 		       $view .= '</form>
@@ -146,9 +146,9 @@
 
 				array('name' => PROFILE_ID, 'type' => 'display'),
 				array('name' => '{TYPE}', 'type' => 'static', 'value' => PROFILE_TITLE),
-				array('name' => '{manage}', 'type' => 'static', 'value' => controller_link(__CLASS__)),
-				array('name' => '{new}', 'type' => 'static', 'value' => create(__CLASS__)),
-				array('name' => '{form_link}', 'type' => 'static', 'value' => save(__CLASS__,$id)),
+				array('name' => '{manage}', 'type' => 'static', 'value' => Template::controller_link(__CLASS__)),
+				array('name' => '{new}', 'type' => 'static', 'value' => Template::create(__CLASS__)),
+				array('name' => '{form_link}', 'type' => 'static', 'value' => Template::save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
 				array('name' => 'parent_id' ,'type' => 'text', 'size' => '3' , 'max' => '3'),
@@ -198,13 +198,13 @@
 				
 				select_app(DEFAULT_APP_ID);
 				
-				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
+				$obj = array('error' => false, 'redirect' => Template::manage(__CLASS__));
 				echo json_encode((object)$obj);
 				exit;
 				
 			} else {
 				
-				echo "[link]".delete(__CLASS__,$id)."[/link]";
+				echo "[link]".Template::delete(__CLASS__,$id)."[/link]";
 				echo "This will remove the navigation item and all it's tracking information from the system.<br /><br />";
 				echo "<strong>This action cannot be undone.</strong><br />";
 				exit;
