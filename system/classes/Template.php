@@ -251,7 +251,7 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		public static function render_template() {
+		public static function render() {
 
 			global $controller;
 

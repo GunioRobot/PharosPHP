@@ -38,7 +38,7 @@
 		$controller->finalize(ob_get_clean());
 		
 		// Render the template to the browser
-		render_template();
+		Template::render();
 			
 	} else {
 
