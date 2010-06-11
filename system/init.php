@@ -19,6 +19,7 @@
 	require_once CLASSES_DIR.'Router.php';
 		
 	// Load the classes that are barebones
+	require_once CLASSES_DIR.'Template.php';
 	require_once CLASSES_DIR.'QueryFactory.php';
 	require_once CLASSES_DIR.'Controller.php';
 	require_once CLASSES_DIR.'Modules.php';
