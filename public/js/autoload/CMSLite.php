@@ -2,7 +2,7 @@
 <script type="text/javascript">
 
 	CMSLite = {};
-	CMSLite.HTTP_SERVER = "<?=site_link()?>";
+	CMSLite.HTTP_SERVER = "<?=HTTP_SERVER?>";
 	CMSLite.PUBLIC_SERVER = "<?=PUBLIC_SERVER?>";
 	CMSLite.UPLOAD_SERVER = "<?=UPLOAD_SERVER?>";
 	CMSLite.SITE_NAME = "<?=Settings::get('system.site.name')?>";
