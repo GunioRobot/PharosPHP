@@ -25,7 +25,7 @@
 		protected $javascript;
 		protected $output;
 		protected $db;
-		
+		protected $meta = array();
 		
 		///////////////////////////////////////////////////////////////////////////
 		//
@@ -152,6 +152,22 @@
 			
 		}
 		
+		
+		
+		///////////////////////////////////////////////////////////////////////////
+		//
+		//	Setter/getter for meta information. Providing an array of 
+		//		- name
+		//		- content
+		//		- http-equiv
+		//
+		///////////////////////////////////////////////////////////////////////////
+		
+		public function meta($meta=null) {
+			if ( !is_null($meta) ) {
+				$this->meta[$meta['name']] = $meta;
+			} else return $this->meta;
+		}
 		
 		
 		
