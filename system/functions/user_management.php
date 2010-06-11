@@ -18,7 +18,7 @@
 		}
 		
 		if ( !is_logged_in() ) {
-			redirect(controller_link('Session','login/'));
+			redirect(Template::controller_link('Session','login/'));
 		}
 		
 		// If good to go
@@ -153,9 +153,9 @@
 			$mail->setHTML($html);
 						
 			if ( !$mail->send(array($info->fields['user_primary_email'])) ) redirect(site_link('password_reset.php?success=false'));
-			else redirect(site_link('password_reset.php?success=true'));
+			else redirect(Template::site_link('password_reset.php?success=true'));
 
-		} else redirect(site_link('password_reset.php?success=false&bad=true'));
+		} else redirect(Template::site_link('password_reset.php?success=false&bad=true'));
 	}
 	
 	
