@@ -139,29 +139,6 @@
 		
 		
 		
-		public static function layout() {
-			
-			$layout = Router::_layout_file(Router::controller());
-			$file = Router::_layout_file($layout.Router::method().".php");
-
-			if ( @file_exists(LAYOUTS_DIR.$file) ) {
-				return LAYOUTS_DIR.$file;
-			} else if ( @file_exists(LAYOUTS_DIR.$layout.".php") ) {
-				return LAYOUTS_DIR.$layout.".php";
-			} else if ( @file_exists(LAYOUTS_DIR.'application.php') ) {
-				return LAYOUTS_DIR.'application.php';
-			} else return false;
-			
-		}
-		
-		
-		
-		
-		private static function _layout_file($class) {
-			return strtolower(implode('-',split_camel_case($class)));
-		}
-		
-		
 		private static function _matching_route() {
 			
 			static $route = null;

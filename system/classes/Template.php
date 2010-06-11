@@ -1,6 +1,31 @@
 <?
 
 	class Template {
+		
+		
+		
+		
+		public static function layout() {
+			
+			$layout = self::_layout_file(Router::controller());
+			$file = self::_layout_file($layout.Router::method().".php");
+
+			if ( @file_exists(LAYOUTS_DIR.$file) ) {
+				return LAYOUTS_DIR.$file;
+			} else if ( @file_exists(LAYOUTS_DIR.$layout.".php") ) {
+				return LAYOUTS_DIR.$layout.".php";
+			} else if ( @file_exists(LAYOUTS_DIR.'application.php') ) {
+				return LAYOUTS_DIR.'application.php';
+			} else return false;
+			
+		}
+		
+		
+		private static function _layout_file($class) {
+			return strtolower(implode('-',split_camel_case($class)));
+		}
+		
+		
 	
 		////////////////////////////////////////////////////////////////////////////////
 		//
@@ -257,7 +282,7 @@
 
 			Hooks::call_hook(Hooks::HOOK_TEMPLATE_PRE_RENDER);
 
-			if ( ($layout = Router::layout()) !== false ) {
+			if ( ($layout = self::layout()) !== false ) {
 				require_once $layout;
 			} else {
 				echo $controller->output();
