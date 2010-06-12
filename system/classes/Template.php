@@ -57,7 +57,7 @@
 			}
 
 			// Grab CSS files the controller requested
-			$css = $controller->css();
+			$css = $controller->output->css();
 			if ( !empty($css) ) {
 				foreach($css as $style) {
 					echo '<style type="text/css" media="'.$style['type'].'">@import url('.PUBLIC_SERVER.'css/'.$style['path'].');</style>';
@@ -118,7 +118,7 @@
 			}
 
 			// Now include controller specific files
-			$javascript = $controller->javascript();		
+			$javascript = $controller->output->javascript();		
 			if ( !empty($javascript) ) {
 				foreach($javascript as $js) {
 					if ( $js['type'] == JAVASCRIPT_INCLUDE ) {
@@ -147,7 +147,7 @@
 
 			global $controller;
 
-			foreach($controller->meta() as $meta) {
+			foreach($controller->output->meta() as $meta) {
 				echo sprintf('<meta name="%s" content="%s" %s />'."\n", $meta['name'], $meta['content'], ($meta['http-equiv']!="" ? 'http-equiv="'.$meta['http-equiv'].'"' : ""));
 			}
 
