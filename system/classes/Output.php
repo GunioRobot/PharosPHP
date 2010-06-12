@@ -40,6 +40,8 @@
 		*/
 		protected $content = "";
 		protected $meta = array();
+		protected $members = array();
+		protected $controller;
 		
 		
 		public function __construct() {
@@ -48,6 +50,9 @@
 				$this->enabled = true;
 				$this->cached_file = self::$cache.self::cached_name();
 			}
+			
+			global $controller;
+			$this->controller =& $controller;
 			
 		}
 		
@@ -172,8 +177,46 @@
 		
 		
 		
+		/**
+		*
+		*	set
+		*
+		*	@param string Key
+		*	@param mixed Value
+		*	@return void
+		*
+		*/
+		public function set($key, $value) {
+			$this->members[$key] = $value;
+		}
 		
 		
+		
+		/**
+		*
+		*	view
+		*
+		*	@param string $str - If this is a view file, the file is interpreted with all the data members set in the controller exposed locally, otherwise it is treated as a string and just added to the output
+		*	@return void
+		*
+		*/
+		public function view($str) {
+			
+			if ( file_exists(VIEWS_DIR.$str) ) {
+			
+				// Import the data members into a clean namespace
+				extract($this->members);
+			
+				// Include the view (which only has access to the local clean namespace )
+				require VIEWS_DIR.$str;
+				
+			} else {
+				
+				$this->content .= $str;
+				
+			}
+			
+		}
 		
 		
 		
