@@ -179,7 +179,7 @@
 		}
 		
 		
-		public function using_named_params() {
+		public static function using_named_params() {
 			
 			if ( ($route = self::_matching_route()) !== false ) {
 			
