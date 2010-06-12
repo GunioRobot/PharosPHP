@@ -32,8 +32,8 @@
 			
 			global $CURRENT_APP_NAME, $CURRENT_APP_ID;
 						
-			$this->css("dashboard.css");
-			$this->javascript("dashboard.js");
+			$this->output->css("dashboard.css");
+			$this->output->javascript("dashboard.js");
 			
 			$template = get_template("dashboard.html", "views/");
 					
@@ -441,7 +441,7 @@
 
 		public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='') {
 			
-			$this->javascript('export_users.php');
+			$this->output->javascript('export_users.php');
 												
 			$this->table->current_page = intval($page);
 
@@ -548,7 +548,7 @@
 			
 			global $CURRENT_APP_ID;
 			
-			$this->css("dashboard.css");
+			$this->output->css("dashboard.css");
 			
 			build_categories();
 			
