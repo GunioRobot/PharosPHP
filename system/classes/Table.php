@@ -105,9 +105,8 @@
 			$html.=' style="text-align:center;"><tr>';			// Want the table headers to be centered always
 		
 		
-		
 			foreach($this->columns as $c) {
-				if ( $c['key'] != '' ) {
+				if ( isset($c['key']) && $c['key'] != '' ) {
 			
 					// Support for classes on the <th>
 					$html .= '<th';
@@ -201,7 +200,7 @@
 			} 
 		
 			// if can go right a set of pages
-			if ( $page_count > $end ) $html .= $basic_a.$this->get_links.++$end.'/'.($this->search!=""?$this->search."/":"_/").'">&raquo;</a>';
+			if ( $page_count > $end ) $html .= $basic_a.$get_links.++$end.'/'.($this->search!=""?$this->search."/":"_/").'">&raquo;</a>';
 		
 			$html .= '</div><br clear="all" /><br /><br />';
 				
