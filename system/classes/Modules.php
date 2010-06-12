@@ -67,7 +67,7 @@
 				
 		private static function load_automatic_modules() {
 
-			foreach(self::$config['system'] as $m) {
+			foreach(self::$config['autoload'] as $m) {
 				try {
 					self::load($m);
 				} catch (Exception $e) {

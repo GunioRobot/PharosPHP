@@ -9,11 +9,10 @@ filesystem:
     xml_direcotry: xml
     
 modules:
-    system:
+    autoload:
         - console
         - images
         - cron
-    user:
         
 routes:
     root: 
