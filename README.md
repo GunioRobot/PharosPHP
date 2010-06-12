@@ -1,10 +1,8 @@
-Project Overview
-================
+# Project Overview
 
 PharosPHP is a lightweight Object-Oriented framework aimed at providing common and useful functionality to developers, in order to create powerful and flexible applications quickly.
 
-Features
---------
+## Features
 
 - MVC Architecture
 - Robust template system
@@ -26,17 +24,39 @@ Features
 	- Several more...
 - Extensible module API, allowing developers to interact with PharosPHP core (Hooks API) and even interact with other modules
 
-Requirements
-------------
+## Requirements
 
 PharosPHP requires
 
 - PHP 5.2+ (PHP 5.3+ for Active Record support)
 - MySQL 4.1+, MySQL 5
 
+## Active Record
 
-Routing
--------
+PharosPHP brings Ruby on Rails style Active Record to PHP, complete with dynamic methods (very powerful)!
+>Active record is an approach to access data in a database. A database table or view is wrapped into a class, thus an object instance is tied to a single row in the table. After creation of an object, a new row is added to the table upon save. Any object loaded gets its information from the database; when an object is updated, the corresponding row in the table is also updated. The wrapper class implements accessor methods or properties for each column in the table or view.
+
+> http://github.com/kla/php-activerecord
+> http://www.phpactiverecord.org/
+
+>
+	$post = Post::find(1);
+	echo $post->title; # 'My first blog post!!'
+	echo $post->author_id; # 5
+
+	# also the same since it is the first record in the db
+	$post = Post::first();
+
+	# finding using dynamic finders
+	$post = Post::find_by_name('The Decider');
+	$post = Post::find_by_name_and_id('The Bridge Builder',100);
+	$post = Post::find_by_name_or_id('The Bridge Builder',100);
+
+	# finding using a conditions array
+	$posts = Post::find('all',array('conditions' => array('name=? or id > ?','The Bridge Builder',100)));
+
+
+## Routing
 
 PharosPHP comes with a custom Router class that makes developing powerful web applications with clean SEO URLs a snap.
 
