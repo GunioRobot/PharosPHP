@@ -66,7 +66,7 @@ abstract class CFType {
    * @return DOMNode Node created based on CType
    * @uses $value as nodeValue
    */
-  public function toXML(DOMDocument $doc, $nodeName) {
+  public function toXML(DOMDocument $doc, $nodeName="") {
     $text = $doc->createTextNode($this->value);
     $node = $doc->createElement($nodeName);
     $node->appendChild($text);
