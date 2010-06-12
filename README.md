@@ -101,3 +101,21 @@ The output would be:
 		:month => 2008-04-13
 	}
 	
+The special reserved params of :controller, :action, and :id have predefined meaning (read: regular expressions	) and are used by the system.  
+> Both the URL: "/blog/posts/view/13/" and URL "/blog/comments/view/13/" would match by the basic route:  "/blog/:controller/:action/:id/"
+
+	class PostsController extends Controller {
+		public function view($params) {
+			$this->set("post", Post::find_by_id($params[":id"]));
+			$this->output->view("post-view.php");
+		}
+	}
+	
+	class CommentsController extends Controller {
+		public function view($params) {
+			$this->set("comments", Comment::find_all_by_post_id($params[":id"]));
+			$this->output->view("comments-view.php");
+		}
+	}
+	
+	
