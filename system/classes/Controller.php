@@ -9,6 +9,8 @@
 	///////////////////////////////////////////////////////////////////////////
 
 	require_once CLASSES_DIR.'Output.php';
+	require_once CLASSES_DIR.'Authentication.php';
+	
 	class Controller {
 		
 	
@@ -30,6 +32,7 @@
 		public $keywords;
 		public $description;
 		public $output;
+		public $auth;
 		
 		
 		
@@ -49,6 +52,10 @@
 			$this->title = "";
 			$this->keywords = DEFAULT_KEYWORDS;
 			$this->description = DEFAULT_DESCRIPTION;
+			
+			if ( ($this->auth = session("auth")) === false ) {
+				$this->auth = new Authentication();
+			} 
 					
 		}
 
