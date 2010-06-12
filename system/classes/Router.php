@@ -123,16 +123,6 @@
 		
 		
 		
-		
-		public static function requires_login() {
-			
-			if ( Router::controller() === "SessionController" && Router::method() === "Login" ) return false;
-			else return true;
-			
-		}
-		
-		
-		
 		public static function url() {
 			return self::$raw;
 		}
