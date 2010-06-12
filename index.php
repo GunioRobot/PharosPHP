@@ -5,6 +5,11 @@
 	
 	// Validate login information
 	validate_login();
+	
+	// Simply return cached information it's available
+	if ( ($cache = Output::cached_content()) !== false ) {
+		die($cache);
+	}
 		
 	// System action to allow post system-init, pre controller created actions to execute		
 	Hooks::call_hook(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
@@ -35,7 +40,7 @@
 		}	
 
 		// Grab the contents of the buffer & give to controller to use. Turn off buffering as well
-		$controller->output->finalize(ob_get_clean());
+		$controller->output->finalize(ob_get_clean());		
 		
 		// Render the template to the browser
 		Template::render();
