@@ -8,6 +8,11 @@
 		const JAVASCRIPT_INCLUDE = "php_include_js";
 		const JAVASCRIPT_EXTERNAL = "link_js";
 		
+		const MINUTES = 60;
+		const HOURS = 3600;		// 60 * 60
+		const DAYS = 86400; 	// 24 * 60 * 60
+		const WEEKS = 604800; 	// 7 * 24 * 60 * 60
+		
 		/**
 		*
 		*	Caching members
@@ -16,7 +21,7 @@
 		static protected $cache = CACHE_DIR;
 		protected $enabled = false;
 		protected $cached_file;
-		protected $cache_duration = 0;		// In Minutes
+		protected $cache_duration = 0;		// In Seconds
 		
 		
 		/**
@@ -235,14 +240,33 @@
 		*
 		*/
 		public static function cached_content() {
-			$f = self::$cache.self::cached_name();
-			if ( file_exists($f) ) {
-				$arr = @file($f);
-				if ( is_array($arr) ) return implode("\n", array_slice($arr, 1));		// Return the string without the first line, which is the timestamp
-				else return false;
+			if ( !self::cache_expired() ) {
+				$f = self::$cache.self::cached_name();
+				if ( file_exists($f) ) {
+					$arr = @file($f);
+					if ( is_array($arr) ) return implode("\n", array_slice($arr, 1));		// Return the string without the first line, which is the timestamp
+					else return false;
+				} else return false;
 			} else return false;
 		}
 		
+		
+		
+		/**
+		*
+		*	cache_expired
+		*
+		*	@return true/false
+		*
+		*/
+		
+		public static function cache_expired() {
+			$f = self::$cache.self::cached_name();
+			if ( file_exists($f) ) {
+				$contents = @file($f);
+				return ( $contents[0] < time() );
+			} else return true;
+		}
 		
 		
 		
@@ -254,21 +278,15 @@
 		*/
 		
 		private function _create_cached_content($str) {
-			return sprintf("%s\n%s", time(), $str);
+			$future = time() + ($this->cache_duration);
+			return sprintf("%s\n%s", $future, $str);
 		}
 		
 		private function _write_to_cache($str) {
-			if ( $this->_cache_needs_update() ) {
+			if ( self::cache_expired() ) {
 				return @file_put_contents($this->cached_file, $this->_create_cached_content($str), LOCK_EX);
 			} else return true;
-		}
-		
-		private function _cache_needs_update() {
-			if ( file_exists($this->cached_file) ) {
-				$contents = @file($this->cached_file);
-				return ( $contents[0] + ($this->cache_duration*60) < time() );
-			} else return true;
-		}
+		}		
 				
 	}
 
