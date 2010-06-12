@@ -269,6 +269,36 @@
 		}
 		
 		
+		/**
+		*
+		*	delete
+		*
+		*	@return void
+		*
+		*/
+		public function delete() {
+			@unlink($this->cached_file);
+		}
+		
+		
+		/**
+		*
+		*	clear_cache
+		*
+		*	@return void
+		*
+		*/		
+		public static function clear_cache() {
+			$folder = self::$cache;
+			if ($handle = opendir($folder)) {
+				while (false !== ($file = readdir($handle)) ) {
+					if ( $file != "." && $file != ".." &&!is_dir($folder.$file) && preg_match("/.*.cache$/", $file) ) {
+						@unlink($folder.$file);
+					}
+				}
+			}
+		}
+		
 		
 		
 		/*
