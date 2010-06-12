@@ -42,7 +42,23 @@ PharosPHP comes with a custom Router class that makes developing powerful web ap
 
 By default, the Router class maps URLs to a controller, action, and associated parameters.  
 
-For example, the URL "/posts/mark-as-favorite/param1/param2/param3/" would be map to /controllers/PostsController/, calling markAsFavorite($param1, $param2, $param3).
+For example, the URL 
+
+> /posts/mark-as-favorite/param1/param2/param3/
+
+would be map to 
+
+> /application/controllers/PostsController.php
+
+and all the following method
+
+	class PostsController extends Controller {
+		
+		public function markAsFavorite($param1, $param2, $param3) {
+			// do something exciting
+		}
+		
+	}
 
 The following examples would be placed in the *application.yml* configuration file under *routes.connections* to enable custom routing.
 
