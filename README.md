@@ -40,6 +40,8 @@ Routing
 
 PharosPHP comes with a custom Router class that makes developing powerful web applications with clean SEO URLs a snap.
 
+### Auto Generated Routing
+
 By default, the Router class maps URLs to a controller, action, and associated parameters.  
 
 For example, the URL 
@@ -50,17 +52,20 @@ would be map to
 
 > /application/controllers/PostsController.php
 
-and all the following method
+and all the following method:
 
 	class PostsController extends Controller {
 		
 		public function markAsFavorite($param1, $param2, $param3) {
 			// do something exciting
+			// $param1, $param2, $param3 are all strings
 		}
 		
 	}
 
-The following examples would be placed in the *application.yml* configuration file under *routes.connections* to enable custom routing.
+### Application Defined Routing
+
+Sometimes it is necessary to have more fine-grained control over the routing in your application.  To do so, you define custom routes.  The following examples would be placed in the *application.yml* configuration file under *routes.connections* to enable custom routing.
 
 For example, to connect a URL of "post-5/true/2008-04-13/", include the following route:
 
@@ -71,4 +76,27 @@ For example, to connect a URL of "post-5/true/2008-04-13/", include the followin
 		:repost => (true|false)
 		:month => ([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2})
 		
+This application defined route would map to:
+
+> /application/controller/PostsController.php
+
+	class PostsController extends Controller {
+		
+		public function edit($params) {
+			
+			// do something exciting
+			// $params is associative array with keys defined in our route (params) in addition to the 3 application defined paramaters of :controller, :action, and :id
+			
+			print_r($params);			
+			
+		}
+		
+	}
+	
+The output would be:
+	array {
+		:id => 5
+		:repost => true
+		:month => 2008-04-13
+	}
 	
