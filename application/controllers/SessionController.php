@@ -3,10 +3,8 @@
 	class SessionController extends Controller {
 		
 		public function __construct() {
-			
 			parent::__construct();
 			$this->title = "Login";
-						
 		}
 
 	
@@ -27,59 +25,37 @@
 			
 			if ( ($user = post('user')) AND ($pass = post('pass')) ) {
 				
-				$info = $this->db->Execute("SELECT * FROM users WHERE user_username = '$user' AND user_password = '$pass' AND user_level >= ".Settings::get( 'users.levels.basic')." LIMIT 1");
-				if ( $info->fields['user_id'] ) {
-
-					// Info needed by system
-					$_SESSION['domain_id'] = SECURE_KEYWORD;
-					$_SESSION['uid'] = $info->fields['user_id'];
-					$_SESSION['user_level'] = $info->fields['user_level'];
-					$_SESSION['fullname'] = $info->fields['user_first_name'] . ' ' . $info->fields['user_last_name'];
-
-					// Update last login
-					$this->db->Execute("UPDATE users SET user_last_login = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
-
-					// Finish redirecting
-					redirect(Template::site_link());
+				$auth = new Authentication();
+				if ( $auth->login($user, $pass, Settings::get('users.levels.basic')) ) {
+					redirect(Template::site_link())
 				}
 				
 				$loginMessage = "Incorrect username/password combination.";
-				require_once VIEWS_DIR.'login-view.php';
-							
-			} else {
+				$this->output->set("loginMessage", $loginMessage);			
+			} 		
+			
+			$this->output->view("login-view.php");
 				
-				require_once VIEWS_DIR.'login-view.php';				
-				
-			}			
 		
 		}
 		
 		public function logout() {
-			
 			$this->title = "Logout";
-			
-			unset($_SESSION['domain_id']);
-			unset($_SESSION['uid']);
-			unset($_SESSION['login_type']);
-			unset($_SESSION['user_level']);
-			unset($_SESSION['app_id']);
-			
+			Authentication::global()->logout();
 			redirect(Template::site_link());
-			
 		}
 	
 		
 		public function passwordReset() {
 			$this->title = "Reset Password";
 			$this->output->cache(1 * Output::WEEKS);
-			require_once VIEWS_DIR.'password-reset-view.php';
+			$this->output->view("password-reset-view.php");
 		}
 
 
 		public function processPasswordReset() {
 			if ( ($user = post('user')) !== false ) {
-				reset_password($user);
-				exit;
+				Authentication::global()->reset_password($user);
 			} else {
 				redirect(controller_link(__CLASS__, "password-reset/"));
 			}
@@ -93,7 +69,10 @@
 			$this->title = 'Password Successfully Reset';
 			$message = 'Your password was successfully reset.<br /><br />';
 			$message .= 'Check the email account you registered with for your new password and instructions.';
-			require_once VIEWS_DIR.'password-reset-finished-view.php';
+			
+			$this->output->set("title", $this->title);
+			$this->output->set("message", $message);
+			$this->output->view("password-reset-finished-view.php");
 
 		}
 
@@ -109,7 +88,9 @@
 				$message = 'We were unable to send an email to the email address specified in your profile.<br />Please contact the <a href="mailto:'.SYS_ADMIN_EMAIL.'subject?Failed Password Reset">system administrator</a> for help.';
 			}
 
-			require_once VIEWS_DIR.'password-reset-finished-view.php';
+			$this->output->set("title", $this->title);
+			$this->output->set("message", $message);
+			$this->output->view("password-reset-finished-view.php")
 
 		}
 	
