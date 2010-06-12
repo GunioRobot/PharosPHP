@@ -22,6 +22,8 @@ Features
 
 Requirements
 ------------
-PharosPHP requires:
+
+PharosPHP requires
+
 - PHP 5.2+ (PHP 5.3+ for Active Record support)
 - MySQL 4.1+, MySQL 5
