@@ -15,7 +15,7 @@
 			if ( session('uid') ) {
 				redirect(Template::site_link());
 			} else {
-				redirect(controller_link(__CLASS__,'login/'));
+				redirect(Template::controller_link(__CLASS__,'login/'));
 			}
 		
 		}
@@ -23,6 +23,7 @@
 		public function login() {
 			
 			$this->title = "Login";
+			$this->output->cache(1 * Output::WEEKS);
 			
 			if ( ($user = post('user')) AND ($pass = post('pass')) ) {
 				
@@ -70,6 +71,7 @@
 		
 		public function passwordReset() {
 			$this->title = "Reset Password";
+			$this->output->cache(1 * Output::WEEKS);
 			require_once VIEWS_DIR.'password-reset-view.php';
 		}
 
@@ -85,6 +87,8 @@
 
 
 		public function passwordSuccessfullyReset() {
+			
+			$this->output->cache(1 * Output::WEEKS);
 
 			$this->title = 'Password Successfully Reset';
 			$message = 'Your password was successfully reset.<br /><br />';
@@ -94,6 +98,8 @@
 		}
 
 		public function passwordResetFailed($code="1") {
+
+			$this->output->cache(1 * Output::WEEKS);
 
 			if ( $code == 1 ) {
 				$this->title = 'Unable to Reset Password';
