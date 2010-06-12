@@ -6,7 +6,7 @@ SecFilterScanPOST Off
 </IfModule>
 
 # Just a simple redirect for all non-accessible items
-ErrorDocument 404 index.php?arg1=not-found
+ErrorDocument 404 index.php?args=not-found
 
 <IfModule mod_rewrite.c>
 RewriteEngine On
