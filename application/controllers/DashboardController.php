@@ -71,7 +71,7 @@
 			$template = str_replace('[top_items]', $html, $template);
 			
 			
-			$this->output($template);
+			echo $template;
 			
 		}
 		
@@ -471,7 +471,7 @@
 		          </div>'.
 		          $this->table->get_html($this->table->current_page, $page_count, $start, $total);
 
-			$this->output($view);
+			$view;
 
 		}
 		
@@ -537,8 +537,8 @@
 			// Run throught the parser and spit out the page
 			$profile = new Profile($fields);
 			
-			if ( $id > 0 ) $this->output($profile->display($this->dataKey, $id, $repost));
-			else $this->output($profile->display());
+			if ( $id > 0 ) echo $profile->display($this->dataKey, $id, $repost);
+			else $profile->display();
 						
 		}
 		
