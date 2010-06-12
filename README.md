@@ -85,7 +85,8 @@ This application defined route would map to:
 		public function edit($params) {
 			
 			// do something exciting
-			// $params is associative array with keys defined in our route (params) in addition to the 3 application defined paramaters of :controller, :action, and :id
+			// $params is associative array with keys defined in our route (params)
+			// $params also includes the 3 application defined paramaters of :controller, :action, and :id (if found in the pattern)
 			
 			print_r($params);			
 			
@@ -95,8 +96,8 @@ This application defined route would map to:
 	
 The output would be:
 	array {
-		:id => 5
-		:repost => true
+		:id => 5,
+		:repost => true,
 		:month => 2008-04-13
 	}
 	
