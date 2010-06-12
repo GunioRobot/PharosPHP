@@ -133,7 +133,7 @@
 		
 		
 		
-		public static function raw_input() {
+		public static function url() {
 			return self::$raw;
 		}
 		
