@@ -2,14 +2,6 @@
 
 	// Begin loading the system
 	require_once 'system/init.php';
-	
-	// Validate login information
-	validate_login();
-		
-	// Simply return cached information it's available
-	if ( server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
-		die($cache);
-	}
 		
 	// System action to allow post system-init, pre controller created actions to execute		
 	Hooks::call_hook(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
@@ -25,6 +17,16 @@
 		$controller = new $controllerClass();
 		Hooks::call_hook(Hooks::HOOK_CONTROLLER_POST_CREATED, array($controllerClass));	
 		
+		// Determine if should process login information or not
+		if ( $controller->auth->login_required() && $controller->auth->logged_in() ) {
+			redirect(Template::controller_link('Session','login/'));
+		}
+		
+		// Simply return cached information it's available
+		if ( server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
+			die($cache);
+		}
+		
 		// Call a method on the class (determined by the Router) & capture the output		
 		$method = Router::method();	
 		if ( method_exists($controller, $method) ) {
@@ -36,7 +38,7 @@
 			}
 			
 		} else {
-			Console::log("Unknown method (".$method.") for class($controllerClass)");
+			if ( class_exists("Console") ) Console::log("Unknown method (".$method.") for class($controllerClass)");
 		}	
 
 		// Grab the contents of the buffer & give to controller to use. Turn off buffering as well
@@ -45,11 +47,6 @@
 		// Render the template to the browser
 		Template::render();
 			
-	} else {
-
-		Console::log("Unable to load class (".$args.")");
-
-	}
-		
+	} else throw new Exception("FileNotFoundException: ".$file);
 	
 ?>
