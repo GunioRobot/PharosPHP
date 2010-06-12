@@ -139,3 +139,45 @@ The special reserved params of :controller, :action, and :id have predefined mea
 	}
 	
 	
+=======
+## Model-View-Controller
+
+According to Wikipedia, MVC is defined as:
+> Model–View–Controller (MVC) is a software architecture, currently considered an architectural pattern used in software engineering. The pattern isolates "domain logic" (the application logic for the user) from input and presentation (GUI), permitting independent development, testing and maintenance of each.
+
+PharosPHP does it's best to utilize the MVC design pattern by enforcing a stricter separation between Controller and View.  For example:
+
+	class BooksController extends Controller {
+		
+		public function someMethod($params) {
+			
+			// Setup some variables that are really important (controller calculations)
+			$books = Books::all();
+			$date = new DateTime();
+			$salt = md5(rand(1,1000));
+			
+			// To expose these to the view, we must explicitly assign
+			$this->output->set("books", $books);
+			$this->output->set("date", $date);
+			
+			// Now render a static string, followed by a view in the views directory
+			$this->output->view("<h1>My View</h1>");
+			$this->output->view("my-view.php");
+			
+		}
+		
+	}
+	
+The contents of "my-view.php" contain:
+
+	<p>Glad you could join me on <?=$date->format("F jS, Y")?>!</p>
+	<p>The salt is <?=$salt?></p>
+
+	<? if ( !empty($books): foreach($books as $book): ?>
+	<span class="book-title"><?=$book->title?></span><br />
+	<? endforeach; else: ?>
+	<h3>Looks like there aren't any books!</h3>
+	<? endif; ?>
+	
+There would be an error when trying to use the contents of "$salt" as the variable does not exist in the view's scope
+	
