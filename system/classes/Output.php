@@ -8,10 +8,10 @@
 		const JAVASCRIPT_INCLUDE = "php_include_js";
 		const JAVASCRIPT_EXTERNAL = "link_js";
 		
-		const MINUTES = 60;
-		const HOURS = 3600;		// 60 * 60
-		const DAYS = 86400; 	// 24 * 60 * 60
-		const WEEKS = 604800; 	// 7 * 24 * 60 * 60
+		const MINUTES = 1;
+		const HOURS = 60;		// 60
+		const DAYS = 1440; 		// 24 * 60
+		const WEEKS = 10080; 	// 7 * 24 * 60 
 		
 		/**
 		*
@@ -21,7 +21,7 @@
 		static protected $cache = CACHE_DIR;
 		protected $enabled = false;
 		protected $cached_file;
-		protected $cache_duration = 0;		// In Seconds
+		protected $cache_duration = 0;		// In Minutes
 		
 		
 		/**
@@ -308,7 +308,7 @@
 		*/
 		
 		private function _create_cached_content($str) {
-			$future = time() + ($this->cache_duration);
+			$future = time() + ($this->cache_duration * 60);	// Convert to seconds
 			return sprintf("%s\n%s", $future, $str);
 		}
 		

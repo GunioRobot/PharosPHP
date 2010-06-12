@@ -1,8 +1,0 @@
-CMSLite is a lightweight way for developers to quickly launch a CMS tool.
-
-Main features include:
-	- Robust template system, similar to RoR for quickly creating/editing/updating/deleting (CRUD) content
-	- Several built in classes, for easily managing content (ie, TableController)
-	- Lots of bundled modules, like SWFUpload, jQuery, PHP Quick Profiler, RMail and more
-	- Extensible module system, allowing module developers to interact with core system actions (similar to WordPress Plugin Development)
-	- Easy to get started quickly
