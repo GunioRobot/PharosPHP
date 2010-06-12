@@ -1,7 +1,7 @@
 
 	<div id="smallWrap" align="left">	
 
-		<h1><?=Settings::get('system.site.name')?> | <?=$this->title?></h1>
+		<h1><?=Settings::get('system.site.name')?> | <?=$title?></h1>
 		<div class="clearBoth"></div>
 
 		<?=$message?>
