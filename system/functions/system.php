@@ -16,8 +16,11 @@
 		
 		Hooks::call_hook(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
 		
+		// Set the system timezone
+		date_default_timezone_set(Settings::get("system.timezone"));
+		
 		load_content_types();
-		load_dynamic_system_settings();
+		Settings::load_dynamic_system_settings();
 		load_automatic_modules();
 						
 		$CURRENT_APP_ID = session("app_id", DEFAULT_APP_ID);
