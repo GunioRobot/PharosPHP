@@ -44,15 +44,15 @@ PharosPHP brings Ruby on Rails style Active Record to PHP, complete with dynamic
 	echo $post->title; # 'My first blog post!!'
 	echo $post->author_id; # 5
 
-	# also the same since it is the first record in the db
+	// also the same since it is the first record in the db
 	$post = Post::first();
 
-	# finding using dynamic finders
+	// finding using dynamic finders
 	$post = Post::find_by_name('The Decider');
 	$post = Post::find_by_name_and_id('The Bridge Builder',100);
 	$post = Post::find_by_name_or_id('The Bridge Builder',100);
 
-	# finding using a conditions array
+	// finding using a conditions array
 	$posts = Post::find('all',array('conditions' => array('name=? or id > ?','The Bridge Builder',100)));
 
 
