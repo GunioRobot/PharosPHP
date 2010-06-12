@@ -21,6 +21,7 @@ Features
 	- YAML
 	- MSFT Excel Parser
 	- Apple Plist (plain text and binary) read/write
+	- TinyMCE
 	- Several more...
 - Extensible module system, allowing developers to interact with PharosPHP core (Hooks API) and even interact with other modules
 
