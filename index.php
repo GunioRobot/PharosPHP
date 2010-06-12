@@ -5,9 +5,9 @@
 	
 	// Validate login information
 	validate_login();
-	
+		
 	// Simply return cached information it's available
-	if ( ($cache = Output::cached_content()) !== false ) {
+	if ( server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
 		die($cache);
 	}
 		
