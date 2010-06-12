@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 2.11.9.5
+-- version 3.2.4
 -- http://www.phpmyadmin.net
 --
 -- Host: localhost
--- Generation Time: Dec 14, 2009 at 10:52 AM
--- Server version: 5.0.85
--- PHP Version: 5.2.6
+-- Generation Time: Jun 11, 2010 at 10:08 PM
+-- Server version: 5.1.47
+-- PHP Version: 5.2.9
 
 SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 
@@ -16,7 +16,7 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 /*!40101 SET NAMES utf8 */;
 
 --
--- Database: `claytona_clayton`
+-- Database: `macfanat_cms`
 --
 
 -- --------------------------------------------------------
@@ -26,18 +26,18 @@ SET SQL_MODE="NO_AUTO_VALUE_ON_ZERO";
 --
 
 CREATE TABLE IF NOT EXISTS `admin_nav` (
-  `id` int(10) NOT NULL auto_increment,
-  `parent_id` int(10) NOT NULL default '0',
-  `name` varchar(200) collate latin1_general_ci NOT NULL default '',
-  `page` text collate latin1_general_ci NOT NULL,
-  `min_lvl` int(2) NOT NULL default '0',
-  `max_lvl` int(2) NOT NULL default '0',
-  `order_num` int(2) NOT NULL default '0',
-  `description` text collate latin1_general_ci NOT NULL,
-  `display` varchar(20) collate latin1_general_ci NOT NULL default '',
+  `id` int(10) NOT NULL AUTO_INCREMENT,
+  `parent_id` int(10) NOT NULL DEFAULT '0',
+  `name` varchar(200) COLLATE latin1_general_ci NOT NULL DEFAULT '',
+  `page` text COLLATE latin1_general_ci NOT NULL,
+  `min_lvl` int(2) NOT NULL DEFAULT '0',
+  `max_lvl` int(2) NOT NULL DEFAULT '0',
+  `order_num` int(2) NOT NULL DEFAULT '0',
+  `description` text COLLATE latin1_general_ci NOT NULL,
+  `display` varchar(20) COLLATE latin1_general_ci NOT NULL DEFAULT '',
   `date_added` datetime NOT NULL,
-  `last_updated` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`id`)
+  `last_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 COLLATE=latin1_general_ci AUTO_INCREMENT=62 ;
 
 --
@@ -55,10 +55,10 @@ INSERT INTO `admin_nav` (`id`, `parent_id`, `name`, `page`, `min_lvl`, `max_lvl`
 (11, 10, 'Edit My Account', '/users/edit/%%return $_SESSION[''uid''];/', 1, 5, 1, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
 (15, 0, 'Media Library', '', 1, 5, 0, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
 (19, 0, 'Tracking', '', 5, 5, 1, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
-(20, 19, 'User Tracking', '/tacking/users/', 5, 5, 2, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
+(20, 19, 'User Tracking', '/dashboard/manage/', 5, 5, 2, '', 'visible', '2009-12-12 10:43:47', '2009-12-14 14:34:05'),
 (26, 4, 'Applications', '/applications/manage/', 5, 5, 3, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
 (30, 15, 'Publish Application', '/applications/publish/%%return $CURRENT_APP_ID;/', 4, 5, 10, '', 'hidden', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
-(61, 19, 'Dashboard', '/tracking/dashboard/', 4, 5, 1, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
+(61, 19, 'Dashboard', '/dashboard/', 4, 5, 1, '', 'visible', '2009-12-12 10:43:47', '2009-12-14 14:20:57'),
 (55, 10, 'Settings', '/settings/manage/', 4, 5, 3, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54');
 
 -- --------------------------------------------------------
@@ -68,23 +68,23 @@ INSERT INTO `admin_nav` (`id`, `parent_id`, `name`, `page`, `min_lvl`, `max_lvl`
 --
 
 CREATE TABLE IF NOT EXISTS `applications` (
-  `app_id` tinyint(4) NOT NULL auto_increment,
-  `app_name` varchar(200) NOT NULL default '',
+  `app_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `app_name` varchar(200) NOT NULL DEFAULT '',
   `app_notes` text NOT NULL,
-  `active` varchar(7) NOT NULL default 'true',
-  `xml_version` varchar(20) NOT NULL default '1.0',
-  `app_version` varchar(20) NOT NULL default '1.0',
-  `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_updated` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`app_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `active` varchar(7) NOT NULL DEFAULT 'true',
+  `xml_version` varchar(20) NOT NULL DEFAULT '1.0',
+  `app_version` varchar(20) NOT NULL DEFAULT '1.0',
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`app_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
 
 --
 -- Dumping data for table `applications`
 --
 
 INSERT INTO `applications` (`app_id`, `app_name`, `app_notes`, `active`, `xml_version`, `app_version`, `date_added`, `last_updated`) VALUES
-(1, 'Default Application', '', 'true', '1.0', '1.0', '2009-12-12 08:35:44', '2009-12-12 15:37:54');
+(1, 'General Application', '<p>notes</p>', 'true', '1.0', '1.0', '2009-12-12 08:35:44', '2009-12-14 09:53:51');
 
 -- --------------------------------------------------------
 
@@ -93,13 +93,13 @@ INSERT INTO `applications` (`app_id`, `app_name`, `app_notes`, `active`, `xml_ve
 --
 
 CREATE TABLE IF NOT EXISTS `applications_to_content` (
-  `id` bigint(20) NOT NULL auto_increment,
-  `app_id` tinyint(4) NOT NULL default '0',
-  `table_index` bigint(20) NOT NULL default '0',
-  `content_type_id` bigint(20) NOT NULL default '0',
-  `content_type_name` varchar(75) NOT NULL default '',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `app_id` tinyint(4) NOT NULL DEFAULT '0',
+  `table_index` bigint(20) NOT NULL DEFAULT '0',
+  `content_type_id` bigint(20) NOT NULL DEFAULT '0',
+  `content_type_name` varchar(75) NOT NULL DEFAULT '',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=30 ;
 
 --
 -- Dumping data for table `applications_to_content`
@@ -107,8 +107,19 @@ CREATE TABLE IF NOT EXISTS `applications_to_content` (
 
 INSERT INTO `applications_to_content` (`id`, `app_id`, `table_index`, `content_type_id`, `content_type_name`) VALUES
 (1, 1, 1, 1, 'user'),
-(2, 1, 2, 1, 'user'),
-(3, 1, 1, 2, 'setting');
+(19, 0, 23, 2, 'setting'),
+(3, 1, 11, 0, 'setting'),
+(4, 1, 12, 0, 'setting'),
+(5, 1, 13, 0, 'setting'),
+(6, 1, 14, 0, 'setting'),
+(7, 0, 19, 0, 'setting'),
+(8, 0, 20, 0, 'setting'),
+(9, 0, 21, 0, 'setting'),
+(10, 0, 22, 2, 'setting'),
+(20, 0, 24, 2, 'setting'),
+(21, 0, 25, 2, 'setting'),
+(22, 0, 26, 2, 'setting'),
+(25, 0, 13, 1, 'user');
 
 -- --------------------------------------------------------
 
@@ -117,11 +128,11 @@ INSERT INTO `applications_to_content` (`id`, `app_id`, `table_index`, `content_t
 --
 
 CREATE TABLE IF NOT EXISTS `content_types` (
-  `type_id` tinyint(4) NOT NULL auto_increment,
-  `type_name` varchar(200) NOT NULL default '',
-  `type_table` varchar(200) NOT NULL default '',
-  PRIMARY KEY  (`type_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
+  `type_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `type_name` varchar(200) NOT NULL DEFAULT '',
+  `type_table` varchar(200) NOT NULL DEFAULT '',
+  PRIMARY KEY (`type_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=4 ;
 
 --
 -- Dumping data for table `content_types`
@@ -130,9 +141,29 @@ CREATE TABLE IF NOT EXISTS `content_types` (
 INSERT INTO `content_types` (`type_id`, `type_name`, `type_table`) VALUES
 (1, 'user', 'users'),
 (2, 'setting', 'settings'),
-(3, 'application', 'applications'),
-(4, 'navigation', 'admin_nav'),
-(5, 'page', 'pages');
+(3, 'application', 'applications');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `cron_jobs`
+--
+
+CREATE TABLE IF NOT EXISTS `cron_jobs` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `task` text NOT NULL,
+  `type` varchar(200) NOT NULL,
+  `repeats` varchar(7) NOT NULL DEFAULT 'false',
+  `interval` int(11) NOT NULL DEFAULT '0',
+  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `in_progress` varchar(7) NOT NULL DEFAULT 'false',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `cron_jobs`
+--
+
 
 -- --------------------------------------------------------
 
@@ -141,22 +172,22 @@ INSERT INTO `content_types` (`type_id`, `type_name`, `type_table`) VALUES
 --
 
 CREATE TABLE IF NOT EXISTS `general_settings` (
-  `setting_id` int(11) NOT NULL auto_increment,
-  `setting_name` varchar(200) NOT NULL default '',
+  `setting_id` int(11) NOT NULL AUTO_INCREMENT,
+  `setting_name` varchar(200) NOT NULL DEFAULT '',
   `setting_value` text NOT NULL,
-  `setting_level` smallint(6) NOT NULL,
+  `setting_level` int(11) NOT NULL,
   `setting_notes` text NOT NULL,
-  `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_updated` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`setting_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=2 ;
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`setting_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=28 ;
 
 --
 -- Dumping data for table `general_settings`
 --
 
-INSERT INTO `general_settings` (`setting_id`, `setting_name`, `setting_value`, `setting_notes`, `date_added`, `last_updated`) VALUES
-(1, 'Site Name', '<p>CMS Testing Center</p>', '', '2009-12-12 08:54:05', '2009-12-12 08:54:05');
+INSERT INTO `general_settings` (`setting_id`, `setting_name`, `setting_value`, `setting_level`, `setting_notes`, `date_added`, `last_updated`) VALUES
+(23, 'Show Profiler Results', '<p>false</p>', 4, '', '2009-12-14 10:17:08', '2010-06-06 15:05:06');
 
 -- --------------------------------------------------------
 
@@ -165,24 +196,28 @@ INSERT INTO `general_settings` (`setting_id`, `setting_name`, `setting_value`, `
 --
 
 CREATE TABLE IF NOT EXISTS `pages` (
-  `id` bigint(20) NOT NULL auto_increment,
-  `name` varchar(200) NOT NULL default '',
-  `input1` varchar(200) NOT NULL default '',
-  `input2` varchar(200) NOT NULL default '',
-  `input3` varchar(200) NOT NULL default '',
-  `input4` varchar(200) NOT NULL default '',
-  `input5` varchar(200) NOT NULL default '',
-  `input6` varchar(200) NOT NULL default '',
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL DEFAULT '',
+  `input1` varchar(200) NOT NULL DEFAULT '',
+  `input2` varchar(200) NOT NULL DEFAULT '',
+  `input3` varchar(200) NOT NULL DEFAULT '',
+  `input4` varchar(200) NOT NULL DEFAULT '',
+  `input5` varchar(200) NOT NULL DEFAULT '',
+  `input6` varchar(200) NOT NULL DEFAULT '',
   `text1` text NOT NULL,
   `text2` text NOT NULL,
   `text3` text NOT NULL,
   `text4` text NOT NULL,
   `text5` text NOT NULL,
   `text6` text NOT NULL,
-  `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_updated` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`id`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
+
+--
+-- Dumping data for table `pages`
+--
 
 
 -- --------------------------------------------------------
@@ -192,13 +227,13 @@ CREATE TABLE IF NOT EXISTS `pages` (
 --
 
 CREATE TABLE IF NOT EXISTS `tracking` (
-  `track_id` bigint(20) NOT NULL auto_increment,
-  `user_id` bigint(20) NOT NULL default '0',
-  `app_id` int(11) NOT NULL default '0',
-  `content_type_id` bigint(20) NOT NULL default '0',
-  `table_index` bigint(20) NOT NULL default '0',
-  `timestamp` datetime NOT NULL default '0000-00-00 00:00:00',
-  PRIMARY KEY  (`track_id`)
+  `track_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_id` bigint(20) NOT NULL DEFAULT '0',
+  `app_id` int(11) NOT NULL DEFAULT '0',
+  `content_type_id` bigint(20) NOT NULL DEFAULT '0',
+  `table_index` bigint(20) NOT NULL DEFAULT '0',
+  `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  PRIMARY KEY (`track_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
 
 --
@@ -213,42 +248,42 @@ CREATE TABLE IF NOT EXISTS `tracking` (
 --
 
 CREATE TABLE IF NOT EXISTS `users` (
-  `user_id` bigint(20) NOT NULL auto_increment,
-  `user_first_name` varchar(75) NOT NULL default '',
-  `user_middle_name` varchar(75) NOT NULL default '',
-  `user_last_name` varchar(75) NOT NULL default '',
-  `user_address_line_1` varchar(50) NOT NULL default '',
-  `user_address_line_2` varchar(50) NOT NULL default '',
-  `user_city` varchar(30) NOT NULL default '',
-  `user_state` char(2) NOT NULL default '',
-  `user_zip` varchar(10) NOT NULL default '',
-  `user_phone_number` varchar(15) NOT NULL default '',
-  `user_cell_number` varchar(15) NOT NULL default '',
-  `user_fax_number` varchar(15) NOT NULL default '',
-  `user_primary_email` varchar(100) NOT NULL default '',
-  `user_secondary_email` varchar(100) NOT NULL default '',
-  `user_username` varchar(50) NOT NULL default '',
-  `user_password` varchar(50) NOT NULL default '',
-  `user_position` varchar(50) NOT NULL default '',
-  `user_level` int(11) NOT NULL default '1',
+  `user_id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `user_first_name` varchar(75) NOT NULL DEFAULT '',
+  `user_middle_name` varchar(75) NOT NULL DEFAULT '',
+  `user_last_name` varchar(75) NOT NULL DEFAULT '',
+  `user_address_line_1` varchar(50) NOT NULL DEFAULT '',
+  `user_address_line_2` varchar(50) NOT NULL DEFAULT '',
+  `user_city` varchar(30) NOT NULL DEFAULT '',
+  `user_state` char(2) NOT NULL DEFAULT '',
+  `user_zip` varchar(10) NOT NULL DEFAULT '',
+  `user_phone_number` varchar(15) NOT NULL DEFAULT '',
+  `user_cell_number` varchar(15) NOT NULL DEFAULT '',
+  `user_fax_number` varchar(15) NOT NULL DEFAULT '',
+  `user_primary_email` varchar(100) NOT NULL DEFAULT '',
+  `user_secondary_email` varchar(100) NOT NULL DEFAULT '',
+  `user_username` varchar(50) NOT NULL DEFAULT '',
+  `user_password` varchar(50) NOT NULL DEFAULT '',
+  `user_position` varchar(50) NOT NULL DEFAULT '',
+  `user_level` int(11) NOT NULL DEFAULT '1',
   `user_notes` text NOT NULL,
-  `user_industry` int(11) NOT NULL default '0',
-  `user_company` varchar(200) NOT NULL default '',
-  `company_id` bigint(20) NOT NULL default '0',
-  `user_birthday` date NOT NULL default '0000-00-00',
-  `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
-  `user_last_login` datetime NOT NULL default '0000-00-00 00:00:00',
-  `last_updated` timestamp NOT NULL default CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP,
-  PRIMARY KEY  (`user_id`)
-) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=3 ;
+  `user_industry` int(11) NOT NULL DEFAULT '0',
+  `user_company` varchar(200) NOT NULL DEFAULT '',
+  `company_id` bigint(20) NOT NULL DEFAULT '0',
+  `user_birthday` date NOT NULL DEFAULT '0000-00-00',
+  `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `user_last_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+  PRIMARY KEY (`user_id`)
+) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=18 ;
 
 --
 -- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`user_id`, `user_first_name`, `user_middle_name`, `user_last_name`, `user_address_line_1`, `user_address_line_2`, `user_city`, `user_state`, `user_zip`, `user_phone_number`, `user_cell_number`, `user_fax_number`, `user_primary_email`, `user_secondary_email`, `user_username`, `user_password`, `user_position`, `user_level`, `user_notes`, `user_industry`, `user_company`, `company_id`, `user_birthday`, `date_added`, `user_last_login`, `last_updated`) VALUES
-(1, 'Matt', '', 'Brewer', '', '', 'Knoxville', '0', '37923', '', '', '', 'matt@dmgx.com', '', 'super', 'dmgx', '', 5, 'mine ass', 0, '', 0, '2009-01-01', '2009-12-12 13:12:58', '2009-12-14 08:06:54', '2009-12-14 08:06:54'),
-(2, 'Wade', '', 'Austin', '', '', '', '0', '', '', '', '', 'wade@dmgx.com', '', 'admin', 'dmgx', '', 4, '', 0, '', 0, '2009-11-19', '2009-11-19 16:26:51', '2009-12-04 12:06:55', '2009-12-04 12:06:55');
+(1, 'Matt', '', 'Brewer', '', '', 'Knoxville', '0', '37923', '', '', '', 'matt@dmgx.com', '', 'super', 'dmgx', '', 5, '<p>mine ass</p>', 0, '', 0, '2009-01-01', '2009-12-12 13:12:58', '2010-06-11 21:42:48', '2010-06-11 21:42:48'),
+(13, 'Basic', '', 'User', '', '', '', '0', '', '', '', '', 'matt@dmgx.com', '', 'matt', 'dmgx', '', 1, '', 0, '', 0, '2009-12-14', '2009-12-14 14:36:41', '0000-00-00 00:00:00', '2009-12-14 14:36:41');
 
 -- --------------------------------------------------------
 
@@ -257,9 +292,9 @@ INSERT INTO `users` (`user_id`, `user_first_name`, `user_middle_name`, `user_las
 --
 
 CREATE TABLE IF NOT EXISTS `user_levels` (
-  `user_level_id` tinyint(4) NOT NULL auto_increment,
-  `user_level_name` varchar(75) NOT NULL default '',
-  PRIMARY KEY  (`user_level_id`)
+  `user_level_id` tinyint(4) NOT NULL AUTO_INCREMENT,
+  `user_level_name` varchar(75) NOT NULL DEFAULT '',
+  PRIMARY KEY (`user_level_id`)
 ) ENGINE=MyISAM  DEFAULT CHARSET=latin1 AUTO_INCREMENT=6 ;
 
 --
