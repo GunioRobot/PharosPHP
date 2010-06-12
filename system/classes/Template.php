@@ -279,6 +279,8 @@
 		public static function render() {
 
 			global $controller;
+			
+			ob_start();
 
 			Hooks::call_hook(Hooks::HOOK_TEMPLATE_PRE_RENDER);
 
@@ -289,9 +291,14 @@
 			}
 
 			Hooks::call_hook(Hooks::HOOK_TEMPLATE_POST_RENDER);
+			
+			$output = ob_get_clean();
+			if ( $controller->output->enabled() ) $controller->output->cache($output);		// Write the contents of this to the cache
+			echo $output;
 
 		}
-	
+		
+			
 	
 	
 	
