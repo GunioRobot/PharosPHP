@@ -110,7 +110,7 @@
 		
 		public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='') {
 			
-			$this->javascript('confirmDelete.php');
+			$this->output->javascript('confirmDelete.php');
 												
 			$this->table->current_page = intval($page);
 
@@ -156,7 +156,7 @@
 			
 			$repost = ( $repost === "true" ) ? true : false;
 			
-			$this->javascript('tiny_mce_include.php');
+			$this->output->javascript('tiny_mce_include.php');
 			
 			// Required by profile class and repost_mod
 			@define('PROFILE_TABLE', $this->table->id);
