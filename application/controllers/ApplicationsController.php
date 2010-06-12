@@ -139,7 +139,7 @@
 		          </div>'.
 		          $this->table->get_html($this->table->current_page, $page_count, $start, $total);
 
-			$this->output($view);
+			echo $view;
 
 		}
 		
@@ -208,8 +208,8 @@
 			// Run throught the parser and spit out the page
 			$profile = new Profile($fields);
 			
-			if ( $id > 0 ) $this->output($profile->display($this->dataKey, $id, $repost));
-			else $this->output($profile->display());
+			if ( $id > 0 ) $profile->display($this->dataKey, $id, $repost);
+			else echo $profile->display();
 						
 		}
 		
