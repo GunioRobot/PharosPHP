@@ -42,7 +42,7 @@ routes:
 system:
     version: 1.5
     default_app_id: 1
-    cache: yes
+    cache: true
     site:
         name: "CMSLite"
     
