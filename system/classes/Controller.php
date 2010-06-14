@@ -53,9 +53,7 @@
 			$this->keywords = DEFAULT_KEYWORDS;
 			$this->description = DEFAULT_DESCRIPTION;
 			
-			if ( ($this->auth = session("auth")) === false ) {
-				$this->auth = new Authentication();
-			} 
+			$this->auth = Authentication::get();
 					
 		}
 
