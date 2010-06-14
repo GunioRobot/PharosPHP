@@ -271,6 +271,8 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_company` varchar(200) NOT NULL DEFAULT '',
   `company_id` bigint(20) NOT NULL DEFAULT '0',
   `user_birthday` date NOT NULL DEFAULT '0000-00-00',
+  `logged_in` VARCHAR(7) NOT NULL DEFAULT 'false',
+  `last_logout` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_last_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
