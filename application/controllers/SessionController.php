@@ -8,15 +8,7 @@
 		}
 
 	
-		public function index() {
-						
-			if ( session('uid') ) {
-				redirect(Template::site_link());
-			} else {
-				redirect(Template::controller_link(__CLASS__,'login/'));
-			}
-		
-		}
+		public function index() { }
 		
 		public function login() {
 			
@@ -25,7 +17,7 @@
 			
 			if ( ($user = post('user')) AND ($pass = post('pass')) ) {
 				
-				$auth = new Authentication();
+				$auth = Authentication::get();
 				if ( $auth->login($user, $pass, Settings::get('users.levels.admin'), ">=") ) {
 					redirect(Template::site_link());
 				}
@@ -35,7 +27,6 @@
 			} 		
 			
 			$this->output->view("login-view.php");
-				
 		
 		}
 		
