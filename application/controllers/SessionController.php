@@ -27,7 +27,7 @@
 				
 				$auth = new Authentication();
 				if ( $auth->login($user, $pass, Settings::get('users.levels.basic')) ) {
-					redirect(Template::site_link())
+					redirect(Template::site_link());
 				}
 				
 				$loginMessage = "Incorrect username/password combination.";
@@ -41,7 +41,7 @@
 		
 		public function logout() {
 			$this->title = "Logout";
-			Authentication::global()->logout();
+			Authentication::get()->logout();
 			redirect(Template::site_link());
 		}
 	
@@ -55,7 +55,7 @@
 
 		public function processPasswordReset() {
 			if ( ($user = post('user')) !== false ) {
-				Authentication::global()->reset_password($user);
+				Authentication::get()->reset_password($user);
 			} else {
 				redirect(controller_link(__CLASS__, "password-reset/"));
 			}
@@ -90,7 +90,7 @@
 
 			$this->output->set("title", $this->title);
 			$this->output->set("message", $message);
-			$this->output->view("password-reset-finished-view.php")
+			$this->output->view("password-reset-finished-view.php");
 
 		}
 	
