@@ -2,7 +2,7 @@
 
 	// Begin loading the system
 	require_once 'system/init.php';
-		
+
 	// System action to allow post system-init, pre controller created actions to execute		
 	Hooks::call_hook(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
 				
@@ -18,7 +18,7 @@
 		Hooks::call_hook(Hooks::HOOK_CONTROLLER_POST_CREATED, array($controllerClass));	
 		
 		// Determine if should process login information or not
-		if ( $controller->auth->login_required() && $controller->auth->logged_in() ) {
+		if ( $controller->auth->login_required() && !$controller->auth->logged_in() ) {
 			redirect(Template::controller_link('Session','login/'));
 		}
 		
