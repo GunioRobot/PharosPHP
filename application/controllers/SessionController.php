@@ -26,7 +26,7 @@
 			if ( ($user = post('user')) AND ($pass = post('pass')) ) {
 				
 				$auth = new Authentication();
-				if ( $auth->login($user, $pass, Settings::get('users.levels.basic')) ) {
+				if ( $auth->login($user, $pass, Settings::get('users.levels.admin'), ">=") ) {
 					redirect(Template::site_link());
 				}
 				
