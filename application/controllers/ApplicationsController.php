@@ -15,6 +15,7 @@
 						
 			$this->dataKey = "app_id";			
 			$this->tableColumns();
+			$this->auth->login_required(true);
 						
 		}
 		

@@ -17,6 +17,7 @@
 			$this->tableColumns();
 			
 			$this->industries = user_industries_array();
+			$this->auth->login_required(true);
 												
 		}
 		
