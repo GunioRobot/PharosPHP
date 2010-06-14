@@ -18,23 +18,33 @@
 		protected $login_required = false;
 		protected $user;
 		protected $db;
+		
+		static protected $instance;
 
 		/**
 		 * global()
 		 * 
 		 * Static accessor to the session Authentication object
 		 *
-		 * @return Authentication obj / false if not set
+		 * @return Authentication obj 
 		 * @author Matthew
 		 **/
-		public static function get() {
-			return session("pharos_auth");
+		public static function get() {			
+			if ( !self::$instance ) {
+				$t = new Authentication();
+				$t->lookup();
+				self::$instance = $t;
+			} return self::$instance;
 		}
 
 
 		public function __construct() {
+			
+			if ( self::$instance ) return self::$instance;
+			
 			global $db;
 			$this->db =& $db;
+			
 		}
 
 
@@ -63,11 +73,12 @@
 		/**
 		 * login()
 		 *
-		 * Takes the three provided params and validates against the datbase 
+		 * Takes the three provided params and validates against the database 
 		 *
 		 * @param string $username
 		 * @param string $password
-		 * @param int level
+		 * @param int $level
+		 * @param string $comparison_operator - (>, <, <=, >=)
 		 * 
 		 * @return bool - true if the login was successful
 		 * @author Matthew
@@ -76,20 +87,17 @@
 			
 			$sql = sprintf("SELECT * FROM users WHERE user_username = '%s' AND user_password = '%s' AND user_level %s '%d' LIMIT 1", $this->db->prepare_input($username), $this->db->prepare_input($password), $comparison_operator, $level);
 			$info = $this->db->Execute($sql);
-			
-			var_dump($info->fields, $sql);exit;
-			
+						
 			if ( !$info->EOF && $info->fields['user_id'] > 0 ) {
 				
 				$this->logged_in = true;
 				unset($info->fields['user_password']);
 				$this->user(clean_object($info->fields));
 				
-				$this->db->Execute(sprintf("UPDATE users SET user_last_login = NOW() WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
-				
-				$_SESSION['pharos_auth'] = $this;
-				
-				define('SECURITY_LVL', $_SESSION['user_level']);
+				$this->db->Execute(sprintf("UPDATE users SET user_last_login = NOW(), logged_in = 'true' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
+								
+				$_SESSION['uid'] = $this->user->user_id;				
+				define('SECURITY_LVL', $this->user->user_level);
 				
 				return true;
 				
@@ -98,7 +106,8 @@
 		}
 		
 		public function logout() {
-			unset($_SESSSION['pharos_auth']);
+			$this->db->Execute(sprintf("UPDATE users SET last_logout = NOW(), logged_in = 'false' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
+			unset($_SESSION['uid']);
 		}
 		
 		
@@ -177,9 +186,36 @@
 		 * @return string new_password
 		 * @author Matthew
 		 **/
-		function random_password() {
+		public function random_password() {
 			return str_replace('_', '', substr(rand(0,100).chr(rand(65,117)).chr(rand(65,117)).chr(rand(65,117)).chr(rand(65,117)).rand(50,100).RESET_PASSWORD_RANDOM_WORD, 0, 49));	// Limit the password to 50 max characters (all the database holds)
 		}
+		
+		
+		protected function lookup() {
+			
+			if ( ($uid = session("uid")) !== false ) {
+				
+				$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' AND DATE_ADD(user_last_login, INTERVAL %d MINUTE) >= NOW() LIMIT 1", $uid, Settings::get("users.login_interval"));
+				$info = $this->db->Execute($sql);
+
+				if ( !$info->EOF && $info->fields['user_id'] > 0 ) {
+
+					$this->logged_in = true;
+					unset($info->fields['user_password']);
+					$this->user(clean_object($info->fields));
+
+					define('SECURITY_LVL', $this->user->user_level);
+
+					return true;
+
+				} else {
+					$this->logout();
+					return false;
+				}
+				
+			} else return false;
+		}
+		
 		
 		
 	}
