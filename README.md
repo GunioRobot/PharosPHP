@@ -139,7 +139,6 @@ The special reserved params of :controller, :action, and :id have predefined mea
 	}
 	
 	
-=======
 ## Model-View-Controller
 
 According to Wikipedia, MVC is defined as:
