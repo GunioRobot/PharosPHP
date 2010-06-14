@@ -1,5 +1,15 @@
 <?
 
+	/**
+	 * 
+	 *
+	 * @author Matthew
+	 * @version $Id$
+	 * @copyright Matt Brewer, 13 June, 2010
+	 * @package PharosPHP
+	 **/
+
+
 	class Authentication {
 		
 		public $user_id = false;
@@ -9,7 +19,15 @@
 		protected $user;
 		protected $db;
 
-		public static function global() {
+		/**
+		 * global()
+		 * 
+		 * Static accessor to the session Authentication object
+		 *
+		 * @return Authentication obj / false if not set
+		 * @author Matthew
+		 **/
+		public static function get() {
 			return session("pharos_auth");
 		}
 
@@ -19,6 +37,17 @@
 			$this->db =& $db;
 		}
 
+
+		/**
+		 * user($u)
+		 *
+		 * Will return the stored user object if called with no paramaters.
+		 * Otherwise takes the specified parameter and stores internally
+		 *
+		 * @param object user (optional) - expects a clean_object($database_info->fields) param
+		 * @return void
+		 * @author Matthew
+		 **/
 		public function user($u=false) {
 			
 			if ( $u !== false ) {
@@ -30,6 +59,19 @@
 			
 		}
 		
+		
+		/**
+		 * login()
+		 *
+		 * Takes the three provided params and validates against the datbase 
+		 *
+		 * @param string $username
+		 * @param string $password
+		 * @param int level
+		 * 
+		 * @return bool - true if the login was successful
+		 * @author Matthew
+		 **/
 		public function login($username, $password, $level) {
 			
 			$sql = sprintf("SELECT * FROM users WHERE user_username = '%s' AND user_password = '%s' AND user_level = '%d' LIMIT 1", $this->db->prepare_input($username), $this->db->prepare_input($password), $level);
@@ -57,14 +99,44 @@
 			unset($_SESSSION['pharos_auth']);
 		}
 		
+		
+		/**
+		 * logged_in
+		 *
+		 * If the user is currently logged in
+		 * 
+		 * @return bool
+		 * @author Matthew
+		 **/		
 		public function logged_in() {
 			return $this->logged_in;
 		}
 		
-		public function login_required() {
-			return $this->login_required;
+		
+		/**
+		 * login_required
+		 *
+		 * If this :controller & :action require login
+		 *
+		 * @return bool
+		 * @param bool - set if the login is required or not
+		 * @author Matthew
+		 **/
+		public function login_required($bool=null) {
+			if ( is_bool($bool) ) $this->login_required = $bool;
+			else return $this->login_required;
 		}
 		
+		
+		/**
+		 * reset_password($username)
+		 *
+		 * Mails the user a new password and redirects to the success/fail page
+		 *
+		 * @param string $username
+		 * @return void
+		 * @author Matthew
+		 **/
 		public function reset_password($username) {
 
 			Modules::load("rmail");
@@ -97,6 +169,12 @@
 		}
 		
 		
+		/**
+		 * random_password()
+		 *
+		 * @return string new_password
+		 * @author Matthew
+		 **/
 		function random_password() {
 			return str_replace('_', '', substr(rand(0,100).chr(rand(65,117)).chr(rand(65,117)).chr(rand(65,117)).chr(rand(65,117)).rand(50,100).RESET_PASSWORD_RANDOM_WORD, 0, 49));	// Limit the password to 50 max characters (all the database holds)
 		}
