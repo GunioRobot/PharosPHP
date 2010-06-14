@@ -48,6 +48,7 @@ system:
     
     
 users:
+    login_interval: 60 # in minutes (amount of time a login is valid before it expires)
     levels:
         basic: 1
         admin: 4
