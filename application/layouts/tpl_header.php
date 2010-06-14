@@ -8,8 +8,6 @@
 	    <a id="logo" href="<?=Template::site_link()?>" title="Home"></a>
     	<div class="clearBoth"></div>
         <br clear="all" />
-
-		<? if ( is_logged_in() ) : ?>
 		
 		<div id="meta-area">
 			<a href="<?=Template::site_link("users/edit/".session("uid")."/")?>" title="Edit My Account Information">My Account</a>
@@ -49,6 +47,4 @@
 				<? endforeach ?>
 		</div>
 		
-		<? endif ?>
-
     </div>
