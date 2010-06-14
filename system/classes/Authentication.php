@@ -72,10 +72,12 @@
 		 * @return bool - true if the login was successful
 		 * @author Matthew
 		 **/
-		public function login($username, $password, $level) {
+		public function login($username, $password, $level, $comparison_operator) {
 			
-			$sql = sprintf("SELECT * FROM users WHERE user_username = '%s' AND user_password = '%s' AND user_level = '%d' LIMIT 1", $this->db->prepare_input($username), $this->db->prepare_input($password), $level);
+			$sql = sprintf("SELECT * FROM users WHERE user_username = '%s' AND user_password = '%s' AND user_level %s '%d' LIMIT 1", $this->db->prepare_input($username), $this->db->prepare_input($password), $comparison_operator, $level);
 			$info = $this->db->Execute($sql);
+			
+			var_dump($info->fields, $sql);exit;
 			
 			if ( !$info->EOF && $info->fields['user_id'] > 0 ) {
 				
