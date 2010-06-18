@@ -96,10 +96,10 @@
 				
 				$this->db->Execute(sprintf("UPDATE users SET user_last_login = NOW(), logged_in = 'true' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
 				
-				Cookie::set("authentication[uid]", $this->user->user_id, Settings::get("users.login_interval") * 60 + time());				
-				Cookie::set("authentication[name]", $this->user->user_first_name." ".$this->user->user_last_name, Settings::get("users.login_interval") * 60 + time());
+				Cookie::set("pharos_authentication[uid]", $this->user->user_id, Settings::get("users.login_interval") * 60 + time());				
+				Cookie::set("pharos_authentication[name]", $this->user->user_first_name." ".$this->user->user_last_name, Settings::get("users.login_interval") * 60 + time());
 				define('SECURITY_LVL', $this->user->user_level);
-				
+
 				return true;
 				
 			} else return false;
@@ -108,7 +108,7 @@
 		
 		public function logout() {
 			$this->db->Execute(sprintf("UPDATE users SET last_logout = NOW(), logged_in = 'false' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
-			Cookie::delete("authentication");
+			Cookie::delete("pharos_authentication");
 		}
 		
 		
@@ -200,7 +200,7 @@
 		 **/
 		protected function lookup() {
 			
-			if ( ($user = Cookie::get("authentication")) !== false ) {
+			if ( ($user = Cookie::get("pharos_authentication")) !== false ) {
 				
 				$uid = $user["uid"];
 				$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' AND DATE_ADD(user_last_login, INTERVAL %d MINUTE) >= NOW() LIMIT 1", $uid, Settings::get("users.login_interval"));
