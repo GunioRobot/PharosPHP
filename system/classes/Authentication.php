@@ -9,7 +9,7 @@
 	 * @package PharosPHP
 	 **/
 
-
+	require_once CLASSES_DIR.'Cookie.php';
 	class Authentication {
 		
 		public $user_id = false;
@@ -95,8 +95,8 @@
 				$this->user(clean_object($info->fields));
 				
 				$this->db->Execute(sprintf("UPDATE users SET user_last_login = NOW(), logged_in = 'true' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
-								
-				$_SESSION['uid'] = $this->user->user_id;				
+				
+				Cookie::set("uid", $this->user->user_id, Settings::get("users.login_interval") * 60 + time());				
 				define('SECURITY_LVL', $this->user->user_level);
 				
 				return true;
@@ -107,7 +107,6 @@
 		
 		public function logout() {
 			$this->db->Execute(sprintf("UPDATE users SET last_logout = NOW(), logged_in = 'false' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
-			unset($_SESSION['uid']);
 		}
 		
 		
@@ -191,9 +190,15 @@
 		}
 		
 		
+		/**
+		 * lookup()
+		 *
+		 * @return boolean true if user is logged in
+		 * @author Matthew
+		 **/
 		protected function lookup() {
 			
-			if ( ($uid = session("uid")) !== false ) {
+			if ( ($uid = Cookie::get("uid")) !== false ) {
 				
 				$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' AND DATE_ADD(user_last_login, INTERVAL %d MINUTE) >= NOW() LIMIT 1", $uid, Settings::get("users.login_interval"));
 				$info = $this->db->Execute($sql);
