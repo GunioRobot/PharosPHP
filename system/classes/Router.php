@@ -38,8 +38,10 @@
 				$route['parsed_pattern'] = str_replace(':id', '([[:digit:]]+)', $route['parsed_pattern']);
 				
 				// Apply the user defined filters
-				foreach($route['params'] as $key => $pattern) {
-					$route['parsed_pattern'] = str_replace($key, $pattern, $route['parsed_pattern']);
+				if ( isset($route['params']) ) {
+					foreach($route['params'] as $key => $pattern) {
+						$route['parsed_pattern'] = str_replace($key, $pattern, $route['parsed_pattern']);
+					}
 				}
 								
 			}
