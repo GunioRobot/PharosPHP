@@ -71,5 +71,19 @@
 		return ( isset($_SERVER[$key]) AND $_SERVER[$key] != '' ) ? $_SERVER[$key] : $default;
 	}
 	
+	
+	
+	////////////////////////////////////////////////////////////////////////////////
+	//
+	//	cookie($key, $default=false)
+	//
+	//	Returns the value from $_COOKIE or the default value, if $_COOKIE wasn't set
+	//
+	////////////////////////////////////////////////////////////////////////////////
+	
+	function cookie($key, $default=false) {
+		return ( isset($_COOKIE[$key]) AND $_COOKIE[$key] != '' ) ? $_COOKIE[$key] : $default;
+	}
+	
 
 ?>
