@@ -145,7 +145,7 @@
 					$matches = array_slice($matches,1);		// Get rid of first element
 					
 					// Now find the sequence of the captures
-					$search_keys = array_merge(self::$keys, array_keys($r['params']));
+					$search_keys = (isset($r['params']) && is_array($r['params'])) ? array_merge(self::$keys, array_keys($r['params'])) : self::$keys;
 					$keys = array();
 					foreach($search_keys as $key) {
 						$pos = strpos($r['pattern'], $key);
