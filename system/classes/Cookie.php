@@ -23,7 +23,7 @@
 		 **/
 		public static function set($key, $value, $expire) {
 			$_COOKIE[$key] = $value;	// Make it available on this same page load, instead of requiring reload to fill $_COOKIE as PHP behavior dictates
-			return @setcookie($key, $value, $expire, "/", HTTP_SERVER, false, false);
+			return @setcookie($key, $value, $expire, "/");//, HTTP_SERVER, false, false);
 		}
 		
 		/**
