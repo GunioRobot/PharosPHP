@@ -39,11 +39,11 @@
 				
 				// Apply the user defined filters
 				if ( isset($route['params']) ) {
-					foreach($route['params'] as $key => $pattern) {
-						$route['parsed_pattern'] = str_replace($key, $pattern, $route['parsed_pattern']);
+					foreach($route['params'] as $key => $options) {
+						$route['parsed_pattern'] = str_replace($key, $options['pattern'], $route['parsed_pattern']);
 					}
 				}
-								
+												
 			}
 						
 			
