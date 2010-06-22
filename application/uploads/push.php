@@ -2,12 +2,12 @@
 	
 	if ( isset($_GET['f']) AND $_GET['f'] != '' AND file_exists($_GET['f']) ) {
 
-		require_once '../includes/functions/downloads.php';
+		require_once '../../system/functions/downloads.php';
 		force_download(dirname(__FILE__).'/'.$_GET['f']);
 		
 	} else {
 				
-		require_once '../includes/app_header.php';
+		require_once '../views/app_header.php';
 		
 		@define('TITLE', SITE_NAME.' - File Not Found');
 		require_once VIEWS_DIR.'tpl_HTML_header.php';
