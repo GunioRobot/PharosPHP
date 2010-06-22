@@ -24,18 +24,18 @@ routes:
             controller: UsersController
             action: some_method
             params: 
-                - { key: ":repost", pattern: (true|false) }
+                ":repost": { pattern: (true|false) }
 
         -
             pattern: "post-:id/:repost/:month/?"
             controller: PostsController
             action: edit
             params:
-                ":repost":  "(true|false)"
-                ":month": "([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2})"
+                ":repost": { pattern: "(true|false)" }
+                ":month":  { pattern: "([[:digit:]]{4}-[[:digit:]]{2}-[[:digit:]]{2})" }
 
         # Default matching pattern is:
-        # - { pattern: ":controller/:action/.*" }
+        #  { pattern: ":controller/:action/.*" }
 
 
 system:
