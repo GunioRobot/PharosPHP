@@ -202,7 +202,7 @@
 		*/
 		public function view($str) {
 			
-			if ( file_exists(VIEWS_DIR.$str) ) {
+			if ( $str != "" && file_exists(VIEWS_DIR.$str) ) {
 			
 				// Import the data members into a clean namespace
 				extract($this->members);
