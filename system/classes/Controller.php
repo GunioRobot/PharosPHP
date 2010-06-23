@@ -1,32 +1,33 @@
 <?
-
-	///////////////////////////////////////////////////////////////////////////
-	//
-	//	Controller.php
-	//
-	//	Parent class for all pages - subclass to load in particular page
-	//
-	///////////////////////////////////////////////////////////////////////////
-
+	
+	/**
+	 * Controller
+	 *
+	 * @package PharosPHP.Core.Classes
+	 * @author Matthew Brewer
+	 *
+	 * Parent class for all controllers you create
+	 *
+	 **/
+	
 	require_once CLASSES_DIR.'Output.php';
 	require_once CLASSES_DIR.'Authentication.php';
-	
 	class Controller {
 		
 	
-		///////////////////////////////////////////////////////////////////////////
-		//
-		//	Available to this class and all subclasses
-		//
-		///////////////////////////////////////////////////////////////////////////
+		/**
+		*
+		*	Protected instance vars (available to subclasses)
+		*
+		*/
 		protected $db;
 		
 		
-		///////////////////////////////////////////////////////////////////////////
-		//
-		//	Publically accessible properties
-		//
-		///////////////////////////////////////////////////////////////////////////
+		/**
+		*
+		*	Public instance vars
+		*
+		*/
 		public $name;
 		public $title;
 		public $keywords;
@@ -35,12 +36,17 @@
 		public $auth;
 		
 		
-		
-		///////////////////////////////////////////////////////////////////////////
-		//
-		//	Constructor
-		//
-		///////////////////////////////////////////////////////////////////////////
+		/**
+		 * Constructor
+		 *
+		 * @return self
+		 * @author Matthew Brewer
+		 *
+		 * NOTE: All subclasses that override this method must be sure to call 
+		 * 		parent::__construct()
+		 * in order for the subclass to behave properly!
+		 *
+		 **/
 		public function __construct() {
 			
 			global $db;
