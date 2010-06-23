@@ -172,7 +172,7 @@
 		
 		/**
 		*
-		*
+		*	content($string)
 		*
 		*
 		*/
@@ -188,7 +188,7 @@
 		
 		/**
 		*
-		*	set
+		*	set()
 		*
 		*	@param string Key
 		*	@param mixed Value
@@ -203,22 +203,34 @@
 		
 		/**
 		*
-		*	view
+		*	view()
+		* 
+		*	If $str is a PHP file, the file is interpreted with all the data members set in the controller exposed locally
+		* 	If $str is any other type of file, the contents of the file are added to internal $content instance var
+		* 	If $str is not a file, $str is treated as a static string and added to the protected $content instance var
 		*
-		*	@param string $str - If this is a view file, the file is interpreted with all the data members set in the controller exposed locally, otherwise it is treated as a string and just added to the output
+		*	@throws Exception - if file is not PHP and contents could not be obtained
+		*
+		*	@param string $str
+		*	@param string $directory (optional)
 		*	@return void
 		*
 		*/
-		public function view($str) {
+		public function view($str, $directory=VIEWS_DIR) {
 			
-			if ( $str != "" && file_exists(VIEWS_DIR.$str) ) {
-			
-				// Import the data members into a clean namespace
-				extract($this->members);
-			
-				// Include the view (which only has access to the local clean namespace )
-				require VIEWS_DIR.$str;
+			$file = $directory.$str;
+			if ( $str != "" && file_exists($file) ) {
 				
+				$info = pathinfo($file);
+				if ( strtolower($info['extension']) == "php" ) {
+					extract($this->members);	// Import the data members into a clean namespace
+					require $file;		// Include the view (which only has access to the local clean namespace )
+				} else {
+					if ( ($contents = @file_get_contents($file)) !== false ) {
+						$this->content .= $contents;
+					} else throw new Exception(sprintf("Provided %s of type %s and was unable to get contents.", $file, $info['extension']));
+				}
+							
 			} else {
 				
 				$this->content .= $str;
