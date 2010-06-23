@@ -44,6 +44,11 @@
 		// Grab the contents of the buffer & give to controller to use. Turn off buffering as well
 		$controller->output->finalize(ob_get_clean());		
 		
+		// Send HTTP headers to the browser if requested
+		foreach($controller->output->header() as $header) {
+			header($header);
+		}
+		
 		// Render the template to the browser
 		Template::render();
 			
