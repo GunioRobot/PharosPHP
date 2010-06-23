@@ -49,7 +49,7 @@
 		/**
 		 * user($u)
 		 *
-		 * Will return the stored user object if called with no paramaters.
+		 * Will return the stored user object if called with no parameters.
 		 * Otherwise takes the specified parameter and stores internally
 		 *
 		 * @param object user (optional) - expects a clean_object($database_info->fields) param
