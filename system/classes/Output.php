@@ -1,5 +1,14 @@
 <?
 
+	/**
+	 * Output
+	 * 
+	 * Handles all output related functionality for the Controller class and subclasses
+	 *
+	 * @package PharosPHP.Core.Classes
+	 * @author Matt Brewer
+	 **/
+	
 	class Output {
 		
 		const CSS_TYPE_ALL = "all";

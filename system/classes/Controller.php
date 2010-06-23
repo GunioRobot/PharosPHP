@@ -4,7 +4,7 @@
 	 * Controller
 	 *
 	 * @package PharosPHP.Core.Classes
-	 * @author Matthew Brewer
+	 * @author Matt Brewer
 	 *
 	 * Parent class for all controllers you create
 	 *

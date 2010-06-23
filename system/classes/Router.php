@@ -1,23 +1,24 @@
 <?
 
-	///////////////////////////////////////////////////////////////////////////
-	//
-	//	Router API
-	//
-	//	The Router API parses the browsers URL to determine which controller
-	//	create, which method to call on the controller, and any arguments to 
-	// 	be passed to that controller.
-	//
-	//	By default, a naming convention is used to determine controller & 
-	//	method.  To override the default convention, add custom routing actions
-	//	to the "application/configuration/application.yml" file under "routes".
-	//
-	//	When the site is loaded with no obvious URL structure (index.php), 
-	//	the Router API uses the "routes.root" as the controller with the default
-	//	method of "index()";
-	//
-	///////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * Router API
+	 * 
+	 *  The Router API parses the browsers URL to determine which controller
+	 *	create, which method to call on the controller, and any arguments to 
+	 * 	be passed to that controller.
+	 *
+	 *	By default, a naming convention is used to determine controller & 
+	 *	method.  To override the default convention, add custom routing actions
+	 *	to the "application/configuration/application.yml" file under "routes".
+	 *
+	 *	When the site is loaded with no obvious URL structure (index.php), 
+	 *	the Router API uses the "routes.root" as the controller with the default
+	 *	method of "index()";
+	 *
+	 * @package PharosPHP.Core.Classes
+	 * @author Matt Brewer
+	 **/
+
 	Router::parse();
 	class Router {
 
@@ -25,6 +26,15 @@
 		private static $components = array();
 		private static $routes = array();
 		private static $keys = array(":controller", ":action", ":id");
+		
+		
+		
+		/**
+		 * parse()
+		 *
+		 * @return mixed $components
+		 * @author Matt Brewer
+		 **/
 		
 		public static function parse() {
 			
@@ -66,7 +76,14 @@
 		
 		
 
-		
+		/**
+		 * controller()
+		 * Calculates the name of the controller to use
+		 *
+		 * @return string $controller_name
+		 * @author Matt Brewer
+		 **/
+
 		public static function controller() {
 									
 			// Attempt to find a match based upon the custom routing defined
@@ -85,7 +102,15 @@
 		
 		
 		
-		
+		/**
+		 * method()
+		 * Calculates the name of the method to call on the controller.  
+		 * NOTE: Does not check if the method exists for the controller
+		 *		 
+		 * @return string $method_name
+		 * @author Matt Brewer
+		 **/
+
 		public static function method() {
 			
 			// Attempt to find a match based upon the custom routing defined
@@ -114,7 +139,13 @@
 		
 		
 		
-		
+		/**
+		 * params()
+		 *
+		 * @return array $params - parameters to pass to the method
+		 * @author Matt Brewer
+		 **/
+
 		public static function params() {
 			
 			if ( ($route = self::_matching_route()) !== false ) {
@@ -124,12 +155,51 @@
 		}
 		
 		
-		
+		/**
+		 * url()
+		 * The raw URL that the browser requested
+		 *
+		 * @return string $url
+		 * @author Matt Brewer
+		 **/
+
 		public static function url() {
 			return self::$raw;
 		}
 		
 		
+		/**
+		 * using_named_params()
+		 *
+		 * @return boolean $using_named_parameters
+		 * @author Matt Brewer
+		 **/
+
+		public static function using_named_params() {
+
+			if ( ($route = self::_matching_route()) !== false ) {
+
+				$keys = array_keys($route['param_values']);
+				if ( !empty($keys) && substr($keys[0],0,1) === ":" ) {
+					return true;
+				} else return false;
+
+			} else return false;
+
+		}
+		
+		
+		
+		
+		
+		
+		
+		/**
+		 * _matching_route()
+		 *
+		 * @return Route $matching_route
+		 * @author Matt Brewer
+		 **/
 		
 		private static function _matching_route() {
 			
@@ -167,20 +237,6 @@
 			
 			$route = false;
 			return $route;
-			
-		}
-		
-		
-		public static function using_named_params() {
-			
-			if ( ($route = self::_matching_route()) !== false ) {
-			
-				$keys = array_keys($route['param_values']);
-				if ( !empty($keys) && substr($keys[0],0,1) === ":" ) {
-					return true;
-				} else return false;
-				
-			} else return false;
 			
 		}
 			

@@ -1,46 +1,66 @@
 <?
-
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	Settings API
-	//
-	// 	The settings API allows for the application to read settings set in the 
-	//	"application/configuration/application.yml" file at its basic usage.
-	//
-	//	The application can register new settings during runtime by providing a 
-	//	keypath that does not exist, as well as the value to store.  The application
-	//	can update an existing keypath by providing a new value.  This value will
-	//	be valid during the length of the application lifetime, but WILL NOT be saved
-	//	to disk.
-	//
-	//	Key-Paths:
-	//		A keypath is a string for traversing dictionary contents and retreving
-	//		a value.  An example would be "system.site.name" which performs two 
-	//		dictionary lookups and returns the value of the last string piece
-	//
-	//	Usage:
-	//
-	//		$value = Settings::get($keypath)
-	//		The return value will be an array or scalar.
-	//
-	//		Settings::set($keypath, $newValue)
-	//
-	////////////////////////////////////////////////////////////////////////////////
-
-
+	/**
+	 * Settings API
+	 * 
+	 * 	The settings API allows for the application to read settings set in the 
+	 *	"application/configuration/application.yml" file at its basic usage.
+	 *
+	 *	The application can register new settings during runtime by providing a 
+	 *	keypath that does not exist, as well as the value to store.  The application
+	 *	can update an existing keypath by providing a new value.  This value will
+	 *	be valid during the length of the application lifetime, but WILL NOT be saved
+	 *	to disk.
+	 *
+	 *	Key-Paths:
+	 *		A keypath is a string for traversing dictionary contents and retreving
+	 *		a value.  An example would be "system.site.name" which performs two 
+	 *		dictionary lookups and returns the value of the last string piece
+	 *
+	 *	Usage:
+	 *
+	 *		$value = Settings::get($keypath)
+	 *		The return value will be an array or scalar.
+	 *
+	 *		Settings::set($keypath, $newValue)
+	 *
+	 * @package PharosPHP.Core.Classes
+	 * @author Matt Brewer
+	 **/
+	
 	Settings::load();
 	class Settings {
 			
 		private static $config = array();
 		
-		
+		/**
+		 * load()
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public static function load() {
 			self::$config = sfYaml::load(CONFIGURATION_DIR.'application.yml');
 			load_static_settings();
 		}
 		
 		
-		
+		/**
+		 * get($path, $default=false, $stripTags=false)
+		 * Retrieves a value by recursive lookup using the keypath
+		 * 
+		 * NOTE: To retrieve a setting not stored in the settings YAML but in the database, use a keypath
+		 * with a prefix of "dynamic", such as "dynamic.My Setting"
+		 * 
+		 * @throws Exception - if the keypath is invalid or if the setting is undefined
+		 *
+		 * @param string $keypath
+		 * @param mixed (optional) $default
+		 * @param boolean (optional) $stripTags
+		 * @return mixed $value
+		 * @author Matt Brewer
+		 **/
+
 		public static function get($path, $default=false, $stripTags=false) {
 			
 			$components = explode(".", trim($path,". "));
@@ -105,7 +125,17 @@
 		}		
 		
 		
-		
+		/**
+		 * set($keypath, $value)
+		 * Sets a given keypath to the provided value
+		 * 
+		 * @throws Exception - if keypath was invalid
+		 *
+		 * @param string $keypath
+		 * @param mixed $value
+		 * @return void
+		 * @author Matt Brewer
+		 **/
 		
 		public static function set($keypath, $value) {
 			
@@ -143,14 +173,15 @@
 		
 		
 		
-		
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	load_dynamic_system_settings()
-		//
-		//	Grabs known system settings from db to use throughout site
-		//
-		////////////////////////////////////////////////////////////////////////////////
+
+		/**
+		 * load_dynamic_system_settings()
+		 * PharosPHP uses several constants in code that are in fact dynamic settings from the database.
+		 * This method loads those dynamic settings into the system as constants
+		 * 
+		 * @return void
+		 * @author Matt Brewer
+		 **/
 		
 		public static function load_dynamic_system_settings() {
 			

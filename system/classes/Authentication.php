@@ -2,11 +2,11 @@
 
 	/**
 	 * 
+	 * Authentication framework
 	 *
-	 * @author Matthew
-	 * @version $Id$
-	 * @copyright Matt Brewer, 13 June, 2010
-	 * @package PharosPHP
+	 * @package PharosPHP.Core.Classes
+	 * @author Matt Brewer
+	 *
 	 **/
 
 	require_once CLASSES_DIR.'Cookie.php';

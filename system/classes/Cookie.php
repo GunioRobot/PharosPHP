@@ -4,8 +4,9 @@
 	/**
 	 * Cookie
 	 *
-	 * @package PharosPHP
-	 * @author Matthew
+	 * @package PharosPHP.Core.Classes
+	 * @author Matt Brewer
+	 *
 	 **/
 	
 	class Cookie {

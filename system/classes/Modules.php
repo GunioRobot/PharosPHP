@@ -1,39 +1,52 @@
 <?
-
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	MODULES API
-	//
-	// 	The modules API allows developers to easily extend core functionality and
-	// 	provide that functionality across applications.
-	//
-	// 	A module developer should start by subclassing the "Module" class and 
-	//	overriding the documented methods within.  Then the application code can 
-	//	explicity request for the system to load the method at runtime, or the
-	//	module can be configured to be autoloaded during application init by 
-	// 	entering it in the "application.yml" configuration file under "modules -> user"
-	//
-	////////////////////////////////////////////////////////////////////////////////
 	
-
+	/**
+	 * 	Modules API
+	 *
+	 * 	The modules API allows developers to easily extend core functionality and
+	 * 	provide that functionality across applications.
+	 *
+	 * 	A module developer should start by subclassing the "Module" class and 
+	 *	overriding the documented methods within.  Then the application code can 
+	 *	explicitly request for the system to load the method at runtime, or the
+	 *	module can be configured to be auto loaded during application init by 
+	 * 	entering it in the "application.yml" configuration file under "modules -> user"
+	 * 
+	 * 	@package PharosPHP.Core.Classes
+	 * 	@author Matt Brewer
+	 **/
+	
 	require_once CLASSES_DIR.'Module.base.php';
 	class Modules {
 	
 		private static $modules = array();
 		private static $config = array();
 		
+		
+		/**
+		 * init()
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public function init() {
 			self::$config = Settings::get("modules");
 			self::load_automatic_modules();
 		}
 		
 		
-		///////////////////////////////////////////////////////////////////////////
-		//
-		//	Modules::load($name) loads a module into the sysetm
-		//
-		///////////////////////////////////////////////////////////////////////////
-		
+		/**
+		 * load($name)
+		 * Modules::load($name) loads a module into the system
+		 * 
+		 * @throws Exception - if loading a module failed
+		 * 
+		 * @param string $module_name
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public static function load($name) {
 			
 			if ( !isset(self::$modules[$name]) ) {
@@ -58,14 +71,14 @@
 		
 		
 		
-		
-		///////////////////////////////////////////////////////////////////////////
-		//
-		//	Private function for loading all the automatic modules at startup
-		//
-		///////////////////////////////////////////////////////////////////////////
-				
-		private static function load_automatic_modules() {
+		/**
+		 * load_automatic_modules()
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
+		protected static function load_automatic_modules() {
 
 			foreach(self::$config['autoload'] as $m) {
 				try {
