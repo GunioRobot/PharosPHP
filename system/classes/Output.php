@@ -51,7 +51,15 @@
 		protected $meta = array();
 		protected $members = array();
 		protected $controller;
+		protected $headers = array();
 		
+		
+		/**
+		 * Constructor
+		 *
+		 * @return Output
+		 * @author Matt Brewer
+		 **/
 		
 		public function __construct() {
 			
@@ -268,7 +276,19 @@
 			
 		}
 		
-				
+		
+		/**
+		 * header($str)
+		 *
+		 * @param string (optional) $header
+		 * @return mixed
+		 * @author Matt Brewer
+		 **/
+		
+		public function header($str=null) {
+			if ( $str ) $this->headers[] = $str;
+			else return $this->headers;
+		}
 		
 		
 		/**
