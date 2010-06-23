@@ -11,9 +11,7 @@
 
 	require_once CLASSES_DIR.'Cookie.php';
 	class Authentication {
-		
-		public $user_id = false;
-		
+				
 		protected $logged_in = false;
 		protected $login_required = false;
 		protected $user;
