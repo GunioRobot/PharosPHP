@@ -293,7 +293,7 @@
 			Hooks::call_hook(Hooks::HOOK_TEMPLATE_POST_RENDER);
 			
 			$output = ob_get_clean();
-			if ( $controller->output->enabled() ) $controller->output->cache($output);		// Write the contents of this to the cache
+			if ( $controller->output->cache_enabled() ) $controller->output->cache($output);		// Write the contents of this to the cache
 			echo $output;
 
 		}

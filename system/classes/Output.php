@@ -273,13 +273,13 @@
 		
 		/**
 		*
-		*	Enabled()
+		*	cache_enabled()
 		*
 		*	@return bool 
 		*
 		*/
 		
-		public function enabled() {
+		public function cache_enabled() {
 			return $this->enabled && $this->cache_duration > 0;
 		}
 		
