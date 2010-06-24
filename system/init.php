@@ -10,8 +10,9 @@
 	// Load in all the functions (.php files) in this folder
 	require_once SERVER_DIR.APP_PATH.'system/functions/autoload.php';
 	
-	// Load in all the system defined Exception classes
-	autoload(EXCEPTIONS_DIR);
+	
+	autoload(EXCEPTIONS_DIR);			// Load in all the system defined Exception classes
+	autoload(APPLICATION_CLASSES_DIR);	// Load in all the application defined functions
 	
 	// Must be the first 2 classes loaded in the system
 	require_once SERVER_DIR.APP_PATH.'system/classes/YAML/sfYaml.php';
