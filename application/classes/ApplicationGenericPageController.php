@@ -8,6 +8,7 @@
 	 * @author Matt Brewer
 	 **/
 	
+	require_once CLASSES_DIR.'GenericPageController.php';
 	class ApplicationGenericPageController extends GenericPageController {
 		
 	}
