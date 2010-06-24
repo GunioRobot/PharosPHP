@@ -23,7 +23,8 @@
 	define('CONTROLLER_DIR', APPLICATION_DIR.'controllers/');
 	define('MODULES_DIR', APPLICATION_DIR.'modules/');
 	
-	
+	define('APPLICATION_CLASSES_DIR', APPLICATION_DIR.'classes/');
+	define('APPLICATION_FUNCTIONS_DIR', APPLICATION_DIR.'functions/');
 	
 	
 
