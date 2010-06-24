@@ -52,6 +52,7 @@
 		protected $members = array();
 		protected $controller;
 		protected $headers = array();
+		protected $flash = array();
 		
 		
 		/**
@@ -70,6 +71,12 @@
 			
 			global $controller;
 			$this->controller =& $controller;
+		
+			if ( ($items = session("pharos_flash")) !== false && is_array($items) ) {
+				foreach($items as $obj) {
+					$this->flash[] = (object)array("save" => false, "value" => $obj->value);
+				}
+			}
 			
 		}
 		
@@ -195,6 +202,52 @@
 		
 		
 		/**
+		 * header($str)
+		 *
+		 * @param string (optional) $header
+		 * @return mixed
+		 * @author Matt Brewer
+		 **/
+		
+		public function header($str=null) {
+			if ( $str ) $this->headers[] = $str;
+			else return $this->headers;
+		}
+		
+		
+		/**
+		 * flash($value)
+		 *
+		 * @param string $value
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public function flash($value) {
+			$this->flash[] = (object)array("save" => true, "value" => $value);
+		}
+		
+		
+		/**
+		 * flash_contents()
+		 *
+		 * @return array $contents
+		 * @author Matt Brewer
+		 **/
+		public function flash_contents() {
+			
+			$ret = array();
+			foreach($this->flash as $f) {
+				if ( !$f->save ) $ret[] = $f->value;
+			}
+			
+			return $ret;
+			
+		}
+		
+		
+		
+		/**
 		*
 		*	set()
 		*
@@ -275,21 +328,7 @@
 			}
 			
 		}
-		
-		
-		/**
-		 * header($str)
-		 *
-		 * @param string (optional) $header
-		 * @return mixed
-		 * @author Matt Brewer
-		 **/
-		
-		public function header($str=null) {
-			if ( $str ) $this->headers[] = $str;
-			else return $this->headers;
-		}
-		
+	
 		
 		/**
 		*
@@ -400,7 +439,26 @@
 			if ( self::cache_expired() ) {
 				return @file_put_contents($this->cached_file, $this->_create_cached_content($str), LOCK_EX);
 			} else return true;
-		}		
+		}	
+		
+		
+		
+		/**
+		 * __destruct()
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public function __destruct() {
+			
+			function _save($var) {
+				return $var->save;
+			}
+			
+			$to_save = array_filter($this->flash, "_save");
+			$_SESSION['pharos_flash'] = $to_save;
+			
+		}	
 				
 	}
 
