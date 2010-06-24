@@ -12,6 +12,7 @@
 	
 	define('CLASSES_DIR', SYSTEM_DIR.'classes/');
 	define('FUNCTIONS_DIR', SYSTEM_DIR.'functions/');
+	define('EXCEPTIONS_DIR', CLASSES_DIR.'Exceptions/');
 	define('CACHE_DIR', SYSTEM_DIR.'cache/');	
 	define('PUBLIC_DIR', SERVER_DIR.APP_PATH.'public/');
 	
