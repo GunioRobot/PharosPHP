@@ -52,7 +52,7 @@
 		 * NOTE: To retrieve a setting not stored in the settings YAML but in the database, use a keypath
 		 * with a prefix of "dynamic", such as "dynamic.My Setting"
 		 * 
-		 * @throws Exception - if the keypath is invalid or if the setting is undefined
+		 * @throws InvalidKeyPathException - if the keypath is invalid or if the setting is undefined
 		 *
 		 * @param string $keypath
 		 * @param mixed (optional) $default
@@ -64,7 +64,7 @@
 		public static function get($path, $default=false, $stripTags=false) {
 			
 			$components = explode(".", trim($path,". "));
-			if ( empty($components) ) throw new Exception("Invalid key path ($path)");
+			if ( empty($components) ) throw new InvalidKeyPathException("Invalid key path ($path)");
 			
 			
 			if ( count($components) == 1 ) {
@@ -129,7 +129,7 @@
 		 * set($keypath, $value)
 		 * Sets a given keypath to the provided value
 		 * 
-		 * @throws Exception - if keypath was invalid
+		 * @throws InvalidKeyPathException - if keypath was invalid
 		 *
 		 * @param string $keypath
 		 * @param mixed $value
@@ -141,7 +141,7 @@
 			
 			$components = explode(".", trim($path,". "));
 			if ( empty($components) ) {
-				throw new Exception("Invalid key path ($path)");
+				throw new InvalidKeyPathException("Invalid key path ($path)");
 			} else if ( count($components) == 1 ) {
 				self::$config[$components[0]] = $value;
 			} else if ( count($components) == 2 ) {
