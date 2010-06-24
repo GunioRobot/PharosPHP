@@ -21,11 +21,10 @@
 	require_once CLASSES_DIR.'Router.php';
 	require_once CLASSES_DIR.'Template.php';
 	require_once CLASSES_DIR.'QueryFactory.php';
-	require_once CLASSES_DIR.'Controller.php';
 	require_once APPLICATION_CLASSES_DIR.'ApplicationController.php';
 	require_once APPLICATION_CLASSES_DIR.'ApplicationGenericPageController.php';
+	require_once APPLICATION_CLASSES_DIR.'TableController.php';
 	require_once CLASSES_DIR.'Modules.php';
-	require_once CLASSES_DIR.'TableController.php';
 	require_once CLASSES_DIR.'Hooks.php';
 	
 	// Conditionally include support for ActiveRecord
