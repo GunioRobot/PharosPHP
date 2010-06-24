@@ -1,9 +1,23 @@
 <?
 
+
+	/**
+	 * Template
+	 * Contains several useful functions for generating HTML
+	 *
+	 * @package PharosPHP.Core.Classes
+	 * @author Matt Brewer
+	 **/
+
 	class Template {
 		
 		
-		
+		/**
+		 * layout()
+		 *
+		 * @return mixed (string $filename | boolean $success)
+		 * @author Matt Brewer
+		 **/
 		
 		public static function layout() {
 			
@@ -21,19 +35,27 @@
 		}
 		
 		
+		/**
+		 * _layout_file($class)
+		 * 
+		 * @param string $class
+		 * @return string $filename
+		 * @author Matt Brewer
+		 **/
+
 		private static function _layout_file($class) {
 			return strtolower(implode('-',split_camel_case($class)));
 		}
 		
 		
-	
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	write_css()
-		//
-		// Writes out CSS import lines for all CSS files starting with "style_"
-		//
-		////////////////////////////////////////////////////////////////////////////////
+
+		/**
+		 * write_css()
+		 * Writes out CSS import lines for all CSS files starting with "style_"
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
 
 		public static function write_css() {
 
@@ -67,13 +89,14 @@
 
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	write_js()
-		//
-		// Writes out JS include lines for all JS files starting with "js_"
-		//
-		////////////////////////////////////////////////////////////////////////////////
+
+		/**
+		 * write_js()
+		 * Writes out JS include lines for all JS files starting with "js_"
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
 
 		public static function write_js() {
 
@@ -134,14 +157,15 @@
 
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	write_header_meta()
-		//
-		//	Simply writes out <meta/> tags in the HTML header for any provided for the 
-		//	active global controller object
-		//
-		////////////////////////////////////////////////////////////////////////////////
+			
+		/**
+		 * write_header_meta()
+		 * Simply writes out <meta/> tags in the HTML header for any provided for the
+		 * active global controller object
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
 
 		public static function write_header_meta() {
 
@@ -156,34 +180,29 @@
 	
 	
 	
-	
-	
-	
-	
-	
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	page_class()
-		//
-		//	Returns a list of class names to determine whether a nav item should be
-		//	active or not
-		//
-		////////////////////////////////////////////////////////////////////////////////
+
+		/**
+		 * page_class($file)
+		 * Returns a list of class names to determine whether a navigation item should be active or not
+		 *
+		 * @param string $filename
+		 * @return string $class
+		 * @author Matt Brewer
+		 **/
 
 		public static function page_class($file) {
 			return basename($_SERVER['SCRIPT_FILENAME'], '.php') === basename($file,'.php') ? 'btnOn' : '';
 		}
 
 
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	is_current_parent_nav($page) - database object
-		//
-		//	Returns true if one of the top level nav items kid is currently on display
-		//
-		////////////////////////////////////////////////////////////////////////////////
+		/**
+		 * is_current_parent_nav($page)
+		 * Returns true if one of the top level navigation items kid is currently on display
+		 *
+		 * @param Database Object $Page
+		 * @return boolean $is_current
+		 * @author Matt Brewer
+		 **/
 
 		public static function is_current_parent_nav($page) {
 
@@ -211,26 +230,28 @@
 	
 	
 	
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Prepends the full site path to beginning of link
-		//
-		////////////////////////////////////////////////////////////////////////////////
+		/**
+		 * site_link($link='')
+		 * Prepends the full site path to beginning of link
+		 *
+		 * @param string (optional) $link
+		 * @return string $link
+		 * @author Matt Brewer
+		 **/
 
 		public static function site_link($link='') {
 			return HTTP_SERVER.(substr($link,0,1)==="/"?substr($link,1):$link);
 		}
 	
 		
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	make_id($string)
-		//
-		//	Returns sanitized string for use as DOM element id attribute
-		//	ie, "Some title of my brother's 2nd Birtday &amp; my 3rd Party" becomes:
-		//		"some-title-of-my-brothers-2nd-birthday my 3rd party"
-		//
-		////////////////////////////////////////////////////////////////////////////////
+	
+		/**
+		 * make_id($string)
+		 *
+		 * @param string $string
+		 * @return string $sanitized_string
+		 * @author Matt Brewer
+		 **/
 
 		public static function make_id($string) {
 			return strtolower(preg_replace('/[_-\s]+/', '-', preg_replace('/[^[A-Za-z0-9_-\s]]+/', '', html_entity_decode($string))));
@@ -238,29 +259,30 @@
 
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	controller_name(String)
-		//
-		//	Returns properly formatted controller name, ie 
-		//		/admin/applications/ => 'Applications'
-		//
-		////////////////////////////////////////////////////////////////////////////////
+		/**
+		 * controller_name($string)
+		 *
+		 * @param string $string
+		 * @return string $controller
+		 * @author Matt Brewer
+		 **/
 
 		public static function controller_name($string) {
 			return str_replace(' ', '', ucwords(str_replace(array('_','-'), ' ', make_clean_filename($string))));
 		}
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	controller_link(className)
-		//
-		//	Takes "ManageSession" => "/admin/manage-session/"
-		//
-		////////////////////////////////////////////////////////////////////////////////
 
-		public static function controller_link($class,$action='') {
+		/**
+		 * controller_link($class, $action='')
+		 *
+		 * @param string $class
+		 * @param string (optional) $optional
+		 * @return string $link
+		 * @author Matt Brewer
+		 **/
+		
+		public static function controller_link($class, $action='') {
 			$action = substr($action,0,1)==="/"?substr($action,1):$action;
 			$action = preg_replace('/\/\/+/', '/', $action);
 			if ( substr(strtolower($class), strlen($class) - strlen("controller")) == "controller" ) {
@@ -270,12 +292,14 @@
 		}
 	
 	
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Renders the template, calling the specific hooks
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
+		/**
+		 * render()
+		 * Renders the template, calling the specific hooks
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
 		public static function render() {
 
 			global $controller;
