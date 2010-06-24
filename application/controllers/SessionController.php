@@ -1,6 +1,6 @@
 <?
 
-	class SessionController extends Controller {
+	class SessionController extends ApplicationController {
 		
 		public function __construct() {
 			parent::__construct();
