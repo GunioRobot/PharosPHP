@@ -2,7 +2,7 @@
 
 	require_once CLASSES_DIR.'Table.php';
 	
-	abstract class TableController extends Controller {
+	abstract class TableController extends ApplicationController {
 	
 	
 		protected $table;
