@@ -24,6 +24,13 @@
 		
 		/**
 		*
+		*	Layout Information
+		*
+		*/
+		public $layout=null;
+		
+		/**
+		*
 		*	Caching members
 		*
 		*/
