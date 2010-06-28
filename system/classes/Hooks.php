@@ -171,7 +171,7 @@
 					Console::log("Call to Hooks::call_hook($name) failed.  Hook was undefined.");
 				}
 				return false;
-			} else return false;
+			} 
 			
 			return true;	// Successfully called all hooks if made it to this line
 
