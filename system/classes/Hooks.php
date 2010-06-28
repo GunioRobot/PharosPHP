@@ -132,6 +132,8 @@
 		 * call_hook($name, $params=array())
 		 * Called by the system to execute associated functions that requested to be called
 		 *
+		 * @throws InvalidHookException
+		 *
 		 * @param string $name
 		 * @param array $params
 		 * @return boolean $success
@@ -155,24 +157,15 @@
 						
 							if ( function_exists($func) ) {
 								call_user_func_array($func, $params);
-							} else {
-								if ( class_exists("Console") ) {
-									Console::log("Hooks::call_hook($name): skipping function ($func) - undefined.");
-								}
-							}
+							} else throw new InvalidHookException("Hooks::call_hook($name): skipping function ($func) - undefined.");
 							
 						}
 						
 					}
 				} else return false;
 
-			} else {
-				if ( class_exists("Console") ) {
-					Console::log("Call to Hooks::call_hook($name) failed.  Hook was undefined.");
-				}
-				return false;
-			} 
-			
+			} else throw new InvalidHookException("Hooks::call_hook($name). Hook was undefined.");
+			 
 			return true;	// Successfully called all hooks if made it to this line
 
 		}
@@ -183,7 +176,7 @@
 		 * register_new_hook_action($name)
 		 * Register a new action so other modules can attach to this action in your code
 		 * 
-		 * @throws Exception - when attempting to redefine a hook
+		 * @throws InvalidHookException - when attempting to redefine a hook
 		 * 
 		 * @param string $name
 		 * @return void
@@ -193,7 +186,7 @@
 		public static function register_new_hook_action($name) {
 
 			if ( self::_valid_hook($name) ) {
-				throw new Exception("Hook ($name) already registered!");
+				throw new InvalidHookException("Hook ($name) already registered!");
 			} else {
 				self::$hooks[$name] = null;
 			}
