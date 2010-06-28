@@ -318,6 +318,11 @@
 
 			global $controller;
 			
+			// Send HTTP headers to the browser if requested
+			foreach($controller->output->header() as $header) {
+				header($header);
+			}
+			
 			ob_start();
 
 			Hooks::call_hook(Hooks::HOOK_TEMPLATE_PRE_RENDER);
