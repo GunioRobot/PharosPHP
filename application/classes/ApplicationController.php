@@ -11,6 +11,12 @@
 	require_once CLASSES_DIR.'Controller.php';
 	class ApplicationController extends Controller {
 		
+		public function __construct() {
+			parent::__construct();
+		}
+		
+		public function index() {}
+		
 	} 
 
 ?>
