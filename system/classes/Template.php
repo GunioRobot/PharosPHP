@@ -21,16 +21,24 @@
 		
 		public static function layout() {
 			
-			$layout = self::_layout_file(Router::controller());
-			$file = self::_layout_file($layout.Router::method().".php");
+			global $controller;
+			
+			if ( !is_null($controller->output->layout) && @file_exists(LAYOUTS_DIR.$controller->output->layout.".php") ) {
+				return LAYOUTS_DIR.$controller->output->layout.".php";
+			} else {
+			
+				$layout = self::_layout_file(Router::controller());
+				$file = self::_layout_file($layout.Router::method().".php");
 
-			if ( @file_exists(LAYOUTS_DIR.$file) ) {
-				return LAYOUTS_DIR.$file;
-			} else if ( @file_exists(LAYOUTS_DIR.$layout.".php") ) {
-				return LAYOUTS_DIR.$layout.".php";
-			} else if ( @file_exists(LAYOUTS_DIR.'application.php') ) {
-				return LAYOUTS_DIR.'application.php';
-			} else return false;
+				if ( @file_exists(LAYOUTS_DIR.$file) ) {
+					return LAYOUTS_DIR.$file;
+				} else if ( @file_exists(LAYOUTS_DIR.$layout.".php") ) {
+					return LAYOUTS_DIR.$layout.".php";
+				} else if ( @file_exists(LAYOUTS_DIR.'application.php') ) {
+					return LAYOUTS_DIR.'application.php';
+				} else return false;
+				
+			}
 			
 		}
 		
