@@ -1,6 +1,6 @@
 <?
 
-	require_once CLASSES_DIR.'Table.php';
+	require_once APPLICATION_CLASSES_DIR.'Table.php';
 	
 	abstract class TableController extends ApplicationController {
 	
