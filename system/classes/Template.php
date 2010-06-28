@@ -285,10 +285,24 @@
 		public static function controller_link($class, $action='') {
 			$action = substr($action,0,1)==="/"?substr($action,1):$action;
 			$action = preg_replace('/\/\/+/', '/', $action);
+			return self::site_link(self::controller_slug($class)).'/'.$action;
+		}
+		
+		
+		/**
+		 * controller_slug($class)
+		 *
+		 * @return string $controller_slug
+		 * @author Matt Brewer
+		 **/
+		public static function controller_slug($class) {
+			
 			if ( substr(strtolower($class), strlen($class) - strlen("controller")) == "controller" ) {
 				$class = substr($class, 0, -strlen("controller"));
-			}		
-			return self::site_link(strtolower(implode('-',split_camel_case($class)))).'/'.$action;
+			}
+			
+			return strtolower(implode('-',split_camel_case($class)));
+			
 		}
 	
 	
