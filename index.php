@@ -23,6 +23,11 @@
 			
 				require_once $file;
 				$controller = new $controllerClass($page->title);
+			
+				// Simply return cached information it's available
+				if ( server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
+					die($cache);
+				}
 				
 				if ( method_exists($controller, "page") ) {
 					$controller->page($page);
@@ -49,6 +54,11 @@
 				// Just use the text from the database with generic controller class
 				require_once APPLICATION_CLASSES_DIR.'ApplicationGenericPageController.php';
 				$controller = new ApplicationGenericPageController($page->title);
+				
+				// Simply return cached information it's available
+				if ( server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
+					die($cache);
+				}
 		
 				if ( method_exists($controller, "page") ) {
 					$controller->page($page);
