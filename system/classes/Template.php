@@ -243,13 +243,12 @@
 		 * Prepends the full site path to beginning of link
 		 *
 		 * @param string (optional) $link
-		 * @param boolean (optional) $admin
 		 * @return string $link
 		 * @author Matt Brewer
 		 **/
 
-		public static function site_link($link='', $admin=false) {
-			return HTTP_SERVER.($admin===true?Settings::get("system.site.admin_prefix"):"").(substr($link,0,1)==="/"?substr($link,1):$link);
+		public static function site_link($link='') {
+			return HTTP_SERVER.(substr($link,0,1)==="/"?substr($link,1):$link);
 		}
 	
 		
