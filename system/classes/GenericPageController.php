@@ -1,6 +1,6 @@
 <?
 
-	class GenericPageController extends Controller {
+	class GenericPageController extends ApplicationController {
 		
 		protected $text = "";
 		protected $page = null;
