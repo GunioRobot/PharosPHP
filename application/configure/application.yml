@@ -12,7 +12,6 @@ modules:
     autoload:
         - console
         - images
-        - cron
         
 routes:
     root: 
