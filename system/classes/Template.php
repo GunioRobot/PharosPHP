@@ -243,12 +243,13 @@
 		 * Prepends the full site path to beginning of link
 		 *
 		 * @param string (optional) $link
+		 * @param boolean (optional) $admin
 		 * @return string $link
 		 * @author Matt Brewer
 		 **/
 
-		public static function site_link($link='') {
-			return HTTP_SERVER.(substr($link,0,1)==="/"?substr($link,1):$link);
+		public static function site_link($link='', $admin=false) {
+			return HTTP_SERVER.($admin===true?Settings::get("system.site.admin_prefix"):"").(substr($link,0,1)==="/"?substr($link,1):$link);
 		}
 	
 		
@@ -290,10 +291,10 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public static function controller_link($class, $action='') {
+		public static function controller_link($class, $action='', $admin=false) {
 			$action = substr($action,0,1)==="/"?substr($action,1):$action;
 			$action = preg_replace('/\/\/+/', '/', $action);
-			return self::site_link(self::controller_slug($class)).'/'.$action;
+			return self::site_link(self::controller_slug($class), '/'.$action, $admin);
 		}
 		
 		
@@ -347,82 +348,6 @@
 			if ( $controller->output->cache_enabled() ) $controller->output->cache($output);		// Write the contents of this to the cache
 			echo $output;
 
-		}
-		
-			
-	
-	
-	
-		/*
-		*
-		*	The following are helper methods for generating valid site links quickly
-		*
-		*/
-	
-	
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Helper function for "class/view/id/" like links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		public static function view($class,$id) {
-			return self::controller_link($class,"view/$id/");
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for edit links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		public static function edit($class,$id) {
-			return self::controller_link($class,"edit/$id/");
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for delete links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		public static function delete($class,$id) {
-			return self::controller_link($class,"delete/$id/");
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for create links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		public static function create($class) {
-			return self::controller_link($class,"create/");
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for save links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		public static function save($class,$id=0) {
-			return self::controller_link($class,"save/".($id>0?"$id/":""));
-		}
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for manage links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		public static function manage($class) {
-			return self::controller_link($class,"manage/");
 		}
 		
 			
