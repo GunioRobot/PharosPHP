@@ -205,34 +205,36 @@
 			
 			static $route = null;
 			if ( $route != null ) return $route;
-									
-			foreach(self::$routes as $r) {
-							
-				// Check to see if the URL matched - if it does, $matches will contain the captured sequences
-				$matches = array();
-				if ( preg_match('#'.$r['parsed_pattern'].'#', self::$raw, $matches) ) {
-					
-					$matches = array_slice($matches,1);		// Get rid of first element
-					
-					// Now find the sequence of the captures
-					$search_keys = (isset($r['params']) && is_array($r['params'])) ? array_merge(self::$keys, array_keys($r['params'])) : self::$keys;
-					$keys = array();
-					foreach($search_keys as $key) {
-						$pos = strpos($r['pattern'], $key);
-						if ( $pos !== false ) {
-							$keys[$pos] = $key;
-						}
-					}
-					
-					ksort($keys);
-										
-					$route = $r;
-					$route['param_values'] = array_combine($keys, $matches);
 						
-					return $route;
+			if ( is_array(self::$routes) ) {						
+				foreach(self::$routes as $r) {
+							
+					// Check to see if the URL matched - if it does, $matches will contain the captured sequences
+					$matches = array();
+					if ( preg_match('#'.$r['parsed_pattern'].'#', self::$raw, $matches) ) {
 					
-				}
+						$matches = array_slice($matches,1);		// Get rid of first element
+					
+						// Now find the sequence of the captures
+						$search_keys = (isset($r['params']) && is_array($r['params'])) ? array_merge(self::$keys, array_keys($r['params'])) : self::$keys;
+						$keys = array();
+						foreach($search_keys as $key) {
+							$pos = strpos($r['pattern'], $key);
+							if ( $pos !== false ) {
+								$keys[$pos] = $key;
+							}
+						}
+					
+						ksort($keys);
+										
+						$route = $r;
+						$route['param_values'] = array_combine($keys, $matches);
+						
+						return $route;
+					
+					}
 				
+				}
 			}
 			
 			$route = false;
