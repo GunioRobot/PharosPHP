@@ -10,7 +10,7 @@
         <br clear="all" />
 		
 		<div id="meta-area">
-			<a href="<?=Template::site_link("users/edit/".session("uid")."/")?>" title="Edit My Account Information">My Account</a>
+			<a href="<?=Template::site_link("users/edit/".Authentication::get()->user()->user_id."/")?>" title="Edit My Account Information">My Account</a>
 			&nbsp;|&nbsp;
 			<a href="<?=Template::site_link("session/logout/")?>" title="Sign Out Now">Sign Out</a>
 		</div>
