@@ -171,7 +171,7 @@
 				$mail->setPriority('high');
 				$mail->setHTML($html);
 
-				if ( !$mail->send(array($info->fields['user_primary_email'])) ) redirect(site_link('password_reset.php?success=false'));
+				if ( !$mail->send(array($info->fields['user_primary_email'])) ) redirect(site_link('passwordResetFailed/0/'));
 				else redirect(Template::controller_link('SessionController', 'passwordSuccessfullyReset/'));
 
 			} else redirect(Template::controller_link('SessionController', 'passwordResetFailed/1/'));
