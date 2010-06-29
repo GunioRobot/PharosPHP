@@ -9,6 +9,7 @@
 	 * @author Matt Brewer
 	 **/
 	
+	require_once CLASSES_DIR.'Cache.php';
 	class Output {
 		
 		const CSS_TYPE_ALL = "all";
@@ -16,12 +17,7 @@
 		const CSS_TYPE_SCREEN = "screen";
 		const JAVASCRIPT_INCLUDE = "php_include_js";
 		const JAVASCRIPT_EXTERNAL = "link_js";
-		
-		const MINUTES = 1;
-		const HOURS = 60;		// 60
-		const DAYS = 1440; 		// 24 * 60
-		const WEEKS = 10080; 	// 7 * 24 * 60 
-		
+				
 		/**
 		*
 		*	Layout Information
@@ -34,7 +30,6 @@
 		*	Caching members
 		*
 		*/
-		static protected $cache = CACHE_DIR;
 		protected $enabled = false;
 		protected $cached_file;
 		protected $cache_duration = 0;		// In Minutes
@@ -71,9 +66,9 @@
 		
 		public function __construct() {
 			
-			if ( Settings::get("system.cache") === true && file_exists(self::$cache) && is_dir(self::$cache) && is_writable(self::$cache) ) {
+			if ( Cache::enabled() ) {
 				$this->enabled = true;
-				$this->cached_file = self::$cache.self::cached_name();
+				$this->cached_file = self::cached_name();
 			}
 			
 			global $controller;
@@ -346,7 +341,7 @@
 		*/
 		
 		public function cache_enabled() {
-			return $this->enabled && $this->cache_duration > 0;
+			return Cache::enabled() && $this->cache_duration > 0;
 		}
 		
 		
@@ -370,32 +365,15 @@
 		*
 		*/
 		public static function cached_content() {
-			if ( !self::cache_expired() ) {
-				$f = self::$cache.self::cached_name();
-				if ( file_exists($f) ) {
-					$arr = @file($f);
-					if ( is_array($arr) ) return implode("\n", array_slice($arr, 1));		// Return the string without the first line, which is the timestamp
-					else return false;
-				} else return false;
-			} else return false;
-		}
-		
-		
-		
-		/**
-		*
-		*	cache_expired
-		*
-		*	@return true/false
-		*
-		*/
-		
-		public static function cache_expired() {
-			$f = self::$cache.self::cached_name();
-			if ( file_exists($f) ) {
-				$contents = @file($f);
-				return ( $contents[0] < time() );
-			} else return true;
+				
+			try {
+				return Cache::read(self::cached_name());
+			} catch(CacheNotEnabledException $e) {
+				return false;
+			} catch(CachedFileExpiredException $e2) {
+				return false;
+			}
+				
 		}
 		
 		
@@ -407,27 +385,9 @@
 		*
 		*/
 		public function delete() {
-			@unlink($this->cached_file);
+			Cache::delete($this->cached_file);
 		}
 		
-		
-		/**
-		*
-		*	clear_cache
-		*
-		*	@return void
-		*
-		*/		
-		public static function clear_cache() {
-			$folder = self::$cache;
-			if ($handle = opendir($folder)) {
-				while (false !== ($file = readdir($handle)) ) {
-					if ( $file != "." && $file != ".." &&!is_dir($folder.$file) && preg_match("/.*.cache$/", $file) ) {
-						@unlink($folder.$file);
-					}
-				}
-			}
-		}
 		
 		
 		
@@ -437,15 +397,12 @@
 		*
 		*/
 		
-		private function _create_cached_content($str) {
-			$future = time() + ($this->cache_duration * 60);	// Convert to seconds
-			return sprintf("%s\n%s", $future, $str);
-		}
-		
 		private function _write_to_cache($str) {
-			if ( self::cache_expired() ) {
-				return @file_put_contents($this->cached_file, $this->_create_cached_content($str), LOCK_EX);
-			} else return true;
+			try {
+				if ( Cache::expired($this->cached_file) ) {
+					Cache::write($str, $this->cached_file, $this->cache_duration);
+				}
+			} catch(CacheNotEnabledException $e) {}	
 		}	
 		
 		
