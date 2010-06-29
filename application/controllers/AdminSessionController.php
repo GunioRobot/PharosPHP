@@ -1,15 +1,12 @@
 <?
 
-	class SessionController extends ApplicationController {
+	class AdminSessionController extends ApplicationController {
 		
 		public function __construct() {
 			parent::__construct();
 			$this->title = "Login";
 		}
 
-	
-		public function index() { }
-		
 		public function login() {
 			
 			$this->title = "Login";
@@ -19,7 +16,7 @@
 				
 				$auth = Authentication::get();
 				if ( $auth->login($user, $pass, Settings::get('users.levels.admin'), ">=") ) {
-					redirect(Template::site_link());
+					redirect(Template::site_link("", true));
 				}
 				
 				$loginMessage = "Incorrect username/password combination.";
@@ -33,7 +30,7 @@
 		public function logout() {
 			$this->title = "Logout";
 			Authentication::get()->logout();
-			redirect(Template::site_link());
+			redirect(Template::site_link("", true));
 		}
 	
 		
@@ -48,7 +45,7 @@
 			if ( ($user = post('user')) !== false ) {
 				Authentication::get()->reset_password($user);
 			} else {
-				redirect(controller_link(__CLASS__, "password-reset/"));
+				redirect(Template::controller_link(__CLASS__, "password-reset/"));
 			}
 		}
 
