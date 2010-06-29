@@ -152,7 +152,7 @@
 			$javascript = $controller->output->javascript();		
 			if ( !empty($javascript) ) {
 				foreach($javascript as $js) {
-					if ( $js['type'] == JAVASCRIPT_INCLUDE ) {
+					if ( $js['type'] == Output::JAVASCRIPT_INCLUDE ) {
 						$data = $js['data']; 
 						require PUBLIC_DIR.'js/'.$js['path']; 
 					} else {
