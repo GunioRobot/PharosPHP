@@ -5,7 +5,7 @@ database:
     name: macfanat_cms
     
 filesystem:
-    uploads_directory: uploads
+    upload_directory: uploads
     xml_directory: xml
     
 modules:
