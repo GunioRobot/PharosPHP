@@ -6,7 +6,7 @@ database:
     
 filesystem:
     uploads_directory: uploads
-    xml_direcotry: xml
+    xml_directory: xml
     
 modules:
     autoload:
