@@ -80,7 +80,7 @@
 		
 				// Determine if should process login information or not
 				if ( $controller->auth->login_required() && !$controller->auth->logged_in() ) {
-					redirect(Template::controller_link('Session','login/', true));
+					redirect(Template::controller_link('Session','login/'));
 				}
 		
 				// Simply return cached information it's available

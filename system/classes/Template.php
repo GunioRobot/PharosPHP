@@ -290,10 +290,10 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public static function controller_link($class, $action='', $admin=false) {
+		public static function controller_link($class, $action='') {
 			$action = substr($action,0,1)==="/"?substr($action,1):$action;
 			$action = preg_replace('/\/\/+/', '/', $action);
-			return self::site_link(self::controller_slug($class), '/'.$action, $admin);
+			return self::site_link(self::controller_slug($class)).'/'.$action;
 		}
 		
 		
