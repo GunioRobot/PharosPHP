@@ -10,7 +10,7 @@
 		public function login() {
 			
 			$this->title = "Login";
-			$this->output->cache(1 * Output::WEEKS);
+			$this->output->cache(1 * Cache::WEEKS);
 			
 			if ( ($user = post('user')) AND ($pass = post('pass')) ) {
 				
@@ -36,7 +36,7 @@
 		
 		public function passwordReset() {
 			$this->title = "Reset Password";
-			$this->output->cache(1 * Output::WEEKS);
+			$this->output->cache(1 * Cache::WEEKS);
 			$this->output->view("password-reset-view.php");
 		}
 
@@ -52,7 +52,7 @@
 
 		public function passwordSuccessfullyReset() {
 			
-			$this->output->cache(1 * Output::WEEKS);
+			$this->output->cache(1 * Cache::WEEKS);
 
 			$this->title = 'Password Successfully Reset';
 			$message = 'Your password was successfully reset.<br /><br />';
@@ -66,7 +66,7 @@
 
 		public function passwordResetFailed($code="1") {
 
-			$this->output->cache(1 * Output::WEEKS);
+			$this->output->cache(1 * Cache::WEEKS);
 
 			if ( $code == 1 ) {
 				$this->title = 'Unable to Reset Password';
