@@ -172,9 +172,9 @@
 				$mail->setHTML($html);
 
 				if ( !$mail->send(array($info->fields['user_primary_email'])) ) redirect(site_link('passwordResetFailed/0/'));
-				else redirect(Template::controller_link('SessionController', 'passwordSuccessfullyReset/'));
+				else redirect(Template::controller_link('AdminSessionController', 'passwordSuccessfullyReset/'));
 
-			} else redirect(Template::controller_link('SessionController', 'passwordResetFailed/1/'));
+			} else redirect(Template::controller_link('AdminSessionController', 'passwordResetFailed/1/'));
 			
 		}
 		
