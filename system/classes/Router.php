@@ -40,20 +40,22 @@
 			
 			// Grab the defined routes
 			self::$routes = Settings::get("routes.connections");
-			foreach(self::$routes as &$route) {
+			if ( is_array(self::$routes) ) {
+				foreach(self::$routes as &$route) {
 				
-				// Escape the pattern & apply the 3 default filters of (:controller, :action, & :id)
-				$route['pattern'] = str_replace("#", "\#", $route['pattern']);		// Escape the reserved '#' char
-				$route['parsed_pattern'] = str_replace(array(':controller', ':action'), '([[:alnum:]]+)', $route['pattern']);	// 
-				$route['parsed_pattern'] = str_replace(':id', '([[:digit:]]+)', $route['parsed_pattern']);
+					// Escape the pattern & apply the 3 default filters of (:controller, :action, & :id)
+					$route['pattern'] = str_replace("#", "\#", $route['pattern']);		// Escape the reserved '#' char
+					$route['parsed_pattern'] = str_replace(array(':controller', ':action'), '([[:alnum:]]+)', $route['pattern']);	// 
+					$route['parsed_pattern'] = str_replace(':id', '([[:digit:]]+)', $route['parsed_pattern']);
 				
-				// Apply the user defined filters
-				if ( isset($route['params']) ) {
-					foreach($route['params'] as $key => $options) {
-						$route['parsed_pattern'] = str_replace($key, $options['pattern'], $route['parsed_pattern']);
+					// Apply the user defined filters
+					if ( isset($route['params']) ) {
+						foreach($route['params'] as $key => $options) {
+							$route['parsed_pattern'] = str_replace($key, $options['pattern'], $route['parsed_pattern']);
+						}
 					}
-				}
 												
+				}
 			}
 						
 			
