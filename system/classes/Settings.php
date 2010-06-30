@@ -56,7 +56,7 @@
 		 *
 		 * @param string $keypath
 		 * @param mixed (optional) $default
-		 * @param boolean (optional) $stripTags
+		 * @param mixed (optional) $stripTags - if true, strip all tags, if false, strip none, if strip, those are the allowable tags (pass to striptags())
 		 * @return mixed $value
 		 * @author Matt Brewer
 		 **/
@@ -87,7 +87,13 @@
 						$setting = $db->Execute("SELECT * FROM general_settings WHERE setting_name RLIKE '$key' LIMIT 1");
 						if ( !$setting->EOF ) {
 
-							$value = $stripTags ? strip_tags(html_entity_decode(stripslashes($setting->fields['setting_value']))) : $setting->fields['setting_value'];
+							$value = $setting->fields['setting_value'];
+							if ( $stripTags === true ) {
+								$value = strip_tags(html_entity_decode(stripslashes($value)));
+							} else if ( is_string($stripTags) ) {
+								$value = strip_tags(html_entity_decode(stripslashes($value)), $stripTags);
+							} 
+							
 							$_application_settings[$hash] = $value;
 							return $value;
 
