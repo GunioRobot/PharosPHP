@@ -1,9 +1,43 @@
 <?
 
+	
+	if ( ($removeImage = post($data.'_remove_image')) === "true" ) {
+		$sql = "SELECT * FROM ".post("table")." WHERE ".post("data_key")." = '".(int)$id."' LIMIT 1";
+		$info = $db->Execute($sql);
+		if ( !$info->EOF && $info->fields[$data] != "" ) {
+			
+			if ( defined('DELETE_OLD_WHEN_UPLOADING_NEW') && DELETE_OLD_WHEN_UPLOADING_NEW === true ) {
+				@unlink(UPLOAD_DIR.$info->fields[$data]);
+			} else {
+				remove_file($info->fields[$data]);	// Places in "trashed_files" table
+			}
+			
+			$sqlUpdate .= $data.' = "", ';
+			$sqlFields .= $data.',';
+			$sqlValues .= '"",';
+						
+			if ( isset($options['store_filesize']) && $options['store_filesize'] == "true" ) {
+				$sqlUpdate .= $data.'_file_size = "0", ';
+				$sqlFields .= $data.'_file_size,';
+				$sqlValues .= '"0",';
+			}
+			
+			if ( isset($options['store_file_type']) && $options['store_file_type'] == "true" ) {
+				$sqlUpdate .= $data.'_file_type = "", ';
+				$sqlFields .= $data.'_file_type,';
+				$sqlValues .= '"",';
+			}
+			
+			return;
+			
+		}
+		
+	}
+	
 	if ( isset($_FILES[$data]) AND $_FILES[$data]['name'] != '' ) {	
 		
 		$options = get_options($input);
-	
+			
 		// Attempt to save the file
 		try {
 						
