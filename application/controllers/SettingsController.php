@@ -154,9 +154,7 @@
 		public function edit($id,$repost=false) {
 			
 			$repost = ( $repost === "true" ) ? true : false;
-			
-			$this->output->javascript('tiny_mce_include.php');
-			
+						
 			// Required by profile class and repost_mod
 			@define('PROFILE_TABLE', $this->table->id);
 			@define('PROFILE_TITLE', $this->type);
