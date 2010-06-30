@@ -110,9 +110,7 @@
 		//////////////////////////////////////////////////////////////////
 		
 		public function manage($orderField='last_updated',$orderVal='desc',$page=1,$filter='') {
-			
-			$this->output->javascript('confirmDelete.php');
-												
+															
 			$this->table->current_page = intval($page);
 
 			$where = $this->search($filter);
