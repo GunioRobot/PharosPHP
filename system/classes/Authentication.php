@@ -27,7 +27,7 @@
 		 * @return Authentication obj 
 		 * @author Matthew
 		 **/
-		public static function get() {			
+		public static function get() {		
 			if ( !self::$instance ) {
 				$t = new Authentication();
 				$t->lookup();
@@ -107,6 +107,7 @@
 		public function logout() {
 			$this->db->Execute(sprintf("UPDATE users SET last_logout = NOW(), logged_in = 'false' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
 			Cookie::delete("pharos_authentication");
+			$this->logged_in = false;
 		}
 		
 		
@@ -199,7 +200,7 @@
 		protected function lookup() {
 			
 			if ( ($user = Cookie::get("pharos_authentication")) !== false ) {
-				
+								
 				$uid = $user["uid"];
 				$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' AND logged_in = 'true' AND DATE_ADD(user_last_login, INTERVAL %d MINUTE) >= NOW() LIMIT 1", $uid, Settings::get("users.login_interval"));
 				$info = $this->db->Execute($sql);
@@ -220,6 +221,7 @@
 				}
 				
 			} else return false;
+			
 		}
 		
 		
