@@ -12,7 +12,6 @@
 	function bootstrap_system() {
 		
 		global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
-		load_static_settings();
 		
 		Hooks::call_hook(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
 		
