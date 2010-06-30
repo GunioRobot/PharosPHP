@@ -78,7 +78,7 @@
 					global $db;
 					static $_application_settings = array();
 
-					$key = $components[0];
+					$key = $components[1];
 					$hash = md5($key);
 					if ( in_array($hash, array_keys($_application_settings)) ) {
 						return $_application_settings[$hash] !== false ? $_application_settings[$hash] : $default;
