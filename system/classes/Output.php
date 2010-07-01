@@ -276,7 +276,7 @@
 		*
 		*	@param string $str
 		*	@param string $directory (optional)
-		*	@return void
+		*	@return string $rendered_view or $str
 		*
 		*/
 		public function view($str, $directory=VIEWS_DIR) {
@@ -289,16 +289,20 @@
 					extract($this->members);	// Import the data members into a clean namespace
 					ob_start();
 					require $file;		// Include the view (which only has access to the local clean namespace )
-					$this->content .= ob_get_clean();
+					$_content = ob_get_clean();
+					$this->content .= $_content;
+					return $_content;
 				} else {
 					if ( ($contents = @file_get_contents($file)) !== false ) {
 						$this->content .= $contents;
+						return $contents;
 					} else throw new Exception(sprintf("Provided %s of type %s and was unable to get contents.", $file, $info['extension']));
 				}
 							
 			} else {
 				
 				$this->content .= $str;
+				return $str;
 				
 			}
 			
