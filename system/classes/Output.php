@@ -194,7 +194,7 @@
 		*
 		*/
 		public function content($string='') {
-			if ( $string != '' ) {
+			if ( $string != '' || $string === null ) {
 				$this->content = $string;
 			} else {
 				return $this->content;
@@ -287,7 +287,9 @@
 				$info = pathinfo($file);
 				if ( strtolower($info['extension']) == "php" ) {
 					extract($this->members);	// Import the data members into a clean namespace
+					ob_start();
 					require $file;		// Include the view (which only has access to the local clean namespace )
+					$this->content .= ob_get_clean();
 				} else {
 					if ( ($contents = @file_get_contents($file)) !== false ) {
 						$this->content .= $contents;
