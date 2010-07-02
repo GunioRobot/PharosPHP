@@ -5,8 +5,9 @@ database:
     name: macfanat_cms
     
 filesystem:
-    upload_directory: uploads
-    xml_directory: xml
+    # upload_directory: "<?=$_SERVER['DOCUMENT_ROOT'].'/'.APP_PATH?>rt-admin/application/uploads/"
+    upload_directory: uploads/
+    xml_directory: xml/
     
 modules:
     autoload:

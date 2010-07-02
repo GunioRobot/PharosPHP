@@ -12,7 +12,6 @@
 	function bootstrap_system() {
 		
 		global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
-		load_static_settings();
 		
 		Hooks::call_hook(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
 		
@@ -44,8 +43,13 @@
 		$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
 		define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/'.APP_PATH);
 	
+		$upload_dir = Settings::get("filesystem.upload_directory");
+		if ( $upload_dir[0] == "/" ) {
+			define('UPLOAD_DIR', $upload_dir);
+		} else {
+			define('UPLOAD_DIR', APPLICATION_DIR.$upload_dir);
+		}
 		
-		define('UPLOAD_DIR', APPLICATION_DIR.Settings::get("filesystem.upload_directory"));
 		define('XML_DIR', APPLICATION_DIR.Settings::get("filesystem.xml_directory"));
 	
 		
@@ -59,8 +63,14 @@
 		define('APPLICATION_SERVER', HTTP_SERVER.'application/');
 		define('SYSTEM_SERVER', HTTP_SERVER.'system/');
 
-		define('PUBLIC_SERVER', HTTP_SERVER.'public/');
-		define('UPLOAD_SERVER', APPLICATION_SERVER.Settings::get("filesystem.upload_directory"));
+		define('PUBLIC_SERVER', HTTP_SERVER.'public/');		
+				
+		if ( $upload_dir[0] == "/" ) {
+			define('UPLOAD_SERVER', HTTP_SERVER.substr($upload_dir, strpos($upload_dir, APP_PATH) + strlen(APP_PATH)));
+		} else {
+			define('UPLOAD_SERVER', APPLICATION_SERVER.$upload_dir);
+		}
+		
 		define('XML_SERVER', APPLICATION_SERVER.Settings::get("filesystem.xml_directory"));
 		define('CACHE_SERVER', SYSTEM_SERVER.'cache/');
 		define('MODULES_SERVER', APPLICATION_SERVER.'modules/');

@@ -9,56 +9,53 @@
 	// The Router has parsed for the class to load, attempt to load it				
 	$controllerClass = Router::controller();
 	$file = CONTROLLER_DIR.$controllerClass.'.php';	
-	
+		
 	try {
+	
+		ob_start();
 	
 		// Find the page to include, takes care of page_slug = '' for the homepage automatically...
 		$page = $db->Execute("SELECT * FROM pages WHERE LOWER(slug) = '".strtolower(Template::controller_slug($controllerClass))."' LIMIT 1");
 		if ( !$page->EOF ) {
-		
+				
 			$page = clean_object($page->fields);
 		
 			// If there is a controller class declared, let's use it
 			if ( file_exists($file) ) {
 			
 				require_once $file;
-				$controller = new $controllerClass($page->title);
-			
-				// Simply return cached information it's available
-				if ( server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
-					die($cache);
+				if ( is_subclass_of($controllerClass, "ApplicationGenericPageController") ) {
+					$controller = new $controllerClass($page->title);
+				} else {
+					$controller = new $controllerClass();
 				}
 				
 				if ( method_exists($controller, "page") ) {
 					$controller->page($page);
 				}
-						
+					
 				if ( method_exists($controller, "pageText") ) {
 					$controller->pageText($page->text);
 				}
-						
+					
 				// Call a method on the class (determined by the Router) & capture the output		
 				$method = Router::method();	
 				if ( method_exists($controller, $method) ) {
-			
+		
 					if ( Router::using_named_params() ) {
 						call_user_func(array($controller, $method), Router::params());
 					} else {
 						call_user_func_array(array($controller, $method), Router::params());
 					}
-			
+		
 				} else throw new Exception("Unknown method (".$method.") for class($controllerClass)");
+					
 			
 			} else {
 						
 				// Just use the text from the database with generic controller class
 				require_once APPLICATION_CLASSES_DIR.'ApplicationGenericPageController.php';
 				$controller = new ApplicationGenericPageController($page->title);
-				
-				// Simply return cached information it's available
-				if ( server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
-					die($cache);
-				}
 		
 				if ( method_exists($controller, "page") ) {
 					$controller->page($page);
@@ -81,13 +78,11 @@
 		} else {
 	
 			if ( file_exists($file) ) {
-		
-				ob_start();
-
+				
 				require_once $file;
 				$controller = new $controllerClass();
 				Hooks::call_hook(Hooks::HOOK_CONTROLLER_POST_CREATED, array($controllerClass));	
-		
+						
 				// Determine if should process login information or not
 				if ( $controller->auth->login_required() && !$controller->auth->logged_in() ) {
 					redirect(Template::controller_link('Session','login/'));
