@@ -74,7 +74,7 @@ would be map to
 
 and all the following method:
 
-	class PostsController extends Controller {
+	class PostsController extends ApplicationController {
 		
 		public function markAsFavorite($param1, $param2, $param3) {
 			// do something exciting
@@ -100,7 +100,7 @@ This application defined route would map to:
 
 > /application/controller/PostsController.php
 
-	class PostsController extends Controller {
+	class PostsController extends ApplicationController {
 		
 		public function edit($params) {
 			
@@ -124,14 +124,14 @@ The output would be:
 The special reserved params of :controller, :action, and :id have predefined meaning (read: regular expressions	) and are used by the system.  
 > Both the URL: "/blog/posts/view/13/" and URL "/blog/comments/view/13/" would match by the basic route:  "/blog/:controller/:action/:id/"
 
-	class PostsController extends Controller {
+	class PostsController extends ApplicationController {
 		public function view($params) {
 			$this->set("post", Post::find_by_id($params[":id"]));
 			$this->output->view("post-view.php");
 		}
 	}
 	
-	class CommentsController extends Controller {
+	class CommentsController extends ApplicationController {
 		public function view($params) {
 			$this->set("comments", Comment::find_all_by_post_id($params[":id"]));
 			$this->output->view("comments-view.php");
@@ -146,7 +146,7 @@ According to Wikipedia, MVC is defined as:
 
 PharosPHP does it's best to utilize the MVC design pattern by enforcing a stricter separation between Controller and View.  For example:
 
-	class BooksController extends Controller {
+	class BooksController extends ApplicationController {
 		
 		public function someMethod($params) {
 			
@@ -159,9 +159,20 @@ PharosPHP does it's best to utilize the MVC design pattern by enforcing a strict
 			$this->output->set("books", $books);
 			$this->output->set("date", $date);
 			
-			// Now render a static string, followed by a view in the views directory
+			// Render a static string to the view output buffer
 			$this->output->view("<h1>My View</h1>");
-			$this->output->view("my-view.php");
+			
+			// Render a PHP file and append to the view's output buffer
+			$rendered_php = $this->output->view("my-view.php");
+			
+			// I can now access the rendered PHP as a string
+			// echo $rendered_php
+			
+			// Render any other file and append to the view's output buffer (just the contents of the file)
+			$this->output->view("my-html-view.html");
+			
+			// Not likely to need this view rendered again for this day, so cache it
+			$this->output->cache(1 * Cache::DAYS);
 			
 		}
 		
