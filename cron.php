@@ -11,7 +11,7 @@
 	*
 	*/
 
-	require_once '../../../app_header.php';
+	require_once 'system/init.php';	
 	if ( ($key = get("secret")) === APPLICATION_SECRET_KEY ) {
 		Cron::process();
 	}
