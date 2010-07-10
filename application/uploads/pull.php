@@ -1,8 +1,6 @@
 <?
 	
-	session_id($_REQUEST["session_id"]);	// RESTORE THE SESSION B/C FLASH UPLOADER DOESN'T HAVE $_SESSION ASSOCIATED WITH IT
-	require_once '../includes/app_header.php';
-
+	require_once '../../system/init.php';
 	if ( ($table = request("table")) && ($key = request("key")) && ($id = request($key)) ) {
 
 		foreach($_FILES as $name => $meta) {
