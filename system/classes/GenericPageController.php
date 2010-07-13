@@ -5,7 +5,7 @@
 		protected $text = "";
 		protected $page = null;
 	
-		public function __construct($title) {
+		public function __construct($title="") {
 			parent::__construct();
 			$this->title = $title;
 		}
