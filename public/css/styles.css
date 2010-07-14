@@ -735,3 +735,10 @@ a.topNav {
 	background-image:url(../images/footer-background.jpg);
 }
 
+a.actions-button {
+	margin-right:5px;
+}
+
+div.actions-wrapper {
+	margin-top:4px;
+}
