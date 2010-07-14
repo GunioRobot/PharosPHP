@@ -453,6 +453,26 @@
 		public static function button($href, $title, $image, $options=array()) {
 			return sprintf('<a class="actions-button %s" href="%s" title="%s">%s</a>', $options['class'], $href, $title, icon($image, $options['alt']));
 		}
+		
+		
+		/**
+		 * file_icon($file_type, $alt="")
+		 *
+		 * @param string $file_type
+		 * @param string $alt_text
+		 * @return string $html
+		 * @author Matt Brewer
+		 **/
+
+		public static function file_icon($file_type, $alt="") {
+
+			$file = sprintf("images/icons/icon_%s.png", strtolower($file_type));
+			if ( !@file_exists(PUBLIC_DIR.$file) ) {
+				$file = "images/icons/icon_default.png";
+			}
+
+			return sprintf('<img src="%s" alt="%s" border="0" />', PUBLIC_SERVER.$file, $alt);
+		}
 
 			
 	}
