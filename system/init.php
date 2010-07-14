@@ -27,6 +27,7 @@
 	require_once CLASSES_DIR.'Modules.php';
 	require_once CLASSES_DIR.'Hooks.php';
 	require_once CLASSES_DIR.'Cron.php';
+	require_once CLASSES_DIR.'Browser.php';
 	
 	// Conditionally include support for ActiveRecord
 	if ( version_compare(phpversion(), "5.3.0") >= 0 ) {

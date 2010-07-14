@@ -1,5 +1,15 @@
 <?
 
+	/**
+	 * Browser
+	 *
+	 * Usage:
+	 * 		Browser::singleton()->isBrowser(Browser::BROWSER_SAFARI) // to determine if the browser is safari
+	 *
+	 * @package PharosPHP.Core.Classes
+	 * @author Matt Brewer
+	 **/
+
 	class Browser {
 		
 		protected static $_agent = '';
@@ -294,8 +304,8 @@
 		 */
 		protected function checkBrowserW3CValidator() {
 			$retval = false;
-			if( preg_match('/W3C-checklink/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'W3C-checklink'));
+			if( preg_match('/W3C-checklink/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'W3C-checklink'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
 				self::$browser_name = self::BROWSER_W3CVALIDATOR;
@@ -310,8 +320,8 @@
 		 */
 		protected function checkBrowserSlurp() {
 			$retval = false;
-			if( preg_match('/Slurp/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Slurp'));
+			if( preg_match('/Slurp/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Slurp'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
 				self::$browser_name = self::BROWSER_SLURP;
@@ -329,34 +339,34 @@
 			$retval = false;
 
 			// Test for v1 - v1.5 IE
-			if( preg_match('/microsoft internet explorer/i', self::$agent) ) {
+			if( preg_match('/microsoft internet explorer/i', self::$_agent) ) {
 				self::setBrowser(self::BROWSER_IE);
 				self::setVersion('1.0');
-				$aresult = stristr(self::$agent, '/');
+				$aresult = stristr(self::$_agent, '/');
 				if( preg_match('/308|425|426|474|0b1/i', $aresult) ) {
 					self::setVersion('1.5');
 				}
 				$retval = true;
 			}
 			// Test for versions > 1.5
-			else if( preg_match('/msie/i',self::$agent) && !preg_match('/opera/i',self::$agent) ) {
-				$aresult = explode(' ',stristr(str_replace(';','; ',self::$agent),'msie'));
+			else if( preg_match('/msie/i',self::$_agent) && !preg_match('/opera/i',self::$_agent) ) {
+				$aresult = explode(' ',stristr(str_replace(';','; ',self::$_agent),'msie'));
 				self::setBrowser( self::BROWSER_IE );
 				self::setVersion(str_replace(array('(',')',';'),'',$aresult[1]));
 				$retval = true;
 			}
 			// Test for Pocket IE
-			else if( preg_match('/mspie/i',self::$agent) || preg_match('/pocket/i', self::$agent) ) {
-				$aresult = explode(' ',stristr(self::$agent,'mspie'));
+			else if( preg_match('/mspie/i',self::$_agent) || preg_match('/pocket/i', self::$_agent) ) {
+				$aresult = explode(' ',stristr(self::$_agent,'mspie'));
 				self::setPlatform( self::PLATFORM_WINDOWS_CE );
 				self::setBrowser( self::BROWSER_POCKET_IE );
 				self::setMobile();
 				
-				if( preg_match('/mspie/i', self::$agent) ) {
+				if( preg_match('/mspie/i', self::$_agent) ) {
 					self::setVersion($aresult[1]);
 				}
 				else {
-					$aversion = explode('/',self::$agent);
+					$aversion = explode('/',self::$_agent);
 					self::setVersion($aversion[1]);
 				}
 				$retval = true;
@@ -370,8 +380,8 @@
 		 */
 		protected function checkBrowserOpera() {
 			$retval = false;
-			if( preg_match('/opera mini/i',self::$agent) ) {
-				$resultant = stristr(self::$agent, 'opera mini');
+			if( preg_match('/opera mini/i',self::$_agent) ) {
+				$resultant = stristr(self::$_agent, 'opera mini');
 				if( preg_match('/\//',$resultant) ) {
 					$aresult = explode('/',$resultant);
 					$aversion = explode(' ',$aresult[1]); 
@@ -388,8 +398,8 @@
 					$retval = true;
 				}
 			}
-			else if( preg_match('/opera/i',self::$agent) ) {
-				$resultant = stristr(self::$agent, 'opera');
+			else if( preg_match('/opera/i',self::$_agent) ) {
+				$resultant = stristr(self::$_agent, 'opera');
 				if( preg_match('/Version\/(10.*)$/',$resultant,$matches) ) {
 					self::setVersion($matches[1]);
 					self::$browser_name = self::BROWSER_OPERA;
@@ -418,8 +428,8 @@
 		 */
 		protected function checkBrowserWebTv() {
 			$retval = false;
-			if( preg_match('/webtv/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'webtv'));
+			if( preg_match('/webtv/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'webtv'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
 				self::$browser_name = self::BROWSER_WEBTV;
@@ -434,12 +444,12 @@
 		 */
 		protected function checkBrowserNetPositive() {
 			$retval = false;
-			if( preg_match('/NetPositive/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'NetPositive'));
+			if( preg_match('/NetPositive/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'NetPositive'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion(str_replace(array('(',')',';'),'',$aversion[0]));
 				self::$browser_name = self::BROWSER_NETPOSITIVE;
-				self::$platform = self::PLATFORM_BEOS;
+				self::$_platform = self::PLATFORM_BEOS;
 				$retval = true;
 			}
 			return $retval;
@@ -451,8 +461,8 @@
 		 */
 		protected function checkBrowserGaleon() {
 			$retval = false;
-			if( preg_match('/galeon/i',self::$agent) ) {
-				$aresult = explode(' ',stristr(self::$agent,'galeon'));
+			if( preg_match('/galeon/i',self::$_agent) ) {
+				$aresult = explode(' ',stristr(self::$_agent,'galeon'));
 				$aversion = explode('/',$aresult[0]);
 				self::setVersion($aversion[1]);
 				self::setBrowser(self::BROWSER_GALEON);
@@ -467,8 +477,8 @@
 		 */
 		protected function checkBrowserKonqueror() {
 			$retval = false;
-			if( preg_match('/Konqueror/i',self::$agent) ) {
-				$aresult = explode(' ',stristr(self::$agent,'Konqueror'));
+			if( preg_match('/Konqueror/i',self::$_agent) ) {
+				$aresult = explode(' ',stristr(self::$_agent,'Konqueror'));
 				$aversion = explode('/',$aresult[0]);
 				self::setVersion($aversion[1]);
 				self::setBrowser(self::BROWSER_KONQUEROR);
@@ -483,8 +493,8 @@
 		 */
 		protected function checkBrowserIcab() {
 			$retval = false;
-			if( preg_match('/icab/i',self::$agent) ) {
-				$aversion = explode(' ',stristr(str_replace('/',' ',self::$agent),'icab'));
+			if( preg_match('/icab/i',self::$_agent) ) {
+				$aversion = explode(' ',stristr(str_replace('/',' ',self::$_agent),'icab'));
 				self::setVersion($aversion[1]);
 				self::setBrowser(self::BROWSER_ICAB);
 				$retval = true;
@@ -498,8 +508,8 @@
 		 */
 		protected function checkBrowserOmniWeb() {
 			$retval = false;
-			if( preg_match('/omniweb/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'omniweb'));
+			if( preg_match('/omniweb/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'omniweb'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
 				self::setBrowser(self::BROWSER_OMNIWEB);
@@ -514,8 +524,8 @@
 		 */
 		protected function checkBrowserPhoenix() {
 			$retval = false;
-			if( preg_match('/Phoenix/i',self::$agent) ) {
-				$aversion = explode('/',stristr(self::$agent,'Phoenix'));
+			if( preg_match('/Phoenix/i',self::$_agent) ) {
+				$aversion = explode('/',stristr(self::$_agent,'Phoenix'));
 				self::setVersion($aversion[1]);
 				self::setBrowser(self::BROWSER_PHOENIX);
 				$retval = true;
@@ -529,8 +539,8 @@
 		 */
 		protected function checkBrowserFirebird() {
 			$retval = false;
-			if( preg_match('/Firebird/i',self::$agent) ) {
-				$aversion = explode('/',stristr(self::$agent,'Firebird'));
+			if( preg_match('/Firebird/i',self::$_agent) ) {
+				$aversion = explode('/',stristr(self::$_agent,'Firebird'));
 				self::setVersion($aversion[1]);
 				self::setBrowser(self::BROWSER_FIREBIRD);
 				$retval = true;
@@ -544,7 +554,7 @@
 		 */
 		protected function checkBrowserNetscapeNavigator9Plus() {
 			$retval = false;
-			if( preg_match('/Firefox/i',self::$agent) && preg_match('/Navigator\/([^ ]*)/i',self::$agent,$matches) ) {
+			if( preg_match('/Firefox/i',self::$_agent) && preg_match('/Navigator\/([^ ]*)/i',self::$_agent,$matches) ) {
 				self::setVersion($matches[1]);
 				self::setBrowser(self::BROWSER_NETSCAPE_NAVIGATOR);
 				$retval = true;
@@ -558,7 +568,7 @@
 		 */
 		protected function checkBrowserShiretoko() {
 			$retval = false;
-			if( preg_match('/Mozilla/i',self::$agent) && preg_match('/Shiretoko\/([^ ]*)/i',self::$agent,$matches) ) {
+			if( preg_match('/Mozilla/i',self::$_agent) && preg_match('/Shiretoko\/([^ ]*)/i',self::$_agent,$matches) ) {
 				self::setVersion($matches[1]);
 				self::setBrowser(self::BROWSER_SHIRETOKO);
 				$retval = true;
@@ -572,7 +582,7 @@
 		 */
 		protected function checkBrowserIceCat() {
 			$retval = false;
-			if( preg_match('/Mozilla/i',self::$agent) && preg_match('/IceCat\/([^ ]*)/i',self::$agent,$matches) ) {
+			if( preg_match('/Mozilla/i',self::$_agent) && preg_match('/IceCat\/([^ ]*)/i',self::$_agent,$matches) ) {
 				self::setVersion($matches[1]);
 				self::setBrowser(self::BROWSER_ICECAT);
 				$retval = true;
@@ -586,8 +596,8 @@
 		 */
 		protected function checkBrowserFirefox() {
 			$retval = false;
-			if( preg_match('/Firefox/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Firefox'));
+			if( preg_match('/Firefox/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Firefox'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
 				self::setBrowser(self::BROWSER_FIREFOX);
@@ -602,16 +612,16 @@
 		 */
 		protected function checkBrowserMozilla() {
 			$retval = false;
-			if( preg_match('/mozilla/i',self::$agent) && preg_match('/rv:[0-9].[0-9][a-b]?/i',self::$agent) && !preg_match('/netscape/i',self::$agent)) {
-				$aversion = explode(' ',stristr(self::$agent,'rv:'));
-				preg_match('/rv:[0-9].[0-9][a-b]?/i',self::$agent,$aversion);
+			if( preg_match('/mozilla/i',self::$_agent) && preg_match('/rv:[0-9].[0-9][a-b]?/i',self::$_agent) && !preg_match('/netscape/i',self::$_agent)) {
+				$aversion = explode(' ',stristr(self::$_agent,'rv:'));
+				preg_match('/rv:[0-9].[0-9][a-b]?/i',self::$_agent,$aversion);
 				self::setVersion(str_replace('rv:','',$aversion[0]));
 				self::setBrowser(self::BROWSER_MOZILLA);
 				$retval = true;
 			}
-			else if( preg_match('/mozilla/i',self::$agent) && preg_match('/rv:[0-9]\.[0-9]/i',self::$agent) && !preg_match('/netscape/i',self::$agent) ) {
-				$aversion = explode('',stristr(self::$agent,'rv:'));
-            	preg_match('/rv:[0-9]\.[0-9]\.[0-9]/i',self::$agent,$aversion);
+			else if( preg_match('/mozilla/i',self::$_agent) && preg_match('/rv:[0-9]\.[0-9]/i',self::$_agent) && !preg_match('/netscape/i',self::$_agent) ) {
+				$aversion = explode('',stristr(self::$_agent,'rv:'));
+            	preg_match('/rv:[0-9]\.[0-9]\.[0-9]/i',self::$_agent,$aversion);
             	echo 
 				self::setVersion(str_replace('rv:','',$aversion[0]));
 				self::setBrowser(self::BROWSER_MOZILLA);
@@ -626,8 +636,8 @@
 		 */
 		protected function checkBrowserLynx() {
 			$retval = false;
-			if( preg_match('/libwww/i',self::$agent) && preg_match('/lynx/i', self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Lynx'));
+			if( preg_match('/libwww/i',self::$_agent) && preg_match('/lynx/i', self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Lynx'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
 				self::setBrowser(self::BROWSER_LYNX);
@@ -642,8 +652,8 @@
 		 */
 		protected function checkBrowserAmaya() {
 			$retval = false;
-			if( preg_match('/libwww/i',self::$agent) && preg_match('/amaya/i', self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Amaya'));
+			if( preg_match('/libwww/i',self::$_agent) && preg_match('/amaya/i', self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Amaya'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
 				self::setBrowser(self::BROWSER_AMAYA);
@@ -658,8 +668,8 @@
 		 */
 		protected function checkBrowserChrome() {
 			$retval = false;
-			if( preg_match('/Chrome/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Chrome'));
+			if( preg_match('/Chrome/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Chrome'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
 				self::setBrowser(self::BROWSER_CHROME);
@@ -674,8 +684,8 @@
 		 */
 		protected function checkBrowserSafari() {
 			$retval = false;
-			if( preg_match('/Safari/i',self::$agent) && ! preg_match('/iPhone/i',self::$agent) && ! preg_match('/iPod/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Version'));
+			if( preg_match('/Safari/i',self::$_agent) && ! preg_match('/iPhone/i',self::$_agent) && ! preg_match('/iPod/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Version'));
 				if( isset($aresult[1]) ) {
 					$aversion = explode(' ',$aresult[1]);
 					self::setVersion($aversion[0]);
@@ -695,8 +705,8 @@
 		 */
 		protected function checkBrowseriPhone() {
 			$retval = false;
-			if( preg_match('/iPhone/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Version'));
+			if( preg_match('/iPhone/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Version'));
 				if( isset($aresult[1]) ) {
 					$aversion = explode(' ',$aresult[1]);
 					self::setVersion($aversion[0]);
@@ -717,8 +727,8 @@
 		 */
 		protected function checkBrowseriPod() {
 			$retval = false;
-			if( preg_match('/iPod/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Version'));
+			if( preg_match('/iPod/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Version'));
 				if( isset($aresult[1]) ) {
 					$aversion = explode(' ',$aresult[1]);
 					self::setVersion($aversion[0]);
@@ -739,8 +749,8 @@
 		 */
 		protected function checkBrowserAndroid() {
 			$retval = false;
-			if( preg_match('/Android/i',self::$agent) ) {
-				$aresult = explode('/',stristr(self::$agent,'Version'));
+			if( preg_match('/Android/i',self::$_agent) ) {
+				$aresult = explode('/',stristr(self::$_agent,'Version'));
 				if( isset($aresult[1]) ) {
 					$aversion = explode(' ',$aresult[1]);
 					self::setVersion($aversion[0]);
@@ -759,29 +769,29 @@
 		 * Determine the user's platform
 		 */
 		protected function checkPlatform() {
-			if( preg_match('/iPhone/i', self::$agent) ) {
-				self::$platform = self::PLATFORM_IPHONE;
+			if( preg_match('/iPhone/i', self::$_agent) ) {
+				self::$_platform = self::PLATFORM_IPHONE;
 			}
-			else if( preg_match('/iPod/i', self::$agent) ) {
-				self::$platform = self::PLATFORM_IPOD;
+			else if( preg_match('/iPod/i', self::$_agent) ) {
+				self::$_platform = self::PLATFORM_IPOD;
 			}
-			else if( preg_match('/BlackBerry/i', self::$agent) ) {
-				self::$platform = self::PLATFORM_BLACKBERRY;
+			else if( preg_match('/BlackBerry/i', self::$_agent) ) {
+				self::$_platform = self::PLATFORM_BLACKBERRY;
 			}
-			else if( preg_match('/win/i', self::$agent) ) {
-				self::$platform = self::PLATFORM_WINDOWS;
+			else if( preg_match('/win/i', self::$_agent) ) {
+				self::$_platform = self::PLATFORM_WINDOWS;
 			}
-			elseif( preg_match('/mac/i', self::$agent) ) {
-				self::$platform = self::PLATFORM_APPLE;
+			elseif( preg_match('/mac/i', self::$_agent) ) {
+				self::$_platform = self::PLATFORM_APPLE;
 			}
-			elseif( preg_match('/linux/i', self::$agent) ) {
-				self::$platform = self::PLATFORM_LINUX;
+			elseif( preg_match('/linux/i', self::$_agent) ) {
+				self::$_platform = self::PLATFORM_LINUX;
 			}
-			elseif( preg_match('/OS\/2/i', self::$agent) ) {
-				self::$platform = self::PLATFORM_OS2;
+			elseif( preg_match('/OS\/2/i', self::$_agent) ) {
+				self::$_platform = self::PLATFORM_OS2;
 			}
-			elseif( preg_match('/BeOS/i', self::$agent) ) {
-				self::$platform = self::PLATFORM_BEOS;
+			elseif( preg_match('/BeOS/i', self::$_agent) ) {
+				self::$_platform = self::PLATFORM_BEOS;
 			}
 		}
 	}
