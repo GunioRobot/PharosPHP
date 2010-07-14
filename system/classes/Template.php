@@ -422,6 +422,37 @@
 		public static function manage($class) {
 			return self::controller_link($class,"manage/");
 		}
+		
+		
+		/**
+		 * icon($name, $alt="")
+		 *
+		 * @param string $icon_name
+		 * @param string $alt_text
+		 * @return string $html
+		 * @author Matt Brewer
+		 **/
+
+		public static function icon($name, $alt="") {
+			return sprintf('<img src="%simages/dev-icons/%s" alt="%s" border="0" />', PUBLIC_SERVER, $name, $alt);
+		}
+
+
+
+		/**
+		 * button($href, $title, $image, $options=array())
+		 *
+		 * @param string $href
+		 * @param string $title
+		 * @param string $image_name
+		 * @param array $options
+		 * @return string $html
+		 * @author Matt Brewer
+		 **/
+
+		public static function button($href, $title, $image, $options=array()) {
+			return sprintf('<a class="actions-button %s" href="%s" title="%s">%s</a>', $options['class'], $href, $title, icon($image, $options['alt']));
+		}
 
 			
 	}
