@@ -42,29 +42,54 @@
 		 * 
 		 * @throws Exception - if loading a module failed
 		 * 
-		 * @param string $module_name
+		 * @param mixed $module_name (array of module names, or just one module name)
 		 * @return void
 		 * @author Matt Brewer
 		 **/
 
 		public static function load($name) {
 			
+			if ( is_array($name) ) {
+				foreach($name as $n) {
+					self::_load($n);
+				}
+			} else {
+				self::_load($name);
+			}
+		
+		}
+		
+	
+	
+		/**
+		 * _load($name)
+		 *
+		 * @throws Exception - if loading a module failed
+		 *
+		 * @param string $module_name
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		protected static function _load($name) {
+		
 			if ( !isset(self::$modules[$name]) ) {
-				
+
 				$folder = MODULES_DIR.$name;
 				$file = $folder."/include.php";
-				
+
 				if ( @file_exists($folder) && is_dir($folder) && @file_exists($file) ) {
-					
+
 					include $file;					
 					self::$modules[$name] = $file;
 					Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
-					
+
 				} else {
 					throw new Exception("Error loading module ($name).  File did not exist.");
 				}
 
 			}
+			
 		}
 		
 		
