@@ -10,7 +10,7 @@
 	 *	Hooks provide the foundation for a flexible framework.
 	 *
 	 *	The file contains the core system actions defined in this version of 
-	 *	CMSLite.  The Hooks API allows for developers to easily register custom
+	 *	PharosPHP.  The Hooks API allows for developers to easily register custom
 	 *	callback functions to be executed whenever the specified system action 
 	 *	occurs.
 	 *
@@ -26,26 +26,29 @@
 	
 		protected static $hooks = array();
 		
-		const HOOK_APPLICATION_DELETED = 'application_deleted_hook';					// function($app_id) {}
-		const HOOK_APPLICATION_PUBLISH = 'application_published_hook';					// function($app_id) {}
+		const HOOK_APPLICATION_DELETED = 'application_deleted_hook';						// function($app_id) {}
+		const HOOK_APPLICATION_PUBLISH = 'application_published_hook';						// function($app_id) {}
 		
-		const HOOK_CONTROLLER_PRE_CREATED = "controller_pre_created_hook";				// function() {}
-		const HOOK_CONTROLLER_POST_CREATED = "controller_post_created_hook";			// function($class) {}
+		const HOOK_CONTROLLER_PRE_CREATED = "controller_pre_created_hook";					// function() {}
+		const HOOK_CONTROLLER_POST_CREATED = "controller_post_created_hook";				// function($class) {}
 
-		const HOOK_MODULES_PRE_LOADED = 'modules_pre_loaded_hook';						// function() {}
-		const HOOK_MODULE_LOADED = 'module_loaded_hook';								// function($module_name) {}
-		const HOOK_MODULES_POST_LOADED = 'modules_post_loaded_hook';					// function() {}
+		const HOOK_MODULES_PRE_LOADED = 'modules_pre_loaded_hook';							// function() {}
+		const HOOK_MODULE_LOADED = 'module_loaded_hook';									// function($module_name) {}
+		const HOOK_MODULES_POST_LOADED = 'modules_post_loaded_hook';						// function() {}
+		
+		const HOOK_PROFILE_MODULE_PRE_PROCESSED = 'profile_module_pre_processed_hook';		// function($fields) {}
+		const HOOK_PROFILE_MODULE_POST_PROCESSED = 'profile_module_post_processed_hook';	// function($id, $fields) {}
 
-		const HOOK_SYSTEM_PRE_BOOTSTRAP = 'system_pre_bootstrap_hook';					// function() {}
-		const HOOK_SYSTEM_POST_BOOTSTRAP = 'system_post_bootstrap_hook';				// function() {}
+		const HOOK_SYSTEM_PRE_BOOTSTRAP = 'system_pre_bootstrap_hook';						// function() {}
+		const HOOK_SYSTEM_POST_BOOTSTRAP = 'system_post_bootstrap_hook';					// function() {}
 	
-		const HOOK_TEMPLATE_HEADER = 'template_header_hook';							// function() {}
-		const HOOK_TEMPLATE_FOOTER = 'template_footer_hook';							// function() {}
-		const HOOK_TEMPLATE_PRE_RENDER = 'template_pre_render_hook';					// function() {}
-		const HOOK_TEMPLATE_POST_RENDER = 'template_post_render_hook';					// function() {}
+		const HOOK_TEMPLATE_HEADER = 'template_header_hook';								// function() {}
+		const HOOK_TEMPLATE_FOOTER = 'template_footer_hook';								// function() {}
+		const HOOK_TEMPLATE_PRE_RENDER = 'template_pre_render_hook';						// function() {}
+		const HOOK_TEMPLATE_POST_RENDER = 'template_post_render_hook';						// function() {}
 
-		const HOOK_USER_CREATED = 'user_created_hook';									// function($user_id) {}
-		const HOOK_USER_DELETED = 'user_deleted_hook';									// function($user_id) {}
+		const HOOK_USER_CREATED = 'user_created_hook';										// function($user_id) {}
+		const HOOK_USER_DELETED = 'user_deleted_hook';										// function($user_id) {}
 		
 		
 	
@@ -72,6 +75,9 @@
 				self::HOOK_MODULE_LOADED => null,
 				self::HOOK_MODULES_POST_LOADED => null,
 				
+				self::HOOK_PROFILE_MODULE_PRE_PROCESSED => null,
+				self::HOOK_PROFILE_MODULE_POST_PROCESSED => null,
+				
 				self::HOOK_SYSTEM_PRE_BOOTSTRAP => null,
 				self::HOOK_SYSTEM_POST_BOOTSTRAP => null,
 
@@ -97,11 +103,12 @@
 		 *
 		 * @param string $name
 		 * @param string $function_name
+		 * @param array $extra_parameters
 		 * @return boolean $success
 		 * @author Matt Brewer
 		 **/
 
-		public static function add_hook($name, $function) {
+		public static function add_hook($name, $function, $params=array()) {
 			
 			if ( $function != "" && self::_valid_hook($name) ) {
 			
@@ -114,12 +121,12 @@
 				
 				// Attach multiple functions to one system action
 				$functions =& self::$hooks[$name];
+				if ( !is_array($functions) ) {
+					$functions = array();
+				}
+				
 				foreach($function as $f) {
-					if ( !is_null($functions) && is_array($functions) ) {
-						$functions[] = $f;
-					} else {
-						$functions = array($f);
-					} 
+					$functions[$f] = (object)array("function" => $f, "params" => $params);
 				} return true;
 				
 			} else return false;
@@ -147,24 +154,27 @@
 				// Call all functions associated with this task
 				$functions = self::$hooks[$name];
 				if ( !is_null($functions) && is_array($functions) && !empty($functions) ) {
-					foreach($functions as $func) {
-						
-						if ( strpos($func, "::") !== false ) {
+				
+					foreach($functions as $obj) {
+																		
+						if ( strpos($obj->function, "::") !== false ) {
 							
-							call_user_func_array($func, $params);
+							list($class, $method) = explode("::", $obj->function);
+							call_user_func_array(array($class, $method), $params + $obj->params);
 							
 						} else {
 						
-							if ( function_exists($func) ) {
-								call_user_func_array($func, $params);
-							} else throw new InvalidHookException("Hooks::call_hook($name): skipping function ($func) - undefined.");
+							if ( function_exists($obj->function) ) {
+								call_user_func_array($obj->function, $params + $obj->params);
+							} else throw new InvalidHookException(sprintf("Hooks::call_hook(%s): skipping function (%s) - undefined.", $name, $obj->function));
 							
 						}
 						
 					}
+					
 				} else return false;
 
-			} else throw new InvalidHookException("Hooks::call_hook($name). Hook was undefined.");
+			} else throw new InvalidHookException(sprintf("Hooks::call_hook(%s). Hook was undefined.", $name));
 			 
 			return true;	// Successfully called all hooks if made it to this line
 
@@ -209,8 +219,8 @@
 
 			if ( self::_valid_hook($name) ) {
 
-				$functions = self::$hooks[$name];
-				if ( !is_null($functions) && is_array($functions) && in_array($function, $functions) ) {
+				$functions =& self::$hooks[$name];
+				if ( !is_null($functions) && is_array($functions) && in_array($function, array_keys($functions)) ) {
 					unset($functions[$function]);
 				} return true;
 
