@@ -4,12 +4,13 @@
 	 * Browser
 	 *
 	 * Usage:
-	 * 		Browser::singleton()->isBrowser(Browser::BROWSER_SAFARI) // to determine if the browser is safari
+	 * 		Browser::isBrowser(Browser::BROWSER_SAFARI) // to determine if the browser is safari
 	 *
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
 	 **/
 
+	Browser::reset();
 	class Browser {
 		
 		protected static $_agent = '';
@@ -22,8 +23,6 @@
         protected static $_is_robot = false;
 		protected static $_aol_version = '';
 		
-		protected static $instance;
-
 		const BROWSER_UNKNOWN = 'unknown';
 		const VERSION_UNKNOWN = 'unknown';
 		
@@ -70,38 +69,22 @@
 		
 		const OPERATING_SYSTEM_UNKNOWN = 'unknown';
 		
-		protected function __construct() {
-			$this->_reset();
-			$this->determine();
-		}
+		protected function __construct() {}
 		
 		public function __clone() {
 	       trigger_error('Clone is not allowed.', E_USER_ERROR);
 	   }
 	 
 		
-		public static function singleton() {
-			
-			if ( !isset(self::$instance) ) {
-				$c = __CLASS__;
-				self::$instance = new $c;
-			}
-
-		   return self::$instance;
-		
-		}
-		
-		
-		
 		/**
 		 * Reset all properties
 		 */
 		public static function reset() {
-			self::$instance->_reset();
-			self::$instance->determine();
+			self::_reset();
+			self::determine();
 		}
 		
-		protected function _reset() { 
+		protected static function _reset() { 
 			self::$_agent = isset($_SERVER['HTTP_USER_AGENT']) ? $_SERVER['HTTP_USER_AGENT'] : "";
 			self::$_browser_name = self::BROWSER_UNKNOWN;
 			self::$_version = self::VERSION_UNKNOWN;
@@ -118,92 +101,92 @@
 		 * @param string $browserName
 		 * @return True if the browser is the specified browser
 		 */
-		function isBrowser($browserName) { return( 0 == strcasecmp(self::$_browser_name, trim($browserName))); }
+		public static function isBrowser($browserName) { return( 0 == strcasecmp(self::$_browser_name, trim($browserName))); }
 
 		/**
 		 * The name of the browser.  All return types are from the class constants
 		 * @return string Name of the browser
 		 */
-		public function getBrowser() { return self::$_browser_name; }
+		public static function getBrowser() { return self::$_browser_name; }
 		/**
 		 * Set the name of the browser
 		 * @param $browser The name of the Browser
 		 */
-		public function setBrowser($browser) { return self::$_browser_name = $browser; }
+		public static function setBrowser($browser) { return self::$_browser_name = $browser; }
 		/**
 		 * The name of the platform.  All return types are from the class constants
 		 * @return string Name of the browser
 		 */
-		public function getPlatform() { return self::$_platform; }
+		public static function getPlatform() { return self::$_platform; }
 		/**
 		 * Set the name of the platform
 		 * @param $platform The name of the Platform
 		 */
-		public function setPlatform($platform) { return self::$_platform = $platform; }
+		public static function setPlatform($platform) { return self::$_platform = $platform; }
 		/**
 		 * The version of the browser.
 		 * @return string Version of the browser (will only contain alpha-numeric characters and a period)
 		 */
-		public function getVersion() { return self::$_version; }
+		public static function getVersion() { return self::$_version; }
 		/**
 		 * Set the version of the browser
 		 * @param $version The version of the Browser
 		 */
-		public function setVersion($version) { self::$_version = preg_replace('[^0-9,.,a-z,A-Z]','',$version); }
+		public static function setVersion($version) { self::$_version = preg_replace('[^0-9,.,a-z,A-Z]','',$version); }
 		/**
 		 * The version of AOL.
 		 * @return string Version of AOL (will only contain alpha-numeric characters and a period)
 		 */
-		public function getAolVersion() { return self::$_aol_version; }
+		public static function getAolVersion() { return self::$_aol_version; }
 		/**
 		 * Set the version of AOL
 		 * @param $version The version of AOL
 		 */
-		public function setAolVersion($version) { self::$_aol_version = preg_replace('[^0-9,.,a-z,A-Z]','',$version); }
+		public static function setAolVersion($version) { self::$_aol_version = preg_replace('[^0-9,.,a-z,A-Z]','',$version); }
 		/**
 		 * Is the browser from AOL?
 		 * @return boolean True if the browser is from AOL otherwise false
 		 */
-		public function isAol() { return self::$_is_aol; }
+		public static function isAol() { return self::$_is_aol; }
 		/**
 		 * Is the browser from a mobile device?
 		 * @return boolean True if the browser is from a mobile device otherwise false
 		 */
-		public function isMobile() { return self::$_is_mobile; }
+		public static function isMobile() { return self::$_is_mobile; }
 		/**
 		 * Is the browser from a robot (ex Slurp,GoogleBot)?
 		 * @return boolean True if the browser is from a robot otherwise false
 		 */
-		public function isRobot() { return self::$_is_robot; }
+		public static function isRobot() { return self::$_is_robot; }
 		/**
 		 * Set the browser to be from AOL
 		 * @param $isAol
 		 */
-		public function setAol($isAol) { self::$_is_aol = $isAol; }
+		public static function setAol($isAol) { self::$_is_aol = $isAol; }
 		/**
 		 * Get the user agent value in use to determine the browser
 		 * @return string The user agent from the HTTP header
 		 */
-		public function getUserAgent() { return self::$_agent; }
+		public static function getUserAgent() { return self::$_agent; }
 		/**
 		 * Set the user agent value (the construction will use the HTTP header value - this will overwrite it)
 		 * @param $agent_string The value for the User Agent
 		 */
-		public function setUserAgent($agent_string) {
+		public static function setUserAgent($agent_string) {
 			self::reset();
 			self::$_agent = $agent_string;
 			self::determine();
 		}
-        protected function setMobile($value=true) {
+        protected static function setMobile($value=true) {
             self::$_is_mobile = $value;
         }
-        protected function setRobot($value=true) {
+        protected static function setRobot($value=true) {
             self::$_is_robot = $value;
         }
 		/**
 		 * Protected routine to calculate and determine what the browser is in use (including platform)
 		 */
-		protected function determine() {
+		protected static function determine() {
 			self::checkPlatform();
 			self::checkBrowsers();
 			self::checkForAol();
@@ -213,7 +196,7 @@
 		 * Protected routine to determine the browser type
 		 * @return boolean True if the browser was detected otherwise false
 		 */
-		protected function checkBrowsers() {
+		protected static function checkBrowsers() {
 			return (
 						self::checkBrowserGoogleBot() ||
 						self::checkBrowserSlurp() ||
@@ -248,7 +231,7 @@
 		 * Determine if the user is using a BlackBerry
 		 * @return boolean True if the browser is the BlackBerry browser otherwise false
 		 */
-		protected function checkBrowserBlackBerry() {
+		protected static function checkBrowserBlackBerry() {
 			$retval = false;
 			if( preg_match('/blackberry/i',self::$_agent) ) {
 				$aresult = explode("/",stristr(self::$_agent,"BlackBerry"));
@@ -265,7 +248,7 @@
 		 * Determine if the user is using an AOL User Agent
 		 * @return boolean True if the browser is from AOL otherwise false
 		 */
-		protected function checkForAol() {
+		protected static function checkForAol() {
 			$retval = false;
 			if( preg_match('/aol/i', self::$_agent) ) {
 				$aversion = explode(' ',stristr(self::$_agent, 'AOL'));
@@ -285,7 +268,7 @@
 		 * Determine if the browser is the GoogleBot or not
 		 * @return boolean True if the browser is the GoogletBot otherwise false
 		 */
-		protected function checkBrowserGoogleBot() {
+		protected static function checkBrowserGoogleBot() {
 			$retval = false;
 			if( preg_match('/googlebot/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'googlebot'));
@@ -302,7 +285,7 @@
 		 * Determine if the browser is the W3C Validator or not
 		 * @return boolean True if the browser is the W3C Validator otherwise false
 		 */
-		protected function checkBrowserW3CValidator() {
+		protected static function checkBrowserW3CValidator() {
 			$retval = false;
 			if( preg_match('/W3C-checklink/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'W3C-checklink'));
@@ -318,7 +301,7 @@
 		 * Determine if the browser is the W3C Validator or not
 		 * @return boolean True if the browser is the W3C Validator otherwise false
 		 */
-		protected function checkBrowserSlurp() {
+		protected static function checkBrowserSlurp() {
 			$retval = false;
 			if( preg_match('/Slurp/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Slurp'));
@@ -335,7 +318,7 @@
 		 * Determine if the browser is Internet Explorer or not
 		 * @return boolean True if the browser is Internet Explorer otherwise false
 		 */
-		protected function checkBrowserInternetExplorer() {
+		protected static function checkBrowserInternetExplorer() {
 			$retval = false;
 
 			// Test for v1 - v1.5 IE
@@ -378,7 +361,7 @@
 		 * Determine if the browser is Opera or not
 		 * @return boolean True if the browser is Opera otherwise false
 		 */
-		protected function checkBrowserOpera() {
+		protected static function checkBrowserOpera() {
 			$retval = false;
 			if( preg_match('/opera mini/i',self::$_agent) ) {
 				$resultant = stristr(self::$_agent, 'opera mini');
@@ -426,7 +409,7 @@
 		 * Determine if the browser is WebTv or not
 		 * @return boolean True if the browser is WebTv otherwise false
 		 */
-		protected function checkBrowserWebTv() {
+		protected static function checkBrowserWebTv() {
 			$retval = false;
 			if( preg_match('/webtv/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'webtv'));
@@ -442,7 +425,7 @@
 		 * Determine if the browser is NetPositive or not
 		 * @return boolean True if the browser is NetPositive otherwise false
 		 */
-		protected function checkBrowserNetPositive() {
+		protected static function checkBrowserNetPositive() {
 			$retval = false;
 			if( preg_match('/NetPositive/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'NetPositive'));
@@ -459,7 +442,7 @@
 		 * Determine if the browser is Galeon or not
 		 * @return boolean True if the browser is Galeon otherwise false
 		 */
-		protected function checkBrowserGaleon() {
+		protected static function checkBrowserGaleon() {
 			$retval = false;
 			if( preg_match('/galeon/i',self::$_agent) ) {
 				$aresult = explode(' ',stristr(self::$_agent,'galeon'));
@@ -475,7 +458,7 @@
 		 * Determine if the browser is Konqueror or not
 		 * @return boolean True if the browser is Konqueror otherwise false
 		 */
-		protected function checkBrowserKonqueror() {
+		protected static function checkBrowserKonqueror() {
 			$retval = false;
 			if( preg_match('/Konqueror/i',self::$_agent) ) {
 				$aresult = explode(' ',stristr(self::$_agent,'Konqueror'));
@@ -491,7 +474,7 @@
 		 * Determine if the browser is iCab or not
 		 * @return boolean True if the browser is iCab otherwise false
 		 */
-		protected function checkBrowserIcab() {
+		protected static function checkBrowserIcab() {
 			$retval = false;
 			if( preg_match('/icab/i',self::$_agent) ) {
 				$aversion = explode(' ',stristr(str_replace('/',' ',self::$_agent),'icab'));
@@ -506,7 +489,7 @@
 		 * Determine if the browser is OmniWeb or not
 		 * @return boolean True if the browser is OmniWeb otherwise false
 		 */
-		protected function checkBrowserOmniWeb() {
+		protected static function checkBrowserOmniWeb() {
 			$retval = false;
 			if( preg_match('/omniweb/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'omniweb'));
@@ -522,7 +505,7 @@
 		 * Determine if the browser is Phoenix or not
 		 * @return boolean True if the browser is Phoenix otherwise false
 		 */
-		protected function checkBrowserPhoenix() {
+		protected static function checkBrowserPhoenix() {
 			$retval = false;
 			if( preg_match('/Phoenix/i',self::$_agent) ) {
 				$aversion = explode('/',stristr(self::$_agent,'Phoenix'));
@@ -537,7 +520,7 @@
 		 * Determine if the browser is Firebird or not
 		 * @return boolean True if the browser is Firebird otherwise false
 		 */
-		protected function checkBrowserFirebird() {
+		protected static function checkBrowserFirebird() {
 			$retval = false;
 			if( preg_match('/Firebird/i',self::$_agent) ) {
 				$aversion = explode('/',stristr(self::$_agent,'Firebird'));
@@ -552,7 +535,7 @@
 		 * Determine if the browser is Netscape Navigator 9+ or not (http://browser.netscape.com/ - Official support ended on March 1st, 2008)
 		 * @return boolean True if the browser is Netscape Navigator 9+ otherwise false
 		 */
-		protected function checkBrowserNetscapeNavigator9Plus() {
+		protected static function checkBrowserNetscapeNavigator9Plus() {
 			$retval = false;
 			if( preg_match('/Firefox/i',self::$_agent) && preg_match('/Navigator\/([^ ]*)/i',self::$_agent,$matches) ) {
 				self::setVersion($matches[1]);
@@ -566,7 +549,7 @@
 		 * Determine if the browser is Shiretoko or not (https://wiki.mozilla.org/Projects/shiretoko)
 		 * @return boolean True if the browser is Shiretoko otherwise false
 		 */
-		protected function checkBrowserShiretoko() {
+		protected static function checkBrowserShiretoko() {
 			$retval = false;
 			if( preg_match('/Mozilla/i',self::$_agent) && preg_match('/Shiretoko\/([^ ]*)/i',self::$_agent,$matches) ) {
 				self::setVersion($matches[1]);
@@ -580,7 +563,7 @@
 		 * Determine if the browser is Ice Cat or not (http://en.wikipedia.org/wiki/GNU_IceCat)
 		 * @return boolean True if the browser is Ice Cat otherwise false
 		 */
-		protected function checkBrowserIceCat() {
+		protected static function checkBrowserIceCat() {
 			$retval = false;
 			if( preg_match('/Mozilla/i',self::$_agent) && preg_match('/IceCat\/([^ ]*)/i',self::$_agent,$matches) ) {
 				self::setVersion($matches[1]);
@@ -594,7 +577,7 @@
 		 * Determine if the browser is Firefox or not
 		 * @return boolean True if the browser is Firefox otherwise false
 		 */
-		protected function checkBrowserFirefox() {
+		protected static function checkBrowserFirefox() {
 			$retval = false;
 			if( preg_match('/Firefox/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Firefox'));
@@ -610,7 +593,7 @@
 		 * Determine if the browser is Mozilla or not
 		 * @return boolean True if the browser is Mozilla otherwise false
 		 */
-		protected function checkBrowserMozilla() {
+		protected static function checkBrowserMozilla() {
 			$retval = false;
 			if( preg_match('/mozilla/i',self::$_agent) && preg_match('/rv:[0-9].[0-9][a-b]?/i',self::$_agent) && !preg_match('/netscape/i',self::$_agent)) {
 				$aversion = explode(' ',stristr(self::$_agent,'rv:'));
@@ -634,7 +617,7 @@
 		 * Determine if the browser is Lynx or not
 		 * @return boolean True if the browser is Lynx otherwise false
 		 */
-		protected function checkBrowserLynx() {
+		protected static function checkBrowserLynx() {
 			$retval = false;
 			if( preg_match('/libwww/i',self::$_agent) && preg_match('/lynx/i', self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Lynx'));
@@ -650,7 +633,7 @@
 		 * Determine if the browser is Amaya or not
 		 * @return boolean True if the browser is Amaya otherwise false
 		 */
-		protected function checkBrowserAmaya() {
+		protected static function checkBrowserAmaya() {
 			$retval = false;
 			if( preg_match('/libwww/i',self::$_agent) && preg_match('/amaya/i', self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Amaya'));
@@ -666,7 +649,7 @@
 		 * Determine if the browser is Chrome or not
 		 * @return boolean True if the browser is Chrome otherwise false
 		 */
-		protected function checkBrowserChrome() {
+		protected static function checkBrowserChrome() {
 			$retval = false;
 			if( preg_match('/Chrome/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Chrome'));
@@ -682,7 +665,7 @@
 		 * Determine if the browser is Safari or not
 		 * @return boolean True if the browser is Safari otherwise false
 		 */
-		protected function checkBrowserSafari() {
+		protected static function checkBrowserSafari() {
 			$retval = false;
 			if( preg_match('/Safari/i',self::$_agent) && ! preg_match('/iPhone/i',self::$_agent) && ! preg_match('/iPod/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Version'));
@@ -703,7 +686,7 @@
 		 * Determine if the browser is iPhone or not
 		 * @return boolean True if the browser is iPhone otherwise false
 		 */
-		protected function checkBrowseriPhone() {
+		protected static function checkBrowseriPhone() {
 			$retval = false;
 			if( preg_match('/iPhone/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Version'));
@@ -725,7 +708,7 @@
 		 * Determine if the browser is iPod or not
 		 * @return boolean True if the browser is iPod otherwise false
 		 */
-		protected function checkBrowseriPod() {
+		protected static function checkBrowseriPod() {
 			$retval = false;
 			if( preg_match('/iPod/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Version'));
@@ -747,7 +730,7 @@
 		 * Determine if the browser is Android or not
 		 * @return boolean True if the browser is Android otherwise false
 		 */
-		protected function checkBrowserAndroid() {
+		protected static function checkBrowserAndroid() {
 			$retval = false;
 			if( preg_match('/Android/i',self::$_agent) ) {
 				$aresult = explode('/',stristr(self::$_agent,'Version'));
@@ -768,7 +751,7 @@
 		/**
 		 * Determine the user's platform
 		 */
-		protected function checkPlatform() {
+		protected static function checkPlatform() {
 			if( preg_match('/iPhone/i', self::$_agent) ) {
 				self::$_platform = self::PLATFORM_IPHONE;
 			}
