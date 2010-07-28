@@ -9,7 +9,7 @@
 		<p class="error-message"><?=$loginMessage?></p>
 		<? endif ?>
 
-		<form name="login" action="<?=controller_link(Router::controller(), "process-password-reset/")?>" method="post">
+		<form name="login" action="<?=Template::controller_link(Router::controller(), "process-password-reset/")?>" method="post">
 		<input type="submit" style="width:0px;height:0px;border:none;margin:0px;padding:0px;"/>
 		<div class="greyBox">
 	        <b class="btop"><b></b></b>
