@@ -55,6 +55,7 @@
 
 		public function passwordSuccessfullyReset() {
 			
+			$this->output->layout = "session-controller-login";
 			$this->output->cache(1 * Cache::WEEKS);
 
 			$this->title = 'Password Successfully Reset';
@@ -69,6 +70,7 @@
 
 		public function passwordResetFailed($code="1") {
 
+			$this->output->layout = "session-controller-login";
 			$this->output->cache(1 * Cache::WEEKS);
 
 			if ( $code == 1 ) {
