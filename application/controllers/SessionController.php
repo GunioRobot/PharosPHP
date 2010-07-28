@@ -35,7 +35,10 @@
 	
 		
 		public function passwordReset() {
+			$this->output->layout = "session-controller-login";
 			$this->title = "Reset Password";
+			
+			$this->output->set("title", $this->title);
 			$this->output->cache(1 * Cache::WEEKS);
 			$this->output->view("password-reset-view.php");
 		}
