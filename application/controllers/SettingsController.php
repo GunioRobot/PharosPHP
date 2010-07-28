@@ -235,7 +235,7 @@
 				
 			} else {
 				
-				echo "[link]".delete(__CLASS__,$id)."[/link]";
+				echo "[link]".Template::delete(__CLASS__,$id)."[/link]";
 				echo "This $this->type will be permanently removed.<br /><br />";
 				echo "<strong>This action cannot be undone.</strong><br />";
 				exit;
