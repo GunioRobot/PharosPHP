@@ -155,8 +155,8 @@
 			$info = $this->db->Execute("SELECT * FROM users WHERE user_username = '$username' LIMIT 1");
 			if ( $info->fields['user_primary_email'] != '' ) {
 
-				$new_password = random_password();
-				$db->Execute("UPDATE users SET user_password = '".$new_password."', last_updated = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
+				$new_password = self::random_password();
+				$this->db->Execute("UPDATE users SET user_password = '".$new_password."', last_updated = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
 
 				$html = '<html><body>';
 				$html .= '<h2>Password Reset</h2>';
@@ -173,9 +173,9 @@
 				$mail->setHTML($html);
 
 				if ( !$mail->send(array($info->fields['user_primary_email'])) ) redirect(site_link('passwordResetFailed/0/'));
-				else redirect(Template::controller_link('AdminSessionController', 'passwordSuccessfullyReset/'));
+				else redirect(Template::controller_link('SessionController', 'passwordSuccessfullyReset/'));
 
-			} else redirect(Template::controller_link('AdminSessionController', 'passwordResetFailed/1/'));
+			} else redirect(Template::controller_link('SessionController', 'passwordResetFailed/1/'));
 			
 		}
 		
