@@ -218,7 +218,7 @@
 		public function rm($path, $recursive=true) {
 			
 			if ( $this->connection ) {
-				$this->delete($path, true);
+				$this->delete($path, $recursive, true);
 			} else throw new FTPClientNotConnectedException();
 			
 		}
@@ -610,7 +610,8 @@
 		 * delete
 		 *
 		 * @param string $path
-		 * @param string $echo (optional)
+		 * @param bool $recursive
+		 * @param bool $echo (optional)
 		 *
 		 * @throws InvalidArgumentException
 		 *
@@ -618,7 +619,7 @@
 		 * @author Matt Brewer
 		 **/
 		
-		protected function delete($path, $echo=false) {
+		protected function delete($path, $recursive, $echo=false) {
 			
 			$full_path = sprintf("ftp://%s:%s@%s%s", $this->username, $this->password, $this->host, $this->pwd()."/".$path);
 			if ( @is_dir($full_path) ) {
@@ -633,7 +634,7 @@
 						if ( $entry != "." && $entry != ".." ) {
 					
 							if ( @is_dir($full_path.$entry) ) {
-								$this->delete($path.$entry."/");
+								$this->delete($path.$entry."/", $recursive);
 							} else {
 								@ftp_delete($this->connection, $path.$entry);
 							}
@@ -661,7 +662,7 @@
 		 * _size
 		 *
 		 * @param string $path
-		 * @param string $echo (optional)
+		 * @param bool $echo (optional)
 		 *
 		 * @throws InvalidArgumentException
 		 *
