@@ -8,7 +8,7 @@
 	 * 
 	 * USAGE:
 	 *
-	 * 		$ftp = new FTPClient("/home/public_html/", "/public_html/", "localhost", $username, $password);
+	 * 		$ftp = new FTPClient("localhost", $username, $password);
 	 *		$contents = $ftp->ls();
 	 *		foreach($contents as $f) {
 	 *			echo $f;
@@ -32,8 +32,6 @@
 		protected $connection;
 		protected $debug = false;
 		
-		public $docroot;
-		public $ftproot;
 		public $host;
 		public $username;
 		public $password;
@@ -45,8 +43,6 @@
 		/**
 		 * Constructor
 		 *
-		 * @param string $docroot
-		 * @param string $ftproot
 		 * @param string $host
 		 * @param string $username
 		 * @param string $password
@@ -58,16 +54,14 @@
 		 * @author Matt Brewer
 		 **/
 
-		public function __construct($docroot=null,$ftproot=null,$host=null,$username=null,$password=null,$port=21,$timeout=90,$ssl=false) {
-			$this->settings($docroot,$ftproot,$host,$username,$password,$port,$timeout);
+		public function __construct($host=null,$username=null,$password=null,$port=21,$timeout=90,$ssl=false) {
+			$this->settings($host,$username,$password,$port,$timeout);
 		}
 		
 		
 		/**
 		 * settings
 		 *
-		 * @param string $docroot
-		 * @param string $ftproot
 		 * @param string $host
 		 * @param string $username
 		 * @param string $password
@@ -79,9 +73,7 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public function settings($docroot=null,$ftproot=null,$host=null,$username=null,$password=null,$port=21,$timeout=90,$ssl=false) {
-			$this->docroot = $docroot;
-			$this->ftproot = $ftproot;
+		public function settings($host=null,$username=null,$password=null,$port=21,$timeout=90,$ssl=false) {
 			$this->host = $host;
 			$this->username = $username;
 			$this->password = $password;
@@ -94,8 +86,6 @@
 		/**
 		 * connect
 		 *
-		 * @param string $docroot
-		 * @param string $ftproot
 		 * @param string $host
 		 * @param string $username
 		 * @param string $password
@@ -112,7 +102,7 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public function connect($docroot=null,$ftproot=null,$host=null,$username=null,$password=null,$port=21,$timeout=90,$ssl=false) {
+		public function connect($host=null,$username=null,$password=null,$port=21,$timeout=90,$ssl=false) {
 			
 			if ( $this->connection ) {
 				throw new FTPClientMultipleConnectCallsException();
