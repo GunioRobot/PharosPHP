@@ -82,17 +82,19 @@
 
 			// Sort the CSS alphatbetically, then include
 			if ( !empty($css) ) sort($css);
+			
 			foreach($css as $c) {
-				echo '	<style type="text/css" media="screen">@import "'.$c.'";</style>'."\n";
+				echo sprintf('	<link rel="stylesheet" type="text/css" media="screen" href="%s" />'."\n", $c);
 			}
 
 			// Grab CSS files the controller requested
 			$css = $controller->output->css();
 			if ( !empty($css) ) {
 				foreach($css as $style) {
-					echo '<style type="text/css" media="'.$style['type'].'">@import url('.PUBLIC_SERVER.'css/'.$style['path'].');</style>';
+					echo sprintf('<link rel="stylesheet" type="text/css" media="%s" href="%s" />'."\n", $style['type'], PUBLIC_SERVER.'css/'.$style['path']);
 				} 
 			}
+
 		}
 
 
@@ -423,7 +425,8 @@
 			return self::controller_link($class,"manage/");
 		}
 		
-		
+	
+	
 		/**
 		 * icon($name, $alt="")
 		 *
@@ -451,10 +454,10 @@
 		 **/
 
 		public static function button($href, $title, $image, $options=array()) {
-			return sprintf('<a class="actions-button %s" href="%s" title="%s">%s</a>', $options['class'], $href, $title, icon($image, $options['alt']));
+			return sprintf('<a class="actions-button %s" href="%s" title="%s" rel="%s" target="%s" %s>%s</a>', $options['class'], $href, $title, $options['rel'], $options['target'], $options['user-defined'], icon($image, $options['alt']));
 		}
-		
-		
+
+
 		/**
 		 * file_icon($file_type, $alt="")
 		 *
@@ -463,14 +466,21 @@
 		 * @return string $html
 		 * @author Matt Brewer
 		 **/
-
+		
 		public static function file_icon($file_type, $alt="") {
-
+			
+			if ( @is_dir($file_type) ) {
+				$file_type = "folder";
+			} else if ( stripos($file_type, ".") !== false ) {
+				$info = pathinfo($file_type);
+				$file_type = $info['extension'];			
+			}
+						
 			$file = sprintf("images/icons/icon_%s.png", strtolower($file_type));
 			if ( !@file_exists(PUBLIC_DIR.$file) ) {
 				$file = "images/icons/icon_default.png";
 			}
-
+			
 			return sprintf('<img src="%s" alt="%s" border="0" />', PUBLIC_SERVER.$file, $alt);
 		}
 
