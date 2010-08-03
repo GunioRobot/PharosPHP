@@ -146,7 +146,7 @@
 		public function cd($dir="") {
 			if ( $this->connection ) {
 				
-				if ( $this->debug ) echo sprintf("cd %s", $dir);
+				if ( $this->debug ) echo sprintf("cd %s\n", $dir);
 				
 				if ( $dir == "" ) {
 					return @ftp_cdup($this->connection);
@@ -174,7 +174,7 @@
 			
 			if ( $this->connection ) {
 				
-				if ( $this->debug ) echo sprintf("chmod %s %s", $mode, $filename);
+				if ( $this->debug ) echo sprintf("chmod %s %s\n", $mode, $filename);
 				return @ftp_chmod($this->connection, $mode, $filename);
 				
 			} else throw new FTPClientNotConnectedException();
@@ -196,11 +196,7 @@
 		public function size($path) {
 			
 			if ( $this->connection ) {
-				
-				if ( $this->debug ) echo sprintf("size `%s`", $path);
-				$size = @ftp_size($this->connection, $path);
-				return $size >= 0 ? $size : false;
-				
+				return $this->_size($path, true);
 			} else throw new FTPClientNotConnectedException();
 			
 		}
@@ -210,20 +206,19 @@
 		 * rm
 		 * 
 		 * @param string $path
+		 * @param bool $recursive
 		 *
+		 * @throws InvalidArgumentException
 		 * @throws FTPClientNotConnectedException
 		 *
 		 * @return bool $success
 		 * @author Matt Brewer
 		 **/
 
-		public function rm($path) {
+		public function rm($path, $recursive=true) {
 			
 			if ( $this->connection ) {
-			
-				if ( $this->debug ) echo sprintf("rm %s", $path);
-				return @ftp_delete($this->connection, $path);
-			
+				$this->delete($path, true);
 			} else throw new FTPClientNotConnectedException();
 			
 		}
@@ -246,7 +241,7 @@
 			
 			if ( $this->connection ) {
 				
-				if ( $this->debug ) echo sprintf("exec `%s`", $cmd);
+				if ( $this->debug ) echo sprintf("exec `%s`\n", $cmd);
 				switch($type) {
 					
 					case self::EXEC:
@@ -293,7 +288,7 @@
 				
 				if ( !isset($file_info[self::FILE_HANDLE]) && !isset($file_info[self::FILE_PATH]) ) throw new InvalidArgumentException();
 								
-				if ( $this->debug ) echo sprintf("download [%s] to [%s] (mode=%s, position=%s)", $remote_path, (!isset($file_info[self::FILE_PATH]) ? "FILE_HANDLE" : $file_info[self::FILE_PATH]), $mode, $resumepos);
+				if ( $this->debug ) echo sprintf("download [%s] to [%s] (mode=%s, position=%s)\n", $remote_path, (!isset($file_info[self::FILE_PATH]) ? "FILE_HANDLE" : $file_info[self::FILE_PATH]), $mode, $resumepos);
 				if ( !isset($file_info[self::FILE_PATH]) ) {
 					
 					if ( $asynchronous ) {
@@ -338,7 +333,7 @@
 				
 				if ( !isset($file_info[self::FILE_HANDLE]) || !isset($file_info[self::FILE_PATH]) ) throw new InvalidArgumentException();
 
-				if ( $this->debug ) echo sprintf("upload [%s] to [%s] (mode=%s, position=%s)", (!isset($file_info[self::FILE_PATH]) ? "FILE_HANDLE" : $file_info[self::FILE_PATH]), $remote_path, $mode, $resumepos);
+				if ( $this->debug ) echo sprintf("upload [%s] to [%s] (mode=%s, position=%s)\n", (!isset($file_info[self::FILE_PATH]) ? "FILE_HANDLE" : $file_info[self::FILE_PATH]), $remote_path, $mode, $resumepos);
 				
 				if ( !isset($file_info[self::FILE_PATH]) ) {
 					
@@ -379,7 +374,7 @@
 			
 			if ( $this->connection ) {
 				
-				if ( $this->debug ) echo sprintf("ls %s", $dir);
+				if ( $this->debug ) echo sprintf("ls %s\n", $dir);
 				return $raw ? @ftp_rawlist($this->connection, $dir) : @ftp_nlist($this->connection, $dir);
 				
 			} else throw new FTPClientNotConnectedException();
@@ -388,7 +383,7 @@
 		
 		
 		/**
-		 * move
+		 * mv
 		 *
 		 * @param string $old
 		 * @param string $new
@@ -399,11 +394,11 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public function move($old, $new) {
+		public function mv($old, $new) {
 			
 			if ( $this->connection ) {
 				
-				if ( $this->debug ) echo sprintf("move %s %s", $old, $new);
+				if ( $this->debug ) echo sprintf("move %s %s\n", $old, $new);
 				return @ftp_rename($this->connection, $old, $new);
 				
 			} else throw new FTPClientNotConnectedException();
@@ -426,7 +421,7 @@
 
 		public function set_option($option, $value) {
 			if ( $this->connection ) {
-				if ( $this->debug ) echo sprintf("get_option %s", $option);
+				if ( $this->debug ) echo sprintf("get_option %s\n", $option);
 				$retval = @ftp_set_option($this->connection, $option, $value);
 				if ( $retval === false ) throw new InvalidArgumentException("ftp_set_option($option, $value) is not supported.");
 				return $retval;
@@ -473,7 +468,7 @@
 			
 			if ( $this->connection ) {
 			
-				if ( $this->debug ) echo sprintf("ftp_passive(%s)", ($bool?"true":"false"));
+				if ( $this->debug ) echo sprintf("ftp_passive(%s)\n", ($bool?"true":"false"));
 				return @ftp_pasv($this->connection, (bool)$bool);
 				
 			} else throw new FTPClientNotConnectedException();
@@ -494,7 +489,7 @@
 		
 			if ( $this->connection ) {
 				
-				if ( $this->debug ) echo sprintf("pwd");
+				if ( $this->debug ) echo sprintf("pwd\n");
 				return @ftp_pwd($this->connection);
 				
 			} else throw new FTPClientNotConnectedException();
@@ -515,7 +510,7 @@
 			
 			if ( $this->connection ) {
 				
-				if ( $this->debug ) echo sprintf("mkdir [%s]", $dir);
+				if ( $this->debug ) echo sprintf("mkdir [%s]\n", $dir);
 				return @ftp_mkdir($this->connection, $dir) !== false;
 				
 			} else throw new FTPClientNotConnectedException();
@@ -536,7 +531,7 @@
 			
 			if ( $this->connection ) {
 				
-				if ( $this->debug ) echo sprintf("ftp_nb_continue(%s)", $this->host);
+				if ( $this->debug ) echo sprintf("ftp_nb_continue(%s)\n", $this->host);
 				return @ftp_nb_continue($this->connection);
 				
 			} else throw new FTPClientNotConnectedException();
@@ -573,7 +568,7 @@
 
 		public function disconnect() {
 			if ( $this->connection ) {
-				if ( $this->debug ) echo sprintf("Disconnecting from [%s]", $this->host);
+				if ( $this->debug ) echo sprintf("Disconnecting from [%s]\n", $this->host);
 				$success = @ftp_close($this->connection);
 				$this->connection = null;
 				return $success;
@@ -608,6 +603,104 @@
 		
 		protected function validate_settings() {
 			return $this->host != "" && $this->username != "" && $this->password;
+		}
+		
+		
+		/**
+		 * delete
+		 *
+		 * @param string $path
+		 * @param string $echo (optional)
+		 *
+		 * @throws InvalidArgumentException
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		protected function delete($path, $echo=false) {
+			
+			$full_path = sprintf("ftp://%s:%s@%s%s", $this->username, $this->password, $this->host, $this->pwd()."/".$path);
+			if ( @is_dir($full_path) ) {
+				
+				if ( $recursive ) {
+					
+					if ( $this->debug && $echo ) echo sprintf("rm -rf %s\n", $path);
+										
+					$dir = opendir($full_path);
+					while ( ($entry = readdir($dir)) !== false) { 
+													
+						if ( $entry != "." && $entry != ".." ) {
+					
+							if ( @is_dir($full_path.$entry) ) {
+								$this->delete($path.$entry."/");
+							} else {
+								@ftp_delete($this->connection, $path.$entry);
+							}
+							
+						}
+					
+					}
+					
+					closedir($dir);
+					@ftp_rmdir($this->connection, $path);
+					
+					return true;
+					
+				} else throw new InvalidArgumentException("Path was a directory, yet recursive was false");
+				
+			} else {
+				if ( $this->debug && $echo ) echo sprintf("rm %s\n", $path);
+				return @ftp_delete($this->connection, $path);
+			}
+			
+		}
+		
+		
+		/**
+		 * _size
+		 *
+		 * @param string $path
+		 * @param string $echo (optional)
+		 *
+		 * @throws InvalidArgumentException
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
+		protected function _size($path, $echo=false) {
+			
+			$size = 0;
+
+			$full_path = sprintf("ftp://%s:%s@%s%s", $this->username, $this->password, $this->host, $this->pwd()."/".$path);
+			if ( @is_dir($full_path) ) {
+
+				if ( $this->debug && $echo ) echo sprintf("size -rf `%s`\n", $path);
+
+				$dir = opendir($full_path);
+				while ( ($entry = readdir($dir)) !== false) { 
+
+					if ( $entry != "." && $entry != ".." ) {
+
+						if ( @is_dir($full_path.$entry) ) {
+							$size += $this->_size($path.$entry."/");
+						} else {
+							$size += (int)@ftp_size($this->connection, $path.$entry);
+						}
+
+					}
+
+				}
+
+				closedir($dir);
+				return $size;
+
+			} else {
+				if ( $this->debug && $echo ) echo sprintf("size `%s`\n", $path);
+				return (int)@ftp_size($this->connection, $path);
+			}
+
 		}
 		
 	} 
