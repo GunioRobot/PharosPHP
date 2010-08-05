@@ -7,6 +7,8 @@
 	define('SERVER_DIR', $_SERVER['DOCUMENT_ROOT'].'/');
 	define('APP_PATH', substr(realpath($f."/../")."/", strlen(SERVER_DIR)));
 	
+	require_once SERVER_DIR.APP_PATH.'system/classes/Hooks.php';
+	
 	// Load in all the functions (.php files) in this folder
 	require_once SERVER_DIR.APP_PATH.'system/functions/autoload.php';
 	
@@ -25,7 +27,6 @@
 	require_once APPLICATION_CLASSES_DIR.'ApplicationGenericPageController.php';
 	require_once APPLICATION_CLASSES_DIR.'TableController.php';
 	require_once CLASSES_DIR.'Modules.php';
-	require_once CLASSES_DIR.'Hooks.php';
 	require_once CLASSES_DIR.'Cron.php';
 	require_once CLASSES_DIR.'Browser.php';
 	
