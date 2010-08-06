@@ -72,7 +72,7 @@
 		}
 		
 		define('XML_SERVER', APPLICATION_SERVER.Settings::get("application.filesystem.xml_directory"));
-		define('CACHE_SERVER', SYSTEM_SERVER.'cache/');
+		define('CACHE_SERVER', APPLICATION_SERVER.'cache/');
 		define('MODULES_SERVER', APPLICATION_SERVER.'modules/');
 
 
