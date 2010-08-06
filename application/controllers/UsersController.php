@@ -16,7 +16,7 @@
 			$this->dataKey = "user_id";			
 			$this->tableColumns();
 			
-			$this->levels = user_levels_array(Settings::get('users.levels.super'));
+			$this->levels = user_levels_array(Settings::get('application.users.levels.super'));
 			$this->auth->login_required(true);
 						
 		}
@@ -186,7 +186,7 @@
 				array('name' => 'user_birthday', 'type' => 'dob'),
 				array('name' => 'user_notes', 'type' => 'text_area', 'class' => 'notes'),
 				
-				array('name' => 'user_level', 'type' => 'dropdown', 'option' => user_levels_array(SECURITY_LVL), 'default' => Settings::get( 'users.levels.admin')),
+				array('name' => 'user_level', 'type' => 'dropdown', 'option' => user_levels_array(SECURITY_LVL), 'default' => Settings::get('application.users.levels.admin')),
 	
 				array('name' => 'date_added', 'type' => 'date_added'),
 				array('name' => 'last_updated', 'type' => 'last_updated'),

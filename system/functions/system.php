@@ -16,7 +16,7 @@
 		Hooks::call_hook(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
 		
 		// Set the system timezone
-		date_default_timezone_set(Settings::get("system.timezone"));
+		date_default_timezone_set(Settings::get("application.system.timezone"));
 		
 		load_content_types();
 		Settings::load_dynamic_system_settings();
@@ -43,14 +43,14 @@
 		$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
 		define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/'.APP_PATH);
 	
-		$upload_dir = Settings::get("filesystem.upload_directory");
+		$upload_dir = Settings::get("application.filesystem.upload_directory");
 		if ( $upload_dir[0] == "/" ) {
 			define('UPLOAD_DIR', $upload_dir);
 		} else {
 			define('UPLOAD_DIR', APPLICATION_DIR.$upload_dir);
 		}
 		
-		define('XML_DIR', APPLICATION_DIR.Settings::get("filesystem.xml_directory"));
+		define('XML_DIR', APPLICATION_DIR.Settings::get("application.filesystem.xml_directory"));
 	
 		
 		
@@ -71,7 +71,7 @@
 			define('UPLOAD_SERVER', APPLICATION_SERVER.$upload_dir);
 		}
 		
-		define('XML_SERVER', APPLICATION_SERVER.Settings::get("filesystem.xml_directory"));
+		define('XML_SERVER', APPLICATION_SERVER.Settings::get("application.filesystem.xml_directory"));
 		define('CACHE_SERVER', SYSTEM_SERVER.'cache/');
 		define('MODULES_SERVER', APPLICATION_SERVER.'modules/');
 
@@ -82,8 +82,8 @@
 		//
 		////////////////////////////////////////////////////////////////////////////////
 
-		define('SECURE_KEYWORD',md5(Settings::get('system.site.name')));
-		define('APPLICATION_SECRET_KEY', md5(Settings::get('system.site.name')));
+		define('SECURE_KEYWORD',md5(Settings::get('application.system.site.name')));
+		define('APPLICATION_SECRET_KEY', md5(Settings::get('application.system.site.name')));
 		
 	}
 	

@@ -5,7 +5,7 @@
 		<div id="footer">
 		
 			<br />
-			<p>Copyright &copy; <?=date("Y")." ".Settings::get('system.site.name')?></p>
+			<p>Copyright &copy; <?=date("Y")." ".Settings::get('application.system.site.name')?></p>
 		
 		</div>
 	

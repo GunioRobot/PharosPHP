@@ -28,20 +28,29 @@
 	 **/
 	
 	Settings::load();
+	load_static_settings();
+	
 	class Settings {
 			
 		private static $config = array();
 		
 		/**
-		 * load()
+		 * load
+		 *
+		 * @param string $filename
 		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
 
-		public static function load() {
-			self::$config = sfYaml::load(CONFIGURATION_DIR.'application.yml');
-			load_static_settings();
+		public static function load($filename='application.yml') {
+			
+			if ( !file_exists(CONFIGURATION_DIR.$filename) ) {
+				throw new InvalidFileSystemPathException(sprintf("File does not exist: (%s)", CONFIGURATION_DIR.$filename));
+			}
+						
+			self::$config[self::key_for_filename($filename)] = sfYaml::load(CONFIGURATION_DIR.$filename);
+			
 		}
 		
 		
@@ -203,6 +212,13 @@
 			define('DELETE_OLD_WHEN_UPLOADING_NEW', Settings::get('dynamic.Delete Old When Uploading New',"true",true)==="true"?true:false);
 			define('RESET_PASSWORD_RANDOM_WORD', Settings::get('dynamic.Reset Password Random Word', '_cmslite',true));
 				
+		}
+		
+		
+		
+		protected static function key_for_filename($filename) {
+			$info = pathinfo($filename);
+			return $info['filename'];
 		}
 		
 			

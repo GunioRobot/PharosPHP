@@ -17,7 +17,7 @@
 
 // Database init
 $db = new queryFactory();
-if ( !$db->connect(Settings::get('database.host'), Settings::get('database.username'), Settings::get('database.password'), Settings::get('database.name'), false, false) ) {
+if ( !$db->connect(Settings::get('application.database.host'), Settings::get('application.database.username'), Settings::get('application.database.password'), Settings::get('application.database.name'), false, false) ) {
 	die("Error connecting to database");
 }
 

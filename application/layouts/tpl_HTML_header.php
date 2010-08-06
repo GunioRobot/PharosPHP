@@ -2,7 +2,7 @@
 <!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">-->
 <html>
 <head>
-	<title><?=Settings::get('system.site.name').TITLE_SEPARATOR.$controller->title?></title>
+	<title><?=Settings::get('application.system.site.name').TITLE_SEPARATOR.$controller->title?></title>
 	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 	<meta name="keywords" content="<?=$controller->keywords?>" />
 	<meta name="description" content="<?=$controller->description?>" />

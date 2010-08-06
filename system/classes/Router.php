@@ -39,7 +39,7 @@
 		public static function parse() {
 			
 			// Grab the defined routes
-			self::$routes = Settings::get("routes.connections");
+			self::$routes = Settings::get("application.routes.connections");
 			if ( is_array(self::$routes) ) {
 				foreach(self::$routes as &$route) {
 				
@@ -92,7 +92,7 @@
 			if ( ($route = self::_matching_route()) === false ) {
 			
 				// Didn't have custom routing option setup, so use basic routing (the first portion of URL) or the root controller defined			
-				$c = !empty(self::$components) ? self::$components[0]."Controller" : Settings::get('routes.root.controller');
+				$c = !empty(self::$components) ? self::$components[0]."Controller" : Settings::get('application.routes.root.controller');
 				return Template::controller_name($c);
 				
 			} else {
@@ -119,10 +119,10 @@
 			if ( ($route = self::_matching_route()) === false ) {
 								
 				$m = count(self::$components) > 1 ? Template::controller_name(self::$components[1]) : "index";
-				if ( Router::controller() == Settings::get('routes.root.controller') ) {
+				if ( Router::controller() == Settings::get('application.routes.root.controller') ) {
 					try {
 				
-						$method = Settings::get('routes.root.action');
+						$method = Settings::get('application.routes.root.action');
 						return $method;
 				
 					} catch (Exception $e) {

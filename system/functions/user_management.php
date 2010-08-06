@@ -38,8 +38,8 @@
 		
 		if ( !is_null($user) ) {
 			$rr = $db->Execute("SELECT * FROM users WHERE user_id = '".$user."' LIMIT 1");
-			return $rr->fields['user_level'] >= Settings::get( 'users.levels.super');
-		} else return SECURITY_LVL >= Settings::get( 'users.levels.super');
+			return $rr->fields['user_level'] >= Settings::get('application.users.levels.super');
+		} else return SECURITY_LVL >= Settings::get('application.users.levels.super');
 	}
 	
 	
@@ -57,8 +57,8 @@
 			
 		if ( !is_null($user) ) {
 			$rr = $db->Execute("SELECT * FROM users WHERE user_id = '".$user."' LIMIT 1");
-			return $rr->fields['user_level'] >= Settings::get( 'users.levels.admin');
-		} else return SECURITY_LVL >= Settings::get( 'users.levels.admin');
+			return $rr->fields['user_level'] >= Settings::get('application.users.levels.admin');
+		} else return SECURITY_LVL >= Settings::get('application.users.levels.admin');
 	}
 	
 	
@@ -75,8 +75,8 @@
 			
 		if ( !is_null($user) ) {
 			$rr = $db->Execute("SELECT * FROM users WHERE user_id = '".$user."' LIMIT 1");
-			return $rr->fields['user_level'] >= Settings::get( 'users.levels.basic');
-		} else return SECURITY_LVL >= Settings::get( 'users.levels.basic');
+			return $rr->fields['user_level'] >= Settings::get('application.users.levels.basic');
+		} else return SECURITY_LVL >= Settings::get('application.users.levels.basic');
 	}
 	
 	

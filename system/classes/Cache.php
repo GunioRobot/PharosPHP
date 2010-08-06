@@ -35,7 +35,7 @@
 		private function __destruct() {}
 		public function init() {
 			try {
-				self::set_enabled(Settings::get("system.cache"));
+				self::set_enabled(Settings::get("application.system.cache"));
 			} catch(CacheNotWritableException $e) {
 				if ( class_exists("Console") ) Console::log($e->getMessage());
 			}

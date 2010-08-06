@@ -15,7 +15,7 @@
 			if ( ($user = post('user')) AND ($pass = post('pass')) ) {
 				
 				$auth = Authentication::get();
-				if ( $auth->login($user, $pass, Settings::get('users.levels.admin'), ">=") ) {
+				if ( $auth->login($user, $pass, Settings::get('application.users.levels.admin'), ">=") ) {
 					redirect(Template::site_link());
 				}
 				

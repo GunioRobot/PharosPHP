@@ -1,9 +1,9 @@
 
 	<div id="smallWrap" align="left">	
 
-		<h1><?=Settings::get('system.site.name')?></h1>
+		<h1><?=Settings::get('application.system.site.name')?></h1>
 		<div class="clearBoth"></div>
-		<p>Log in here for access to the <?=Settings::get('system.site.name')?> Area, which provides access to your account and functions for: managing content and users.</p>		
+		<p>Log in here for access to the <?=Settings::get('application.system.site.name')?> Area, which provides access to your account and functions for: managing content and users.</p>		
 
 		<? if ( $loginMessage != "" ): ?>
 		<p class="error-message"><?=$loginMessage?></p>

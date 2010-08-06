@@ -425,9 +425,9 @@
 			$where = parent::search($search);
 			
 			if ( $this->table->search != "" ) {
-				$where .= " AND ".$this->table->id.".user_level <= '".(int)Settings::get( 'users.levels.basic')."'";
+				$where .= " AND ".$this->table->id.".user_level <= '".(int)Settings::get('application.users.levels.basic')."'";
 			} else {
-				$where = " WHERE ".$this->table->id.".user_level <= '".(int)Settings::get( 'users.levels.basic')."'";
+				$where = " WHERE ".$this->table->id.".user_level <= '".(int)Settings::get('application.users.levels.basic')."'";
 			} return $where;
 			
 		}
@@ -591,7 +591,7 @@
 				$where = "AND MONTH(date_added) = '".$date->format("m")."' AND YEAR(date_added) = '".$date->format("Y")."'";
 			} 
 			
-			$filename = Settings::get('system.site.name').' User Export '.date('m-d-Y H:i a');
+			$filename = Settings::get('application.system.site.name').' User Export '.date('m-d-Y H:i a');
 			
 			$fields = array(
 				"user_last_name" => "Last Name",
@@ -610,7 +610,7 @@
 			
 			$output = implode(', ', array_values($fields))."\n";
 
-			$sql = "SELECT * FROM users WHERE user_level = '".(int)Settings::get( 'users.levels.basic')."' $where ORDER BY user_last_name,user_first_name";
+			$sql = "SELECT * FROM users WHERE user_level = '".(int)Settings::get('application.users.levels.basic')."' $where ORDER BY user_last_name,user_first_name";
 			for ( $info = $this->db->Execute($sql); !$info->EOF; $info->moveNext() ) {
 				
 				$values = array();

@@ -31,7 +31,7 @@
 		 **/
 
 		public function init() {
-			self::$config = Settings::get("modules");
+			self::$config = Settings::get("application.modules");
 			self::load_automatic_modules();
 		}
 		

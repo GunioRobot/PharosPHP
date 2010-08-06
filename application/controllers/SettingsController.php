@@ -18,7 +18,7 @@
 			$this->dataKey = "setting_id";			
 			$this->tableColumns();
 			
-			$this->levels = user_levels_array(Settings::get( 'users.levels.super'));
+			$this->levels = user_levels_array(Settings::get('application.users.levels.super'));
 			$this->auth->login_required(true);
 						
 		}
@@ -189,7 +189,7 @@
 				$fields[] = array('name' => 'setting_name', 'type' => 'text', 'size' => '50' , 'max' => '200');
 				
 				$fields[] = array('name' => 'level', 'type' => 'static', 'value' => '<div class="floatLeft" style="margin-left:15px;"><strong>Setting Level:</strong><br />', 'varx' => 'hide');
-				$fields[] = array('name' => 'setting_level', 'type' => 'dropdown', 'option' => user_levels_array(SECURITY_LVL), 'default' => Settings::get( 'users.levels.admin'));
+				$fields[] = array('name' => 'setting_level', 'type' => 'dropdown', 'option' => user_levels_array(SECURITY_LVL), 'default' => Settings::get('application.users.levels.admin'));
 				$fields[] = array('name' => '/level', 'type' => 'static', 'value' => '</div>', 'varx' => 'hide');
 				
 			} else {

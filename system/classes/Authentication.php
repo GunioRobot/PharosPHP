@@ -94,8 +94,8 @@
 				
 				$this->db->Execute(sprintf("UPDATE users SET user_last_login = NOW(), logged_in = 'true' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
 				
-				Cookie::set("pharos_authentication[uid]", $this->user->user_id, Settings::get("users.login_interval") * 60 + time());				
-				Cookie::set("pharos_authentication[name]", $this->user->user_first_name." ".$this->user->user_last_name, Settings::get("users.login_interval") * 60 + time());
+				Cookie::set("pharos_authentication[uid]", $this->user->user_id, Settings::get("application.users.login_interval") * 60 + time());				
+				Cookie::set("pharos_authentication[name]", $this->user->user_first_name." ".$this->user->user_last_name, Settings::get("application.users.login_interval") * 60 + time());
 				define('SECURITY_LVL', $this->user->user_level);
 
 				return true;
@@ -168,7 +168,7 @@
 
 				$mail = new Rmail();
 				$mail->setFrom(SERVER_MAILER);
-				$mail->setSubject(Settings::get('system.site.name').': Password Reset');
+				$mail->setSubject(Settings::get('application.system.site.name').': Password Reset');
 				$mail->setPriority('high');
 				$mail->setHTML($html);
 
@@ -202,7 +202,7 @@
 			if ( ($user = Cookie::get("pharos_authentication")) !== false ) {
 								
 				$uid = $user["uid"];
-				$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' AND logged_in = 'true' AND DATE_ADD(user_last_login, INTERVAL %d MINUTE) >= NOW() LIMIT 1", $uid, Settings::get("users.login_interval"));
+				$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' AND logged_in = 'true' AND DATE_ADD(user_last_login, INTERVAL %d MINUTE) >= NOW() LIMIT 1", $uid, Settings::get("application.users.login_interval"));
 				$info = $this->db->Execute($sql);
 
 				if ( !$info->EOF && $info->fields['user_id'] > 0 ) {

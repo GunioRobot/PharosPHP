@@ -51,7 +51,7 @@
 			$data = array();
 			if ( $sql ) {
 				
-				$levels = user_levels_array(Settings::get( 'users.levels.super'));
+				$levels = user_levels_array(Settings::get('application.users.levels.super'));
 							
 				for ( $info = $this->db->Execute($sql), $i = 1; !$info->EOF; $info->moveNext(), $i++ ) {
 
@@ -140,7 +140,7 @@
 			@define('PROFILE_ID', $this->dataKey);
 			@define('CURRENT_HTML_FILE', "edit_navigation.html");
 			
-			$levels = user_levels_array(Settings::get( 'users.levels.super'));
+			$levels = user_levels_array(Settings::get('application.users.levels.super'));
 
 			// Template tags to pull from database and replace
 			$fields = array(
@@ -157,8 +157,8 @@
 				array('name' => 'page' ,'type' => 'text', 'size' => '50' , 'max' => '100'),
 				array('name' => 'order_num' ,'type' => 'text', 'size' => '2' , 'max' => '2'),
 				array('name' => 'display', 'type' => 'dropdown', 'option' => array('hidden' => 'None', 'visible' => 'Visible'), 'default' => 'visible'),
-				array('name' => 'min_lvl', 'type' => 'dropdown', 'option' => $levels, 'default' => Settings::get( 'users.levels.admin')),
-				array('name' => 'max_lvl', 'type' => 'dropdown', 'option' => $levels, 'default' => Settings::get( 'users.levels.super')),
+				array('name' => 'min_lvl', 'type' => 'dropdown', 'option' => $levels, 'default' => Settings::get('application.users.levels.admin')),
+				array('name' => 'max_lvl', 'type' => 'dropdown', 'option' => $levels, 'default' => Settings::get('application.users.levels.super')),
 				
 				array('name' => 'description', 'type' => 'text_area', 'row' => '8', 'col' => '89', 'width' => '738px', 'height' => '100px'),
 				array('name' => 'date_added', 'type' => 'date_added'),
