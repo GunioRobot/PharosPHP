@@ -215,7 +215,15 @@
 		}
 		
 		
-		
+		/**
+		 * key_for_filename
+		 *
+		 * @param string $filename
+		 *
+		 * @return string $key
+		 * @author Matt Brewer
+		 **/
+
 		protected static function key_for_filename($filename) {
 			$info = pathinfo($filename);
 			return $info['filename'];
