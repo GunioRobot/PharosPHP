@@ -21,6 +21,7 @@
 		*
 		*/
 		protected $db;
+		protected $load;
 		
 		
 		/**
@@ -60,6 +61,8 @@
 			$this->description = DEFAULT_DESCRIPTION;
 			
 			$this->auth = Authentication::get();
+			
+			$this->load = new Loader();
 					
 		}
 
