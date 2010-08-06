@@ -7,12 +7,14 @@
 	define('SERVER_DIR', $_SERVER['DOCUMENT_ROOT'].'/');
 	define('APP_PATH', substr(realpath($f."/../")."/", strlen(SERVER_DIR)));
 	
+	// Load in the few classes that are needed early on in system initialization
 	require_once SERVER_DIR.APP_PATH.'system/classes/Hooks.php';
+	require_once SERVER_DIR.APP_PATH.'Loader.php';
 	
 	// Load in all the functions (.php files) in this folder
 	require_once SERVER_DIR.APP_PATH.'system/functions/autoload.php';
 	
-	autoload(EXCEPTIONS_DIR);			// Load in all the system defined Exception classes
+	autoload(EXCEPTIONS_DIR);				// Load in all the system defined Exception classes
 	autoload(APPLICATION_FUNCTIONS_DIR);	// Load in all the application defined functions
 	
 	// Must be the first 2 classes loaded in the system
@@ -20,15 +22,19 @@
 	require_once SERVER_DIR.APP_PATH.'system/classes/Settings.php';
 	
 	// Now load the remaining core classes
-	require_once CLASSES_DIR.'Router.php';
-	require_once CLASSES_DIR.'Template.php';
-	require_once CLASSES_DIR.'QueryFactory.php';
-	require_once APPLICATION_CLASSES_DIR.'ApplicationController.php';
-	require_once APPLICATION_CLASSES_DIR.'ApplicationGenericPageController.php';
-	require_once APPLICATION_CLASSES_DIR.'TableController.php';
-	require_once CLASSES_DIR.'Modules.php';
-	require_once CLASSES_DIR.'Cron.php';
-	require_once CLASSES_DIR.'Browser.php';
+	// Also, autload a few classes in the /application/classes/ directory
+	try {
+		Loader::load_class('Router');
+		Loader::load_class('Template');
+		Loader::load_class('QueryFactory');
+		Loader::load_class('Controller');
+		Loader::load_class('ApplicationController');
+		Loader::load_class('ApplicationGenericPageController');
+		Loader::load_class('TableController');
+		Loader::load_class('Modules');
+		Loader::load_class('Cron');
+		Loader::load_class('Browser');
+	} catch (ClassNotFoundException $e) {}
 	
 	// Conditionally include support for ActiveRecord
 	if ( version_compare(phpversion(), "5.3.0") >= 0 ) {
