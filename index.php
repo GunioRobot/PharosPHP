@@ -2,9 +2,6 @@
 
 	// Begin loading the system
 	require_once 'system/init.php';
-
-	// System action to allow post system-init, pre controller created actions to execute		
-	Hooks::call_hook(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
 				
 	// The Router has parsed for the class to load, attempt to load it				
 	$controllerClass = Router::controller();

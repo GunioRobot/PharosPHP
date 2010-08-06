@@ -41,5 +41,8 @@
 	
 	// Finish initializing the system (load defines, settings, modules, set session variables, etc)
 	bootstrap_system();
+	
+	// System action to allow post system-init, pre controller created actions to execute		
+	Hooks::call_hook(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
 		
 ?>
