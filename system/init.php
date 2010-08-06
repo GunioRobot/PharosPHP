@@ -23,18 +23,16 @@
 	
 	// Now load the remaining core classes
 	// Also, autload a few classes in the /application/classes/ directory
-	try {
-		Loader::load_class('Router');
-		Loader::load_class('Template');
-		Loader::load_class('QueryFactory');
-		Loader::load_class('Controller');
-		Loader::load_class('ApplicationController');
-		Loader::load_class('ApplicationGenericPageController');
-		Loader::load_class('TableController');
-		Loader::load_class('Modules');
-		Loader::load_class('Cron');
-		Loader::load_class('Browser');
-	} catch (ClassNotFoundException $e) {}
+	Loader::load_class('Router');
+	Loader::load_class('Template');
+	Loader::load_class('QueryFactory');
+	Loader::load_class('Controller');
+	Loader::load_class('ApplicationController');
+	Loader::load_class('ApplicationGenericPageController');
+	Loader::load_class('TableController');
+	Loader::load_class('Modules');
+	Loader::load_class('Cron');
+	Loader::load_class('Browser');
 	
 	// Conditionally include support for ActiveRecord
 	if ( version_compare(phpversion(), "5.3.0") >= 0 ) {
