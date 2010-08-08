@@ -9,7 +9,7 @@
 	
 	// Load in the few classes that are needed early on in system initialization
 	require_once SERVER_DIR.APP_PATH.'system/classes/Hooks.php';
-	require_once SERVER_DIR.APP_PATH.'Loader.php';
+	require_once SERVER_DIR.APP_PATH.'system/classes/Loader.php';
 	
 	// Load in all the functions (.php files) in this folder
 	require_once SERVER_DIR.APP_PATH.'system/functions/autoload.php';
