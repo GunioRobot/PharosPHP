@@ -23,6 +23,7 @@
 	
 	// Now load the remaining core classes
 	// Also, autload a few classes in the /application/classes/ directory
+	Loader::load_class('Keypath');
 	Loader::load_class('Router');
 	Loader::load_class('Template');
 	Loader::load_class('QueryFactory');
