@@ -35,7 +35,7 @@
 		
 		
 		/**
-		 * class
+		 * klass
 		 *
 		 * @param string $class_name
 		 *
@@ -45,7 +45,7 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public function class($name) {
+		public function klass($name) {
 			self::load_class($name);
 		}
 		
