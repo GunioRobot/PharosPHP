@@ -14,6 +14,8 @@
 		protected static $languages = array();
 		protected static $current_language = self::ENGLISH;
 		
+		public $language = self::ENGLISH;
+		
 		
 		/**
 		 * load
@@ -44,12 +46,12 @@
 					}
 				
 					$config = sfYaml::load(LANGUAGE_DIR.$filename);
-					return self::$files[$key] = is_array(self::$files[$key]) ? array_merge(self::$files[$key], $config) : $config;
+					return self::$current_languages[$key] = is_array(self::$current_languages[$key]) ? array_merge(self::$current_languages[$key], $config) : $config;
 													
 				}
 			
 				$config = sfYaml::load(APPLICATION_LANGUAGE_DIR.$filename);
-				return self::$files[$key] = is_array(self::$files[$key]) ? array_merge(self::$files[$key], $config) : $config;
+				return self::$current_languages[$key] = is_array(self::$current_languages[$key]) ? array_merge(self::$current_languages[$key], $config) : $config;
 							
 			} else {	// Directory was provided, use it
 				
@@ -58,7 +60,7 @@
 				}
 				
 				$config = sfYaml::load($filename);
-				return self::$files[$key] = is_array(self::$files[$key]) ? array_merge(self::$files[$key], $config) : $config;
+				return self::$current_languages[$key] = is_array(self::$current_languages[$key]) ? array_merge(self::$current_languages[$key], $config) : $config;
 				
 			}
 			
@@ -86,6 +88,50 @@
 			$value = $path->retrieve(self::$languages[self::$current_language]);
 			return $value === Keypath::VALUE_UNDEFINED ? $default : $value;
 			
+		}
+		
+		
+		/**
+		 * setLanguage
+		 *
+		 * @param string $language
+		 * 
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public static function setLanguage($lang) {
+			self::$current_language = $lang;
+		}
+		
+		
+		/**
+		 * get_by_lang
+		 *
+		 * @param string $language
+		 * @param (Keypath|string) $keypath
+		 * @param string $default_text (optional - used if value is not defined)
+		 *
+		 * @throws UnexpectedValueException
+		 * @throws InvalidKeyPathException
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public function get_by_lang($lang, $path, $default="") {
+			
+			if ( !isset(self::$languages[$lang]) ) {
+				throw new UnexpectedValueException(sprintf("Unexpected language: (%s)", $lang));
+			}
+			
+			if ( !($path instanceof Keypath) ) {
+				$path = new Keypath($path);
+			}		
+
+			$value = $path->retrieve(self::$languages[$lang]);
+			return $value === Keypath::VALUE_UNDEFINED ? $default : $value;
+		
 		}
 		
 	} 
