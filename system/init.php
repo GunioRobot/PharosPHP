@@ -17,13 +17,12 @@
 	autoload(EXCEPTIONS_DIR);				// Load in all the system defined Exception classes
 	autoload(APPLICATION_FUNCTIONS_DIR);	// Load in all the application defined functions
 	
-	// Must be the first 2 classes loaded in the system
 	require_once SERVER_DIR.APP_PATH.'system/classes/YAML/sfYaml.php';
+	require_once SERVER_DIR.APP_PATH.'system/classes/Keypath.php';
 	require_once SERVER_DIR.APP_PATH.'system/classes/Settings.php';
 	
 	// Now load the remaining core classes
 	// Also, autload a few classes in the /application/classes/ directory
-	Loader::load_class('Keypath');
 	Loader::load_class('Router');
 	Loader::load_class('Template');
 	Loader::load_class('QueryFactory');
