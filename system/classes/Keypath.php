@@ -78,7 +78,7 @@
 				
 			} else {
 			
-				$arr = $dictionary[$components[0]][$components[1]];
+				$arr = $dictionary[$this->components[0]][$this->components[1]];
 				$components = array_slice($this->components,2);
 				
 				$count = 0;
