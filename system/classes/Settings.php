@@ -12,7 +12,7 @@
 	 *	to disk.
 	 *
 	 *	Key-Paths:
-	 *		A keypath is a string for traversing dictionary contents and retreving
+	 *		A keypath is a string for traversing dictionary contents and retrieving
 	 *		a value.  An example would be "system.site.name" which performs two 
 	 *		dictionary lookups and returns the value of the last string piece
 	 *
@@ -63,7 +63,7 @@
 		 * 
 		 * @throws InvalidKeyPathException - if the keypath is invalid or if the setting is undefined
 		 *
-		 * @param string $keypath
+		 * @param (Keypath|string) $keypath
 		 * @param mixed (optional) $default
 		 * @param mixed (optional) $stripTags - if true, strip all tags, if false, strip none, if strip, those are the allowable tags (pass to striptags())
 		 * @return mixed $value
@@ -72,71 +72,47 @@
 
 		public static function get($path, $default=false, $stripTags=false) {
 			
-			$components = explode(".", trim($path,". "));
-			if ( empty($components) ) throw new InvalidKeyPathException("Invalid key path ($path)");
-			
-			
-			if ( count($components) == 1 ) {
-				
-				return self::$config[$components[0]];
-				
-			} else if ( count($components) == 2 ) {
-				
-				if ( $components[0] == "dynamic" ) {
-				
-					global $db;
-					static $_application_settings = array();
-
-					$key = $components[1];
-					$hash = md5($key);
-					if ( in_array($hash, array_keys($_application_settings)) ) {
-						return $_application_settings[$hash] !== false ? $_application_settings[$hash] : $default;
-					} else {
-
-						$setting = $db->Execute("SELECT * FROM general_settings WHERE setting_name RLIKE '$key' LIMIT 1");
-						if ( !$setting->EOF ) {
-
-							$value = $setting->fields['setting_value'];
-							if ( $stripTags === true ) {
-								$value = strip_tags(html_entity_decode(stripslashes($value)));
-							} else if ( is_string($stripTags) ) {
-								$value = strip_tags(html_entity_decode(stripslashes($value)), $stripTags);
-							} 
-							
-							$_application_settings[$hash] = $value;
-							return $value;
-
-						} else {
-
-							$_application_settings[$hash] = false;
-							return $default;
-
-						}
-
-					}
-				
-				} else return self::$config[$components[0]][$components[1]];
-				
-			} else {
-			
-				$arr = self::$config[$components[0]][$components[1]];
-				$components = array_slice($components,2);
-				
-				$count = 0;
-				if ( !empty($components) ) {
-					foreach($components as $c) {
-						if ( isset($arr[$c]) ) {
-							$arr = $arr[$c];
-							$count++;
-						} else {
-							if ( $count == count($components) ) return $arr;
-							else throw new Exception("Setting not defined! (".$path.")");
-						}
-					} return $arr;
-				} else return $arr;
-				
+			if ( !($path instanceof Keypath) ) {
+				$path = new Keypath($path);
 			}
 			
+			if ( $path->length() == 2 && $path->item(0) == "dynamic" ) {
+				
+				global $db;
+				static $_application_settings = array();
+
+				$key = $components[1];
+				$hash = md5($key);
+				if ( in_array($hash, array_keys($_application_settings)) ) {
+					return $_application_settings[$hash] !== false ? $_application_settings[$hash] : $default;
+				} else {
+
+					$setting = $db->Execute("SELECT * FROM general_settings WHERE setting_name RLIKE '$key' LIMIT 1");
+					if ( !$setting->EOF ) {
+
+						$value = $setting->fields['setting_value'];
+						if ( $stripTags === true ) {
+							$value = strip_tags(html_entity_decode(stripslashes($value)));
+						} else if ( is_string($stripTags) ) {
+							$value = strip_tags(html_entity_decode(stripslashes($value)), $stripTags);
+						} 
+						
+						$_application_settings[$hash] = $value;
+						return $value;
+
+					} else {
+
+						$_application_settings[$hash] = false;
+						return $default;
+
+					}
+
+				}
+				
+			} else {
+				return $path->retrieve(self::$config);
+			}
+						
 		}		
 		
 		
@@ -146,7 +122,7 @@
 		 * 
 		 * @throws InvalidKeyPathException - if keypath was invalid
 		 *
-		 * @param string $keypath
+		 * @param (Keypath|string) $keypath
 		 * @param mixed $value
 		 * @return void
 		 * @author Matt Brewer
@@ -154,18 +130,19 @@
 		
 		public static function set($keypath, $value) {
 			
-			$components = explode(".", trim($path,". "));
-			if ( empty($components) ) {
-				throw new InvalidKeyPathException("Invalid key path ($path)");
-			} else if ( count($components) == 1 ) {
-				self::$config[$components[0]] = $value;
-			} else if ( count($components) == 2 ) {
-				self::$config[$components[0]][$components[1]] = $value;
+			if ( !($path instanceof Keypath) ) {
+				$path = new Keypath($path);
+			}
+			
+			if ( $path->length() == 1 ) {
+				self::$config[$path->item(0)] = $value;
+			} else if ( $this->length() == 2 ) {
+				self::$config[$path->item(0)][$path->item(1)] = $value;
 			} else {
-
-				$arr =& self::$config[$components[0]][$components[1]];
-				$components = array_slice($components,2);
-
+				
+				$arr =& self::$config[$path->item(0)][$path->item(1)];
+				$components = array_slice($path->components,2);
+				
 				if ( !empty($components) ) {
 					
 					$set = false;
@@ -181,7 +158,7 @@
 					if ( !$set ) $arr = $value;
 					
 				} else $arr = $value;
-
+				
 			}
 						
 		}
