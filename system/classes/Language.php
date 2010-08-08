@@ -39,19 +39,23 @@
 			$key = $info['filename'];
 			if ( $info['dirname'] == "." ) {	// If a directory wasn't provided, infer one
 			
-				if ( !file_exists(APPLICATION_LANGUAGE_DIR.$filename) ) {
-				
-					if ( !file_exists(LANGUAGE_DIR.$filename) ) {
-						throw new InvalidFileSystemPathException(sprintf("Language file does not exist: (%s)", $filename));
-					}
-				
-					$config = sfYaml::load(LANGUAGE_DIR.$filename);
-					return self::$current_languages[$key] = is_array(self::$current_languages[$key]) ? array_merge(self::$current_languages[$key], $config) : $config;
-													
+				if ( !file_exists(APPLICATION_LANGUAGES_DIR.$filename) && !file_exists(LANGUAGES_DIR.$filename) ) {
+					throw new InvalidFileSystemPathException(sprintf("Language file does not exist: (%s)", $filename));
 				}
 			
-				$config = sfYaml::load(APPLICATION_LANGUAGE_DIR.$filename);
-				return self::$current_languages[$key] = is_array(self::$current_languages[$key]) ? array_merge(self::$current_languages[$key], $config) : $config;
+				// Load the system language file first, so that if an application language file is found, the values defined there will override
+				if ( file_exists(LANGUAGES_DIR.$filename) ) {
+					$config = sfYaml::load(LANGUAGES_DIR.$filename);
+					self::$languages[$key] = is_array(self::$languages[$key]) ? array_merge(self::$languages[$key], $config) : $config;
+				}
+			
+				// Any values defined in /application/languages/{lang}.yml will override values defined for the system version
+				if ( file_exists(APPLICATION_LANGUAGES_DIR.$filename) ) {
+					$config = sfYaml::load(APPLICATION_LANGUAGES_DIR.$filename);
+					self::$languages[$key] = is_array(self::$languages[$key]) ? array_merge(self::$languages[$key], $config) : $config;
+				}
+							
+				return self::$languages[$key];
 							
 			} else {	// Directory was provided, use it
 				
@@ -60,7 +64,7 @@
 				}
 				
 				$config = sfYaml::load($filename);
-				return self::$current_languages[$key] = is_array(self::$current_languages[$key]) ? array_merge(self::$current_languages[$key], $config) : $config;
+				return self::$languages[$key] = is_array(self::$languages[$key]) ? array_merge(self::$languages[$key], $config) : $config;
 				
 			}
 			
