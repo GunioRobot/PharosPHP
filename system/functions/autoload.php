@@ -37,7 +37,9 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	foreach(glob(dirname(__FILE__).'/*.php') as $filename) {
-		include $filename;
+		if ( $filename != __FILE__ ) {
+			include $filename;
+		}
 	}		
-	
+
 ?>
