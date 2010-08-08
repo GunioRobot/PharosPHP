@@ -22,9 +22,11 @@
 	define('CONFIGURATION_DIR', APPLICATION_DIR.'configure/');
 	define('CONTROLLER_DIR', APPLICATION_DIR.'controllers/');
 	define('MODULES_DIR', APPLICATION_DIR.'modules/');
+	define('LANGUAGES_DIR', SYSTEM_DIR.'languages/');
 	
 	define('APPLICATION_CLASSES_DIR', APPLICATION_DIR.'classes/');
 	define('APPLICATION_FUNCTIONS_DIR', APPLICATION_DIR.'functions/');
+	define('APPLICATION_LANGUAGES_DIR', APPLICIATION_DIR.'languages/');
 	
 	
 
@@ -34,14 +36,8 @@
 	//	Pulls in all the files in this folder
 	//
 	////////////////////////////////////////////////////////////////////////////////
-
-	$folder = dirname(__FILE__).'/';
-	if ($handle = opendir($folder)) {
-		while (false !== ($file = readdir($handle)) ) {
-			if ($file != "." && $file != ".." &&!is_dir($folder.$file) && $file != basename(__FILE__) && preg_match("/.*.php$/", $file) ) {
-				include $folder.$file;
-			}
-		}
+	foreach(glob(dirname(__FILE__).'/*.php') as $filename) {
+		include $filename;
 	}		
 	
 ?>
