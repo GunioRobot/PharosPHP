@@ -69,6 +69,7 @@
 		 * get
 		 *
 		 * @param (Keypath|string) $keypath
+		 * @param string $default_text (optional - used if value is not defined)
 		 *
 		 * @throws InvalidKeyPathException
 		 *
@@ -76,13 +77,14 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public static function get($path) {
+		public static function get($path, $default="") {
 			
 			if ( !($path instanceof Keypath) ) {
 				$path = new Keypath($path);
 			}		
 			
-			return $path->retrieve(self::$languages[self::$current_language]);
+			$value = $path->retrieve(self::$languages[self::$current_language]);
+			return $value === Keypath::VALUE_UNDEFINED ? $default : $value;
 			
 		}
 		

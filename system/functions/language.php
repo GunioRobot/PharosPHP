@@ -5,6 +5,7 @@
 	 * Alias for "Language::get($keypath)"
 	 *
 	 * @param (Keypath|string) $keypath
+	 * @param string $default_text (optional - used if value is not defined)
 	 *
 	 * @throws InvalidKeyPathException
 	 *
@@ -12,8 +13,8 @@
 	 * @author Matt Brewer
 	 **/
 	
-	function __($keypath) {
-		Language::get($keypath);
+	function __($keypath, $default="") {
+		return Language::get($keypath, $default);
 	}
 
 ?>
