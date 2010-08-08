@@ -103,6 +103,51 @@
 		}
 		
 		
+		/**
+		 * components
+		 *
+		 * @return array $components
+		 * @author Matt Brewer
+		 **/
+
+		public function components() {
+			return $this->components;
+		}
+		
+		
+		/**
+		 * length
+		 *
+		 * @return int $length
+		 * @author Matt Brewer
+		 **/
+
+		public function length() {
+			return count($this->components);
+		}
+		
+		
+		/**
+		 * item
+		 * 
+		 * @param int $i
+		 * 
+		 * @throws OutOfBoundsException
+		 *
+		 * @return string $keypath_component
+		 * @author Matt Brewer
+		 **/
+
+		public function item($i) {
+			
+			if ( $i < 0 || $i >= $this->length() ) {
+				throw new OutOfBoundsException(sprintf("Keypath->item(%d) is out of bounds: [%d,%d]", $i, 0, ($this->length()-1)));
+			}
+			
+			return $this->components[$i];
+		}
+		
+		
 		public function __toString() {
 			return sprintf("Keypath: (%s)", $this->path);
 		}
