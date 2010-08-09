@@ -26,6 +26,14 @@
 
 			// Set the system timezone
 			date_default_timezone_set(Settings::get("application.system.timezone"));
+			
+			// Load in the default language
+			try {
+				if ( ($language = Settings::get("system.language")) !== Keypath::VALUE_UNDEFINED ) {
+					Language::setLanguage($language);
+					Language::load($language);
+				} 
+			} catch (InvalidKeyPathException $e) {}
 
 			load_content_types();
 			Settings::load_dynamic_system_settings();
