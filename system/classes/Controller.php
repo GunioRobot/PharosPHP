@@ -10,8 +10,6 @@
 	 *
 	 **/
 	
-	require_once CLASSES_DIR.'Output.php';
-	require_once CLASSES_DIR.'Authentication.php';
 	class Controller {
 		
 	
