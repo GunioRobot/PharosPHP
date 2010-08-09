@@ -29,7 +29,7 @@
 			
 			// Load in the default language
 			try {
-				if ( ($language = Settings::get("system.language")) !== Keypath::VALUE_UNDEFINED ) {
+				if ( ($language = Settings::get("application.system.language")) !== Keypath::VALUE_UNDEFINED ) {
 					Language::setLanguage($language);
 					Language::load($language);
 				} 
