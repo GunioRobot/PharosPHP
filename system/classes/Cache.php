@@ -9,7 +9,6 @@
 	 * @author Matt Brewer
 	 **/
 	
-	Cache::init();
 	class Cache {
 		
 		/**
