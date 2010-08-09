@@ -9,7 +9,6 @@
 	 * @author Matt Brewer
 	 **/
 	
-	require_once CLASSES_DIR.'Cache.php';
 	class Output {
 		
 		const CSS_TYPE_ALL = "all";
