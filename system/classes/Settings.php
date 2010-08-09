@@ -18,17 +18,17 @@
 	 *
 	 *	Usage:
 	 *
-	 *		$value = Settings::get($keypath)
+	 *		$value = self::get($keypath)
 	 *		The return value will be an array or scalar.
 	 *
-	 *		Settings::set($keypath, $newValue)
+	 *		self::set($keypath, $newValue)
 	 *
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
 	 **/
 	
 	Settings::load();
-	load_static_settings();
+	Settings::load_static_system_settings();
 	
 	class Settings {
 			
@@ -80,9 +80,8 @@
 				
 				global $db;
 				static $_application_settings = array();
-
+				
 				$components = $path->components();
-	
 				$key = $components[1];
 				$hash = md5($key);
 				if ( in_array($hash, array_keys($_application_settings)) ) {
@@ -179,18 +178,80 @@
 		
 		public static function load_dynamic_system_settings() {
 			
-			define('SYS_ADMIN_EMAIL', Settings::get('dynamic.Admin Email', 'matt@dmgx.com', true));
-			define('SERVER_MAILER', Settings::get('dynamic.Server Email', 'matt@dmgx.com', true));
-			define('SITE_TAGLINE', Settings::get('dynamic.Site Tagline', 'CMS Framework for Developers', true));
-			define('TITLE_SEPARATOR', Settings::get('dynamic.Title Separator', ' | ', true));
-			define('DEFAULT_KEYWORDS', Settings::get('dynamic.Default Keywords', 'CMS, Content Management System, CMS-Lite, Matt Brewer, PHP', true));
-			define('DEFAULT_DESCRIPTION', Settings::get('dynamic.Default Description', SITE_TAGLINE, true));
-			define('DEFAULT_ROWS_PER_TABLE_PAGE', Settings::get('dynamic.Default Rows per Table Page', 25, true));
-			define('DEFAULT_PAGES_PER_PAGINATION', Settings::get('dynamic.Default Pages per Pagination', 5, true));
-			define('SHOW_PROFILER_RESULTS', Settings::get('dynamic.Show Profiler Results', false, true)==="true"?true:false);	
-			define('DELETE_OLD_WHEN_UPLOADING_NEW', Settings::get('dynamic.Delete Old When Uploading New',"true",true)==="true"?true:false);
-			define('RESET_PASSWORD_RANDOM_WORD', Settings::get('dynamic.Reset Password Random Word', '_cmslite',true));
+			define('SYS_ADMIN_EMAIL', self::get('dynamic.Admin Email', 'matt@dmgx.com', true));
+			define('SERVER_MAILER', self::get('dynamic.Server Email', 'matt@dmgx.com', true));
+			define('SITE_TAGLINE', self::get('dynamic.Site Tagline', 'CMS Framework for Developers', true));
+			define('TITLE_SEPARATOR', self::get('dynamic.Title Separator', ' | ', true));
+			define('DEFAULT_KEYWORDS', self::get('dynamic.Default Keywords', 'CMS, Content Management System, CMS-Lite, Matt Brewer, PHP', true));
+			define('DEFAULT_DESCRIPTION', self::get('dynamic.Default Description', SITE_TAGLINE, true));
+			define('DEFAULT_ROWS_PER_TABLE_PAGE', self::get('dynamic.Default Rows per Table Page', 25, true));
+			define('DEFAULT_PAGES_PER_PAGINATION', self::get('dynamic.Default Pages per Pagination', 5, true));
+			define('SHOW_PROFILER_RESULTS', self::get('dynamic.Show Profiler Results', false, true)==="true"?true:false);	
+			define('DELETE_OLD_WHEN_UPLOADING_NEW', self::get('dynamic.Delete Old When Uploading New',"true",true)==="true"?true:false);
+			define('RESET_PASSWORD_RANDOM_WORD', self::get('dynamic.Reset Password Random Word', '_cmslite',true));
 				
+		}
+		
+		
+		/**
+		 * load_static_system_settings
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public static function load_static_system_settings() {
+			
+			////////////////////////////////////////////////////////////////////////////////
+			//
+			//	Main Site Information
+			//	
+			////////////////////////////////////////////////////////////////////////////////
+			$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
+			define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/'.APP_PATH);
+
+			$upload_dir = self::get("application.filesystem.upload_directory");
+			if ( $upload_dir[0] == "/" ) {
+				define('UPLOAD_DIR', $upload_dir);
+			} else {
+				define('UPLOAD_DIR', APPLICATION_DIR.$upload_dir);
+			}
+
+			define('XML_DIR', APPLICATION_DIR.self::get("application.filesystem.xml_directory"));
+
+
+
+			////////////////////////////////////////////////////////////////////////////////
+			//
+			//	Server Path Information
+			//
+			////////////////////////////////////////////////////////////////////////////////
+
+			define('APPLICATION_SERVER', HTTP_SERVER.'application/');
+			define('SYSTEM_SERVER', HTTP_SERVER.'system/');
+
+			define('PUBLIC_SERVER', HTTP_SERVER.'public/');		
+
+			if ( $upload_dir[0] == "/" ) {
+				define('UPLOAD_SERVER', HTTP_SERVER.substr($upload_dir, strpos($upload_dir, APP_PATH) + strlen(APP_PATH)));
+			} else {
+				define('UPLOAD_SERVER', APPLICATION_SERVER.$upload_dir);
+			}
+
+			define('XML_SERVER', APPLICATION_SERVER.self::get("application.filesystem.xml_directory"));
+			define('CACHE_SERVER', APPLICATION_SERVER.'cache/');
+			define('MODULES_SERVER', APPLICATION_SERVER.'modules/');
+
+
+			////////////////////////////////////////////////////////////////////////////////
+			//
+			//	System software settings
+			//
+			////////////////////////////////////////////////////////////////////////////////
+
+			define('SECURE_KEYWORD',md5(self::get('application.system.site.name')));
+			define('APPLICATION_SECRET_KEY', md5(self::get('application.system.site.name')));
+			
 		}
 		
 		
