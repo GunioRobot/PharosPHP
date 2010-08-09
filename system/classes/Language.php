@@ -8,8 +8,16 @@
 	 **/
 	class Language {
 		
+		const DUTCH = "nl";
 		const ENGLISH = "en";
 		const FRENCH = "fr";
+		const GERMAN = "de";
+		const ITALIAN = "it";
+		const JAPENESE = "jp";
+		const KOREAN = "ko";
+		const PORTUGUESE = "pt";
+		const RUSSIAN = "ru";
+		const SPANISH = "es";
 		
 		protected static $languages = array();
 		protected static $current_language = self::ENGLISH;
