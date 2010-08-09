@@ -45,6 +45,9 @@
 	// Load in the few classes that are needed early on in system initialization
 	require_once CLASSES_DIR.'Loader.php';
 	Loader::load_class('Hooks');
+	Hooks::init();
+	
+	// Load in the next set of classes
 	Loader::load_class('YAML/sfYaml.php');
 	Loader::load_class('Keypath');
 	Loader::load_class('Settings');	
@@ -66,8 +69,16 @@
 	Loader::load_class('ApplicationGenericPageController');
 	Loader::load_class('TableController');
 	Loader::load_class('Modules');
-	Loader::load_class('Cron');	
-	Loader::load_class('Browser');
+	
+	
+	// Call any attached actions after the core has been loaded
+	Hooks::call_hook(Hooks::HOOK_CORE_CLASSES_LOADED);
+	
+	
+	// Initialization the module system
+	Hooks::call_hook(Hooks::HOOK_MODULES_PRE_LOADED);
+	Modules::init();
+	Hooks::call_hook(Hooks::HOOK_MODULES_POST_LOADED);
 	
 	
 	// Load in all the application defined functions
