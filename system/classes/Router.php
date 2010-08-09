@@ -122,8 +122,9 @@
 				if ( Router::controller() == Settings::get('application.routes.root.controller') ) {
 					try {
 				
-						$method = Settings::get('application.routes.root.action');
-						return $method;
+						if ( ($method = Settings::get('application.routes.root.action')) !== Keypath::VALUE_UNDEFINED ) {
+							return $method;
+						}
 				
 					} catch (Exception $e) {
 						return $m;
