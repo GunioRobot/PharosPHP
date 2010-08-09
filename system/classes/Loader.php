@@ -64,28 +64,30 @@
 		public static function load_class($name) {
 			
 			$info = pathinfo($name);
+			$klass = $info['filename'];
+			
 			if ( $info['dirname'] == "." ) {
 			
-				if ( !class_exists($name) ) {
+				if ( !class_exists($klass) ) {
 				
-					if ( !file_exists(CLASSES_DIR.$name.".php") ) {
+					if ( !file_exists(CLASSES_DIR.$klass.".php") ) {
 					
-						if ( !file_exists(APPLICATION_CLASSES_DIR.$name.".php") ) {
-							throw new ClassNotFoundException(sprintf("Unable to locate file containing class (%s)", $name));
+						if ( !file_exists(APPLICATION_CLASSES_DIR.$klass.".php") ) {
+							throw new ClassNotFoundException(sprintf("Unable to locate file containing class (%s)", $klass));
 						} else {
 						
-							@include_once APPLICATION_CLASSES_DIR.$name.".php";
-							if ( !class_exists($name) ) {
-								throw new ClassNotFoundException(sprintf("Could not find class (%s): include '%s.php'", $name, APPLICATION_CLASSES_DIR.$name));
+							@include_once APPLICATION_CLASSES_DIR.$klass.".php";
+							if ( !class_exists($klass) ) {
+								throw new ClassNotFoundException(sprintf("Could not find class (%s): include '%s.php'", $klass, APPLICATION_CLASSES_DIR.$klass));
 							}
 						
 						}
 					
 					} else {
 				
-						@include_once CLASSES_DIR.$name.'.php';
-						if ( !class_exists($name) ) {
-							throw new ClassNotFoundException(sprintf("Could not find class (%s): include '%s.php'", $name, CLASSES_DIR.$name));
+						@include_once CLASSES_DIR.$klass.'.php';
+						if ( !class_exists($klass) ) {
+							throw new ClassNotFoundException(sprintf("Could not find class (%s): include '%s.php'", $klass, CLASSES_DIR.$klass));
 						}
 					
 					}
@@ -94,7 +96,6 @@
 				
 			} else {
 				
-				$klass = $info['filename'];
 				if ( !class_exists($klass) ) {
 					@include_once $name;
 				}
