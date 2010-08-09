@@ -43,6 +43,7 @@ system:
     default_app_id: 1
     cache: true
     timezone: "America/New_York"
+    language: en
     site:
         name: "CMSLite"
     
