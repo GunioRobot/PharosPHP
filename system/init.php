@@ -69,6 +69,7 @@
 	Loader::load_class('ApplicationGenericPageController');
 	Loader::load_class('TableController');
 	Loader::load_class('Modules');
+	Loader::load_class('Application');
 	
 	
 	// Call any attached actions after the core has been loaded
@@ -94,7 +95,7 @@
 	
 	
 	// Finish initializing the system (load defines, settings, modules, set session variables, etc)
-	bootstrap_system();
+	Application::bootstrap();
 	
 	
 	// System action to allow post system-init, pre controller created actions to execute		
