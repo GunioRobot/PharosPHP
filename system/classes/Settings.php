@@ -81,6 +81,8 @@
 				global $db;
 				static $_application_settings = array();
 
+				$components = $path->components();
+	
 				$key = $components[1];
 				$hash = md5($key);
 				if ( in_array($hash, array_keys($_application_settings)) ) {
