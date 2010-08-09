@@ -9,7 +9,6 @@
 	 *
 	 **/
 
-	require_once CLASSES_DIR.'Cookie.php';
 	class Authentication {
 				
 		protected $logged_in = false;
