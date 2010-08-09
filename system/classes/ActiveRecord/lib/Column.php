@@ -3,7 +3,6 @@
  * @package ActiveRecord
  */
 namespace ActiveRecord;
-use DateTime;
 
 /**
  * Class for a table column.
@@ -127,6 +126,9 @@ class Column
 
 				if ($value instanceof DateTime)
 					return $value;
+
+				if ($value instanceof \DateTime)
+					return new DateTime($value->format('Y-m-d H:i:s T'));
 
 				return $connection->string_to_datetime($value);
 		}

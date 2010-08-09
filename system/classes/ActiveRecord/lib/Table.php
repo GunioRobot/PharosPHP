@@ -3,7 +3,6 @@
  * @package ActiveRecord
  */
 namespace ActiveRecord;
-use DateTime;
 
 /**
  * Manages reading and writing to a database table.
@@ -78,10 +77,7 @@ class Table
 	{
 		$this->class = Reflections::instance()->add($class_name)->get($class_name);
 
-		// if connection name property is null the connection manager will use the default connection
-		$connection = $this->class->getStaticPropertyValue('connection',null);
-
-		$this->conn = ConnectionManager::get_connection($connection);
+		$this->reestablish_connection(false);
 		$this->set_table_name();
 		$this->get_meta_data();
 		$this->set_primary_key();
@@ -92,6 +88,19 @@ class Table
 		$this->callback = new CallBack($class_name);
 		$this->callback->register('before_save', function(Model $model) { $model->set_timestamps(); }, array('prepend' => true));
 		$this->callback->register('after_save', function(Model $model) { $model->reset_dirty(); }, array('prepend' => true));
+	}
+
+	public function reestablish_connection($close=true)
+	{
+		// if connection name property is null the connection manager will use the default connection
+		$connection = $this->class->getStaticPropertyValue('connection',null);
+
+		if ($close)
+		{
+			ConnectionManager::drop_connection($connection);
+			static::clear_cache();
+		}
+		return ($this->conn = ConnectionManager::get_connection($connection));
 	}
 
 	public function create_joins($joins)
@@ -206,7 +215,7 @@ class Table
 
 		$collect_attrs_for_includes = is_null($includes) ? false : true;
 		$list = $attrs = array();
-		$sth = $this->conn->query($sql,$values);
+		$sth = $this->conn->query($sql,$this->process_data($values));
 
 		while (($row = $sth->fetch()))
 		{
@@ -221,7 +230,7 @@ class Table
 			$list[] = $model;
 		}
 
-		if ($collect_attrs_for_includes)
+		if ($collect_attrs_for_includes && !empty($list))
 			$this->execute_eager_load($list, $attrs, $includes);
 
 		return $list;
@@ -356,7 +365,9 @@ class Table
 		// than using instanceof but gud enuff for now
 		$quote_name = !($this->conn instanceof PgsqlAdapter);
 
-		$this->columns = $this->conn->columns($this->get_fully_qualified_table_name($quote_name));
+		$table_name = $this->get_fully_qualified_table_name($quote_name);
+		$conn = $this->conn;
+		$this->columns = Cache::get("get_meta_data-$table_name", function() use ($conn, $table_name) { return $conn->columns($table_name); });
 	}
 
 	/**
@@ -382,10 +393,18 @@ class Table
 
 	private function &process_data($hash)
 	{
+		if (!$hash)
+			return $hash;
+
 		foreach ($hash as $name => &$value)
 		{
-			if ($value instanceof DateTime)
-				$hash[$name] = $this->conn->datetime_to_string($value);
+			if ($value instanceof \DateTime)
+			{
+				if (isset($this->columns[$name]) && $this->columns[$name]->type == Column::DATE)
+					$hash[$name] = $this->conn->date_to_string($value);
+				else
+					$hash[$name] = $this->conn->datetime_to_string($value);
+			}
 			else
 				$hash[$name] = $value;
 		}
@@ -441,10 +460,10 @@ class Table
 
 		foreach ($this->class->getStaticProperties() as $name => $definitions)
 		{
-			if (!$definitions || !is_array($definitions))
+			if (!$definitions)# || !is_array($definitions))
 				continue;
 
-			foreach ($definitions as $definition)
+			foreach (wrap_strings_in_arrays($definitions) as $definition)
 			{
 				$relationship = null;
 

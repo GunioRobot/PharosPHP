@@ -12,10 +12,11 @@ use XmlWriter;
  *
  * <ul>
  * <li><b>only:</b> a string or array of attributes to be included.</li>
- * <li><b>excluded:</b> a string or array of attributes to be excluded.</li>
+ * <li><b>exclude:</b> a string or array of attributes to be excluded.</li>
  * <li><b>methods:</b> a string or array of methods to invoke. The method's name will be used as a key for the final attributes array
  * along with the method's returned value</li>
  * <li><b>include:</b> a string or array of associated models to include in the final serialized product.</li>
+ * <li><b>only_method:</b> a method that's called and only the resulting array is serialized
  * <li><b>skip_instruct:</b> set to true to skip the <?xml ...?> declaration.</li>
  * </ul>
  *
@@ -44,6 +45,13 @@ abstract class Serialization
 	protected $model;
 	protected $options;
 	protected $attributes;
+
+	/**
+	 * The default format to serialize DateTime objects to.
+	 *
+	 * @see DateTime
+	 */
+	public static $DATETIME_FORMAT = 'iso8601';
 
 	/**
 	 * Set this to true if the serializer needs to create a nested array keyed
@@ -95,10 +103,11 @@ abstract class Serialization
 
 	private function parse_options()
 	{
+		$this->check_only();
 		$this->check_except();
 		$this->check_methods();
 		$this->check_include();
-		$this->check_only();
+		$this->check_only_method();        
 	}
 
 	private function check_only()
@@ -106,6 +115,7 @@ abstract class Serialization
 		if (isset($this->options['only']))
 		{
 			$this->options_to_a('only');
+
 			$exclude = array_diff(array_keys($this->attributes),$this->options['only']);
 			$this->attributes = array_diff_key($this->attributes,array_flip($exclude));
 		}
@@ -113,7 +123,7 @@ abstract class Serialization
 
 	private function check_except()
 	{
-		if (isset($this->options['except']))
+		if (isset($this->options['except']) && !isset($this->options['only']))
 		{
 			$this->options_to_a('except');
 			$this->attributes = array_diff_key($this->attributes,array_flip($this->options['except']));
@@ -131,6 +141,16 @@ abstract class Serialization
 				if (method_exists($this->model, $method))
 					$this->attributes[$method] = $this->model->$method();
 			}
+		}
+	}
+	
+	private function check_only_method()
+	{
+		if (isset($this->options['only_method']))
+		{
+			$method = $this->options['only_method'];
+			if (method_exists($this->model, $method))
+				$this->attributes = $this->model->$method();
 		}
 	}
 
@@ -194,6 +214,11 @@ abstract class Serialization
 	 */
 	final public function to_a()
 	{
+		foreach ($this->attributes as &$value)
+		{
+			if ($value instanceof \DateTime)
+				$value = $value->format(self::$DATETIME_FORMAT);
+		}
 		return $this->attributes;
 	}
 
@@ -225,7 +250,7 @@ class JsonSerializer extends Serialization
 
 	public function to_s()
 	{
-		return json_encode(self::$include_root ? array(strtolower(get_class($this->model)) => $this->attributes) : $this->attributes);
+		return json_encode(self::$include_root ? array(strtolower(get_class($this->model)) => $this->to_a()) : $this->to_a());
 	}
 }
 
@@ -255,7 +280,7 @@ class XmlSerializer extends Serialization
 		$this->writer->openMemory();
 		$this->writer->startDocument('1.0', 'UTF-8');
 		$this->writer->startElement(strtolower(denamespace(($this->model))));
-		$this->write($this->attributes);
+		$this->write($this->to_a());
 		$this->writer->endElement();
 		$this->writer->endDocument();
 		$xml = $this->writer->outputMemory(true);
@@ -273,7 +298,7 @@ class XmlSerializer extends Serialization
 			if ($tag != null)
 				$attr = $tag;
 
-			if (is_array($value))
+			if (is_array($value) || is_object($value))
 			{
 				if (!is_int(key($value)))
 				{

@@ -73,6 +73,13 @@ class Config extends Singleton
 	private $logger;
 
 	/**
+	 * The format to serialize DateTime values into.
+	 *
+	 * @var string
+	 */
+	private $date_format = \DateTime::ISO8601;
+
+	/**
 	 * Allows config initialization using a closure.
 	 *
 	 * This method is just syntatic sugar.
@@ -253,6 +260,45 @@ class Config extends Singleton
 	public function get_logger()
 	{
 		return $this->logger;
+	}
+
+	/**
+	 * DEPRECATED
+	 */
+	public function get_date_format()
+	{
+		error_log('DEPRECATION WARNING: Config::get_date_format() has been deprecated and will be removed in a future version. Please ActiveRecord\Serialization::$DATETIME_FORMAT instead.');
+		return Serialization::$DATETIME_FORMAT;
+	}
+
+	/**
+	 * DEPRECATED
+	 */
+	public function set_date_format($format)
+	{
+		error_log('DEPRECATION WARNING: Config::set_date_format() has been deprecated and will be removed in a future version. Please use ActiveRecord\Serialization::$DATETIME_FORMAT instead.');
+		Serialization::$DATETIME_FORMAT = $format;
+	}
+
+	/**
+	 * Sets the url for the cache server to enable query caching.
+	 *
+	 * Only table schema queries are cached at the moment. A general query cache
+	 * will follow.
+	 *
+	 * Example:
+	 *
+	 * <code>
+	 * $config->set_cache("memcached://localhost");
+	 * $config->set_cache("memcached://localhost",array("expire" => 60));
+	 * </code>
+	 *
+	 * @param string $url Url to your cache server.
+	 * @param array $options Array of options
+	 */
+	public function set_cache($url, $options=array())
+	{
+		Cache::initialize($url,$options);
 	}
 };
 ?>

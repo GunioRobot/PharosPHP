@@ -236,11 +236,6 @@ abstract class AbstractRelationship implements InterfaceRelationship
 		return $options;
 	}
 
-	protected function keyify($class_name)
-	{
-		return strtolower(classify(denamespace($class_name))). '_id';
-	}
-
 	/**
 	 * Infers the $this->class_name based on $this->attribute_name.
 	 *
@@ -251,7 +246,8 @@ abstract class AbstractRelationship implements InterfaceRelationship
 	 */
 	protected function set_inferred_class_name()
 	{
-		$this->set_class_name(classify($this->attribute_name, true));
+		$singularize = ($this instanceOf HasMany ? true : false);
+		$this->set_class_name(classify($this->attribute_name, $singularize));
 	}
 
 	protected function set_class_name($class_name)
@@ -397,11 +393,11 @@ class HasMany extends AbstractRelationship
 	 *
 	 * <ul>
 	 * <li><b>limit/offset:</b> limit the number of records</li>
-     * <li><b>primary_key:</b> name of the primary_key of the association (defaults to "id")</li>
-     * <li><b>group:</b> GROUP BY clause</li>
-     * <li><b>order:</b> ORDER BY clause</li>
-     * <li><b>through:</b> name of a model</li>
-     * </ul>
+	 * <li><b>primary_key:</b> name of the primary_key of the association (defaults to "id")</li>
+	 * <li><b>group:</b> GROUP BY clause</li>
+	 * <li><b>order:</b> ORDER BY clause</li>
+	 * <li><b>through:</b> name of a model</li>
+	 * </ul>
 	 *
 	 * @var array
 	 */
@@ -441,7 +437,7 @@ class HasMany extends AbstractRelationship
 	{
 		//infer from class_name
 		if (!$this->foreign_key || $override)
-			$this->foreign_key = array($this->keyify($model_class_name));
+			$this->foreign_key = array(Inflector::instance()->keyify($model_class_name));
 
 		if (!$this->primary_key || $override)
 			$this->primary_key = Table::load($model_class_name)->pk;
@@ -607,7 +603,7 @@ class BelongsTo extends AbstractRelationship
 
 		//infer from class_name
 		if (!$this->foreign_key)
-			$this->foreign_key = array($this->keyify($this->class_name));
+			$this->foreign_key = array(Inflector::instance()->keyify($this->class_name));
 
 		$this->primary_key = array(Table::load($this->class_name)->pk[0]);
 	}

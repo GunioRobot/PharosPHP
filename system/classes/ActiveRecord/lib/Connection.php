@@ -74,6 +74,7 @@ abstract class Connection
 	 *   A connection name that is set in ActiveRecord\Config
 	 *   If null it will use the default connection specified by ActiveRecord\Config->set_default_connection
 	 * @return Connection
+	 * @see parse_connection_url
 	 */
 	public static function instance($connection_string_or_connection_name=null)
 	{
@@ -95,10 +96,13 @@ abstract class Connection
 		$fqclass = static::load_adapter_class($info->protocol);
 
 		try {
-			$connection = new $fqclass($info);
+			$connection           = new $fqclass($info);
 			$connection->protocol = $info->protocol;
-			$connection->logging = $config->get_logging();
-			$connection->logger = $connection->logging ? $config->get_logger() : null;
+			$connection->logging  = $config->get_logging();
+			$connection->logger   = $connection->logging ? $config->get_logger() : null;
+
+			if (isset($info->charset))
+				$connection->set_encoding($info->charset);
 		} catch (PDOException $e) {
 			throw new DatabaseException($e);
 		}
@@ -129,16 +133,17 @@ abstract class Connection
 	 * to set the adapters connection info.
 	 *
 	 * <code>
-	 * protocol://user:pass@host[:port]/dbname
-	 * protocol://user:pass@unix(/some/file/path)/dbname
+	 * protocol://username:password@host[:port]/dbname
+	 * protocol://urlencoded%20username:urlencoded%20password@host[:port]/dbname?decode=true
+	 * protocol://username:password@unix(/some/file/path)/dbname
 	 * </code>
 	 *
-	 * @param string $url A connection URL
+	 * @param string $connection_url A connection URL
 	 * @return object the parsed URL as an object.
 	 */
-	public static function parse_connection_url($url)
+	public static function parse_connection_url($connection_url)
 	{
-		$url = @parse_url($url);
+		$url = @parse_url($connection_url);
 
 		if (!isset($url['host']))
 			throw new DatabaseException('Database host must be specified in the connection string.');
@@ -163,6 +168,26 @@ abstract class Connection
 
 		if (isset($url['port']))
 			$info->port = $url['port'];
+
+		if (strpos($connection_url,'decode=true') !== false)
+		{
+			if ($info->user)
+				$info->user = urldecode($info->user);
+
+			if ($info->pass)
+				$info->pass = urldecode($info->pass);
+		}
+
+		if (isset($url['query']))
+		{
+			foreach (explode('/&/',$url['query']) as $pair)
+			{
+				list($name,$value) = explode('=',$pair);
+
+				if ($name == 'charset')
+					$info->charset = $value;
+			}
+		}
 
 		return $info;
 	}
@@ -378,6 +403,17 @@ abstract class Connection
 	}
 
 	/**
+	 * Return a date time formatted into the database's date format.
+	 *
+	 * @param DateTime $datetime The DateTime object
+	 * @return string
+	 */
+	public function date_to_string($datetime)
+	{
+		return $datetime->format('Y-m-d');
+	}
+
+	/**
 	 * Return a date time formatted into the database's datetime format.
 	 *
 	 * @param DateTime $datetime The DateTime object
@@ -402,7 +438,7 @@ abstract class Connection
 		if ($errors['warning_count'] > 0 || $errors['error_count'] > 0)
 			return null;
 
-		return $date;
+		return new DateTime($date->format('Y-m-d H:i:s T'));
 	}
 
 	/**
@@ -430,5 +466,10 @@ abstract class Connection
 	 * @return PDOStatement
 	 */
 	abstract function query_for_tables();
+
+	/**
+	 * Executes query to specify the character set for this connection.
+	 */
+	abstract function set_encoding($charset);
 };
 ?>

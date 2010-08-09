@@ -16,10 +16,13 @@ class OciAdapter extends Connection
 	static $QUOTE_CHARACTER = '';
 	static $DEFAULT_PORT = 1521;
 
+	public $dsn_params;
+
 	protected function __construct($info)
 	{
 		try {
-			$this->connection = new PDO("oci:dbname=//$info->host/$info->db",$info->user,$info->pass,static::$PDO_OPTIONS);
+			$this->dsn_params = isset($info->charset) ? ";charset=$info->charset" : "";
+			$this->connection = new PDO("oci:dbname=//$info->host/$info->db$this->dsn_params",$info->user,$info->pass,static::$PDO_OPTIONS);
 		} catch (PDOException $e) {
 			throw new DatabaseException($e);
 		}
@@ -37,21 +40,20 @@ class OciAdapter extends Connection
 		return "$sequence_name.nextval";
 	}
 
+	public function date_to_string($datetime)
+	{
+		return $datetime->format('d-M-Y');
+	}
+
 	public function datetime_to_string($datetime)
 	{
-		return strtoupper($datetime->format('d-M-Y h:i:s A'));
+		return $datetime->format('d-M-Y h:i:s A');
 	}
 
 	// $string = DD-MON-YYYY HH12:MI:SS(\.[0-9]+) AM
 	public function string_to_datetime($string)
 	{
-		$date = date_create(str_replace('.000000','',$string));
-		$errors = \DateTime::getLastErrors();
-
-		if ($errors['warning_count'] > 0 || $errors['error_count'] > 0)
-			return null;
-
-		return $date;
+		return parent::string_to_datetime(str_replace('.000000','',$string));
 	}
 
 	public function limit($sql, $offset, $limit)
@@ -117,6 +119,11 @@ class OciAdapter extends Connection
 		$c->default	= $c->cast($column['data_default'],$this);
 
 		return $c;
+	}
+
+	public function set_encoding($charset)
+	{
+		// is handled in the constructor
 	}
 };
 ?>
