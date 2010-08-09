@@ -31,62 +31,7 @@
 				
 	}	
 	
-	
-	function load_static_settings() {
-		
-		
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Main Site Information
-		//	
-		////////////////////////////////////////////////////////////////////////////////
-		$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
-		define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/'.APP_PATH);
-	
-		$upload_dir = Settings::get("application.filesystem.upload_directory");
-		if ( $upload_dir[0] == "/" ) {
-			define('UPLOAD_DIR', $upload_dir);
-		} else {
-			define('UPLOAD_DIR', APPLICATION_DIR.$upload_dir);
-		}
-		
-		define('XML_DIR', APPLICATION_DIR.Settings::get("application.filesystem.xml_directory"));
-	
-		
-		
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Server Path Information
-		//
-		////////////////////////////////////////////////////////////////////////////////
 
-		define('APPLICATION_SERVER', HTTP_SERVER.'application/');
-		define('SYSTEM_SERVER', HTTP_SERVER.'system/');
-
-		define('PUBLIC_SERVER', HTTP_SERVER.'public/');		
-				
-		if ( $upload_dir[0] == "/" ) {
-			define('UPLOAD_SERVER', HTTP_SERVER.substr($upload_dir, strpos($upload_dir, APP_PATH) + strlen(APP_PATH)));
-		} else {
-			define('UPLOAD_SERVER', APPLICATION_SERVER.$upload_dir);
-		}
-		
-		define('XML_SERVER', APPLICATION_SERVER.Settings::get("application.filesystem.xml_directory"));
-		define('CACHE_SERVER', APPLICATION_SERVER.'cache/');
-		define('MODULES_SERVER', APPLICATION_SERVER.'modules/');
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	System software settings
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		define('SECURE_KEYWORD',md5(Settings::get('application.system.site.name')));
-		define('APPLICATION_SECRET_KEY', md5(Settings::get('application.system.site.name')));
-		
-	}
-	
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
