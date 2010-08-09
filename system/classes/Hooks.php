@@ -20,8 +20,6 @@
 	 *
 	 **/
 
-
-	Hooks::init();	// Want to call this automatically when this file is included
 	class Hooks {
 	
 		protected static $hooks = array();
@@ -31,6 +29,8 @@
 		
 		const HOOK_CONTROLLER_PRE_CREATED = "controller_pre_created_hook";					// function() {}
 		const HOOK_CONTROLLER_POST_CREATED = "controller_post_created_hook";				// function($class) {}
+		
+		const HOOK_CORE_CLASSES_LOADED = "core_classes_loaded_hook";						// function() {}
 
 		const HOOK_MODULES_PRE_LOADED = 'modules_pre_loaded_hook';							// function() {}
 		const HOOK_MODULE_LOADED = 'module_loaded_hook';									// function($module_name) {}
@@ -67,6 +67,8 @@
 								
 				self::HOOK_APPLICATION_DELETED => null,
 				self::HOOK_APPLICATION_PUBLISH => null,
+				
+				self::HOOK_CORE_CLASSES_LOADED => null,
 				
 				self::HOOK_CONTROLLER_PRE_CREATED => null,
 				self::HOOK_CONTROLLER_POST_CREATED => null,
@@ -283,6 +285,8 @@
 			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_header_meta');
 			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_css');
 			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_js');
+			
+			self::add_hook(self::HOOK_CORE_CLASSES_LOADED, 'Application::pre_bootstrap');
 			
 		}
 	
