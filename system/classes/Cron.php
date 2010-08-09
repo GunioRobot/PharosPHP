@@ -7,7 +7,6 @@
 	 * @author Matt Brewer
 	 **/
 	
-	Cron::install();
 	class Cron {
 		
 		const TYPE_CURL = 'curl -L -s';
