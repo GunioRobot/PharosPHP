@@ -11,6 +11,7 @@ PharosPHP is a lightweight Object-Oriented framework aimed at providing common a
 	- Caching (caching is as simple as $this->output->cache(5) for full HTML content caching of 5 minutes)
 - Active Record support (required for the use of Models, requires PHP 5.3+)
 - Powerful Router system
+- i18n framework
 - Clean and extensible settings API, using both YAML and MySQL for persistent storage
 - Several bundled modules, to help developers begin utilizing familiar Open Source projects
 	- SWFUpload
