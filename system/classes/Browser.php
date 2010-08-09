@@ -10,7 +10,6 @@
 	 * @author Matt Brewer
 	 **/
 
-	Browser::reset();
 	class Browser {
 		
 		protected static $_agent = '';
