@@ -133,9 +133,7 @@
 				
 				$this->dom->getElementsByTagName("rss")->get(0)->removeChild($this->child);
 				
-			} catch(Exception $e) {
-				if ( class_exists("Console") ) Console::log($e->getMessage());
-			}
+			} catch(Exception $e) {} 	// Harmless, so just ignore
 			
 			$this->compile_header();
 			$this->compile_body();		
@@ -153,7 +151,7 @@
 		 * @author Matt Brewer
 		 **/
 
-		public printFeed() {
+		public function printFeed() {
 			printXML($this->feed());
 		}
 	
