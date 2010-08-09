@@ -29,7 +29,7 @@
 		 * @author Matt Brewer
 		 **/
 
-		public function init() {
+		public static function init() {
 			self::$config = Settings::get("application.modules");
 			self::load_automatic_modules();
 		}
