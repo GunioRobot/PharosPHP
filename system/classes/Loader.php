@@ -53,7 +53,7 @@
 		/**
 		 * load_class
 		 *
-		 * @param string $class_name
+		 * @param (array|string) $class_name
 		 *
 		 * @throws ClassNotFoundException
 		 *
@@ -63,6 +63,29 @@
 
 		public static function load_class($name) {
 			
+			if ( is_array($name) ) {
+				foreach($name as $class) {
+					self::_load_class($class);
+				}
+			} else self::_load_class($name);
+			
+		}
+		
+		
+		
+		/**
+		 * _load_class
+		 *
+		 * @param string $class_name
+		 *
+		 * @throws ClassNotFoundException
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		protected static function _load_class($name) {
+		
 			$info = pathinfo($name);
 			$klass = $info['filename'];
 			
