@@ -16,7 +16,6 @@
 	 * 	@author Matt Brewer
 	 **/
 	
-	require_once CLASSES_DIR.'Module.base.php';
 	class Modules {
 	
 		private static $modules = array();
