@@ -1,8 +1,8 @@
 database:
     host: localhost
-    username: macfanat_matt
-    password: '6513#*trin'
-    name: macfanat_cms
+    username: 'db_username'
+    password: 'db_password'
+    name: 'db_name'
     
 filesystem:
     # upload_directory: "<?=$_SERVER['DOCUMENT_ROOT'].'/'.APP_PATH?>rt-admin/application/uploads/"
