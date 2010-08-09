@@ -19,7 +19,6 @@
 	 * @author Matt Brewer
 	 **/
 
-	Router::parse();
 	class Router {
 
 		private static $raw = "";
