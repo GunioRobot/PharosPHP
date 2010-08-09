@@ -14,7 +14,7 @@
 	// Initialize some path information used throughout the system
 	define('SYSTEM_DIR', SERVER_DIR.APP_PATH.'system/');
 	define('APPLICATION_DIR', SERVER_DIR.APP_PATH.'application/');
-	
+		
 	define('CLASSES_DIR', SYSTEM_DIR.'classes/');
 	define('FUNCTIONS_DIR', SYSTEM_DIR.'functions/');
 	define('EXCEPTIONS_DIR', CLASSES_DIR.'Exceptions/');
@@ -31,8 +31,8 @@
 	
 	define('APPLICATION_CLASSES_DIR', APPLICATION_DIR.'classes/');
 	define('APPLICATION_FUNCTIONS_DIR', APPLICATION_DIR.'functions/');
-	define('APPLICATION_LANGUAGES_DIR', APPLICIATION_DIR.'languages/');
-		
+	define('APPLICATION_LANGUAGES_DIR', APPLICATION_DIR.'languages/');
+			
 	
 	
 	// Load in all the exceptions used in the system
