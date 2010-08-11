@@ -483,6 +483,42 @@
 			
 			return sprintf('<img src="%s" alt="%s" border="0" />', PUBLIC_SERVER.$file, $alt);
 		}
+		
+		
+		/**
+		 * keywords
+		 *
+		 * @return string $keywords
+		 * @author Matt Brewer
+		 **/
+
+		public static function keywords() {
+			return Application::controller()->keywords;
+		}
+		
+		
+		/**
+		 * description
+		 *
+		 * @return string $description
+		 * @author Matt Brewer
+		 **/
+
+		public static function description() {
+			return Application::controller()->description;
+		}
+		
+		
+		/**
+		 * title
+		 *
+		 * @return string $title
+		 * @author Matt Brewer
+		 **/
+		
+		public static function title() {
+			return Settings::get('application.system.site.name').TITLE_SEPARATOR.Application::controller()->title;
+		}
 
 			
 	}
