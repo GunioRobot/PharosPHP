@@ -2,7 +2,7 @@
 
 	class Application {
 		
-		protected $controller = null;
+		protected static $controller = null;
 		
 		public static function controller() {
 			return self::$controller;
@@ -167,6 +167,8 @@
 		/**
 		 * _execute()
 		 *
+		 * @throws Exception
+		 * 
 		 * @return void
 		 * @author Matt Brewer
 		 **/
