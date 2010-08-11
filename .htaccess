@@ -1,4 +1,5 @@
 Options +SymLinksIfOwnerMatch
+Options All -Indexes
 
 <IfModule mod_security.c>
 SecFilterEngine Off
