@@ -97,7 +97,7 @@
 			switch($obj->type) {
 			
 				case self::TYPE_CURL: 
-					_mark_cron_as_completed($obj);
+					self::_mark_cron_as_completed($obj);
 					redirect($obj->task);
 				break;
 				
@@ -118,7 +118,7 @@
 					}
 
 					call_user_func(array($class, $method));
-					_mark_cron_as_completed($obj);
+					self::_mark_cron_as_completed($obj);
 
 				break;
 
@@ -126,7 +126,7 @@
 				default:
 					if ( function_exists($obj->task) ) {
 						call_user_func($obj->task);
-						_mark_cron_as_completed($obj);
+						self::_mark_cron_as_completed($obj);
 					}
 				break;
 				
