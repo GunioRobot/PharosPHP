@@ -1,7 +1,7 @@
 
 	<div id="dashboard">
 
-		<div class="dashboard-header">Dashboard - <span id="app_name">{app_name}</span></div>
+		<div class="dashboard-header">Dashboard - <span id="app_name"><?=$title?></span></div>
 
 		<div id="dashboard-leftWrapper">
 			<br />
@@ -24,7 +24,7 @@
 				<h2 class="popularity">Entries</h2>
 				<div class="clearBoth"></div>
 				<ol>
-					[top_items]
+					<?=$top_items?>
 				</ol>
 			</div>		
 		
