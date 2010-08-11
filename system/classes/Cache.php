@@ -160,13 +160,8 @@
 		 **/
 
 		public static function clear_cache() {
-			$folder = CACHE_DIR;
-			if ($handle = opendir($folder)) {
-				while (false !== ($file = readdir($handle)) ) {
-					if ( $file != "." && $file != ".." &&!is_dir($folder.$file) && preg_match("/.*.cache$/", $file) ) {
-						@unlink($folder.$file);
-					}
-				}
+			foreach(glob(CACHE_DIR.'*') as $filename) {
+				@unlink($filename);
 			}
 		}			
 		
