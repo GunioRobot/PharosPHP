@@ -46,7 +46,7 @@
 
 				if ( r ) {
 
-					$.post("<?=controller_link(get_class($controller),"delete")?>/"+$("input.identifier").val()+"/", {}, function() {
+					$.post("<?=controller_link(get_class(Application::controller()),"delete")?>/"+$("input.identifier").val()+"/", {}, function() {
 						history.go(0);
 					});
 
@@ -93,7 +93,7 @@
 					$("#delete").parent().show();
 
 					$("input.identifier").val($span.attr("id"));
-					$.get("<?=controller_link(get_class($controller),"info")?>/"+$span.attr("id")+"/", {}, function(obj) {
+					$.get("<?=controller_link(get_class(Application::controller()),"info")?>/"+$span.attr("id")+"/", {}, function(obj) {
 
 						if ( !obj.error ) {
 
