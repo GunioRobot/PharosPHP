@@ -51,7 +51,6 @@
 		protected $content = "";
 		protected $meta = array();
 		protected $members = array();
-		protected $controller;
 		protected $headers = array();
 		protected $flash = array();
 		
@@ -69,9 +68,6 @@
 				$this->enabled = true;
 				$this->cached_file = self::cached_name();
 			}
-			
-			global $controller;
-			$this->controller =& $controller;
 		
 			if ( ($items = session("pharos_flash")) !== false && is_array($items) ) {
 				foreach($items as $obj) {
