@@ -81,7 +81,7 @@
 
 					include $file;					
 					self::$modules[$name] = $file;
-					Hooks::call_hook(Hooks::HOOK_MODULE_LOADED, array($name));
+					Hooks::execute(Hooks::HOOK_MODULE_LOADED, array($name));
 
 				} else {
 					throw new Exception("Error loading module ($name).  File did not exist.");

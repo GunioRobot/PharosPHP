@@ -239,7 +239,7 @@
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);
 				
-				Hooks::call_hook(Hooks::HOOK_APPLICATION_DELETED, array($id));
+				Hooks::execute(Hooks::HOOK_APPLICATION_DELETED, array($id));
 				
 				select_app(DEFAULT_APP_ID);
 				
@@ -286,7 +286,7 @@
 					$sql = "UPDATE applications SET xml_version = '$newVersion', previous_publish_timestamp = current_publish_timestamp, current_publish_timestamp = NOW() WHERE app_id = '$id' LIMIT 1";
 					$this->db->Execute($sql);
 					
-					Hooks::call_hook(Hooks::HOOK_APPLICATION_PUBLISH, array($id));
+					Hooks::execute(Hooks::HOOK_APPLICATION_PUBLISH, array($id));
 					
 					// SHOW SUCCESS PAGE
 					echo json_encode((object)array("error" => false, "title" => "Published Successfully", "message" => "Application was successfully published."));

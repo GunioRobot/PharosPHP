@@ -8,7 +8,7 @@
 	<meta name="description" content="<?=Template::description()?>" />
 	<meta name="author" content="Matt Brewer" />
 
-	<? Hooks::call_hook(Hooks::HOOK_TEMPLATE_HEADER); ?>
+	<? Hooks::execute(Hooks::HOOK_TEMPLATE_HEADER); ?>
 	
 	<!--[if IE 6]>
 		

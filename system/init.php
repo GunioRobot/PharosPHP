@@ -73,13 +73,13 @@
 	
 	
 	// Call any attached actions after the core has been loaded
-	Hooks::call_hook(Hooks::HOOK_CORE_CLASSES_LOADED);
+	Hooks::execute(Hooks::HOOK_CORE_CLASSES_LOADED);
 	
 	
 	// Initialization the module system
-	Hooks::call_hook(Hooks::HOOK_MODULES_PRE_LOADED);
+	Hooks::execute(Hooks::HOOK_MODULES_PRE_LOADED);
 	Modules::init();
-	Hooks::call_hook(Hooks::HOOK_MODULES_POST_LOADED);
+	Hooks::execute(Hooks::HOOK_MODULES_POST_LOADED);
 	
 	
 	// Load in all the application defined functions
@@ -99,6 +99,6 @@
 	
 	
 	// System action to allow post system-init, pre controller created actions to execute		
-	Hooks::call_hook(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
+	Hooks::execute(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
 		
 ?>

@@ -28,7 +28,7 @@
 			
 			global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
 
-			Hooks::call_hook(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
+			Hooks::execute(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
 
 			// Set the system timezone
 			date_default_timezone_set(Settings::get("application.system.timezone"));
@@ -49,7 +49,7 @@
 			$title = $db->Execute("SELECT app_name FROM applications WHERE app_id = '$CURRENT_APP_ID' LIMIT 1");
 			$CURRENT_APP_NAME = format_title($title->fields['app_name']);
 
-			Hooks::call_hook(Hooks::HOOK_SYSTEM_POST_BOOTSTRAP);
+			Hooks::execute(Hooks::HOOK_SYSTEM_POST_BOOTSTRAP);
 			
 		}
 		
@@ -133,7 +133,7 @@
 
 						require_once $file;
 						self::$controller = new $controllerClass();
-						Hooks::call_hook(Hooks::HOOK_CONTROLLER_POST_CREATED, array($controllerClass));	
+						Hooks::execute(Hooks::HOOK_CONTROLLER_POST_CREATED, array($controllerClass));	
 
 						// Determine if should process login information or not
 						if ( self::$controller->auth->login_required() && !self::$controller->auth->logged_in() ) {

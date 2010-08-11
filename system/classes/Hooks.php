@@ -100,7 +100,7 @@
 		
 		
 		/**
-		 * add_hook($name, $function)
+		 * register_callback($name, $function, $params)
 		 * Register a function to be executed when/if the system performs the action
 		 *
 		 * @param string $name
@@ -110,7 +110,7 @@
 		 * @author Matt Brewer
 		 **/
 
-		public static function add_hook($name, $function, $params=array()) {
+		public static function register_callback($name, $function, $params=array()) {
 			
 			if ( $function != "" && self::_valid_hook($name) ) {
 			
@@ -138,7 +138,7 @@
 		
 		
 		/**
-		 * call_hook($name, $params=array())
+		 * execute($name, $params=array())
 		 * Called by the system to execute associated functions that requested to be called
 		 *
 		 * @throws InvalidHookException
@@ -149,7 +149,7 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public static function call_hook($name, $params=array()) {
+		public static function execute($name, $params=array()) {
 
 			if ( self::_valid_hook($name) ) {
 
@@ -162,13 +162,13 @@
 						if ( strpos($obj->function, "::") !== false ) {
 							
 							list($class, $method) = explode("::", $obj->function);
-							call_user_func_array(array($class, $method), $params + $obj->params);
+							call_user_func_array(array($class, $method), array_merge($params, $obj->params));
 							
 						} else {
 						
 							if ( function_exists($obj->function) ) {
 								call_user_func_array($obj->function, $params + $obj->params);
-							} else throw new InvalidHookException(sprintf("Hooks::call_hook(%s): skipping function (%s) - undefined.", $name, $obj->function));
+							} else throw new InvalidHookException(sprintf("Hooks::execute(%s): skipping function (%s) - undefined.", $name, $obj->function));
 							
 						}
 						
@@ -176,7 +176,7 @@
 					
 				} else return false;
 
-			} else throw new InvalidHookException(sprintf("Hooks::call_hook(%s). Hook was undefined.", $name));
+			} else throw new InvalidHookException(sprintf("Hooks::execute(%s). Hook was undefined.", $name));
 			 
 			return true;	// Successfully called all hooks if made it to this line
 
@@ -185,7 +185,7 @@
 		
 		
 		/**
-		 * register_new_hook_action($name)
+		 * define($name)
 		 * Register a new action so other modules can attach to this action in your code
 		 * 
 		 * @throws InvalidHookException - when attempting to redefine a hook
@@ -195,7 +195,7 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public static function register_new_hook_action($name) {
+		public static function define($name) {
 
 			if ( self::_valid_hook($name) ) {
 				throw new InvalidHookException("Hook ($name) already registered!");
@@ -208,7 +208,7 @@
 		
 		
 		/**
-		 * remove_hook($name, $function)
+		 * remove_callback($name, $function)
 		 * Remove a function from the specified action hook
 		 *
 		 * @param string $name
@@ -217,7 +217,7 @@
 		 * @author Matt Brewer
 		 **/
 		
-		public static function remove_hook($name, $function) {
+		public static function remove_callback($name, $function) {
 
 			if ( self::_valid_hook($name) ) {
 
@@ -233,7 +233,7 @@
 		
 		
 		/**
-		 * remove_hooks_for_name($name)
+		 * unset_hook($name)
 		 * Remove all functions from the specified action hook
 		 * 
 		 * @param string $name
@@ -241,7 +241,7 @@
 		 * @author Matt Brewer
 		 **/
 
-		public static function remove_hooks_for_name($name) {
+		public static function unset_hook($name) {
 			unset(self::$hooks[$name]);	// Don't care if it's valid or not
 		}
 		
@@ -280,13 +280,13 @@
 
 		private static function _register_default_hooks() {
 			
-			self::add_hook(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
+			self::register_callback(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
 						
-			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_header_meta');
-			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_css');
-			self::add_hook(self::HOOK_TEMPLATE_HEADER, 'Template::write_js');
+			self::register_callback(self::HOOK_TEMPLATE_HEADER, 'Template::write_header_meta');
+			self::register_callback(self::HOOK_TEMPLATE_HEADER, 'Template::write_css');
+			self::register_callback(self::HOOK_TEMPLATE_HEADER, 'Template::write_js');
 			
-			self::add_hook(self::HOOK_CORE_CLASSES_LOADED, 'Application::pre_bootstrap');
+			self::register_callback(self::HOOK_CORE_CLASSES_LOADED, 'Application::pre_bootstrap');
 			
 		}
 	

@@ -325,7 +325,7 @@
 			
 			ob_start();
 
-			Hooks::call_hook(Hooks::HOOK_TEMPLATE_PRE_RENDER);
+			Hooks::execute(Hooks::HOOK_TEMPLATE_PRE_RENDER);
 
 			if ( ($layout = self::layout()) !== false ) {
 				require_once $layout;
@@ -333,7 +333,7 @@
 				echo Application::controller()->output();
 			}
 
-			Hooks::call_hook(Hooks::HOOK_TEMPLATE_POST_RENDER);
+			Hooks::execute(Hooks::HOOK_TEMPLATE_POST_RENDER);
 			
 			$output = ob_get_clean();
 			if ( Application::controller()->output->cache_enabled() ) Application::controller()->output->cache($output);		// Write the contents of this to the cache
