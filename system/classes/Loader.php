@@ -7,7 +7,7 @@
 	 * 
 	 * 		public function my_function() {
 	 *			try {
-	 *				$this->load->class("MyClass");
+	 *				$this->load->klass("MyClass");
 	 *			} catch (ClassNotFoundException $e) {}
 	 * 		} 
 	 *
