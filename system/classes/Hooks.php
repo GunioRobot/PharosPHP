@@ -106,11 +106,13 @@
 		 * @param string $name
 		 * @param string $function_name
 		 * @param array $extra_parameters
+		 * @param Object $obj
+		 *
 		 * @return boolean $success
 		 * @author Matt Brewer
 		 **/
 
-		public static function register_callback($name, $function, $params=array()) {
+		public static function register_callback($name, $function, $params=array(), $obj=null) {
 			
 			if ( $function != "" && self::_valid_hook($name) ) {
 			
@@ -128,7 +130,7 @@
 				}
 				
 				foreach($function as $f) {
-					$functions[$f] = (object)array("function" => $f, "params" => $params);
+					$functions[$f] = (object)array("object" => $obj, "function" => $f, "params" => $params);
 				} return true;
 				
 			} else return false;
@@ -155,7 +157,7 @@
 
 				// Call all functions associated with this task
 				$functions = self::$hooks[$name];
-				if ( !is_null($functions) && is_array($functions) && !empty($functions) ) {
+				if ( is_array($functions) && !empty($functions) ) {
 				
 					foreach($functions as $obj) {
 																		
@@ -164,10 +166,14 @@
 							list($class, $method) = explode("::", $obj->function);
 							call_user_func_array(array($class, $method), array_merge($params, $obj->params));
 							
+						} else if ( $obj->object !== null ) {
+						
+							call_user_func_array(array($obj->object, $obj->function), array_merge($params, $obj->params));
+						
 						} else {
 						
 							if ( function_exists($obj->function) ) {
-								call_user_func_array($obj->function, $params + $obj->params);
+								call_user_func_array($obj->function, array_merge($params, $obj->params));
 							} else throw new InvalidHookException(sprintf("Hooks::execute(%s): skipping function (%s) - undefined.", $name, $obj->function));
 							
 						}
