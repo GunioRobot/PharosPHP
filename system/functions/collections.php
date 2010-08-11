@@ -34,6 +34,8 @@
 	
 	function states_array() {
 	
+		static $states = array();
+	
 		$states['Alabama'] = 'AL';
 		$states['Alaska'] = 'AK';
 		$states['Arizona'] = 'AZ';
