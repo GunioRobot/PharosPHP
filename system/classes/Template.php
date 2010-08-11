@@ -478,36 +478,45 @@
 		/**
 		 * keywords
 		 *
+		 * @uses Hooks::FILTER_META_KEYWORDS
+		 *
 		 * @return string $keywords
 		 * @author Matt Brewer
 		 **/
 
 		public static function keywords() {
-			return Application::controller()->keywords;
+			$value = Application::controller()->keywords;
+			return Hooks::execute(Hooks::FILTER_META_KEYWORDS, compact("value"));
 		}
 		
 		
 		/**
 		 * description
 		 *
+		 * @uses Hooks::FILTER_META_DESCRIPTION
+		 *
 		 * @return string $description
 		 * @author Matt Brewer
 		 **/
 
 		public static function description() {
-			return Application::controller()->description;
+			$value = Application::controller()->description;
+			return Hooks::execute(Hooks::FILTER_META_DESCRIPTION, compact("value"));
 		}
 		
 		
 		/**
 		 * title
+		 * 
+		 * @uses Hooks::FILTER_META_TITLE
 		 *
 		 * @return string $title
 		 * @author Matt Brewer
 		 **/
 		
 		public static function title() {
-			return Settings::get('application.system.site.name').TITLE_SEPARATOR.Application::controller()->title;
+			$value = Settings::get('application.system.site.name').TITLE_SEPARATOR.Application::controller()->title;
+			Hooks::execute(Hooks::HOOK_FILTER_SITE_TITLE, compact("value"));
 		}
 
 			
