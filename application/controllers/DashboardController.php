@@ -16,7 +16,6 @@
 			$this->dataKey = "user_id";			
 			$this->tableColumns();
 			
-			$this->industries = user_industries_array();
 			$this->auth->login_required(true);
 												
 		}
@@ -32,15 +31,12 @@
 		public function index() {
 			
 			global $CURRENT_APP_NAME, $CURRENT_APP_ID;
+			
+			$this->title = "Application Dashboard";
 						
 			$this->output->css("dashboard.css");
 			$this->output->javascript("dashboard.js");
-			
-			$template = get_template("dashboard.html", "views/");
-					
-			$template = str_replace('{app_name}', "&quot;".$CURRENT_APP_NAME."&quot;", $template);
-			$template = str_replace('{INCLUDES_DIR}', INCLUDES_SERVER, $template);
-			
+						
 			
 			// Find the top 5 uesrs
 			$html = '';
@@ -48,15 +44,15 @@
 			for ( $rr = $this->db->Execute($sql); !$rr->EOF; $rr->moveNext() ) {
 
 				$title = $rr->fields['full_name'];
-				$link = edit('Dashboard',$rr->fields['user_id']);
+				$link = Template::edit('Dashboard',$rr->fields['user_id']);
 				$html .= '<li><a href="'.$link.'" title="Edit &quot;'.$title.'&quot;">'.truncate_str($title,15,'...').' ('.$rr->fields['hits'].')</a></li>';
 			} 
 			
 			// Replace in the template
 			$html = ( $html != '' ) ? $html : "<li><em>No Users.</em></li>";
-			$template = str_replace('[top_users]', $html, $template);
+			$this->output->set("top_users", $html);
 
-
+			/*
 			// Find the top 5 downloads
 			$html = '';
 			$sql = "SELECT products.*, t1.hits FROM products JOIN ( SELECT COUNT(track_id) as hits, table_index FROM tracking WHERE content_type_id = ".PRODUCT_TYPE_ID." AND app_id = '".$CURRENT_APP_ID."' GROUP BY content_type_id,table_index) t1 ON t1.table_index = products.id ORDER BY t1.hits DESC LIMIT 5";
@@ -69,10 +65,11 @@
 
 			// Replace in the template
 			$html = ( $html != '' ) ? $html : "<li><em>No Entries.</em></li>";
-			$template = str_replace('[top_items]', $html, $template);
+			$this->output->set("top_items", $html);
+			*/
 			
-			
-			echo $template;
+			$this->output->set("title", $this->title);
+			$this->output->view("dashboard.php");
 			
 		}
 		
@@ -189,7 +186,7 @@
 
 					echo '<tr class="dashboard-table-row">
 						<td class="number">'.$rr->fields['hits'].'</td>
-						<td><div class="floatLeft"><a href="'.edit('Dashboard',$rr->fields['user_id']).'" title="Edit &quot;'.$userName.'&quot;">'.$userName.'</a></div><br /><div class="floatLeft">';
+						<td><div class="floatLeft"><a href="'.Template::edit('Dashboard',$rr->fields['user_id']).'" title="Edit &quot;'.$userName.'&quot;">'.$userName.'</a></div><br /><div class="floatLeft">';
 						echo '<br /></div><div class="clearBoth"></div></td>';
 
 						echo '<td>';
@@ -289,7 +286,7 @@
 				$top_whatever_dropdown .= '</select>';			
 
 				// The gorgeous area chart
-				echo include_fusion_chart_js().renderChart(fusion_chart("FCF_Area2D.swf"), encodeDataURL(controller_link(__CLASS__,"activity-data/10/$content_type_id/")), "", "activity_chart", 569, 350);
+				echo include_fusion_chart_js().renderChart(fusion_chart("FCF_Area2D.swf"), encodeDataURL(Template::controller_link(__CLASS__,"activity-data/10/$content_type_id/")), "", "activity_chart", 569, 350);
 				
 
 				// Table header
@@ -351,7 +348,7 @@
 			$this->table->columns = array();
 			$this->table->columns[] =  array('name' => 'Name', 'key' => 'user_first_name', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Email', 'key' => 'user_primary_email', 'class' => 'center');
-			$this->table->columns[] =  array('name' => 'Industry', 'key' => 'user_industry', 'class' => 'center');
+			$this->table->columns[] =  array('name' => 'Company', 'key' => 'user_company', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Active', 'key' => 'user_is_active', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Last Updated', 'key' => 'last_updated', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Action', 'class' => 'actions');
@@ -380,27 +377,26 @@
 					$row['data'][] = $info->fields['user_first_name'] . ' ' .$info->fields['user_last_name'];
 					$row['data'][] = '<a href="mailto:'.$info->fields['user_primary_email'].'">'.$info->fields['user_primary_email'].'</a>';
 					
-					$industry = $this->industries[$info->fields['user_industry']];
-					$industry = $industry == "" ? "<em>None Provided</em>" : $industry;
-					$row['data'][] = $industry;
+					$row['data'][] = $info->fields['user_company'] == "" ? "<em>None Provided</em>" : truncate_str($info->fields['user_company'], 35);
 					
-					
-					$row['data'][] = '<img src="'.PUBLIC_SERVER.'images/'. ($info->fields['user_is_active'] === "true" ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" />';
+					$active = $info->fields['user_is_active'] === "true";
+					// $row['data'][] = '<a class="confirm-with-popup" href="'.Template::controller_link(__CLASS__, sprintf('%s/%d/', ($active?'deactivate':'activate'), $id)).'" title="'.($active?'Disable':'Enable').' this user"><img src="'.PUBLIC_SERVER.'images/'. ($active ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" /></a>';
+					$row['data'][] = '<img src="'.PUBLIC_SERVER.'images/'. ($active ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" />';
 					$row['data'][] = format_date($info->fields['last_updated'],true);
 
-					$actions = '<a href="'.edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
+					$actions = '<a href="'.Template::edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
 					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
 					
 					if ( $info->fields['user_is_active'] === "true" ) {
-						$actions .= '<a class="confirm-with-popup" href="'.controller_link(__CLASS__,"deactivate/$id/").'" title="Deactivate this '.$this->type.'">Deactivate</a>';
+						$actions .= '<a class="confirm-with-popup" href="'.Template::controller_link(__CLASS__,"deactivate/$id/").'" title="Deactivate this '.$this->type.'">Deactivate</a>';
 					} else {
-						$actions .= '<a class="confirm-with-popup" href="'.controller_link(__CLASS__,"activate/$id/").'" title="Activate this '.$this->type.'">&nbsp;Activate&nbsp;</a>';
+						$actions .= '<a class="confirm-with-popup" href="'.Template::controller_link(__CLASS__,"activate/$id/").'" title="Activate this '.$this->type.'">&nbsp;Activate&nbsp;</a>';
 					}
 					
+					// $actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
+					// $actions .= '<a href="'.sprintf(Template::controller_link(__CLASS__,"track/%d/"),$id).'" title="View tracking information for this '.$this->type.'">Trends</a>';
 					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					$actions .= '<a href="'.sprintf(controller_link(__CLASS__,"track/%d/"),$id).'" title="View tracking information for this '.$this->type.'">Trends</a>';
-					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					$actions .= '<a class="confirm-with-popup" href="'.delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
+					$actions .= '<a class="confirm-with-popup" href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 					
 
 					$row['data'][] = $actions;
@@ -449,7 +445,7 @@
 			$where = $this->search($filter);
 			$order = $this->order($orderField,$orderVal);
 			
-			$this->table->basic_a = controller_link(__CLASS__,"/".__FUNCTION__."/");
+			$this->table->basic_a = Template::controller_link(__CLASS__,"/".__FUNCTION__."/");
 			$this->table->get_links = "$orderField/$orderVal/";
 
 			$sql = "SELECT COUNT(".$this->table->id.'.'.$this->dataKey.") as total FROM ".$this->table->id." ".$where.$order;
@@ -464,7 +460,7 @@
 		            <form id="'.$this->table->id.'_form" action="'.$this->table->basic_a."$orderField/$orderVal/$page/".'" method="post">
 		            <div class="contentTabCap"></div><div class="contentTab"><input id="search" name="search" value="'.$this->table->search.'"/><a href="#" onClick="$('."'".'#'.$this->table->id.'_form'."'".').submit();" class="inputPress">Search</a></div>';
 
-			$view .= '<div class="contentTabCap"></div><div class="contentTab"><a id="export-users" href="'.controller_link(__CLASS__,'export-users/').'" title="Export Users" class="tabArrow">Export</a></div>';
+			$view .= '<div class="contentTabCap"></div><div class="contentTab"><a id="export-users" href="'.Template::controller_link(__CLASS__,'export-users/').'" title="Export Users" class="tabArrow">Export</a></div>';
 				
 
 		    $view .= '</form>
@@ -472,7 +468,7 @@
 		          </div>'.
 		          $this->table->get_html($this->table->current_page, $page_count, $start, $total);
 
-			$view;
+			$this->output->view($view);
 
 		}
 		
@@ -501,7 +497,7 @@
 
 				array('name' => PROFILE_ID, 'type' => 'display'),
 				array('name' => '{TYPE}', 'type' => 'static', 'value' => PROFILE_TITLE),
-				array('name' => '{Tracking Link}', 'type' => 'static', 'value' => controller_link(__CLASS__,'manage/')),
+				array('name' => '{Tracking Link}', 'type' => 'static', 'value' => Template::controller_link(__CLASS__,'manage/')),
 				array('name' => '{form_link}', 'type' => 'static', 'value' => save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
@@ -551,6 +547,7 @@
 			
 			$this->output->css("dashboard.css");
 			
+			/*
 			build_categories();
 			
 			// User information
@@ -576,9 +573,24 @@
 				$track[] = $product;
 				
 			}
+			*/
 			
 			// Show the view
 			require_once VIEWS_DIR.'user-tracking-view.php';
+			
+		}
+		
+		
+		public function setStatus($id, $status='true') {
+			
+			if ( !in_array($status, array('true','false')) ) {
+				$status = 'true';
+			}
+			
+			$sql = sprintf("UPDATE `users` SET user_is_active = '%s' WHERE user_id = %d LIMIT 1", $status, $id);
+			$this->db->Execute($sql);
+			
+			redirect(Template::manage(__CLASS__));
 			
 		}
 		
@@ -599,12 +611,10 @@
 				"user_address_line_1" => "Address",
 				"user_state" => "State",
 				"user_zip" => "Zip Code",
-				"user_position" => "Title",
 				"user_company" => "Company",
-				"user_company_website" => "Company Website",
-				"user_industry" => "Industry",
+				"user_phone_number" => "Phone",
 				"user_primary_email" => "Email",
-				"user_type" => "Type",
+				"registered_ip_address" => "Registered IP",
 				"date_added" => "Date Registered"
 			);
 			
@@ -617,10 +627,6 @@
 				foreach($fields as $key => $display) {
 				
 					$val = $info->fields[$key];
-					
-					if ( $key == "user_industry" ) {
-						$val = $this->industries[$val];
-					} 
 					
 					$values[] = csv_data($val);
 										
@@ -659,13 +665,13 @@
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);
 				
-				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
+				$obj = array('error' => false, 'redirect' => Template::manage(__CLASS__));
 				echo json_encode((object)$obj);
 				exit;
 				
 			} else {
 				
-				echo "[link]".delete(__CLASS__,$id)."[/link]";
+				echo "[link]".Template::delete(__CLASS__,$id)."[/link]";
 				echo "This $this->type will be permanently removed.<br /><br />";
 				echo "<strong>This action cannot be undone.</strong><br />";
 				exit;
@@ -684,13 +690,13 @@
 				$sql = "UPDATE users SET user_is_active = 'false', last_updated = NOW() WHERE user_id = '".(int)$id."' LIMIT 1";
 				$this->db->Execute($sql);
 				
-				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
+				$obj = array('error' => false, 'redirect' => Template::manage(__CLASS__));
 				echo json_encode((object)$obj);
 				exit;
 
 			} else {
 				
-				echo "[link]".controller_link(__CLASS__,"/deactivate/$id/")."[/link]";
+				echo "[link]".Template::controller_link(__CLASS__,"/deactivate/$id/")."[/link]";
 				echo "<strong>This user will be deactivated.</strong><br /><br />";
 				echo "They will no longer be able to receive updates to the application.<br />";
 				exit;
@@ -709,13 +715,13 @@
 				$sql = "UPDATE users SET user_is_active = 'true', last_updated = NOW() WHERE user_id = '".(int)$id."' LIMIT 1";
 				$this->db->Execute($sql);
 
-				$obj = array('error' => false, 'redirect' => manage(__CLASS__));
+				$obj = array('error' => false, 'redirect' => Template::manage(__CLASS__));
 				echo json_encode((object)$obj);
 				exit;
 
 			} else {
 
-				echo "[link]".controller_link(__CLASS__,"/activate/$id/")."[/link]";
+				echo "[link]".Template::controller_link(__CLASS__,"/activate/$id/")."[/link]";
 				echo "<strong>This user will be re-activated.</strong><br /><br />";
 				echo "You are enabling application updates for this user.<br />";
 				exit;
