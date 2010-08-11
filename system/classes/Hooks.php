@@ -32,6 +32,10 @@
 		
 		const HOOK_CORE_CLASSES_LOADED = "core_classes_loaded_hook";						// function() {}
 
+		const FILTER_META_DESCRIPTION = "filter_meta_description_hook";						// (string) function ($description) {}
+		const FILTER_META_KEYWORDS = "filter_meta_keywords_hook";							// (string) function ($keywords) {}
+		const FILTER_META_TITLE = "filter_site_title_hook";									// (string) function($title) {}
+
 		const HOOK_MODULES_PRE_LOADED = 'modules_pre_loaded_hook';							// function() {}
 		const HOOK_MODULE_LOADED = 'module_loaded_hook';									// function($module_name) {}
 		const HOOK_MODULES_POST_LOADED = 'modules_post_loaded_hook';						// function() {}
@@ -72,6 +76,10 @@
 				
 				self::HOOK_CONTROLLER_PRE_CREATED => null,
 				self::HOOK_CONTROLLER_POST_CREATED => null,
+				
+				self::FILTER_META_DESCRIPTION => null,
+				self::FILTER_META_KEYWORDS => null,
+				self::FILTER_META_TITLE => null,
 
 				self::HOOK_MODULES_PRE_LOADED => null,
 				self::HOOK_MODULE_LOADED => null,
@@ -142,12 +150,16 @@
 		/**
 		 * execute($name, $params=array())
 		 * Called by the system to execute associated functions that requested to be called
+		 * The return value is the result of the called functions. For a chain of functions attached to one hook, 
+		 * the result returned by the first function is passed in to the next function, etc - the hook returns the last
+		 * value, allowing developers to "refine" the return value. 
 		 *
 		 * @throws InvalidHookException
 		 *
 		 * @param string $name
 		 * @param array $params
-		 * @return boolean $success
+		 *
+		 * @return mixed $function_return_value
 		 * @author Matt Brewer
 		 **/
 		
@@ -158,33 +170,33 @@
 				// Call all functions associated with this task
 				$functions = self::$hooks[$name];
 				if ( is_array($functions) && !empty($functions) ) {
-				
+					
 					foreach($functions as $obj) {
 																		
 						if ( strpos($obj->function, "::") !== false ) {
 							
 							list($class, $method) = explode("::", $obj->function);
-							call_user_func_array(array($class, $method), array_merge($params, $obj->params));
+							$params['value'] = call_user_func_array(array($class, $method), $params + $obj->params);
 							
 						} else if ( $obj->object !== null ) {
 						
-							call_user_func_array(array($obj->object, $obj->function), array_merge($params, $obj->params));
+							$params['value'] = call_user_func_array(array($obj->object, $obj->function), $params + $obj->params);
 						
 						} else {
 						
 							if ( function_exists($obj->function) ) {
-								call_user_func_array($obj->function, array_merge($params, $obj->params));
+								$params['value'] = call_user_func_array($obj->function, $params + $obj->params);
 							} else throw new InvalidHookException(sprintf("Hooks::execute(%s): skipping function (%s) - undefined.", $name, $obj->function));
 							
 						}
 						
 					}
-					
-				} else return false;
+										
+				} 
+				
+				return $params['value'];
 
 			} else throw new InvalidHookException(sprintf("Hooks::execute(%s). Hook was undefined.", $name));
-			 
-			return true;	// Successfully called all hooks if made it to this line
 
 		}
 		
@@ -292,7 +304,7 @@
 			self::register_callback(self::HOOK_TEMPLATE_HEADER, 'Template::write_css');
 			self::register_callback(self::HOOK_TEMPLATE_HEADER, 'Template::write_js');
 			
-			self::register_callback(self::HOOK_CORE_CLASSES_LOADED, 'Application::pre_bootstrap');
+			self::register_callback(self::HOOK_CORE_CLASSES_LOADED, 'Application::pre_bootstrap');			
 			
 		}
 	
