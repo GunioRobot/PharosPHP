@@ -39,6 +39,11 @@
 	Loader::load_class('Settings');	
 	
 	
+	// Initialize the Settings API
+	Settings::load();
+	Settings::load_static_system_settings();
+	
+	
 	// Load in the system defined functions
 	foreach(glob(FUNCTIONS_PATH.'*.php') as $filename) {
 		require_once $filename;
