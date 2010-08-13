@@ -27,8 +27,6 @@
 	 * @author Matt Brewer
 	 **/
 	
-	Settings::load();
-	Settings::load_static_system_settings();
 	
 	class Settings {
 			
