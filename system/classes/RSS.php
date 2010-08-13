@@ -31,7 +31,7 @@
 		 * @author Matt Brewer
 		 **/
 
-		public function __construct($title="", $description="", $data=array(), $link=HTTP_SERVER, $language="English") {
+		public function __construct($title="", $description="", $data=array(), $link=ROOT_URL, $language="English") {
 			
 			$this->dom = new DOMDocument('1.0', 'UTF-8');
 			

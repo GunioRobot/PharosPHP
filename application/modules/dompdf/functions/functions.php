@@ -32,7 +32,7 @@
 		$url = "dompdf.php?input_file=" . rawurlencode($tmpfile) . 
 		       "&paper=".$paper."&orientation=".$orientation."&output_file=" . rawurlencode($filename);
 
-		header('Location: ' . MODULES_SERVER.'dompdf/library/'.$url);
+		header('Location: ' . MODULES_URL.'dompdf/library/'.$url);
 
 	}
 

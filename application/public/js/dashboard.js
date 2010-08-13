@@ -5,7 +5,7 @@
 		$('#dashboard-tabs a').click(function(e) {
 			
 			// Load in the data
-			$("#dashboard-top10").load(CMSLite.HTTP_SERVER+"dashboard/content/"+this.id+"/", '', setup_dropdowns);
+			$("#dashboard-top10").load(CMSLite.ROOT_URL+"dashboard/content/"+this.id+"/", '', setup_dropdowns);
 			
 			// Remove current class from all tabs
 			$("#dashboard-tabs a").removeClass("current-tab");
@@ -37,6 +37,6 @@
 		var table = ( $("#users-top10").hasClass("current-tab") ) ? "users-top10" : "content-top10";
 
 		$('#dashboard-top10')
-			.load(CMSLite.HTTP_SERVER+"dashboard/content/"+table+"/"+$('#content_types').val()+"/"+$('#paginate').val()+"/", '', setup_dropdowns);
+			.load(CMSLite.ROOT_URL+"dashboard/content/"+table+"/"+$('#content_types').val()+"/"+$('#paginate').val()+"/", '', setup_dropdowns);
 	}
 	

@@ -9,7 +9,7 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function swf_upload_path() {
-		return MODULES_SERVER.'swfupload/swf/swfupload.swf';
+		return MODULES_URL.'swfupload/swf/swfupload.swf';
 	}
 	
 	

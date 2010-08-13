@@ -237,7 +237,7 @@
 		
 		swfu = new SWFUpload({
 		
-			upload_url : "<?=UPLOAD_SERVER?>pull.php?",
+			upload_url : "<?=UPLOAD_URL?>pull.php?",
 			flash_url : "<?=swf_upload_path()?>",
 			file_size_limit : fileSizeLimit,
 			file_post_name : '<?=$data["file_post_name"]?>',
@@ -278,7 +278,7 @@
 			upload_complete_handler : uploadComplete,
 
 			// Button Settings
-			button_image_url : "<?=PUBLIC_SERVER?>images/up_alt.png",
+			button_image_url : "<?=PUBLIC_URL?>images/up_alt.png",
 			button_placeholder_id : "uploadFilePlaceholder",
 			button_width: 180,
 			button_height: 40,

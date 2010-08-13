@@ -87,7 +87,7 @@
 	
 	function download_link_href($file) {
 		if ( $file != '' ) {
-			return UPLOAD_SERVER.'push.php?f='.$file;
+			return UPLOAD_URL.'push.php?f='.$file;
 		} else return '';
 	}
 	
@@ -99,13 +99,13 @@
 	//
 	//	Takes something like "index.php?pid=36" or "http://www.google.com" and
 	//	figures out which ones are already a full link.  If not full, prepends
-	//	the HTTP_SERVER (or your own prefix, if passed)
+	//	the ROOT_URL (or your own prefix, if passed)
 	//
 	//	Returns a string for using in an anchor href attribute
 	//
 	////////////////////////////////////////////////////////////////////////////////
 	
-	function internal_external_link($link, $prefix=HTTP_SERVER) {
+	function internal_external_link($link, $prefix=ROOT_URL) {
 		return (strpos($link, 'http://') !== false) ? $link : $prefix.$link;
 	}
 	

@@ -200,55 +200,40 @@
 		
 		public static function load_static_system_settings() {
 			
-			////////////////////////////////////////////////////////////////////////////////
-			//
-			//	Main Site Information
-			//	
-			////////////////////////////////////////////////////////////////////////////////
 			$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
-			define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/'.APP_PATH);
+			define('ROOT_URL', $host.$_SERVER['HTTP_HOST'].'/'.APP_DIR);
 
-			$upload_dir = self::get("application.filesystem.upload_directory");
-			if ( $upload_dir[0] == "/" ) {
-				define('UPLOAD_DIR', $upload_dir);
-			} else {
-				define('UPLOAD_DIR', APP_PATH.$upload_dir);
+			if ( !defined("UPLOAD_PATH") ) {
+				define("UPLOAD_PATH", APP_PATH."uploads/");
 			}
-
-			define('XML_DIR', APP_PATH.self::get("application.filesystem.xml_directory"));
-
-
-
-			////////////////////////////////////////////////////////////////////////////////
-			//
-			//	Server Path Information
-			//
-			////////////////////////////////////////////////////////////////////////////////
-
-			define('APPLICATION_SERVER', HTTP_SERVER.'application/');
-			define('SYSTEM_SERVER', HTTP_SERVER.'system/');
-
-			define('PUBLIC_SERVER', HTTP_SERVER.'public/');		
-
-			if ( $upload_dir[0] == "/" ) {
-				define('UPLOAD_SERVER', HTTP_SERVER.substr($upload_dir, strpos($upload_dir, APP_PATH) + strlen(APP_PATH)));
-			} else {
-				define('UPLOAD_SERVER', APPLICATION_SERVER.$upload_dir);
+			
+			if ( !defined("XML_PATH") ) {
+				define("XML_PATH", APP_PATH."xml/");
 			}
-
-			define('XML_SERVER', APPLICATION_SERVER.self::get("application.filesystem.xml_directory"));
-			define('CACHE_SERVER', APPLICATION_SERVER.'cache/');
-			define('MODULES_SERVER', APPLICATION_SERVER.'modules/');
-
-
-			////////////////////////////////////////////////////////////////////////////////
-			//
-			//	System software settings
-			//
-			////////////////////////////////////////////////////////////////////////////////
+			
+			if ( !defined("APP_URL") ) {
+				define("APP_URL", ROOT_URL.APP_DIR);
+			}
+		
+			if ( !defined("XML_URL") ) {
+				define("XML_URL", APP_URL."xml/");
+			}		
+			
+			if ( !defined("PUBLIC_URL") ) {
+				define("PUBLIC_URL", APP_URL.PUBLIC_DIR);
+			}
+			
+			if ( !defined("UPLOAD_URL") ) {
+				define("UPLOAD_URL", APP_URL."uploads/");
+			}
+			
+			if ( !defined("MODULES_URL") ) {
+				define("MODULES_URL", APP_URL."modules/");
+			}
 
 			define('SECURE_KEYWORD',md5(self::get('application.system.site.name')));
 			define('APPLICATION_SECRET_KEY', md5(self::get('application.system.site.name')));
+			define('SALT', self::get("application.salt"));
 			
 		}
 		

@@ -165,7 +165,7 @@
 
 
 				// The USA Map for user location
-				echo '<embed width="550" height="400" flashvars="xml='.urlencode(MODULES_SERVER.'corelabs/pages/map_demographic_data.php').'" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.PUBLIC_SERVER.'usa_map.swf" type="application/x-shockwave-flash"/>';
+				echo '<embed width="550" height="400" flashvars="xml='.urlencode(MODULES_URL.'corelabs/pages/map_demographic_data.php').'" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.PUBLIC_URL.'usa_map.swf" type="application/x-shockwave-flash"/>';
 
 
 				// Table header
@@ -380,8 +380,8 @@
 					$row['data'][] = $info->fields['user_company'] == "" ? "<em>None Provided</em>" : truncate_str($info->fields['user_company'], 35);
 					
 					$active = $info->fields['user_is_active'] === "true";
-					// $row['data'][] = '<a class="confirm-with-popup" href="'.Template::controller_link(__CLASS__, sprintf('%s/%d/', ($active?'deactivate':'activate'), $id)).'" title="'.($active?'Disable':'Enable').' this user"><img src="'.PUBLIC_SERVER.'images/'. ($active ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" /></a>';
-					$row['data'][] = '<img src="'.PUBLIC_SERVER.'images/'. ($active ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" />';
+					// $row['data'][] = '<a class="confirm-with-popup" href="'.Template::controller_link(__CLASS__, sprintf('%s/%d/', ($active?'deactivate':'activate'), $id)).'" title="'.($active?'Disable':'Enable').' this user"><img src="'.PUBLIC_URL.'images/'. ($active ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" /></a>';
+					$row['data'][] = '<img src="'.PUBLIC_URL.'images/'. ($active ? 'icon_checkWT.gif' : 'icon_blankWT.gif') .'" />';
 					$row['data'][] = format_date($info->fields['last_updated'],true);
 
 					$actions = '<a href="'.Template::edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
