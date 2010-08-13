@@ -4,7 +4,7 @@
 	 * Keypath
 	 *
 	 * 		A keypath is a string for traversing dictionary contents and retrieving
-	 *		a value.  An example would be "system.site.name" which performs two 
+	 *		a value.  An example would be "application.system.site.name" which performs two 
 	 *		dictionary lookups and returns the value of the last string piece
 	 *
 	 * @package PharosPHP.Core.Classes
@@ -15,11 +15,18 @@
 		
 		const VALUE_UNDEFINED = null;
 		
+		protected $separator = ".";
 		protected $components = array();
 		protected $path = "";
 		
-		public function __construct($keypath=null) {
+		public function __construct($keypath=null, $separator=null) {
+			
+			if ( is_string($separator) && $separator != "" ) {
+				$this->separator = $separator;
+			}
+			
 			$this->set($keypath);
+			
 		}
 		
 		
@@ -38,9 +45,9 @@
 		
 			if ( !is_null($keypath) ) {
 				
-				if ( ($path = trim($keypath, ". ")) != "" ) {
+				if ( ($path = trim($keypath, $this->separator." ")) != "" ) {
 				
-					$components = explode(".", $path);
+					$components = explode($this->separator), $path);
 					if ( empty($components) ) throw new InvalidKeyPathException("Invalid key path ($path)");
 					
 					$this->components = $components;
@@ -100,6 +107,22 @@
 				
 			}
 			
+		}
+		
+		
+		/**
+		 * separator
+		 *
+		 * @param string $separator
+		 *
+		 * @return string $separator
+		 * @author Matt Brewer
+		 **/
+
+		public function separator($separator=null) {
+			if ( is_string($separator) && $separator != "" ) {
+				return $this->separator = $separator;
+			} else return $this->separator;
 		}
 		
 		
