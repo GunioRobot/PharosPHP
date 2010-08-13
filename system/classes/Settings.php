@@ -45,11 +45,11 @@
 
 		public static function load($filename='application.yml') {
 			
-			if ( !file_exists(CONFIGURATION_DIR.$filename) ) {
-				throw new InvalidFileSystemPathException(sprintf("File does not exist: (%s)", CONFIGURATION_DIR.$filename));
+			if ( !file_exists(CONFIGURATION_PATH.$filename) ) {
+				throw new InvalidFileSystemPathException(sprintf("File does not exist: (%s)", CONFIGURATION_PATH.$filename));
 			}
 						
-			self::$config[self::key_for_filename($filename)] = sfYaml::load(CONFIGURATION_DIR.$filename);
+			self::$config[self::key_for_filename($filename)] = sfYaml::load(CONFIGURATION_PATH.$filename);
 			
 		}
 		
@@ -214,10 +214,10 @@
 			if ( $upload_dir[0] == "/" ) {
 				define('UPLOAD_DIR', $upload_dir);
 			} else {
-				define('UPLOAD_DIR', APPLICATION_DIR.$upload_dir);
+				define('UPLOAD_DIR', APP_PATH.$upload_dir);
 			}
 
-			define('XML_DIR', APPLICATION_DIR.self::get("application.filesystem.xml_directory"));
+			define('XML_DIR', APP_PATH.self::get("application.filesystem.xml_directory"));
 
 
 

@@ -71,7 +71,7 @@
 			
 			// The Router has parsed for the class to load, attempt to load it				
 			$controllerClass = Router::controller();
-			$file = CONTROLLER_DIR.$controllerClass.'.php';	
+			$file = CONTROLLER_PATH.$controllerClass.'.php';	
 
 			try {
 
@@ -106,7 +106,7 @@
 					} else {
 
 						// Just use the text from the database with generic controller class
-						require_once APPLICATION_CLASSES_DIR.'ApplicationGenericPageController.php';
+						require_once APPLICATION_CLASSES_PATH.'ApplicationGenericPageController.php';
 						self::$controller = new ApplicationGenericPageController($page->title);
 
 						if ( method_exists(self::$controller, "page") ) {

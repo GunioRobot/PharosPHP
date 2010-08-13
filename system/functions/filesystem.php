@@ -12,7 +12,7 @@
 	function get_template($filename, $path='profiles/', $desired_extension='.html') {
 		
 		$info = pathinfo($filename);
-		return @file_get_contents(VIEWS_DIR.$path.$info['filename'].$desired_extension);
+		return @file_get_contents(VIEWS_PATH.$path.$info['filename'].$desired_extension);
 	
 	}
 	

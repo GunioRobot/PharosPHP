@@ -109,8 +109,8 @@
 
 					if ( !class_exists() ) {
 
-						$controller_file = CONTROLLER_DIR.$class.'.php';
-						$class_file = CLASSES_DIR.$class.'.php';
+						$controller_file = CONTROLLER_PATH.$class.'.php';
+						$class_file = CLASSES_PATH.$class.'.php';
 
 						if ( file_exists($controller_file) ) require_once $controller_file;
 						else if ( file_exists($class_file) ) require_once $class_file;

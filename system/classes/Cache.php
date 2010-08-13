@@ -64,7 +64,7 @@
 		 **/
 
 		public static function set_enabled($bool) {
-			if ( !(file_exists(CACHE_DIR) && is_dir(CACHE_DIR) && is_writable(CACHE_DIR)) ) throw new CacheNotWritableException();
+			if ( !(file_exists(CACHE_PATH) && is_dir(CACHE_PATH) && is_writable(CACHE_PATH)) ) throw new CacheNotWritableException();
 			self::$enabled = (bool)$bool;
 		}
 		
@@ -75,7 +75,7 @@
 		 * @throws CacheNotEnabledException - if caching has not been enabled
 		 *
 		 * @param string $contents
-		 * @param string $file_path, relative to the CACHE_DIR
+		 * @param string $file_path, relative to the CACHE_PATH
 		 * @param int duration in seconds
 		 * @return boolean $success
 		 * @author Matt Brewer
@@ -86,7 +86,7 @@
 			if ( !self::$enabled ) throw new CacheNotEnabledException();
 			
 			$future = time() + ($duration * 60);	// Convert to seconds
-			return @file_put_contents(CACHE_DIR.$file, sprintf("%s\n%s", $future, $contents), LOCK_EX);
+			return @file_put_contents(CACHE_PATH.$file, sprintf("%s\n%s", $future, $contents), LOCK_EX);
 			
 		}
 		
@@ -107,7 +107,7 @@
 			if ( !self::$enabled ) throw new CacheNotEnabledException();
 			if ( self::expired($file) ) throw new CachedFileExpiredException();
 			
-			$contents = @file(CACHE_DIR.$file);
+			$contents = @file(CACHE_PATH.$file);
 			return is_array($contents) ? implode("\n", array_slice($contents, 1)) : "";
 			
 		}
@@ -127,7 +127,7 @@
 			
 			if ( !self::$enabled ) throw new CacheNotEnabledException();
 
-			$f = CACHE_DIR.$file;
+			$f = CACHE_PATH.$file;
 			if ( file_exists($f) ) {
 				$contents = @file($f);
 				return ( $contents[0] < time() );
@@ -146,8 +146,8 @@
 		 * @author Matt Brewer
 		 **/
 		public static function delete($file) {
-			if ( $file != "" && @file_exists(CACHE_DIR.$file) ) {
-				@unlink(CACHE_DIR.$file);
+			if ( $file != "" && @file_exists(CACHE_PATH.$file) ) {
+				@unlink(CACHE_PATH.$file);
 			} 
 		}	
 		
@@ -160,7 +160,7 @@
 		 **/
 
 		public static function clear_cache() {
-			foreach(glob(CACHE_DIR.'*') as $filename) {
+			foreach(glob(CACHE_PATH.'*') as $filename) {
 				@unlink($filename);
 			}
 		}			

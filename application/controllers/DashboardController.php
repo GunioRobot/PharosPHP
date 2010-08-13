@@ -576,7 +576,7 @@
 			*/
 			
 			// Show the view
-			require_once VIEWS_DIR.'user-tracking-view.php';
+			require_once VIEWS_PATH.'user-tracking-view.php';
 			
 		}
 		

@@ -1,49 +1,35 @@
 <?
 
-	session_start();
-		
-		
-		
-	// Two VERY important defines, used everywhere
-	$f = dirname(__FILE__);
-	define('SERVER_DIR', $_SERVER['DOCUMENT_ROOT'].'/');
-	define('APP_PATH', substr(realpath($f."/../")."/", strlen(SERVER_DIR)));
+	session_start();	
 	
 	
+	// Initialize some path information used throughout the system		
+	define('CLASSES_PATH', SYSTEM_PATH.'classes/');
+	define('FUNCTIONS_PATH', SYSTEM_PATH.'functions/');
+	define('EXCEPTIONS_PATH', CLASSES_PATH.'Exceptions/');
+	define('LANGUAGES_PATH', SYSTEM_PATH.'languages/');
 	
-	// Initialize some path information used throughout the system
-	define('SYSTEM_DIR', SERVER_DIR.APP_PATH.'system/');
-	define('APPLICATION_DIR', SERVER_DIR.APP_PATH.'application/');
-		
-	define('CLASSES_DIR', SYSTEM_DIR.'classes/');
-	define('FUNCTIONS_DIR', SYSTEM_DIR.'functions/');
-	define('EXCEPTIONS_DIR', CLASSES_DIR.'Exceptions/');
-	define('CACHE_DIR', APPLICATION_DIR.'cache/');	
-	define('PUBLIC_DIR', SERVER_DIR.APP_PATH.'public/');
-	
-	define('VIEWS_DIR', APPLICATION_DIR.'views/');	
-	define('LAYOUTS_DIR', APPLICATION_DIR.'layouts/');
-	define('MODELS_DIR', APPLICATION_DIR.'models/');
-	define('CONFIGURATION_DIR', APPLICATION_DIR.'configure/');
-	define('CONTROLLER_DIR', APPLICATION_DIR.'controllers/');
-	define('MODULES_DIR', APPLICATION_DIR.'modules/');
-	define('LANGUAGES_DIR', SYSTEM_DIR.'languages/');
-	
-	define('APPLICATION_CLASSES_DIR', APPLICATION_DIR.'classes/');
-	define('APPLICATION_FUNCTIONS_DIR', APPLICATION_DIR.'functions/');
-	define('APPLICATION_LANGUAGES_DIR', APPLICATION_DIR.'languages/');
+	define('CACHE_PATH', APP_PATH.'cache/');		
+	define('VIEWS_PATH', APP_PATH.'views/');	
+	define('LAYOUTS_PATH', APP_PATH.'layouts/');
+	define('MODELS_PATH', APP_PATH.'models/');
+	define('CONFIGURATION_PATH', APP_PATH.'configure/');
+	define('CONTROLLER_PATH', APP_PATH.'controllers/');
+	define('MODULES_PATH', APP_PATH.'modules/');
+	define('APPLICATION_CLASSES_PATH', APP_PATH.'classes/');
+	define('APPLICATION_FUNCTIONS_PATH', APP_PATH.'functions/');
+	define('APPLICATION_LANGUAGES_PATH', APP_PATH.'languages/');
 			
 	
-	
 	// Load in all the exceptions used in the system
-	foreach(glob(EXCEPTIONS_DIR.'*.php') as $filename) {
+	foreach(glob(EXCEPTIONS_PATH.'*.php') as $filename) {
 		require_once $filename;
 	} 	
 		
 		
 				
 	// Load in the few classes that are needed early on in system initialization
-	require_once CLASSES_DIR.'Loader.php';
+	require_once CLASSES_PATH.'Loader.php';
 	Loader::load_class('Hooks');
 	Hooks::init();
 	
@@ -54,7 +40,7 @@
 	
 	
 	// Load in the system defined functions
-	foreach(glob(FUNCTIONS_DIR.'*.php') as $filename) {
+	foreach(glob(FUNCTIONS_PATH.'*.php') as $filename) {
 		require_once $filename;
 	}
 	
@@ -83,14 +69,14 @@
 	
 	
 	// Load in all the application defined functions
-	foreach(glob(APPLICATION_FUNCTIONS_DIR.'*.php') as $filename) {
+	foreach(glob(APPLICATION_FUNCTIONS_PATH.'*.php') as $filename) {
 		require_once $filename;
 	}
 	
 	
 	// Conditionally include support for ActiveRecord
 	if ( version_compare(phpversion(), "5.3.0") >= 0 ) {
-		require_once CLASSES_DIR.'ActiveRecord/init.php';
+		require_once CLASSES_PATH.'ActiveRecord/init.php';
 	}
 	
 	
