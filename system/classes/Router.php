@@ -102,6 +102,51 @@
 		}
 		
 		
+		/**
+		 * connect
+		 *
+		 * @param array $options
+		 *
+		 * @throws UnexpectedValueException
+		 * 
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
+		public static function connect($options) {
+			
+			if ( !isset($options["controller"]) || !isset($options["pattern"]) ) {
+				throw new UnexpectedValueException("controller & pattern keys must be set");
+			}
+			
+			self::$routes[] = $options;
+			
+		}
+		
+		
+		/**
+		 * disconnect
+		 *
+		 * @param string $pattern
+		 *
+		 * @return bool $removed
+		 * @author Matt Brewer
+		 **/
+		public static function disconnect($pattern) {
+			
+			if ( is_array(self::$routes) ) {
+				foreach(self::$routes as $index => $route) {
+					if ( $route['pattern'] == $pattern ) {
+						unset(self::$routes[$index]);
+						return true;
+					}
+				}
+			}
+			
+			return false;
+			
+		}
+		
 		
 		/**
 		 * method()
