@@ -516,7 +516,7 @@
 		
 		public static function title() {
 			$value = Settings::get('application.system.site.name').TITLE_SEPARATOR.Application::controller()->title;
-			Hooks::execute(Hooks::FILTER_META_TITLE, compact("value"));
+			return Hooks::execute(Hooks::FILTER_META_TITLE, compact("value"));
 		}
 
 			
