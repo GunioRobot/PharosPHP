@@ -75,6 +75,8 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `xml_version` varchar(20) NOT NULL DEFAULT '1.0',
   `app_version` varchar(20) NOT NULL DEFAULT '1.0',
   `app_file` text NOT NULL DEFAULT '',
+  `previous_publish_timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `current_publish_timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`app_id`)
