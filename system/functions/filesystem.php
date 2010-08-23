@@ -189,6 +189,7 @@
 		
 		global $db, $CURRENT_APP_ID;
 		
+		/*
 		$sql = "CREATE TABLE IF NOT EXISTS `trashed_files` (
 		  `id` int(11) NOT NULL auto_increment,
 		  `path` text NOT NULL,
@@ -198,11 +199,30 @@
 		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
 		
 		$db->Execute($sql);
+		*/
 		
 		$sql = "INSERT INTO trashed_files VALUES(NULL,'".$path."','".$CURRENT_APP_ID."',NOW())";
 		$db->Execute($sql);
 		
 		return $db->insert_ID();
+		
+	}
+	
+	
+	Hooks::register_callback(Hooks::HOOK_CORE_CLASSES_LOADED, 'register_trashed_files_table');
+	function register_trashed_files_table() {
+		
+		global $db;
+
+		$sql = "CREATE TABLE IF NOT EXISTS `trashed_files` (
+		  `id` int(11) NOT NULL auto_increment,
+		  `path` text NOT NULL,
+		  `app_id` int(11) NOT NULL default '0',
+		  `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
+		  PRIMARY KEY  (`id`)
+		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
+
+		$db->Execute($sql);
 		
 	}
 
