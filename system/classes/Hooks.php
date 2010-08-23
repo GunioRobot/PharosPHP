@@ -24,6 +24,7 @@
 	
 		protected static $hooks = array();
 		
+		const HOOK_APPLICATION_CREATE_XML = "application_create_xml_hook";					// function ($app) {}
 		const HOOK_APPLICATION_DELETED = 'application_deleted_hook';						// function($app_id) {}
 		const HOOK_APPLICATION_PUBLISH = 'application_published_hook';						// function($app_id) {}
 		
@@ -68,7 +69,8 @@
 		public static function init() {
 			
 			self::$hooks = array(
-								
+							
+				self::HOOK_APPLICATION_CREATE_XML => null,				
 				self::HOOK_APPLICATION_DELETED => null,
 				self::HOOK_APPLICATION_PUBLISH => null,
 				
