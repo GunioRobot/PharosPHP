@@ -136,7 +136,7 @@
 		if ( strlen($xml) > 0 ) {
 
 			// Write to a temporary file
-			$temp = tempnam($app_folder, "xml");
+			$temp = $app_folder.date('U').'_'.$name.'.xml';
 			if ( ($f = @fopen($temp, 'w')) !== false ) {
 
 				// Immediately change permissions on the temp file
@@ -186,7 +186,7 @@
 						} else {
 
 							// Current doesn't exist, so just go ahead and rename temp to current
-							if ( @rename($temp, $current) === FALSE ) {
+							if ( rename($temp, $current) === FALSE ) {
 
 								$ret->error = true;
 								$ret->message .= "There was an error making the new XML active.  Rolling back to last archived XML.<br />";
