@@ -293,13 +293,13 @@
 					Hooks::execute(Hooks::HOOK_APPLICATION_PUBLISH, array($id));
 					
 					// SHOW SUCCESS PAGE
-					echo json_encode((object)array("error" => false, "title" => "Published Successfully", "message" => "Application was successfully published."));
+					echo json_encode((object)array("error" => false, "title" => "Published Successfully", "message" => $ret->message));
 					exit;
 					
 				} else {
 					
 					// SHOW ERROR PAGE
-					echo json_encode((object)array("error" => false, "title" => "Publication Error", "message" => "Error publishing application!<br /><br />Please try again or contact the system administrator."));
+					echo json_encode((object)array("error" => false, "title" => "Publication Error", "message" => $ret->message));
 					exit;
 				}
 				
