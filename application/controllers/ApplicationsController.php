@@ -279,7 +279,7 @@
 				$newVersion = floatval($app->fields['xml_version']) + 0.1;
 				$app->fields['xml_version'] = $newVersion;
 
-				$status = write_xml(clean_object($app->fields));
+				$status = Hooks::execute(Hooks::HOOK_APPLICATION_CREATE_XML, array(clean_object($app->fields)));
 				if ( !$status->error ) {
 
 					// Place new version in the db
