@@ -1,6 +1,6 @@
 <?
 	
-	require_once dir_name(__FILE__).'/ActiveRecord.php';
+	require_once dirname(__FILE__).'/ActiveRecord.php';
 	
 	ActiveRecord\Config::initialize(function($cfg)
 	{
