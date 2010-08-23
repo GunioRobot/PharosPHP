@@ -41,6 +41,8 @@
 		const HOOK_MODULE_LOADED = 'module_loaded_hook';									// function($module_name) {}
 		const HOOK_MODULES_POST_LOADED = 'modules_post_loaded_hook';						// function() {}
 		
+		const HOOK_PASSWORD_RANDOM_GENERATE = "generate_random_password_hook";				// function($password) {}
+		
 		const HOOK_PROFILE_MODULE_PRE_PROCESSED = 'profile_module_pre_processed_hook';		// function($fields) {}
 		const HOOK_PROFILE_MODULE_POST_PROCESSED = 'profile_module_post_processed_hook';	// function($id, $fields) {}
 
@@ -86,6 +88,8 @@
 				self::HOOK_MODULES_PRE_LOADED => null,
 				self::HOOK_MODULE_LOADED => null,
 				self::HOOK_MODULES_POST_LOADED => null,
+				
+				self::HOOK_PASSWORD_RANDOM_GENERATE => null,
 				
 				self::HOOK_PROFILE_MODULE_PRE_PROCESSED => null,
 				self::HOOK_PROFILE_MODULE_POST_PROCESSED => null,
