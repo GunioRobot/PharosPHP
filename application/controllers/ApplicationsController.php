@@ -170,7 +170,7 @@
 				array('name' => '{new}', 'type' => 'static', 'value' => Template::create(__CLASS__)),
 				array('name' => '{form_link}', 'type' => 'static', 'value' => Template::save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
-				
+								
 				array('name' => 'xml_version', 'type' => 'display'),
 				array('name' => 'app_name', 'type' => 'text', 'size' => '50' , 'max' => '200'),
 				array('name' => 'app_notes', 'type' => 'text_area', 'row' => '8', 'col' => '89', 'width' => '738px', 'height' => '100px'),
@@ -188,6 +188,8 @@
 				$fields[] = array('name' => 'active', 'type' => 'dropdown', 'option' => array('true' => "Active", "false" => "Inactive"), 'default' => array('true' => "Active"));
 				$fields[] = array('name' => '/status', 'type' => 'static', 'value' => '</div>', 'varx' => 'hide');
 
+				$fields[] = array('name' => 'app_file', 'type' => 'file', 'varx' => 'store_filesize@false:store_filetype@false');
+				$fields[] = array('name' => '{app_file}', 'type' => 'link', 'prefix' => UPLOAD_SERVER, 'title' => 'Download AIR File', 'text' => '[Download AIR File]');
 
 				// App Version - let super edit it
 				$fields[] = array('name' => 'app_version', 'type' => 'text', 'max' => '10', 'size' => '10');		
@@ -198,7 +200,9 @@
 				$fields[] = array('name' => 'status', 'type' => 'static', 'value' => '', 'varx' => 'hide');
 				$fields[] = array('name' => 'active', 'type' => 'static', 'value' => '', 'varx' => 'hide');
 				$fields[] = array('name' => '/status', 'type' => 'static', 'value' => '', 'varx' => 'hide');
-
+				
+				$fields[] = array('name' => 'app_file', 'type' => 'static', 'value' => '');
+				$fields[] = array('name' => '{app_file}', 'type' => 'static', 'value' => '');
 
 				// App version - just display it
 				$fields[] = array('name' => 'app_version', 'type' => 'display');
@@ -208,8 +212,8 @@
 
 			// Run throught the parser and spit out the page
 			$profile = new Profile($fields);
-			
-			if ( $id > 0 ) $profile->display($this->dataKey, $id, $repost);
+						
+			if ( $id > 0 ) echo $profile->display($this->dataKey, $id, $repost);
 			else echo $profile->display();
 						
 		}
