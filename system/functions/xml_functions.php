@@ -136,7 +136,7 @@
 		if ( strlen($xml) > 0 ) {
 
 			// Write to a temporary file
-			$temp = tempname($app_folder);
+			$temp = tempnam($app_folder, "xml");
 			if ( ($f = @fopen($temp, 'w')) !== false ) {
 
 				// Immediately change permissions on the temp file
