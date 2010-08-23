@@ -46,7 +46,14 @@
 
 		public function processPasswordReset() {
 			if ( ($user = post('user')) !== false ) {
-				Authentication::get()->reset_password($user);
+				
+				$status = Authentication::get()->reset_password($user);
+				if ( $status === true ) {
+					redirect(Template::controller_link('SessionController', 'passwordSuccessfullyReset/'));
+				} else {
+					redirect(Template::controller_link('SessionController', 'passwordResetFailed/'.$status.'/'));
+				}
+				
 			} else {
 				redirect(Template::controller_link(__CLASS__, "password-reset/"));
 			}

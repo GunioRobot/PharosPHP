@@ -140,13 +140,13 @@
 		/**
 		 * reset_password($username)
 		 *
-		 * Mails the user a new password and redirects to the success/fail page
-		 *
 		 * @param string $username
+		 * @param bool $send_email
+		 * 
 		 * @return void
 		 * @author Matthew
 		 **/
-		public function reset_password($username) {
+		public function reset_password($username, $send_email=true) {
 
 			Modules::load("rmail");
 
@@ -156,24 +156,44 @@
 				$new_password = self::random_password();
 				$this->db->Execute("UPDATE users SET user_password = '".$new_password."', last_updated = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
 
-				$html = '<html><body>';
-				$html .= '<h2>Password Reset</h2>';
-				$html .= 'You requested to have your password reset.  If you did not make the request, please user the system administrator at: <a href="mailto:'.SYS_ADMIN_EMAIL.'?subject=Bad Password Reset">'.SYS_ADMIN_EMAIL.'</a>';
-				$html .= '<br /><br /><hr>';
-				$html .= 'Your new password is: <strong>'.$new_password.'</strong><br />';
-				$html .= 'Login at <a href="'.Template::site_link().'">'.Template::site_link().'</a> with your username and new password.';
-				$html .= '</body></html>';
+				if ( $send_email ) {
+			
+					// Create our default HTML
+					try {
+						$from = Settings::get("application.email.password_reset");
+					} catch(Exception $e) {
+						$from = SYS_ADMIN_EMAIL;
+					}
 
-				$mail = new Rmail();
-				$mail->setFrom(SERVER_MAILER);
-				$mail->setSubject(Settings::get('application.system.site.name').': Password Reset');
-				$mail->setPriority('high');
-				$mail->setHTML($html);
+					$login_page = Template::site_link();
+					$html = <<<HTML
+					<html>
+						<body>
+							<h2>Password Reset</h2>
+							<p>You requested to have your password reset. If you did not make this request, please email the system administrator at: <a href="mailto:$from?subject=Invalid Password Reset Request">$from</a></p>
+							<br /><hr /><br />
+							<p>Your new password is: <strong>$new_password</strong><br /></p>
+							<p>Login at <a href="$login_page">$login_page</a> with your username and new password.</p>
+						</body>
+					</html>
+HTML;
+				
+					// Run the HTML through a filter
+					$html = Hooks::execute(Hooks::HOOK_PASSWORD_RESET_EMAIL_HTML, array("value" => $html, $new_password));
+					$subject = Hooks::execute(Hooks::HOOK_PASSWORD_RESET_EMAIL_SUBJECT, array("value" => Settings::get('application.system.site.name').': Password Reset'));
 
-				if ( !$mail->send(array($info->fields['user_primary_email'])) ) redirect(site_link('passwordResetFailed/0/'));
-				else redirect(Template::controller_link('SessionController', 'passwordSuccessfullyReset/'));
+					$mail = new Rmail();
+					$mail->setFrom($from);
+					$mail->setSubject($subject);
+					$mail->setPriority('high');
+					$mail->setHTML($html);
+					
+				}
+				
+				if ( !$mail->send(array($info->fields['user_primary_email'])) ) return 0;
+				else return true;
 
-			} else redirect(Template::controller_link('SessionController', 'passwordResetFailed/1/'));
+			} else return 1;
 			
 		}
 		
