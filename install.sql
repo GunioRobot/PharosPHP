@@ -74,6 +74,7 @@ CREATE TABLE IF NOT EXISTS `applications` (
   `active` varchar(7) NOT NULL DEFAULT 'true',
   `xml_version` varchar(20) NOT NULL DEFAULT '1.0',
   `app_version` varchar(20) NOT NULL DEFAULT '1.0',
+  `app_file` text NOT NULL DEFAULT '',
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_updated` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`app_id`)
@@ -308,6 +309,7 @@ CREATE TABLE IF NOT EXISTS `tracking` (
   `app_id` int(11) NOT NULL DEFAULT '0',
   `content_type_id` bigint(20) NOT NULL DEFAULT '0',
   `table_index` bigint(20) NOT NULL DEFAULT '0',
+  `ip_address` varchar(75) NOT NULL DEFAULT 'xxx.xxx.xxx.xxx',
   `timestamp` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   PRIMARY KEY (`track_id`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;
@@ -349,6 +351,7 @@ CREATE TABLE IF NOT EXISTS `users` (
   `user_birthday` date NOT NULL DEFAULT '0000-00-00',
   `logged_in` VARCHAR(7) NOT NULL DEFAULT 'false',
   `last_logout` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
+  `registered_ip_address` varchar(75) NOT NULL DEFAULT 'xxx.xxx.xxx.xxx',
   `date_added` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `user_last_login` datetime NOT NULL DEFAULT '0000-00-00 00:00:00',
   `last_updated` timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
