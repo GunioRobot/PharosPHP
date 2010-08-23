@@ -184,7 +184,7 @@
 		 * @return string new_password
 		 * @author Matthew
 		 **/
-		public function random_password() {
+		public static function random_password() {
 			$value = substr(md5(time()),0,15);
 			return Hooks::execute(Hooks::HOOK_PASSWORD_RANDOM_GENERATE, compact("value"));
 		}
