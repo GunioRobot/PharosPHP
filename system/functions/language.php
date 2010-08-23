@@ -1,7 +1,7 @@
 <?
 
 	/**
-	 * __()
+	 * i18n()
 	 * Alias for "Language::lookup()"
 	 *
 	 * @param (Keypath|string) $keypath
@@ -14,7 +14,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	function __($keypath, $default="", $lang=null) {
+	function i18n($keypath, $default="", $lang=null) {
 		return Language::lookup($keypath, $default, $lang);
 	}
 
