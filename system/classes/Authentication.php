@@ -35,10 +35,8 @@
 		}
 
 
-		public function __construct() {
-			
-			if ( self::$instance ) return self::$instance;
-			
+		protected function __construct() {
+						
 			global $db;
 			$this->db =& $db;
 			
@@ -93,8 +91,9 @@
 				
 				$this->db->Execute(sprintf("UPDATE users SET user_last_login = NOW(), logged_in = 'true' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
 				
-				Cookie::set("pharos_authentication[uid]", $this->user->user_id, Settings::get("application.users.login_interval") * 60 + time());				
-				Cookie::set("pharos_authentication[name]", $this->user->user_first_name." ".$this->user->user_last_name, Settings::get("application.users.login_interval") * 60 + time());
+				$duration = Settings::get("application.users.login_interval") * 60 + time();
+				Cookie::set("pharos_authentication[uid]", $this->user->user_id, $duration);				
+				Cookie::set("pharos_authentication[name]", $this->user->user_first_name." ".$this->user->user_last_name, $duration);
 				define('SECURITY_LVL', $this->user->user_level);
 
 				return true;
@@ -186,7 +185,8 @@
 		 * @author Matthew
 		 **/
 		public function random_password() {
-			return str_replace('_', '', substr(rand(0,100).chr(rand(65,117)).chr(rand(65,117)).chr(rand(65,117)).chr(rand(65,117)).rand(50,100).RESET_PASSWORD_RANDOM_WORD, 0, 49));	// Limit the password to 50 max characters (all the database holds)
+			$value = substr(md5(time()),0,15);
+			return Hooks::execute(Hooks::HOOK_PASSWORD_RANDOM_GENERATE, compact("value"));
 		}
 		
 		
