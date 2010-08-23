@@ -22,8 +22,8 @@
 #dashboard-leftWrapper {
 	float:left;
 	width:569px;
-/*	height:1035px;	*/
-	height:635px;
+	height:1035px;	
+/*	height:635px;*/
 	padding:15px 20px;
 	border-left: 1px solid #ddd;
 }
@@ -173,8 +173,8 @@ a.current-tab {
 	float:left;
 /*	width:139px;	*/
 	width:140px;
-/*	height:1050px;	*/
-	height:650px;
+	height:1050px;	
+/*	height:650px;*/
 	padding:10px 5px 5px 5px;
 	background-color:#ccc;
 }
