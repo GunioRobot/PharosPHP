@@ -126,4 +126,97 @@
 		}
 	}
 	
+	
+	function write_xml_with_xml($app_folder, $archive_folder, $xml, $name) {
+		
+		// Object we return
+		$ret->error = false;
+		$ret->message = '';
+		
+		if ( strlen($xml) > 0 ) {
+
+			// Write to a temporary file
+			$temp = tempname($app_folder);
+			if ( ($f = @fopen($temp, 'w')) !== false ) {
+
+				// Immediately change permissions on the temp file
+				chmod($temp, 0755);
+
+				// Write to file, check for errors
+				$write_status = @fwrite($f, $xml);
+				@fclose($f);
+				
+				if ( $write_status === false ) {
+					$ret->error = true;
+					$ret->message .= "There was an error attempting to write the XML.<br />";
+				} else {
+
+					// Read in the contents of the file and compare to the original string
+					$writtenXML = @file_get_contents($temp);
+					if ( $writtenXML != $xml ) {
+						$ret->error = true;
+						$ret->message .= "There was an error attempting to write the XML.  Contents of temporary file did not match.<br />";
+					} else {
+
+						// Move the previous current xml to the archive folder (if there was a previous current)
+						$current = $app_folder.$name.'.xml';
+						if ( @file_exists($current) ) {
+
+							$archivedXML = $archive_folder.$name.'_'.date('Y-m-d_G:i').'.xml';
+							if ( @rename($current, $archivedXML ) === FALSE ) {
+								$ret->error = true;
+								$ret->message .= "There was an error copying the current xml to the archive folder.<br />";
+							} else {
+
+								// Current is now in the archive folder, so rename the temp to current
+								if ( @rename($temp, $current) === FALSE ) {
+
+									$ret->error = true;
+									$ret->message .= "There was an error making the new XML active.  Rolling back to last archived XML.<br />";
+
+									if ( @rename($archivedXML, $current) === FALSE ) {
+										$ret->error = true;
+										$ret->message .= "There was an error rolling back to the archived XML.<br />";
+									}
+
+								} 
+
+							}
+
+						} else {
+
+							// Current doesn't exist, so just go ahead and rename temp to current
+							if ( @rename($temp, $current) === FALSE ) {
+
+								$ret->error = true;
+								$ret->message .= "There was an error making the new XML active.  Rolling back to last archived XML.<br />";
+
+								if ( @rename($archivedXML, $current) === FALSE ) {
+									$ret->error = true;
+									$ret->message .= "There was an error rolling back to the archived XML.<br />";
+								}
+
+							}
+
+						}
+
+					}
+
+				} 
+
+			} else {
+				$ret->error = true;
+				$ret->message .= "There was an error attempting to write the XML.<br />";
+			}
+
+
+		} else {
+			$ret->error = true;
+			$ret->message .= "There was an error creating the XML.<br />";
+		}
+		
+		return $ret;
+		
+	}
+	
 ?>
