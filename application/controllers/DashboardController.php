@@ -16,7 +16,7 @@
 			$this->dataKey = "user_id";			
 			$this->tableColumns();
 			
-			$this->auth->login_required(true);
+			$this->auth->login_required(false);
 												
 		}
 		
@@ -729,6 +729,64 @@
 			}
 
 
+		}
+		
+		public function demographicData() {
+			
+		
+			global $CURRENT_APP_ID;
+		
+			// Grand total of activity for this application
+			$total = $this->db->Execute("SELECT COUNT(track_id) as hits FROM tracking WHERE app_id = '".$CURRENT_APP_ID."'");
+			$total = (!$total->EOF AND $total->fields['hits'] != '' ) ? intval($total->fields['hits']) : 0;
+			
+			$states = array();
+
+			// State specific data
+			// $sql = "SELECT tracking.app_id, COUNT(tracking.track_id) as hits, t2.user_state FROM tracking JOIN ( SELECT users.user_id, users.user_state FROM users JOIN ( SELECT table_index FROM applications_to_content WHERE content_type_id = '".(int)USER_TYPE_ID."' AND app_id = '".$CURRENT_APP_ID."' ) t1 ON t1.table_index = users.user_id ) t2 ON t2.user_id = tracking.user_id AND tracking.app_id = '".$CURRENT_APP_ID."' GROUP BY t2.user_state ORDER BY t2.user_state ASC";
+			$sql = "SELECT tracking.app_id, COUNT(tracking.track_id) as hits, t2.user_state FROM tracking JOIN ( SELECT users.user_id, users.user_state FROM users WHERE users.user_level = '".(int)Settings::get('application.users.levels.basic')."' ) t2 ON t2.user_id = tracking.user_id AND tracking.app_id = '".$CURRENT_APP_ID."' GROUP BY t2.user_state ORDER BY t2.user_state ASC";
+			for ( $rr = $this->db->Execute($sql); !$rr->EOF; $rr->moveNext() ) {
+
+				// $sql = "SELECT DISTINCT users.user_id FROM users JOIN ( SELECT * FROM applications_to_content WHERE content_type_id = '".(int)USER_TYPE_ID."' AND app_id = '".$CURRENT_APP_ID."' ) t1 ON t1.table_index = users.user_id WHERE user_state = '".$rr->fields['user_state']."' AND users.user_level = '".Settings::get('application.users.levels.basic')."'";
+				$sql = "SELECT DISTINCT users.user_id FROM users WHERE user_state = '".$rr->fields['user_state']."' AND users.user_level = '".Settings::get('application.users.levels.basic')."'";
+				
+				$u = $this->db->Execute($sql);
+				$s['users'] = $u->RecordCount();
+
+				$s['hits'] = $rr->fields['hits'];
+				$states[$rr->fields['user_state']] = $s;
+			}
+
+			responseXML("false", "", $dom, $root);
+			$stateNames = array_flip(states_array());
+
+			foreach($stateNames as $short => $long) {
+
+				$percent = $total > 0 ? number_format(round($states[$short]['hits'] / $total, 2),2) : 0;
+				// var_dump($percent, round($states[$short]['hits'] / $total, 2));
+
+				$el = $dom->createElement("state");
+				$name = $dom->createElement("name");
+				$activity = $dom->createElement("activity");
+				$percentEl = $dom->createElement("percent");
+				$users = $dom->createElement("users");
+
+				$name->appendChild($dom->createCDATASection(strtolower(str_replace(' ','_',$long))));
+				$activity->appendChild($dom->createCDATASection($states[$short]['hits']));
+				$percentEl->appendChild($dom->createCDATASection($percent));
+				$users->appendChild($dom->createCDATASection($states[$short]['users']));
+
+				$el->appendChild($name);
+				$el->appendChild($activity);
+				$el->appendChild($percentEl);
+				$el->appendChild($users);
+
+				$root->appendChild($el);
+
+			} 
+			// exit;
+
+			printXML($dom->saveXML());
 		}
 		
 	}
