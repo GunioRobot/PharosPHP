@@ -393,8 +393,8 @@
 						$actions .= '<a class="confirm-with-popup" href="'.Template::controller_link(__CLASS__,"activate/$id/").'" title="Activate this '.$this->type.'">&nbsp;Activate&nbsp;</a>';
 					}
 					
-					// $actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					// $actions .= '<a href="'.sprintf(Template::controller_link(__CLASS__,"track/%d/"),$id).'" title="View tracking information for this '.$this->type.'">Trends</a>';
+					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
+					$actions .= '<a href="'.sprintf(Template::controller_link(__CLASS__,"track/%d/"),$id).'" title="View tracking information for this '.$this->type.'">Trends</a>';
 					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
 					$actions .= '<a class="confirm-with-popup" href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 					
@@ -498,7 +498,7 @@
 				array('name' => PROFILE_ID, 'type' => 'display'),
 				array('name' => '{TYPE}', 'type' => 'static', 'value' => PROFILE_TITLE),
 				array('name' => '{Tracking Link}', 'type' => 'static', 'value' => Template::controller_link(__CLASS__,'manage/')),
-				array('name' => '{form_link}', 'type' => 'static', 'value' => save(__CLASS__,$id)),
+				array('name' => '{form_link}', 'type' => 'static', 'value' => Template::save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
 				array('name' => 'user_first_name', 'type' => 'text', 'size' => 32, 'max' => 200, 'class' => 'singleText'),
@@ -519,7 +519,7 @@
 				array('name' => 'user_secondary_email', 'type' => 'text', 'size' => 32, 'max' => 200, 'class' => 'singleText'),
 				array('name' => 'user_birthday', 'type' => 'dob'),
 				array('name' => 'user_notes', 'type' => 'text_area', 'class' => 'notes'),
-				array('name' => 'user_industry', 'type' => 'dropdown', 'option' => $this->industries),
+				// array('name' => 'user_industry', 'type' => 'dropdown', 'option' => $this->industries),
 				
 				array('name' => 'user_is_active', 'type' => 'checkbox', 'checkvalue' => 'true'),
 				
@@ -546,10 +546,7 @@
 			global $CURRENT_APP_ID;
 			
 			$this->output->css("dashboard.css");
-			
-			/*
-			build_categories();
-			
+						
 			// User information
 			$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' LIMIT 1", $id);
 			$info = $this->db->Execute($sql);
@@ -561,22 +558,16 @@
 			$launches = $info->fields['launches'] > 0 ? $info->fields['launches'] : 0;
 			
 			// Tracking infromation
-			$sql = sprintf("SELECT * FROM tracking t, products p WHERE t.content_type_id = '%d' AND t.user_id = '%d' AND t.app_id = '%d' AND p.id = t.table_index ORDER BY t.timestamp DESC LIMIT 75", PRODUCT_TYPE_ID, $id, $CURRENT_APP_ID);
-			for ( $track = array(), $info = $this->db->Execute($sql); !$info->EOF; $info->moveNext() ) {
-
-				$product = clean_object($info->fields);
-				
-				$path = array_reverse(recursive_path($product));
-				$path[] = $product->title;
-				$product->path = implode("&nbsp;&raquo;&nbsp;", $path);
-				
-				$track[] = $product;
-				
+			$sql = sprintf("SELECT * FROM tracking t, views v WHERE t.content_type_id = '%d' AND t.user_id = '%d' AND t.app_id = '%d' AND v.id = t.table_index ORDER BY t.timestamp DESC LIMIT 75", VIEW_TYPE_ID, $id, $CURRENT_APP_ID);
+			for ( $track = array(), $info = $this->db->Execute($sql); !$info->EOF; $info->moveNext() ) {				
+				$track[] = clean_object($info->fields);
 			}
-			*/
 			
-			// Show the view
-			require_once VIEWS_PATH.'user-tracking-view.php';
+			$this->output->set("track", $track);
+			$this->output->set("launches", $launches);
+			$this->output->set("user", $user);
+			
+			$this->output->view("user-tracking-view.php");
 			
 		}
 		

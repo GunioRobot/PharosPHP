@@ -1,4 +1,7 @@
 actions:
-    save : save
-    edit : edit
-    cancel : cancel
+    archive: archive
+    cancel: cancel
+    delete: delete
+    edit: edit
+    save: save
+    
