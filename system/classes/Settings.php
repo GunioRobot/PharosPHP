@@ -200,19 +200,25 @@
 		
 		public static function load_static_system_settings() {
 			
+			$pos = strrpos(APP_PATH, APP_DIR);
+			$root = substr($_SERVER['DOCUMENT_ROOT'], 0, $pos);
+			$root = substr($_SERVER['SCRIPT_FILENAME'], strlen($root));
+			$pos = strrpos($root, APP_DIR);
+			$root_dir = trim(substr($root, 0, $pos), "/");
+						
 			$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
-			define('ROOT_URL', $host.$_SERVER['HTTP_HOST'].'/'.APP_DIR);
-
+			define('ROOT_URL', $host.$_SERVER['HTTP_HOST'].'/'.$root_dir.'/');
+						
 			if ( !defined("UPLOAD_PATH") ) {
 				define("UPLOAD_PATH", APP_PATH."uploads/");
-			}
-			
+			}			
+					
 			if ( !defined("APP_URL") ) {
-				define("APP_URL", ROOT_URL.APP_DIR);
-			}		
-			
+				define("APP_URL", ROOT_URL.APP_DIR.'/');
+			}			
+		
 			if ( !defined("PUBLIC_URL") ) {
-				define("PUBLIC_URL", APP_URL.PUBLIC_DIR);
+				define("PUBLIC_URL", APP_URL.PUBLIC_DIR.'/');
 			}
 			
 			if ( !defined("UPLOAD_URL") ) {
@@ -222,7 +228,7 @@
 			if ( !defined("MODULES_URL") ) {
 				define("MODULES_URL", APP_URL."modules/");
 			}
-
+						
 			define('SECURE_KEYWORD',md5(self::get('application.system.site.name')));
 			define('APPLICATION_SECRET_KEY', md5(self::get('application.system.site.name')));
 			define('SALT', self::get("application.salt"));
