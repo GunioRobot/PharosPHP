@@ -189,7 +189,7 @@
 				$fields[] = array('name' => '/status', 'type' => 'static', 'value' => '</div>', 'varx' => 'hide');
 
 				$fields[] = array('name' => 'app_file', 'type' => 'file', 'varx' => 'store_filesize@false:store_filetype@false');
-				$fields[] = array('name' => '{app_file}', 'type' => 'link', 'prefix' => UPLOAD_SERVER, 'title' => 'Download AIR File', 'text' => '[Download AIR File]');
+				$fields[] = array('name' => '{app_file}', 'type' => 'link', 'prefix' => UPLOAD_URL, 'title' => 'Download AIR File', 'text' => '[Download AIR File]');
 
 				// App Version - let super edit it
 				$fields[] = array('name' => 'app_version', 'type' => 'text', 'max' => '10', 'size' => '10');		
