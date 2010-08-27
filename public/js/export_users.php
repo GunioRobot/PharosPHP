@@ -1,5 +1,7 @@
 <script type="text/javascript">
 
+	<? global $db; ?>
+
 	$(function() {
 		
 		// Ask user to choose date range for export and give them CSV file afterwards
