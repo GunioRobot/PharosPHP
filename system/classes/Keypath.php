@@ -47,7 +47,7 @@
 				
 				if ( ($path = trim($keypath, $this->separator." ")) != "" ) {
 				
-					$components = explode($this->separator), $path);
+					$components = explode($this->separator, $path);
 					if ( empty($components) ) throw new InvalidKeyPathException("Invalid key path ($path)");
 					
 					$this->components = $components;
