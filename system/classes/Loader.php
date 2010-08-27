@@ -93,24 +93,24 @@
 			
 				if ( !class_exists($klass) ) {
 				
-					if ( !file_exists(CLASSES_DIR.$klass.".php") ) {
+					if ( !file_exists(CLASSES_PATH.$klass.".php") ) {
 					
-						if ( !file_exists(APPLICATION_CLASSES_DIR.$klass.".php") ) {
+						if ( !file_exists(APPLICATION_CLASSES_PATH.$klass.".php") ) {
 							throw new ClassNotFoundException(sprintf("Unable to locate file containing class (%s)", $klass));
 						} else {
 						
-							@include_once APPLICATION_CLASSES_DIR.$klass.".php";
+							@include_once APPLICATION_CLASSES_PATH.$klass.".php";
 							if ( !class_exists($klass) ) {
-								throw new ClassNotFoundException(sprintf("Could not find class (%s): include '%s.php'", $klass, APPLICATION_CLASSES_DIR.$klass));
+								throw new ClassNotFoundException(sprintf("Could not find class (%s): include '%s.php'", $klass, APPLICATION_CLASSES_PATH.$klass));
 							}
 						
 						}
 					
 					} else {
 				
-						@include_once CLASSES_DIR.$klass.'.php';
+						@include_once CLASSES_PATH.$klass.'.php';
 						if ( !class_exists($klass) ) {
-							throw new ClassNotFoundException(sprintf("Could not find class (%s): include '%s.php'", $klass, CLASSES_DIR.$klass));
+							throw new ClassNotFoundException(sprintf("Could not find class (%s): include '%s.php'", $klass, CLASSES_PATH.$klass));
 						}
 					
 					}

@@ -50,19 +50,19 @@
 						
 			if ( $info['dirname'] == "." ) {	// If a directory wasn't provided, infer one
 			
-				if ( !file_exists(APPLICATION_LANGUAGES_DIR.$filename) && !file_exists(LANGUAGES_DIR.$filename) ) {
+				if ( !file_exists(APPLICATION_LANGUAGES_PATH.$filename) && !file_exists(LANGUAGES_PATH.$filename) ) {
 					throw new InvalidFileSystemPathException(sprintf("Language file does not exist: (%s)", $filename));
 				}
 							
 				// Load the system language file first, so that if an application language file is found, the values defined there will override
-				if ( file_exists(LANGUAGES_DIR.$filename) ) {
-					$config = sfYaml::load(LANGUAGES_DIR.$filename);
+				if ( file_exists(LANGUAGES_PATH.$filename) ) {
+					$config = sfYaml::load(LANGUAGES_PATH.$filename);
 					self::$languages[$file] = is_array(self::$languages[$file]) ? array_merge(self::$languages[$file], $config) : $config;
 				}
 			
 				// Any values defined in /application/languages/{lang}.yml will override values defined for the system version
-				if ( file_exists(APPLICATION_LANGUAGES_DIR.$filename) ) {
-					$config = sfYaml::load(APPLICATION_LANGUAGES_DIR.$filename);
+				if ( file_exists(APPLICATION_LANGUAGES_PATH.$filename) ) {
+					$config = sfYaml::load(APPLICATION_LANGUAGES_PATH.$filename);
 					self::$languages[$file] = is_array(self::$languages[$file]) ? array_merge(self::$languages[$file], $config) : $config;
 				}
 							

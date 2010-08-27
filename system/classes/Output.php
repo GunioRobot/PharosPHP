@@ -274,7 +274,7 @@
 		*	@return string $rendered_view or $str
 		*
 		*/
-		public function view($str, $directory=VIEWS_DIR) {
+		public function view($str, $directory=VIEWS_PATH) {
 			
 			$file = $directory.$str;
 			if ( $str != "" && file_exists($file) ) {

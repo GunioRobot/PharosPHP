@@ -199,7 +199,7 @@ class PhpQuickProfiler {
 		$this->gatherSpeedData();
 		
 		// a function, autoloaded
-		displayPqp($this->output, MODULES_SERVER.'console/');
+		displayPqp($this->output, MODULES_URL.'console/');
 	}
 	
 }

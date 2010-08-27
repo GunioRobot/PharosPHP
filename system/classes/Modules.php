@@ -74,7 +74,7 @@
 		
 			if ( !isset(self::$modules[$name]) ) {
 
-				$folder = MODULES_DIR.$name;
+				$folder = MODULES_PATH.$name;
 				$file = $folder."/include.php";
 
 				if ( @file_exists($folder) && is_dir($folder) && @file_exists($file) ) {

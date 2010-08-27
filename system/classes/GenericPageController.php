@@ -14,7 +14,7 @@
 			$view = '';
 			if ( count($this->images) > 0 ) {
 				foreach($this->images as $i) {
-			    	$view .= '<img src="'.UPLOAD_SERVER.$i->thumb.'" alt="'.$i->alt.'" border="0" />';
+			    	$view .= '<img src="'.UPLOAD_URL.$i->thumb.'" alt="'.$i->alt.'" border="0" />';
 				} 
 			} return $view;
 		}

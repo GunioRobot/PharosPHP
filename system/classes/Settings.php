@@ -27,8 +27,6 @@
 	 * @author Matt Brewer
 	 **/
 	
-	Settings::load();
-	Settings::load_static_system_settings();
 	
 	class Settings {
 			
@@ -45,11 +43,11 @@
 
 		public static function load($filename='application.yml') {
 			
-			if ( !file_exists(CONFIGURATION_DIR.$filename) ) {
-				throw new InvalidFileSystemPathException(sprintf("File does not exist: (%s)", CONFIGURATION_DIR.$filename));
+			if ( !file_exists(CONFIGURATION_PATH.$filename) ) {
+				throw new InvalidFileSystemPathException(sprintf("File does not exist: (%s)", CONFIGURATION_PATH.$filename));
 			}
 						
-			self::$config[self::key_for_filename($filename)] = sfYaml::load(CONFIGURATION_DIR.$filename);
+			self::$config[self::key_for_filename($filename)] = sfYaml::load(CONFIGURATION_PATH.$filename);
 			
 		}
 		
@@ -202,55 +200,38 @@
 		
 		public static function load_static_system_settings() {
 			
-			////////////////////////////////////////////////////////////////////////////////
-			//
-			//	Main Site Information
-			//	
-			////////////////////////////////////////////////////////////////////////////////
+			$pos = strrpos(APP_PATH, APP_DIR);
+			$root = substr($_SERVER['DOCUMENT_ROOT'], 0, $pos);
+			$root = substr($_SERVER['SCRIPT_FILENAME'], strlen($root));
+			$pos = strrpos($root, APP_DIR);
+			$root_dir = trim(substr($root, 0, $pos), "/");
+						
 			$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
-			define('HTTP_SERVER', $host.$_SERVER['HTTP_HOST'].'/'.APP_PATH);
-
-			$upload_dir = self::get("application.filesystem.upload_directory");
-			if ( $upload_dir[0] == "/" ) {
-				define('UPLOAD_DIR', $upload_dir);
-			} else {
-				define('UPLOAD_DIR', APPLICATION_DIR.$upload_dir);
+			define('ROOT_URL', $host.$_SERVER['HTTP_HOST'].'/'.$root_dir.'/');
+						
+			if ( !defined("UPLOAD_PATH") ) {
+				define("UPLOAD_PATH", APP_PATH."uploads/");
+			}			
+					
+			if ( !defined("APP_URL") ) {
+				define("APP_URL", ROOT_URL.APP_DIR.'/');
+			}			
+		
+			if ( !defined("PUBLIC_URL") ) {
+				define("PUBLIC_URL", APP_URL.PUBLIC_DIR.'/');
 			}
-
-			define('XML_DIR', APPLICATION_DIR.self::get("application.filesystem.xml_directory"));
-
-
-
-			////////////////////////////////////////////////////////////////////////////////
-			//
-			//	Server Path Information
-			//
-			////////////////////////////////////////////////////////////////////////////////
-
-			define('APPLICATION_SERVER', HTTP_SERVER.'application/');
-			define('SYSTEM_SERVER', HTTP_SERVER.'system/');
-
-			define('PUBLIC_SERVER', HTTP_SERVER.'public/');		
-
-			if ( $upload_dir[0] == "/" ) {
-				define('UPLOAD_SERVER', HTTP_SERVER.substr($upload_dir, strpos($upload_dir, APP_PATH) + strlen(APP_PATH)));
-			} else {
-				define('UPLOAD_SERVER', APPLICATION_SERVER.$upload_dir);
+			
+			if ( !defined("UPLOAD_URL") ) {
+				define("UPLOAD_URL", APP_URL."uploads/");
 			}
-
-			define('XML_SERVER', APPLICATION_SERVER.self::get("application.filesystem.xml_directory"));
-			define('CACHE_SERVER', APPLICATION_SERVER.'cache/');
-			define('MODULES_SERVER', APPLICATION_SERVER.'modules/');
-
-
-			////////////////////////////////////////////////////////////////////////////////
-			//
-			//	System software settings
-			//
-			////////////////////////////////////////////////////////////////////////////////
-
+			
+			if ( !defined("MODULES_URL") ) {
+				define("MODULES_URL", APP_URL."modules/");
+			}
+						
 			define('SECURE_KEYWORD',md5(self::get('application.system.site.name')));
 			define('APPLICATION_SECRET_KEY', md5(self::get('application.system.site.name')));
+			define('SALT', self::get("application.salt"));
 			
 		}
 		

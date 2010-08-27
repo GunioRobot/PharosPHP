@@ -21,19 +21,19 @@
 		
 		public static function layout() {
 						
-			if ( !is_null(Application::controller()->output->layout) && @file_exists(LAYOUTS_DIR.Application::controller()->output->layout.".php") ) {
-				return LAYOUTS_DIR.Application::controller()->output->layout.".php";
+			if ( !is_null(Application::controller()->output->layout) && @file_exists(LAYOUTS_PATH.Application::controller()->output->layout.".php") ) {
+				return LAYOUTS_PATH.Application::controller()->output->layout.".php";
 			} else {
 			
 				$layout = self::_layout_file(Router::controller());
 				$file = self::_layout_file($layout.Router::method().".php");
 
-				if ( @file_exists(LAYOUTS_DIR.$file) ) {
-					return LAYOUTS_DIR.$file;
-				} else if ( @file_exists(LAYOUTS_DIR.$layout.".php") ) {
-					return LAYOUTS_DIR.$layout.".php";
-				} else if ( @file_exists(LAYOUTS_DIR.'application.php') ) {
-					return LAYOUTS_DIR.'application.php';
+				if ( @file_exists(LAYOUTS_PATH.$file) ) {
+					return LAYOUTS_PATH.$file;
+				} else if ( @file_exists(LAYOUTS_PATH.$layout.".php") ) {
+					return LAYOUTS_PATH.$layout.".php";
+				} else if ( @file_exists(LAYOUTS_PATH.'application.php') ) {
+					return LAYOUTS_PATH.'application.php';
 				} else return false;
 				
 			}
@@ -67,11 +67,11 @@
 
 			// Grab array of autoloaded CSS files  
 			$css = array();
-			$folder = PUBLIC_DIR.'css/';
+			$folder = PUBLIC_PATH.'css/';
 			if ($handle = opendir($folder)) {
 				while (false !== ($file = readdir($handle))){
 					if ($file != "." && $file != ".." && !is_dir($folder.$file) && preg_match('/^style(.*)/', basename($file)) ) {
-						$css[] = PUBLIC_SERVER.'css/'.$file;
+						$css[] = PUBLIC_URL.'css/'.$file;
 					}
 				}
 			}		
@@ -87,7 +87,7 @@
 			$css = Application::controller()->output->css();
 			if ( !empty($css) ) {
 				foreach($css as $style) {
-					echo sprintf('<link rel="stylesheet" type="text/css" media="%s" href="%s" />'."\n", $style['type'], PUBLIC_SERVER.'css/'.$style['path']);
+					echo sprintf('<link rel="stylesheet" type="text/css" media="%s" href="%s" />'."\n", $style['type'], PUBLIC_URL.'css/'.$style['path']);
 				} 
 			}
 
@@ -108,7 +108,7 @@
 
 			// Grab all the autoload files from the directory
 			$js = array();
-			$folder = PUBLIC_DIR.'js/autoload/';
+			$folder = PUBLIC_PATH.'js/autoload/';
 			if ($handle = opendir($folder)) {
 				while (false !== ($file = readdir($handle))){
 					if ($file != "." && $file != ".." && !is_dir($folder.$file) && $file != 'pngfix.js' && $file != "CMSLite.php" && $file != "jquery.js" ) {
@@ -123,13 +123,13 @@
 			if ( !empty($js) ) {
 
 				// Always first
-				require_once PUBLIC_DIR.'js/autoload/CMSLite.php';
+				require_once PUBLIC_PATH.'js/autoload/CMSLite.php';
 
 				// Include any .js files (alphabetically sorted)
 				if ( !empty($js['js']) ) {
 					sort($js['js']);
 					foreach($js['js'] as $j) {
-						echo '	<script type="text/javascript" src="'.PUBLIC_SERVER.'js/autoload/'.$j.'"></script>'."\n";
+						echo '	<script type="text/javascript" src="'.PUBLIC_URL.'js/autoload/'.$j.'"></script>'."\n";
 					}
 				}
 
@@ -137,7 +137,7 @@
 				if ( !empty($js['php']) ) {
 					sort($js['php']);
 					foreach($js['php'] as $j) {
-						require_once PUBLIC_DIR.'js/autoload/'.$j;
+						require_once PUBLIC_PATH.'js/autoload/'.$j;
 					}
 
 				}
@@ -150,9 +150,9 @@
 				foreach($javascript as $js) {
 					if ( $js['type'] == Output::JAVASCRIPT_INCLUDE ) {
 						$data = $js['data']; 
-						require PUBLIC_DIR.'js/'.$js['path']; 
+						require PUBLIC_PATH.'js/'.$js['path']; 
 					} else {
-						echo '<script type="text/javascript" src="'.PUBLIC_SERVER.'js/'.$js['path'].'"></script>';
+						echo '<script type="text/javascript" src="'.PUBLIC_URL.'js/'.$js['path'].'"></script>';
 					}
 				}
 			}
@@ -242,7 +242,7 @@
 		 **/
 
 		public static function site_link($link='') {
-			return HTTP_SERVER.(substr($link,0,1)==="/"?substr($link,1):$link);
+			return ROOT_URL.(substr($link,0,1)==="/"?substr($link,1):$link);
 		}
 	
 		
@@ -427,7 +427,7 @@
 		 **/
 
 		public static function icon($name, $alt="") {
-			return sprintf('<img src="%simages/dev-icons/%s" alt="%s" border="0" />', PUBLIC_SERVER, $name, $alt);
+			return sprintf('<img src="%simages/dev-icons/%s" alt="%s" border="0" />', PUBLIC_URL, $name, $alt);
 		}
 
 
@@ -467,11 +467,11 @@
 			}
 						
 			$file = sprintf("images/icons/icon_%s.png", strtolower($file_type));
-			if ( !@file_exists(PUBLIC_DIR.$file) ) {
+			if ( !@file_exists(PUBLIC_PATH.$file) ) {
 				$file = "images/icons/icon_default.png";
 			}
 			
-			return sprintf('<img src="%s" alt="%s" border="0" />', PUBLIC_SERVER.$file, $alt);
+			return sprintf('<img src="%s" alt="%s" border="0" />', PUBLIC_URL.$file, $alt);
 		}
 		
 		

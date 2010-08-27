@@ -61,7 +61,7 @@
 			} else { // Since it's an image, do image type checking
 				
 				if ( !class_exists("Image") ) {
-					require_once CLASSES_DIR.'Image.php';
+					require_once CLASSES_PATH.'Image.php';
 				}
 				
 				try {
