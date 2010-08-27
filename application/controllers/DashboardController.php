@@ -497,7 +497,7 @@
 
 				array('name' => PROFILE_ID, 'type' => 'display'),
 				array('name' => '{TYPE}', 'type' => 'static', 'value' => PROFILE_TITLE),
-				array('name' => '{Tracking Link}', 'type' => 'static', 'value' => Template::controller_link(__CLASS__,'manage/')),
+				array('name' => '{Tracking Link}', 'type' => 'static', 'value' => Template::controller_link(__CLASS__,sprintf('track/%d/', $id))),
 				array('name' => '{form_link}', 'type' => 'static', 'value' => Template::save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
