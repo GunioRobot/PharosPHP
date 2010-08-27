@@ -16,7 +16,7 @@
 			$this->dataKey = "user_id";			
 			$this->tableColumns();
 			
-			$this->auth->login_required(false);
+			$this->auth->login_required(true);
 												
 		}
 		
