@@ -242,7 +242,7 @@
 		 **/
 
 		public static function site_link($link='') {
-			return HTTP_SERVER.(substr($link,0,1)==="/"?substr($link,1):$link);
+			return ROOT_URL.(substr($link,0,1)==="/"?substr($link,1):$link);
 		}
 	
 		
