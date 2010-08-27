@@ -93,11 +93,11 @@
 			
 			$where = parent::search($search);
 			if ( $this->table->search != '' ) {
-				$where .= " AND ".$this->table->id.".user_level <= '".(int)SECURITY_LVL."' ";
-			} else $where  = " WHERE ".$this->table->id.".user_level <= '".(int)SECURITY_LVL."' ";
-						
-			return $where;
+				$where .= " AND ";
+			} else $where  = " WHERE ";
 			
+			return $where . $this->table->id.".user_level <= '".(int)SECURITY_LVL."' AND ".$this->table->id.".user_level > '".(int)Settings::get('application.users.levels.basic')."' ";
+									
 		}
 		
 		
