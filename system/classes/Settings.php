@@ -43,6 +43,10 @@
 
 		public static function load($filename='application.yml') {
 			
+			if ( strrpos($filename, ".yml") === false ) {
+				$filename .= ".yml";
+			}
+			
 			if ( !file_exists(CONFIGURATION_PATH.$filename) ) {
 				throw new InvalidFileSystemPathException(sprintf("File does not exist: (%s)", CONFIGURATION_PATH.$filename));
 			}
