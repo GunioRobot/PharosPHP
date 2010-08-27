@@ -52,7 +52,7 @@ INSERT INTO `admin_nav` (`id`, `parent_id`, `name`, `page`, `min_lvl`, `max_lvl`
 (8, 0, 'Help', '', 4, 5, 51, '', 'hidden', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
 (9, 10, 'View Help', '/help/', 1, 5, 3, '', 'hidden', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
 (10, 0, 'Admin Settings', '', 1, 5, 99, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
-(11, 10, 'Edit My Account', '/users/edit/%%return $_SESSION[''uid''];/', 1, 5, 1, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
+(11, 10, 'Edit My Account', '/users/edit/%%return Authentication::get()->user->user_id;/', 1, 5, 1, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
 (15, 0, 'Media Library', '', 1, 5, 0, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
 (19, 0, 'Tracking', '', 5, 5, 1, '', 'visible', '2009-12-12 10:43:47', '2009-12-12 10:43:54'),
 (20, 19, 'User Tracking', '/dashboard/manage/', 5, 5, 2, '', 'visible', '2009-12-12 10:43:47', '2009-12-14 14:34:05'),
