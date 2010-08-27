@@ -207,16 +207,8 @@
 				define("UPLOAD_PATH", APP_PATH."uploads/");
 			}
 			
-			if ( !defined("XML_PATH") ) {
-				define("XML_PATH", APP_PATH."xml/");
-			}
-			
 			if ( !defined("APP_URL") ) {
 				define("APP_URL", ROOT_URL.APP_DIR);
-			}
-		
-			if ( !defined("XML_URL") ) {
-				define("XML_URL", APP_URL."xml/");
 			}		
 			
 			if ( !defined("PUBLIC_URL") ) {
