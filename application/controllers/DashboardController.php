@@ -165,7 +165,7 @@
 
 
 				// The USA Map for user location
-				echo '<embed width="550" height="400" flashvars="xml='.urlencode(MODULES_URL.'corelabs/pages/map_demographic_data.php').'" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.PUBLIC_URL.'usa_map.swf" type="application/x-shockwave-flash"/>';
+				echo '<embed width="550" height="400" flashvars="xml='.urlencode(Template::controller_link(__CLASS__, 'map_demographic_data/')).'" wmode="transparent" allowscriptaccess="always" quality="high" name="usa_map" id="usa_map" src="'.PUBLIC_URL.'swf/usa_map.swf" type="application/x-shockwave-flash"/>';
 
 
 				// Table header
