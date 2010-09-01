@@ -12,7 +12,7 @@
 
 			
 			// Theme options
-			theme_advanced_buttons1 : "bold,italic,underline,|,bullist,numlist,charmap,formatselect,|,undo,redo,|,link,unlink",
+			theme_advanced_buttons1 : "bold,italic,underline,|,bullist,numlist,charmap,formatselect,|,undo,redo,|,link,unlink,|,code",
 			theme_advanced_buttons2 : "",
 			theme_advanced_buttons3 : "",
 			theme_advanced_buttons4 : "",
