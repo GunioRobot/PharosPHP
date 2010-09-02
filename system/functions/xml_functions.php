@@ -98,6 +98,27 @@
 		return Hooks::execute(Hooks::HOOK_XML_FLASH_CDATA, compact("value", "color"));
 		
 	}
+	
+	
+	function flash_tlf_format_str($str) {
+		
+		// Format bold/italic text
+		$str = str_replace(array("<strong>", "</strong>"), array('<span fontWeight="bold">', "</span>"), $str);
+		$str = str_replace(array("<em>", "</em>"), array('<span fontStyle="italic">', '</span>'), $str);
+
+		// Replace invalid HTML character codes with Hex equivalents
+		$str = str_replace(array('&amp;trade;','&trade;','™'), '&#8482;', $str);
+		$str = str_replace(array('&amp;copy;','&copy;',"©"), '&#169;', $str);
+		$str = str_replace(array('&amp;reg;','&reg;','®'), '&#174;', $str);
+		$str = str_replace(array('&rsquo;','&apos;','&rlquo;'), "'", $str);
+		$str = str_replace(array("&amp;ldquo;", "&ldquo;", "&amp;rdquo;", "&rdquo;"), '"', $str);
+		$str = str_replace("&bull;", "&#149;", $str);
+		$str = str_replace(array("&amp;hellip;", "&hellip;"), "...", $str);
+		$str = str_replace(array("&amp;ndash;", "&ndash;", "&amp;mdash;", "&mdash;"), "-", $str);
+		
+		return Hooks::execute(Hooks::HOOK_XML_FLASH_TLF_FORMAT, array("value" => $str));
+		
+	}
 
 
 	

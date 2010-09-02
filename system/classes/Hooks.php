@@ -60,6 +60,7 @@
 		const HOOK_USER_DELETED = 'user_deleted_hook';										// function($user_id) {}
 		
 		const HOOK_XML_FLASH_CDATA = 'xml_flash_cdata_hook';								// (string) function($string, $anchor_color) {}
+		const HOOK_XML_FLASH_TLF_FORMAT = 'xml_flash_tlf_format';							// (string) function($string, $anchor_color) {}
 		
 		
 	
@@ -111,7 +112,8 @@
 				self::HOOK_USER_CREATED => null,
 				self::HOOK_USER_DELETED => null,
 				
-				self::HOOK_XML_FLASH_CDATA => null
+				self::HOOK_XML_FLASH_CDATA => null,
+				self::HOOK_XML_FLASH_TLF_FORMAT => null
 				
 			);
 			
