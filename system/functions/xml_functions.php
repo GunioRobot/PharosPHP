@@ -70,29 +70,15 @@
 
 	////////////////////////////////////////////////////////////////////////////////
 	//
-	//	xml_data($s)
-	//
-	//	Legacy Hack
-	//
-	////////////////////////////////////////////////////////////////////////////////
-
-	function xml_data($s) {
-		return flash_xml_data($s);
-	}
-
-
-
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	flash_xml_data($string, $color)
+	//	xml_data($s, $color)
 	//
 	//	Converts known HTML idiosycracies to flash loveable characters. Color is 
 	//	hyperlink color.
 	//
 	////////////////////////////////////////////////////////////////////////////////
 
-	function flash_xml_data($s, $color="#f09bc2") {
-						
+	function xml_data($s, $color="#f09bc2") {
+		
 		$s = str_replace('<strong>', '<font color="#000000">', $s);
 		$s = str_replace('</strong>', '</font>', $s);
 		$s = str_replace('<em>', '<i>', $s);
@@ -102,10 +88,18 @@
 		$s = str_replace(array('&amp;copy;','&copy;',"©"), '&#169;', $s);
 		$s = str_replace(array('&amp;reg;','&reg;','®'), '&#174;', $s);
 		$s = str_replace(array('&rsquo;','&apos;','&rlquo;'), "'", $s);
+		$s = str_replace(array("&amp;ldquo;", "&ldquo;", "&amp;rdquo;", "&rdquo;"), '"', $s);
+		$s = str_replace("&bull;", "&#149;", $s);
+		$s = str_replace(array("&amp;hellip;", "&hellip;"), "...", $s);
+		$s = str_replace(array("&amp;ndash;", "&ndash;", "&amp;mdash;", "&mdash;"), "-", $s);
 
-		return preg_replace('/<a([^>]*)>([^<]*)<\/a>/i', '<a$1><u><font color="'.$color.'">$2</font></u></a>', $s);
+		$value = preg_replace('/<a([^>]*)>([^<]*)<\/a>/i', '<a$1><u><font color="'.$color.'">$2</font></u></a>', $s);
+		
+		return Hooks::execute(Hooks::HOOK_XML_FLASH_CDATA, compact("value", "color"));
 		
 	}
+
+
 	
 	
 	////////////////////////////////////////////////////////////////////////////////
