@@ -111,7 +111,7 @@
 				self::HOOK_USER_CREATED => null,
 				self::HOOK_USER_DELETED => null,
 				
-				self::HOOK_XML_FLASH_CDATA = null
+				self::HOOK_XML_FLASH_CDATA => null
 				
 			);
 			
