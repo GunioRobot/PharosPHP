@@ -59,7 +59,7 @@
 			for ( $rr = $this->db->Execute($sql); !$rr->EOF; $rr->moveNext() ) {
 
 				$title = format_title($rr->fields['title']);
-				$link = edit('ApplicationEntries',$rr->fields['id']);
+				$link = Template::edit('ApplicationEntries',$rr->fields['id']);
 				$html .= '<li><a href="'.$link.'" title="Edit &quot;'.$title.'&quot;">'.truncate_str($title,15,'...').' ('.$rr->fields['hits'].')</a></li>';
 			} 
 
