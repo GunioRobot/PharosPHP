@@ -179,8 +179,8 @@
 HTML;
 				
 					// Run the HTML through a filter
-					$html = Hooks::execute(Hooks::HOOK_PASSWORD_RESET_EMAIL_HTML, array("value" => $html, $new_password));
-					$subject = Hooks::execute(Hooks::HOOK_PASSWORD_RESET_EMAIL_SUBJECT, array("value" => Settings::get('application.system.site.name').': Password Reset'));
+					$html = Hooks::execute(Hooks::FILTER_PASSWORD_RESET_EMAIL_HTML, array("value" => $html, $new_password));
+					$subject = Hooks::execute(Hooks::FILTER_PASSWORD_RESET_EMAIL_SUBJECT, array("value" => Settings::get('application.system.site.name').': Password Reset'));
 
 					$mail = new Rmail();
 					$mail->setFrom($from);
@@ -206,7 +206,7 @@ HTML;
 		 **/
 		public static function random_password() {
 			$value = substr(md5(time()),0,15);
-			return Hooks::execute(Hooks::HOOK_PASSWORD_RANDOM_GENERATE, compact("value"));
+			return Hooks::execute(Hooks::FILTER_PASSWORD_RANDOM_GENERATE, compact("value"));
 		}
 		
 		

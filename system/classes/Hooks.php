@@ -47,9 +47,9 @@
 		const HOOK_MODULE_LOADED = 'module_loaded_hook';									// function($module_name) {}
 		const HOOK_MODULES_POST_LOADED = 'modules_post_loaded_hook';						// function() {}
 
-		const HOOK_PASSWORD_RESET_EMAIL_HTML = "password_reset_email_html_hook";			// function($html, $password) {}
-		const HOOK_PASSWORD_RESET_EMAIL_SUBJECT = "password_reset_email_subject_hook";		// function($subject) {}
-		const HOOK_PASSWORD_RANDOM_GENERATE = "generate_random_password_hook";				// function($password) {}
+		const FILTER_PASSWORD_RESET_EMAIL_HTML = "password_reset_email_html_hook";			// function($html, $password) {}
+		const FILTER_PASSWORD_RESET_EMAIL_SUBJECT = "password_reset_email_subject_hook";		// function($subject) {}
+		const FILTER_PASSWORD_RANDOM_GENERATE = "generate_random_password_hook";				// function($password) {}
 	
 		const HOOK_SYSTEM_SHORT_INIT_COMPLETE = 'system_short_init_complete_hook';			// function() {}
 		const HOOK_SYSTEM_PRE_BOOTSTRAP = 'system_pre_bootstrap_hook';						// function() {}
@@ -63,8 +63,8 @@
 		const HOOK_USER_CREATED = 'user_created_hook';										// function($user_id) {}
 		const HOOK_USER_DELETED = 'user_deleted_hook';										// function($user_id) {}
 		
-		const HOOK_XML_FLASH_CDATA = 'xml_flash_cdata_hook';								// (string) function($string, $anchor_color) {}
-		const HOOK_XML_FLASH_TLF_FORMAT = 'xml_flash_tlf_format';							// (string) function($string, $anchor_color) {}
+		const FILTER_XML_FLASH_CDATA = 'xml_flash_cdata_hook';								// (string) function($string, $anchor_color) {}
+		const FILTER_XML_FLASH_TLF_FORMAT = 'xml_flash_tlf_format';							// (string) function($string, $anchor_color) {}
 		
 		
 	
@@ -109,9 +109,9 @@
 				self::HOOK_MODULE_LOADED => null,
 				self::HOOK_MODULES_POST_LOADED => null,
 				
-				self::HOOK_PASSWORD_RESET_EMAIL_HTML => null,
-				self::HOOK_PASSWORD_RESET_EMAIL_SUBJECT => null,
-				self::HOOK_PASSWORD_RANDOM_GENERATE => null,
+				self::FILTER_PASSWORD_RESET_EMAIL_HTML => null,
+				self::FILTER_PASSWORD_RESET_EMAIL_SUBJECT => null,
+				self::FILTER_PASSWORD_RANDOM_GENERATE => null,
 								
 				self::HOOK_SYSTEM_SHORT_INIT_COMPLETE => null,
 				self::HOOK_SYSTEM_PRE_BOOTSTRAP => null,
@@ -125,8 +125,8 @@
 				self::HOOK_USER_CREATED => null,
 				self::HOOK_USER_DELETED => null,
 				
-				self::HOOK_XML_FLASH_CDATA => null,
-				self::HOOK_XML_FLASH_TLF_FORMAT => null
+				self::FILTER_XML_FLASH_CDATA => null,
+				self::FILTER_XML_FLASH_TLF_FORMAT => null
 				
 			);
 			

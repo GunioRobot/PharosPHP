@@ -95,7 +95,7 @@
 
 		$value = preg_replace('/<a([^>]*)>([^<]*)<\/a>/i', '<a$1><u><font color="'.$color.'">$2</font></u></a>', $s);
 		
-		return Hooks::execute(Hooks::HOOK_XML_FLASH_CDATA, compact("value", "color"));
+		return Hooks::execute(Hooks::FILTER_XML_FLASH_CDATA, compact("value", "color"));
 		
 	}
 	
@@ -116,7 +116,7 @@
 		$str = str_replace(array("&amp;hellip;", "&hellip;"), "...", $str);
 		$str = str_replace(array("&amp;ndash;", "&ndash;", "&amp;mdash;", "&mdash;"), "-", $str);
 		
-		return Hooks::execute(Hooks::HOOK_XML_FLASH_TLF_FORMAT, array("value" => $str));
+		return Hooks::execute(Hooks::FILTER_XML_FLASH_TLF_FORMAT, array("value" => $str));
 		
 	}
 
