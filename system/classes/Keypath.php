@@ -21,7 +21,7 @@
 		
 		public function __construct($keypath=null, $separator=null) {
 			
-			if ( is_string($separator) && $separator != "" ) {
+			if ( ($separator = strval($separator)) != "" ) {
 				$this->separator = $separator;
 			}
 			
@@ -120,7 +120,7 @@
 		 **/
 
 		public function separator($separator=null) {
-			if ( is_string($separator) && $separator != "" ) {
+			if ( ($separator = strval($separator)) != "" ) {
 				return $this->separator = $separator;
 			} else return $this->separator;
 		}
