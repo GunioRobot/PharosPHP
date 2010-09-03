@@ -361,12 +361,17 @@
 		 *
 		 * @param (string|String) $separator
 		 *
-		 * @return array $results
+		 * @return array $results (contains String objects)
 		 * @author Matt Brewer
 		 **/
 
 		public function split($sep) {
-			return explode($sep, $this->value);
+			$arr = explode($sep, $this->value);
+			if ( $arr !== false ) {
+				foreach($arr as &$str) {
+					$str = new String($str);
+				} return $arr;
+			} else return false;
 		}
 		
 		
