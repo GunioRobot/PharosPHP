@@ -23,6 +23,7 @@
 	class Hooks {
 	
 		protected static $hooks = array();
+		protected static $initialized = false;
 		
 		const HOOK_APPLICATION_CREATE_XML = "application_create_xml_hook";					// function ($app) {}
 		const HOOK_APPLICATION_DELETED = 'application_deleted_hook';						// function($app_id) {}
@@ -75,6 +76,12 @@
 		
 		public static function init() {
 			
+			// Don't allow more than once
+			if ( $self::$initialized ) {
+				return;
+			} 
+			
+			self::$initalized = true;
 			self::$hooks = array(
 							
 				self::HOOK_APPLICATION_CREATE_XML => null,				
