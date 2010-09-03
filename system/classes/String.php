@@ -60,6 +60,22 @@
 		
 		
 		/**
+		 * clean_filename
+		 *
+		 * @param (string|String) $string_to_clean 
+		 *
+		 * @return String
+		 * @author Matt Brewer
+		 **/
+
+		public static function clean_filename($str) {
+			if ( $str !instanceof String ) {
+				$str = new String($str);
+			} return $str->sanitize_filename();
+		}
+		
+		
+		/**
 		 * charAt
 		 *
 		 * @param int $index
@@ -93,10 +109,6 @@
 
 		public function contains($str, $flag=self::CASE_SENSITIVE) {
 			
-			if ( $str instanceof String ) {
-				$str = $str->value;
-			}
-			
 			if ( $flag == self::CASE_SENSITIVE ) {
 				return strpos($this->value, $str) !== false;
 			} else return stripos($this->value, $str) !== false;
@@ -113,10 +125,6 @@
 		 **/
 
 		public function distance($from) {
-			
-			if ( $format instanceof String ) {
-				$format = $format->value;
-			}
 			
 			if ( is_array($from) ) {
 				
@@ -180,13 +188,13 @@
 		
 		
 		/**
-		 * lower
+		 * lowercase
 		 *
 		 * @return String $lowercase
 		 * @author Matt Brewer
 		 **/
 
-		public function lower() {
+		public function lowercase() {
 			return new String(strtolower($this->value));
 		}
 
@@ -202,9 +210,6 @@
 		 **/
 
 		public function matches($pattern, &$matches) {
-			if ( $pattern instanceof String ) {
-				$pattern = $pattern->value;
-			}
 			return preg_match_all($pattern, $this->value, $matches);
 		}
 		
@@ -240,10 +245,6 @@
 				$flags = self::CASE_SENSITIVE | self::DIRECTION_LEFT;
 			}
 			
-			if ( $str instanceof String ) {
-				$str = $str->value;
-			}
-			
 			if ( $flags & self::CASE_SENSITIVE ) {
 				
 				
@@ -274,10 +275,6 @@
 		 **/
 
 		public function regex($pattern, $value, $callback=null) {
-			
-			if ( $pattern instanceof String ) {
-				$pattern = $pattern->value;
-			}
 			
 			if ( !is_null($callback) ) {
 				$val = preg_replace_callback($pattern, $callback, $this->value);
@@ -340,7 +337,7 @@
 		 **/
 
 		public function sanitize_filename() {
-			return new String(sanitize_filename($this->value));
+			return new String(str_replace(' ', '_', preg_replace('/[^[A-Za-z0-9_\s\.-]]*/', '', $this->value)));
 		}	
 		
 		
@@ -353,7 +350,6 @@
 		 * @author Matt Brewer
 		 **/
 		public function setVal($val) {
-			if ( $val instanceof String ) $val = $val->value;
 			$this->value = strval($val);
 			$this->length = strlen($this->value);
 		}
@@ -369,8 +365,21 @@
 		 **/
 
 		public function split($sep) {
-			if ( $sep instanceof String ) $sep = $sep->value;
 			return explode($sep, $this->value);
+		}
+		
+		
+		/**
+		 * strstr
+		 *
+		 * @param (string|String) $search
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public function strstr($search) {
+			$ret = strstr($this->value, $search);
+			return $ret !== false ? new String($ret) : false;
 		}
 		
 		
@@ -425,8 +434,7 @@
 
 		public function trim($chars=null, $flag=self::DIRECTION_BOTH) {
 			
-			if ( $chars instanceof String ) $chars = $chars->value;
-			else if ( is_array($chars) ) $chars = implode("", $chars);
+			if ( is_array($chars) ) $chars = implode("", $chars);
 
 			switch($flag) {
 
@@ -449,13 +457,13 @@
 		
 		
 		/**
-		 * upper
+		 * uppercase
 		 *
 		 * @return String
 		 * @author Matt Brewer
 		 **/
 		
-		public function upper() {
+		public function uppercase() {
 			return new String(strtoupper($this->value));
 		}
 		
