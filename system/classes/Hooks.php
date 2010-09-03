@@ -25,6 +25,18 @@
 		protected static $hooks = array();
 		protected static $initialized = false;
 		
+		const FILTER_PASSWORD_RESET_EMAIL_HTML = "password_reset_email_html_hook";			// function($html, $password) {}
+		const FILTER_PASSWORD_RESET_EMAIL_SUBJECT = "password_reset_email_subject_hook";	// function($subject) {}
+		const FILTER_PASSWORD_RANDOM_GENERATE = "generate_random_password_hook";			// function($password) {}
+
+		const FILTER_META_DESCRIPTION = "filter_meta_description_hook";						// (string) function ($description) {}
+		const FILTER_META_KEYWORDS = "filter_meta_keywords_hook";							// (string) function ($keywords) {}
+		const FILTER_META_TITLE = "filter_site_title_hook";									// (string) function($title) {}
+
+		const FILTER_XML_FLASH_CDATA = 'xml_flash_cdata_hook';								// (string) function($string, $anchor_color) {}
+		const FILTER_XML_FLASH_TLF_FORMAT = 'xml_flash_tlf_format';							// (string) function($string, $anchor_color) {}
+	
+		
 		const HOOK_APPLICATION_CONTROLLER_LOADED = "application_controller_loaded_hook";	// function($class) {}
 		const HOOK_APPLICATION_CORE_LOADED = 'application_core_loaded_hook';				// function() {}
 		const HOOK_APPLICATION_CREATE_XML = "application_create_xml_hook";					// function ($app) {}
@@ -37,20 +49,12 @@
 				
 		const HOOK_CORE_CLASSES_LOADED = "core_classes_loaded_hook";						// function() {}
 
-		const FILTER_META_DESCRIPTION = "filter_meta_description_hook";						// (string) function ($description) {}
-		const FILTER_META_KEYWORDS = "filter_meta_keywords_hook";							// (string) function ($keywords) {}
-		const FILTER_META_TITLE = "filter_site_title_hook";									// (string) function($title) {}
-		
 		const HOOK_LANGUAGE_API_LOADED = 'language_api_loaded_hook';						// function() {}
 
 		const HOOK_MODULES_PRE_LOADED = 'modules_pre_loaded_hook';							// function() {}
 		const HOOK_MODULE_LOADED = 'module_loaded_hook';									// function($module_name) {}
 		const HOOK_MODULES_POST_LOADED = 'modules_post_loaded_hook';						// function() {}
-
-		const FILTER_PASSWORD_RESET_EMAIL_HTML = "password_reset_email_html_hook";			// function($html, $password) {}
-		const FILTER_PASSWORD_RESET_EMAIL_SUBJECT = "password_reset_email_subject_hook";		// function($subject) {}
-		const FILTER_PASSWORD_RANDOM_GENERATE = "generate_random_password_hook";				// function($password) {}
-	
+		
 		const HOOK_SYSTEM_SHORT_INIT_COMPLETE = 'system_short_init_complete_hook';			// function() {}
 		const HOOK_SYSTEM_PRE_BOOTSTRAP = 'system_pre_bootstrap_hook';						// function() {}
 		const HOOK_SYSTEM_POST_BOOTSTRAP = 'system_post_bootstrap_hook';					// function() {}
@@ -62,10 +66,7 @@
 
 		const HOOK_USER_CREATED = 'user_created_hook';										// function($user_id) {}
 		const HOOK_USER_DELETED = 'user_deleted_hook';										// function($user_id) {}
-		
-		const FILTER_XML_FLASH_CDATA = 'xml_flash_cdata_hook';								// (string) function($string, $anchor_color) {}
-		const FILTER_XML_FLASH_TLF_FORMAT = 'xml_flash_tlf_format';							// (string) function($string, $anchor_color) {}
-		
+			
 		
 	
 			
@@ -86,6 +87,17 @@
 			
 			self::$initialized = true;
 			self::$hooks = array(
+				
+				self::FILTER_META_DESCRIPTION => null,
+				self::FILTER_META_KEYWORDS => null,
+				self::FILTER_META_TITLE => null,
+
+				self::FILTER_PASSWORD_RESET_EMAIL_HTML => null,
+				self::FILTER_PASSWORD_RESET_EMAIL_SUBJECT => null,
+				self::FILTER_PASSWORD_RANDOM_GENERATE => null,
+
+				self::FILTER_XML_FLASH_CDATA => null,
+				self::FILTER_XML_FLASH_TLF_FORMAT => null,
 							
 				self::HOOK_APPLICATION_CONTROLLER_LOADED => null,
 				self::HOOK_APPLICATION_CORE_LOADED => null,			
@@ -98,21 +110,13 @@
 				self::HOOK_CACHE_LOADED => null,
 				
 				self::HOOK_CORE_CLASSES_LOADED => null,
-								
-				self::FILTER_META_DESCRIPTION => null,
-				self::FILTER_META_KEYWORDS => null,
-				self::FILTER_META_TITLE => null,
-				
+										
 				self::HOOK_LANGUAGE_API_LOADED => null,
 
 				self::HOOK_MODULES_PRE_LOADED => null,
 				self::HOOK_MODULE_LOADED => null,
 				self::HOOK_MODULES_POST_LOADED => null,
-				
-				self::FILTER_PASSWORD_RESET_EMAIL_HTML => null,
-				self::FILTER_PASSWORD_RESET_EMAIL_SUBJECT => null,
-				self::FILTER_PASSWORD_RANDOM_GENERATE => null,
-								
+							
 				self::HOOK_SYSTEM_SHORT_INIT_COMPLETE => null,
 				self::HOOK_SYSTEM_PRE_BOOTSTRAP => null,
 				self::HOOK_SYSTEM_POST_BOOTSTRAP => null,
@@ -123,10 +127,7 @@
 				self::HOOK_TEMPLATE_POST_RENDER => null,
 
 				self::HOOK_USER_CREATED => null,
-				self::HOOK_USER_DELETED => null,
-				
-				self::FILTER_XML_FLASH_CDATA => null,
-				self::FILTER_XML_FLASH_TLF_FORMAT => null
+				self::HOOK_USER_DELETED => null
 				
 			);
 			
