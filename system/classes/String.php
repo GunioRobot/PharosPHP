@@ -88,6 +88,25 @@
 		
 		
 		/**
+		 * create
+		 *
+		 * @param (string|String) $str
+		 * @param var_args....
+		 *
+		 * @return String
+		 * @author Matt Brewer
+		 **/
+		public static function create($str) {
+			$params = func_get_args();
+			if ( !($str instanceof String) ) {
+				if ( count($params) > 1 ) {
+					return call_user_func_array(array("String", "__construct"), $params);
+				} else return new String($str);
+ 			} else return $str;
+		}
+		
+		
+		/**
 		 * charAt
 		 *
 		 * @param int $index
@@ -148,6 +167,21 @@
 				
 			} else return levenshtein($this->value, $from);
 			
+		}
+		
+		
+		/**
+		 * filesize
+		 *
+		 * @param int $decimals
+		 *
+		 * @return String
+		 * @author Matt Brewer
+		 **/
+		
+		public function filesize($decimals=1) {
+			$ret = format_filesize($this->value, $decimals);
+			return $ret !== false ? new String($ret) : false;
 		}
 		
 		
