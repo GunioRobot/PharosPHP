@@ -19,7 +19,7 @@
 	// Link content to application
 	$USE_APPS_TO_CONTENT_TABLE = false;
 	
-	Hooks::execute(Hooks::HOOK_PROFILE_MODULE_PRE_PROCESSED, compact("fields"));
+	Hooks::execute(EXTERNAL_HOOK_PROFILE_MODULE_PRE_PROCESSED, compact("fields"));
 	
 	// Now process each of the incoming form fields
 	foreach($fields as $index => $input) {
@@ -99,6 +99,6 @@
 		
 	}
 	
-	Hooks::execute(Hooks::HOOK_PROFILE_MODULE_POST_PROCESSED, compact("fields", "id"));
+	Hooks::execute(EXTERNAL_HOOK_PROFILE_MODULE_POST_PROCESSED, compact("fields", "id"));
 	
 ?>

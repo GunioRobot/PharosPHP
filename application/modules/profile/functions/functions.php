@@ -69,4 +69,22 @@
 		} return $temp;
 	}
 	
+	
+	/**
+	 * define_proflie_module_hooks
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
+	function define_profile_module_hooks() {
+		
+		define('EXTERNAL_HOOK_PROFILE_MODULE_PRE_PROCESSED', 'profile_module_pre_processed_external_hook');
+		define('EXTERNAL_HOOK_PROFILE_MODULE_POST_PROCESSED', 'profile_module_post_processed_external_hook');
+		
+		Hooks::define(EXTERNAL_HOOK_PROFILE_MODULE_PRE_PROCESSED);		// function ($fields) {}
+		Hooks::define(EXTERNAL_HOOK_PROFILE_MODULE_POST_PROCESSED);		// function ($id, $fields) {}
+		
+	}
+	
 ?>

@@ -5,5 +5,7 @@
 	require_once dirname(__FILE__).'/functions/autoload.php';
 	
 	define('FORM_TYPE_DIR', dirname(__FILE__).'/form_types/');
+	
+	define_profile_module_hooks();
 
 ?>

@@ -51,9 +51,6 @@
 		const HOOK_PASSWORD_RESET_EMAIL_SUBJECT = "password_reset_email_subject_hook";		// function($subject) {}
 		const HOOK_PASSWORD_RANDOM_GENERATE = "generate_random_password_hook";				// function($password) {}
 	
-		const HOOK_PROFILE_MODULE_PRE_PROCESSED = 'profile_module_pre_processed_hook';		// function($fields) {}
-		const HOOK_PROFILE_MODULE_POST_PROCESSED = 'profile_module_post_processed_hook';	// function($id, $fields) {}
-
 		const HOOK_SYSTEM_SHORT_INIT_COMPLETE = 'system_short_init_complete_hook';			// function() {}
 		const HOOK_SYSTEM_PRE_BOOTSTRAP = 'system_pre_bootstrap_hook';						// function() {}
 		const HOOK_SYSTEM_POST_BOOTSTRAP = 'system_post_bootstrap_hook';					// function() {}
@@ -115,10 +112,7 @@
 				self::HOOK_PASSWORD_RESET_EMAIL_HTML => null,
 				self::HOOK_PASSWORD_RESET_EMAIL_SUBJECT => null,
 				self::HOOK_PASSWORD_RANDOM_GENERATE => null,
-				
-				self::HOOK_PROFILE_MODULE_PRE_PROCESSED => null,
-				self::HOOK_PROFILE_MODULE_POST_PROCESSED => null,
-				
+								
 				self::HOOK_SYSTEM_SHORT_INIT_COMPLETE => null,
 				self::HOOK_SYSTEM_PRE_BOOTSTRAP => null,
 				self::HOOK_SYSTEM_POST_BOOTSTRAP => null,
