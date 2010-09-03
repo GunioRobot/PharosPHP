@@ -115,7 +115,10 @@
 		 **/
 		protected static function retrieve($var, $key, $default=false) {
 			$var = "_".strtoupper($var);
-			return ( isset($$var) && $$var != "" ) ? $var : $default;
+			global $$var;
+			$global = $$var;
+
+			return ( isset($global[$key]) && $global[$key] != "" ) ? $global[$key] : $default;
 		}
 		
 	}
