@@ -13,7 +13,7 @@
 	 * @link {http://chrisschuld.com/projects/browser-php-detecting-a-users-browser-from-php/} Chris Schuld's Blog
 	 **/
 
-	class Browser {
+	final class Browser {
 		
 		protected static $_agent = '';
 		protected static $_browser_name = '';

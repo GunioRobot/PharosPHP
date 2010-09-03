@@ -9,7 +9,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	class Cache {
+	final class Cache {
 		
 		/**
 		*

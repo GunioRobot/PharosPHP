@@ -7,7 +7,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	class Input {
+	final class Input {
 		
 		
 		/**

@@ -19,7 +19,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	class Router {
+	final class Router {
 
 		private static $raw = "";
 		private static $components = array();

@@ -9,7 +9,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	class Application {
+	final class Application {
 		
 		protected static $controller = null;
 		

@@ -16,7 +16,7 @@
 	 * 	@author Matt Brewer
 	 **/
 	
-	class Modules {
+	final class Modules {
 	
 		private static $modules = array();
 		private static $config = array();

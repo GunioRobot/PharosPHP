@@ -28,7 +28,7 @@
 	 **/
 	
 	
-	class Settings {
+	final class Settings {
 			
 		private static $config = array();
 		

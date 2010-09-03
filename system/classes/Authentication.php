@@ -9,7 +9,7 @@
 	 *
 	 **/
 
-	class Authentication {
+	final class Authentication {
 				
 		protected $logged_in = false;
 		protected $login_required = false;

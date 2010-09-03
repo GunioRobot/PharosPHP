@@ -9,7 +9,7 @@
 	 *
 	 **/
 	
-	class Cookie {
+	final class Cookie {
 		
 		
 		/**

@@ -9,7 +9,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	class Template {
+	final class Template {
 		
 		
 		/**

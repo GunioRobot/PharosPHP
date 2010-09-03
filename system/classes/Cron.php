@@ -7,7 +7,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	class Cron {
+	final class Cron {
 		
 		const TYPE_CURL = 'curl -L -s';
 		const TYPE_FUNCTION = 'function';

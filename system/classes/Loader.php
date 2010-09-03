@@ -15,7 +15,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	class Loader {
+	final class Loader {
 		
 				
 		/**

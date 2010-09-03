@@ -11,7 +11,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	class Keypath {
+	final class Keypath {
 		
 		const VALUE_UNDEFINED = null;
 		
