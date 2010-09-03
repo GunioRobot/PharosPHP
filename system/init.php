@@ -6,7 +6,6 @@
 	// Initialize some path information used throughout the system		
 	define('CLASSES_PATH', SYSTEM_PATH.'classes/');
 	define('FUNCTIONS_PATH', SYSTEM_PATH.'functions/');
-	define('EXCEPTIONS_PATH', CLASSES_PATH.'Exceptions/');
 	define('LANGUAGES_PATH', SYSTEM_PATH.'languages/');
 	
 	define('CACHE_PATH', APP_PATH.'cache/');		
@@ -22,13 +21,11 @@
 			
 	
 	// Load in all the exceptions used in the system
-	foreach(glob(EXCEPTIONS_PATH.'*.php') as $filename) {
-		require_once $filename;
-	} 	
-		
+	require_once CLASSES_PATH.'Exceptions.php';
 		
 				
 	// Load in the few classes that are needed early on in system initialization
+	require_once CLASSES_PATH.'String.php';
 	require_once CLASSES_PATH.'Loader.php';
 	Loader::load_class('Hooks');
 	Hooks::init();
