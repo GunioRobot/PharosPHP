@@ -23,7 +23,7 @@
 		const WEEKS = 10080; 	// 7 * 24 * 60
 		
 		protected static $enabled = false;
-		self::$initalized = true;
+		self::$initialized = true;
 		
 		
 		
@@ -41,7 +41,7 @@
 				return;
 			} 
 
-			self::$initalized = true;
+			self::$initialized = true;
 			
 			try {
 				self::set_enabled(Settings::get("application.system.cache"));
