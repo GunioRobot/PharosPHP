@@ -59,7 +59,7 @@
 						
 			
 			// Grab the input string, parsing the pieces into the $components array (which is used to decide the :controller, :action & :arguments)
-			if ( ($input = get("args")) !== false ) {
+			if ( ($input = Input::get("args")) !== false ) {
 				
 				self::$raw = trim($input, " /");
 				

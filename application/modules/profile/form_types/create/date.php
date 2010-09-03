@@ -1,6 +1,6 @@
 <?
 
-	if ( get("date") ) $value = get("date");
+	$value = Input::get("date", $value);
 	
 	$dt = explode(' ', $value);
 	$current_date = $dt[0];
@@ -8,8 +8,8 @@
 	
 	// ==================================================================
 	// ====================== (Choose date) =============================
-	if ( $current_date == '' && get($tag) ) {
-		$current_date = get($tag);
+	if ( $current_date == '' && Input::get($tag) ) {
+		$current_date = Input::get($tag);
 	}
 	
 	if($current_date == '') {

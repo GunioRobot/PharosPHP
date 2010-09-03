@@ -1,8 +1,8 @@
 <?php
 
 	// What we're viewing, based upon given values through $_GET or from the database itself
-	$month = get("month", $form_array['month']);
-	$year = get("year", $form_array['year']);
+	$month = Input::get("month", $form_array['month']);
+	$year = Input::get("year", $form_array['year']);
 	$usesTimeOnDate = ((isset($form_array['uses_time']) && $form_array['uses_time'] == true) || $form_array['uses_time'] == 'true') ? true : false;
 	$multipleEventsPerDay = ((isset($form_array['multiple_events_per_day']) && $form_array['usemultiple_events_per_days_time'] == true) || $form_array['multiple_events_per_day'] == 'true') ? true : false;
 	
@@ -24,8 +24,8 @@
 	/* draw table */
 	$calendar = '<div id="calendar" '.($multipleEventsPerDay ? 'style="margin-left:0px;width:100%;"' : '').'><div id="innerCalendar">'.$hidden_dates;
 	
-	$get_string = "&pid=".get("pid", WELCOME_PID);
-	if ( ($key = get("key")) && ($value = get($key)) ) {
+	$get_string = "&pid=".Input::get("pid", WELCOME_PID);
+	if ( ($key = Input::get("key")) && ($value = Input::get($key)) ) {
 		$get_string .= "&key=$key&$key=$value";
 	}
 	
