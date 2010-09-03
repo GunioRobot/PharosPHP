@@ -70,7 +70,7 @@
 		 **/
 
 		public static function clean_filename($str) {
-			if ( $str !instanceof String ) {
+			if ( !($str instanceof String) ) {
 				$str = new String($str);
 			} return $str->sanitize_filename();
 		}
@@ -350,6 +350,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public function setVal($val) {
 			$this->value = strval($val);
 			$this->length = strlen($this->value);
@@ -383,6 +384,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public function strstr($search) {
 			$ret = strstr($this->value, $search);
 			return $ret !== false ? new String($ret) : false;
