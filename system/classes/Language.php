@@ -86,8 +86,8 @@
 		 * lookup
 		 *
 		 * @param (Keypath|string) $keypath
-		 * @param string $default_text (optional - used if value is not defined)
-		 * @param string $lang (optional - uses default_language already defined)
+		 * @param (string|String) $default_text (optional - used if value is not defined)
+		 * @param (string|String) $lang (optional - uses default_language already defined)
 		 *
 		 * @throws UnexpectedValueException
 		 * @throws InvalidKeyPathException
@@ -98,9 +98,9 @@
 		
 		public static function lookup($path, $default="", $lang=null) {
 			
-			if ( !is_string($lang) ) {
+			if ( is_null($lang) ) {
 				$lang = self::$current_language;
-			}
+			} else $lang = strval($lang);
 			
 			if ( !isset(self::$languages[$lang]) ) {
 				throw new UnexpectedValueException(sprintf("Unexpected language: (%s)", $lang));
