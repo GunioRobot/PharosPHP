@@ -98,7 +98,7 @@
 		 * @author Matt Brewer
 		 **/
 		public static function cookie($key, $default=false) {
-			return Cookie::get($key, $default);
+			return self::retrieve(__FUNCTION__, $key, $default);
 		}
 		
 		
