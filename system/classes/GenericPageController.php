@@ -10,15 +10,6 @@
 			$this->title = $title;
 		}
 		
-		protected function images() {
-			$view = '';
-			if ( count($this->images) > 0 ) {
-				foreach($this->images as $i) {
-			    	$view .= '<img src="'.UPLOAD_URL.$i->thumb.'" alt="'.$i->alt.'" border="0" />';
-				} 
-			} return $view;
-		}
-		
 		public function headerView() {
 			return '';
 		}
@@ -36,15 +27,7 @@
 			if ( !is_null($page) ) {
 				
 				$this->page = $page;
-				
-				// Build the images array to pass off to generic template
-				for ( $fields = get_object_vars($page), $i = 1; $i <= NUMBER_IMAGES_PER_ITEM; $i++ ) {
-					if ( ($thumb = $fields['image'.$i.'_thumb']) !== "" ) {
-						$this->images[] = (object)array("path" => "", "rel" => $this->title, "alt" => $fields['image'.$i.'_alt'], "thumb" => $thumb);
-					} 
-				}
-				
-				
+								
 				$this->text($page->text);
 			}
 		}
