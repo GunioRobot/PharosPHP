@@ -70,6 +70,21 @@
 		public static function server($key, $default=false) {
 			return self::retrieve(__FUNCTION__, $key, $default);
 		}
+		
+		
+		/**
+		 * session
+		 * Retrieves value from $_SERVER, or returns default if not set
+		 *
+		 * @param string $key
+		 * @param mixed $default_value
+		 *		
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public static function session($key, $default=false) {
+			return self::retrieve(__FUNCTION__, $key, $default);
+		}
 	
 	
 		/**
