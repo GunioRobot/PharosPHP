@@ -17,6 +17,8 @@
 	 *		echo $str . " Here";									// Prints "New Phrase Here"
 	 *		echo substr($str, 1);									// Prints "ew Phrase" - notice that the String object has toll-free bridging with native scalar string type
 	 *
+	 *		$str = new String("Hello World, I love %s!", "Pharos");	
+	 * 		echo $str;												// Prints "Hello World, I love Pharos PHP!"
 	 *
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
@@ -40,7 +42,16 @@
 		
 				
 		public function __construct($value="") {
+			
 			$this->setVal($value);
+			
+			// Optionally, if given more args, use $this->vformat() and set $this->value to the return value
+			// Use $this->setVal() so that the $length property is set as well
+			$params = array_slice(func_get_args(), 1);
+			if ( !empty($params) ) {
+				$this->setVal($this->vformat($params));
+			}
+			
 		}
 		
 		
@@ -384,7 +395,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
-		
+	
 		public function strstr($search) {
 			$ret = strstr($this->value, $search);
 			return $ret !== false ? new String($ret) : false;
