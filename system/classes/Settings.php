@@ -179,7 +179,7 @@
 		 **/
 		
 		public static function load_dynamic_system_settings() {
-			
+						
 			define('SYS_ADMIN_EMAIL', self::get('dynamic.Admin Email', 'matt@dmgx.com', true));
 			define('SERVER_MAILER', self::get('dynamic.Server Email', 'matt@dmgx.com', true));
 			define('SITE_TAGLINE', self::get('dynamic.Site Tagline', 'CMS Framework for Developers', true));
