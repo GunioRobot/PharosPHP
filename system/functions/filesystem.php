@@ -1,39 +1,5 @@
 <?
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	get_template($filename, $path='/profiles/', $desired_extension='.html')
-	//
-	//	Opens the corresponding template file and returns as string
-	//	Can customize directory, as well as file extension to grab
-	//
-	////////////////////////////////////////////////////////////////////////////////
-
-	function get_template($filename, $path='profiles/', $desired_extension='.html') {
-		
-		$info = pathinfo($filename);
-		return @file_get_contents(VIEWS_PATH.$path.$info['filename'].$desired_extension);
-	
-	}
-	
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	make_clean_filename($filename)
-	//
-	//	Returns a filename with filesystem friendly characters only, allowing only:
-	//	lower and uppercase letters, digits 0-9, underscore, period, and hyphen
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function make_clean_filename($filename) {
-	 	return str_replace(' ', '_', preg_replace('/[^[A-Za-z0-9_\s\.-]]*/', '', $filename));
-	}
-	
-	
-	
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -129,32 +95,6 @@
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
-	//	autoload($dir)
-	//
-	// 	Simple way to include whatever is in a directory
-	//
-	////////////////////////////////////////////////////////////////////////////////	
-	
-	function autoload($dir, $extension="") {
-		if ( file_exists($dir.'autoload.php') ) {
-			require $dir.'autoload.php';
-		} else {
-			$folder = $dir;
-			if ($handle = opendir($folder)) {
-				while (false !== ($file = readdir($handle)) ) {
-					if ($file != "." && $file != ".." && !is_dir($folder.$file) ) {
-						if ( $extension != "" ) {
-							if ( preg_match('/.*'.$extension.'$/i', $file) ) include $folder.$file; 
-						} else include $folder.$file;
-					}
-				}
-			}
-		}
-	}
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
 	//	Removes all extraneous files from the content directory when publishing
 	//	XML for an application
 	//
@@ -167,7 +107,7 @@
 		// Trash all the files that are earmarked in the table
 		$sql = "SELECT * FROM trashed_files WHERE app_id = '".(int)$app."'";
 		for ( $info = $db->Execute($sql); !$info->EOF; $info->moveNext() ) {
-			@unlink(UPLOAD_DIR.$info->fields['path']);
+			@unlink(UPLOAD_PATH.$info->fields['path']);
 		}
 		
 		// Have removed those files now, so remove them from the table

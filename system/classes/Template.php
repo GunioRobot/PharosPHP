@@ -270,7 +270,7 @@
 		 **/
 
 		public static function controller_name($string) {
-			return str_replace(' ', '', ucwords(str_replace(array('_','-'), ' ', make_clean_filename($string))));
+			return str_replace(' ', '', ucwords(str_replace(array('_','-'), ' ', String::clean_filename($string))));
 		}
 
 

@@ -21,7 +21,7 @@
 	//
 	////////////////////////////////////////////////////////////////////////////////
 
-	function save_uploaded_file($uploadName, $dir=UPLOAD_DIR, $supported_filetypes = array(), $isImage=false, $resize=array('width' => false, 'height' => false)) {
+	function save_uploaded_file($uploadName, $dir=UPLOAD_PATH, $supported_filetypes = array(), $isImage=false, $resize=array('width' => false, 'height' => false)) {
 		
 		global $db;
 		
@@ -80,7 +80,7 @@
 			}
 
 
-			$item_name = make_clean_filename($_FILES[$uploadName]['name']);
+			$item_name = String::clean_filename($_FILES[$uploadName]['name']);
 			$location = $dir.'/'.$item_name;
 						
 			// If already exists, create a new destination
@@ -92,7 +92,7 @@
 				$item_name = substr($_FILES[$uploadName]['name'], 0, $locationOfDot);
 				$extension = substr($_FILES[$uploadName]['name'], $locationOfDot + 1);
 				
-				$item_name = make_clean_filename($item_name);
+				$item_name = String::clean_filename($item_name);
 				$item_name = $item_name.'_'.rand(0,99).'.'.$extension;
 				
 				$location = $dir.$item_name;

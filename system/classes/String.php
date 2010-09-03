@@ -15,6 +15,7 @@
 	 * 		echo $str;												// Prints "New Phrase"
 	 *		$str->contains("phrase", String::CASE_INSENSITIVE);		// Returns true
 	 *		echo $str . " Here";									// Prints "New Phrase Here"
+	 *		echo substr($str, 1);									// Prints "ew Phrase" - notice that the String object has toll-free bridging with native scalar string type
 	 *
 	 *
 	 * @package PharosPHP.Core.Classes

@@ -25,8 +25,9 @@
 
 		public function display($key=false, $id=false, $repost=false) {
 						
-			$template = get_template(CURRENT_HTML_FILE);
-					
+			$info = pathinfo(CURRENT_HTML_FILE);
+			$template = @file_get_contents(VIEWS_PATH.'profiles/'.$info['filename'].".html");
+										
 			if ( $key && $id ) {
 								
 				$profile = $this->db->Execute("SELECT * FROM ".PROFILE_TABLE." WHERE $key = '$id' LIMIT 1");
