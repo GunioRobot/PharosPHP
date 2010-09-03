@@ -37,15 +37,60 @@
 			
 			Loader::load_class('Output');
 			Loader::load_class('Cookie');
+			
 			Loader::load_class('Authentication');
+			Hooks::execute(Hooks::HOOK_AUTHENTICATION_LOADED);
+			
 			Loader::load_class('Cache');
+			Cache::init();
+			Hooks::execute(Hooks::HOOK_CACHE_LOADED);
+			
 			Loader::load_class('Cron');
 			Loader::load_class('Browser');
 			
 			Browser::reset();
-			Cache::init();
 			Cron::install();
-			Router::parse();			
+			Router::parse();		
+			
+			Hooks::execute(Hooks::HOOK_SYSTEM_SHORT_INIT_COMPLETE);	
+			
+		}
+		
+		
+		/**
+		 * load_modules
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public static function load_modules() {
+			Hooks::execute(Hooks::HOOK_MODULES_PRE_LOADED);
+			Modules::init();
+			Hooks::execute(Hooks::HOOK_MODULES_POST_LOADED);
+		}
+		
+		
+		/**
+		 * load_application_files
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public static function load_application_files() {
+			
+			// Conditionally include support for ActiveRecord
+			if ( version_compare(phpversion(), "5.3.0") >= 0 ) {
+				require_once CLASSES_PATH.'ActiveRecord/init.php';
+			}
+
+
+			// Load in all the application defined functions
+			foreach(glob(APPLICATION_FUNCTIONS_PATH.'*.php') as $filename) {
+				require_once $filename;
+			}
+			
+			// Bootstrap the system
+			Hooks::execute(Hooks::HOOK_APPLICATION_CORE_LOADED);
 			
 		}
 		
@@ -72,6 +117,7 @@
 					Language::setLanguage($language);
 					Language::load($language);
 				} 
+				Hooks::execute(Hooks::HOOK_LANGUAGE_API_LOADED);
 			} catch (InvalidKeyPathException $e) {}
 
 			load_content_types();
@@ -125,6 +171,8 @@
 						} else {
 							self::$controller = new $controllerClass();
 						}
+						
+						Hooks::execute(Hooks::HOOK_APPLICATION_CONTROLLER_LOADED, array($controllerClass));	
 
 						if ( method_exists(self::$controller, "page") ) {
 							self::$controller->page($page);
@@ -141,6 +189,8 @@
 						// Just use the text from the database with generic controller class
 						require_once APPLICATION_CLASSES_PATH.'ApplicationGenericPageController.php';
 						self::$controller = new ApplicationGenericPageController($page->title);
+						
+						Hooks::execute(Hooks::HOOK_APPLICATION_CONTROLLER_LOADED, array($controllerClass));	
 
 						if ( method_exists(self::$controller, "page") ) {
 							self::$controller->page($page);
@@ -166,7 +216,7 @@
 
 						require_once $file;
 						self::$controller = new $controllerClass();
-						Hooks::execute(Hooks::HOOK_CONTROLLER_POST_CREATED, array($controllerClass));	
+						Hooks::execute(Hooks::HOOK_APPLICATION_CONTROLLER_LOADED, array($controllerClass));	
 
 						// Determine if should process login information or not
 						if ( self::$controller->auth->login_required() && !self::$controller->auth->logged_in() ) {

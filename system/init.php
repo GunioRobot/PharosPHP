@@ -30,6 +30,7 @@
 	Loader::load_class('Hooks');
 	Hooks::init();
 	
+	
 	// Load in the next set of classes
 	Loader::load_class('YAML/sfYaml.php');
 	Loader::load_class('Keypath');
@@ -60,33 +61,8 @@
 	Loader::load_class('Application');
 	
 	
-	// Call any attached actions after the core has been loaded
+	// Call any attached actions after the core has been loaded & begin the boostrap process
 	Hooks::execute(Hooks::HOOK_CORE_CLASSES_LOADED);
 	
-	
-	// Initialization the module system
-	Hooks::execute(Hooks::HOOK_MODULES_PRE_LOADED);
-	Modules::init();
-	Hooks::execute(Hooks::HOOK_MODULES_POST_LOADED);
-	
-	
-	// Load in all the application defined functions
-	foreach(glob(APPLICATION_FUNCTIONS_PATH.'*.php') as $filename) {
-		require_once $filename;
-	}
-	
-	
-	// Conditionally include support for ActiveRecord
-	if ( version_compare(phpversion(), "5.3.0") >= 0 ) {
-		require_once CLASSES_PATH.'ActiveRecord/init.php';
-	}
-	
-	
-	// Finish initializing the system (load defines, settings, modules, set session variables, etc)
-	Application::bootstrap();
-	
-	
-	// System action to allow post system-init, pre controller created actions to execute		
-	Hooks::execute(Hooks::HOOK_CONTROLLER_PRE_CREATED);	
 		
 ?>
