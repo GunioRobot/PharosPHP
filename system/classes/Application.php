@@ -1,13 +1,38 @@
 <?
 
+	/**
+	 * Application
+	 *
+	 * Used by the system to initialize and serve up pages 
+	 *
+	 * @package PharosPHP.Core.Classes
+	 * @author Matt Brewer
+	 **/
+	
 	class Application {
 		
 		protected static $controller = null;
 		
+		
+		/**
+		 * controller
+		 *
+		 * @return ApplicationController (subclass of)
+		 * @author Matt Brewer
+		 **/
+
 		public static function controller() {
 			return self::$controller;
 		}
 		
+		
+		/**
+		 * Loads the minimal amount of classes needed to run, without i18n support
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public static function pre_bootstrap() {
 			
 			Loader::load_class('Output');
@@ -24,6 +49,14 @@
 			
 		}
 		
+		
+		/**
+		 * Performs all the initializing needed before a Controller is created and run
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public static function bootstrap() {
 			
 			global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
