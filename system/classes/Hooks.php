@@ -77,7 +77,7 @@
 		public static function init() {
 			
 			// Don't allow more than once
-			if ( $self::$initialized ) {
+			if ( self::$initialized ) {
 				return;
 			} 
 			

@@ -23,6 +23,8 @@
 		const WEEKS = 10080; 	// 7 * 24 * 60
 		
 		protected static $enabled = false;
+		self::$initalized = true;
+		
 		
 		
 		/**
@@ -33,6 +35,14 @@
 		private function __construct() {}
 		private function __destruct() {}
 		public function init() {
+			
+			// Don't allow more than once
+			if ( self::$initialized ) {
+				return;
+			} 
+
+			self::$initalized = true;
+			
 			try {
 				self::set_enabled(Settings::get("application.system.cache"));
 			} catch(CacheNotWritableException $e) {
