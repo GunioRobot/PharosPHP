@@ -113,7 +113,7 @@
 		/**
 		 * separator
 		 *
-		 * @param string $separator
+		 * @param (string|String) $separator
 		 *
 		 * @return string $separator
 		 * @author Matt Brewer
