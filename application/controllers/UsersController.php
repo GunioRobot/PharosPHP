@@ -217,7 +217,7 @@
 		
 		public function delete($id) {
 			
-			if ( ($confirmed = post("confirmed")) === "true" ) {
+			if ( ($confirmed = Input::post("confirmed")) === "true" ) {
 				
 				// Delete tracking information
 				$sql = "DELETE FROM tracking WHERE content_type_id = '".(int)USER_TYPE_ID."' AND table_index = '".(int)$id."'";

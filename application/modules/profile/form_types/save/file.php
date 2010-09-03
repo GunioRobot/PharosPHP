@@ -1,8 +1,8 @@
 <?
 
 	
-	if ( ($removeImage = post($data.'_remove_image')) === "true" ) {
-		$sql = "SELECT * FROM ".post("table")." WHERE ".post("data_key")." = '".(int)$id."' LIMIT 1";
+	if ( ($removeImage = Input::post($data.'_remove_image')) === "true" ) {
+		$sql = "SELECT * FROM ".Input::post("table")." WHERE ".Input::post("data_key")." = '".(int)$id."' LIMIT 1";
 		$info = $db->Execute($sql);
 		if ( !$info->EOF && $info->fields[$data] != "" ) {
 			
@@ -54,7 +54,7 @@
 
 		// Add the filesize to the sql statement, if it's the main video and not thumbnails, etc		
 		if ( isset($options['store_filesize']) && $options['store_filesize'] == "true" ) {
-			$size = filesize(UPLOAD_PATH.post($data));
+			$size = filesize(UPLOAD_PATH.Input::post($data));
 			$sqlUpdate .= $data.'_file_size = "'.$size.'", ';
 			$sqlFields .= $data.'_file_size,';
 			$sqlValues .= '"'.$size.'",';
@@ -63,7 +63,7 @@
 		// Possible store the file type
 		if ( isset($options['store_file_type']) && $options['store_file_type'] == "true" ) {
 
-			$info = pathinfo(UPLOAD_PATH.post($data));
+			$info = pathinfo(UPLOAD_PATH.Input::post($data));
 			$ext = $info['extension'];
 			if ( $ext != "" ) {
 				$sqlUpdate .= $data.'_file_type = "'.$ext.'", ';

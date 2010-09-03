@@ -223,7 +223,7 @@
 		
 		public function delete($id) {
 			
-			if ( ($confirmed = post("confirmed")) === "true" ) {
+			if ( ($confirmed = Input::post("confirmed")) === "true" ) {
 
 				// Delete the note itself
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";

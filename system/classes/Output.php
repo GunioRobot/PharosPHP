@@ -69,7 +69,7 @@
 				$this->cached_file = self::cached_name();
 			}
 		
-			if ( ($items = session("pharos_flash")) !== false && is_array($items) ) {
+			if ( ($items = Input::session("pharos_flash")) !== false && is_array($items) ) {
 				foreach($items as $obj) {
 					$this->flash[] = (object)array("save" => false, "value" => $obj->value);
 				}

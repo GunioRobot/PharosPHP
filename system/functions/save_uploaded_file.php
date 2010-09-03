@@ -28,8 +28,8 @@
 		if ( isset($_FILES[$uploadName]) && $_FILES[$uploadName]['tmp_name'] ) {
 						
 			// Want to remove old file is updating existing entry - whether coming from swfupload module or from "file" form_type in profile module
-			if ( 	( ($method = request("arg2")) === "save" && ($id = request("arg3")) > 0 && ($key = request("data_key")) && ($table = request("table")) ) ||
-			 		( ($key = request("key")) && ($id = request($key)) && ($table = request("table")) ) 	) {
+			if ( 	( ($method = Input::request("arg2")) === "save" && ($id = Input::request("arg3")) > 0 && ($key = Input::request("data_key")) && ($table = Input::request("table")) ) ||
+			 		( ($key = Input::request("key")) && ($id = Input::request($key)) && ($table = Input::request("table")) ) 	) {
 				
 				$existing = $db->Execute("SELECT $uploadName FROM $table WHERE $key = '$id' LIMIT 1");
 				if ( defined('DELETE_OLD_WHEN_UPLOADING_NEW') && DELETE_OLD_WHEN_UPLOADING_NEW === true ) {

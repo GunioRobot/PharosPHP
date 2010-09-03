@@ -70,7 +70,7 @@
 		protected function search($search) {
 
 			// Pull from a new post, or just grab the existing get one passed in
-			$search = ( ($s = post("search")) ) ? $s : $search;
+			$search = ( ($s = Input::post("search")) ) ? $s : $search;
 
 			if ( $search != '' ) {
 				$where = basic_where($search, $this->table->id);

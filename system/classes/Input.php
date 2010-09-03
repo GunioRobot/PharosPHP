@@ -52,7 +52,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
-		public static function request($key, $default=false) {
+		public static function Input::request($key, $default=false) {
 			return self::retrieve(__FUNCTION__, $key, $default);
 		}
 		

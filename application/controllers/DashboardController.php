@@ -589,7 +589,7 @@
 
 		public function exportUsers() {
 			
-			if ( ($month = post("date")) !== false && $month !== "all-data" ) {
+			if ( ($month = Input::post("date")) !== false && $month !== "all-data" ) {
 				$date = new DateTime($month);
 				$where = "AND MONTH(date_added) = '".$date->format("m")."' AND YEAR(date_added) = '".$date->format("Y")."'";
 			} 
@@ -642,7 +642,7 @@
 		
 		public function delete($id) {
 			
-			if ( ($confirmed = post("confirmed")) === "true" ) {
+			if ( ($confirmed = Input::post("confirmed")) === "true" ) {
 				
 				// Delete tracking information
 				$sql = "DELETE FROM tracking WHERE content_type_id = '".(int)USER_TYPE_ID."' AND table_index = '".(int)$id."'";
@@ -676,7 +676,7 @@
 		public function deactivate($id) {
 			
 			
-			if ( ($confirmed = post("confirmed")) === "true" ) {
+			if ( ($confirmed = Input::post("confirmed")) === "true" ) {
 				
 				$sql = "UPDATE users SET user_is_active = 'false', last_updated = NOW() WHERE user_id = '".(int)$id."' LIMIT 1";
 				$this->db->Execute($sql);
@@ -701,7 +701,7 @@
 		public function activate($id) {
 
 
-			if ( ($confirmed = post("confirmed")) === "true" ) {
+			if ( ($confirmed = Input::post("confirmed")) === "true" ) {
 
 				$sql = "UPDATE users SET user_is_active = 'true', last_updated = NOW() WHERE user_id = '".(int)$id."' LIMIT 1";
 				$this->db->Execute($sql);

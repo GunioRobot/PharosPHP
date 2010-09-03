@@ -2,7 +2,7 @@
 
 
 	// Recreate the fields from the hidden post field
-	$fields = explode(",", post("field_list"));
+	$fields = explode(",", Input::post("field_list"));
 	foreach($fields as $f) {
 		$vars = explode("][", $f);
 		$chr = array('[', ']');
@@ -75,8 +75,8 @@
 	
 		
 	// Create and execute the lovely MySQL statement
-	$table = post("table");
-	if ( $id > 0 && $table && ($key = post("data_key")) ) {
+	$table = Input::post("table");
+	if ( $id > 0 && $table && ($key = Input::post("data_key")) ) {
 	
 		// Update db
 		$sql = "UPDATE $table SET ".$sqlUpdate." WHERE $key = '$id'";
@@ -93,7 +93,7 @@
 		
 		// Link content to application
 		if ( $USE_APPS_TO_CONTENT_TABLE ) {
-			$sql = "INSERT INTO applications_to_content ( app_id,table_index,content_type_id,content_type_name ) VALUES ('$CURRENT_APP_ID','".$id."','".post('content_type_id')."','".post('content_type_name')."') ";
+			$sql = "INSERT INTO applications_to_content ( app_id,table_index,content_type_id,content_type_name ) VALUES ('$CURRENT_APP_ID','".$id."','".Input::post('content_type_id')."','".Input::post('content_type_name')."') ";
 			$db->Execute($sql);
 		}
 		

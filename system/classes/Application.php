@@ -123,7 +123,7 @@
 			load_content_types();
 			Settings::load_dynamic_system_settings();
 
-			$CURRENT_APP_ID = session("app_id", 1);
+			$CURRENT_APP_ID = Input::session("app_id", 1);
 
 			$title = $db->Execute("SELECT app_name FROM applications WHERE app_id = '$CURRENT_APP_ID' LIMIT 1");
 			$CURRENT_APP_NAME = format_title($title->fields['app_name']);
@@ -224,7 +224,7 @@
 						}
 
 						// Simply return cached information it's available
-						if ( server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
+						if ( Input::server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
 							die($cache);
 						}
 

@@ -229,7 +229,7 @@
 		
 		public function delete($id) {
 			
-			if ( ($confirmed = post("confirmed")) === "true" ) {
+			if ( ($confirmed = Input::post("confirmed")) === "true" ) {
 				
 				// Delete the tracking info for this app
 				$sql = "DELETE FROM tracking WHERE app_id = '$id'";
@@ -317,7 +317,7 @@
 		public function change($id) {
 			
 			select_app($id);
-			$redirect = post('redirect', controller_link(DEFAULT_CONTROLLER_NAME));
+			$redirect = Input::post('redirect', controller_link(DEFAULT_CONTROLLER_NAME));
 			$redirect = preg_replace('/(.*)\/edit\/\d+\/?.*/', "$1/", $redirect);
 			
 			echo json_encode((object)array("error" => false, "redirect" => $redirect));

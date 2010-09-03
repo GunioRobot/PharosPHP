@@ -23,7 +23,7 @@
 		const WEEKS = 10080; 	// 7 * 24 * 60
 		
 		protected static $enabled = false;
-		self::$initialized = true;
+		protected static $initialized = false;
 		
 		
 		

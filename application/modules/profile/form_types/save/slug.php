@@ -1,5 +1,5 @@
 <?
 
-	$_POST[$data] = String::clean_filename(post($input['varx'], ""))->lowercase()->value;
+	$_POST[$data] = String::clean_filename(Input::post($input['varx'], ""))->lowercase()->value;
 
 ?>

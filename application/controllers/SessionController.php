@@ -12,7 +12,7 @@
 			$this->title = "Login";
 			$this->output->cache(1 * Cache::WEEKS);
 			
-			if ( ($user = post('user')) AND ($pass = post('pass')) ) {
+			if ( ($user = Input::post('user')) AND ($pass = Input::post('pass')) ) {
 				
 				$auth = Authentication::get();
 				if ( $auth->login($user, $pass, Settings::get('application.users.levels.admin'), ">=") ) {
@@ -45,7 +45,7 @@
 
 
 		public function processPasswordReset() {
-			if ( ($user = post('user')) !== false ) {
+			if ( ($user = Input::post('user')) !== false ) {
 				
 				$status = Authentication::get()->reset_password($user);
 				if ( $status === true ) {

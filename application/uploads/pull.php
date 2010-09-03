@@ -1,16 +1,16 @@
 <?
 	
 	require_once '../../system/init.php';
-	if ( ($table = request("table")) && ($key = request("key")) && ($id = request($key)) ) {
+	if ( ($table = Input::request("table")) && ($key = Input::request("key")) && ($id = Input::request($key)) ) {
 
 		foreach($_FILES as $name => $meta) {
 		
 			try {
 				
-				$image = request("save_as_image") === "true" ? true : false;
-				$resizeImage = request("resize_image") === "true" ? true : false;
-				$width = request("image_width");
-				$height = request("image_height");
+				$image = Input::request("save_as_image") === "true" ? true : false;
+				$resizeImage = Input::request("resize_image") === "true" ? true : false;
+				$width = Input::request("image_width");
+				$height = Input::request("image_height");
 				
 				if ( $image && $resizeImage && $width && $height ) { 
 					$filename = save_uploaded_file($name, UPLOAD_PATH, array(), true, array('width' => $width, 'height' => $height));
@@ -24,8 +24,8 @@
 			
 				$info = pathinfo($filename);
 			
-				$filesize = request("store_filesize",'false') == 'true' ? " $name"."_file_size = '".filesize($filename)."', " : '';	
-				$filetype = request("store_file_type",'false') == 'true' ? " $name"."_file_type = '".$info['extension']."', " : '';	
+				$filesize = Input::request("store_filesize",'false') == 'true' ? " $name"."_file_size = '".filesize($filename)."', " : '';	
+				$filetype = Input::request("store_file_type",'false') == 'true' ? " $name"."_file_type = '".$info['extension']."', " : '';	
 					
 				$sql = "UPDATE $table SET $name = '".$db->prepare_input($filename)."', $filesize $filetype last_updated = NOW() WHERE $key = '".(int)$id."' LIMIT 1";
 				$db->Execute($sql);
