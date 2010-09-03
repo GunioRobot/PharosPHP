@@ -3,11 +3,14 @@
 	/**
 	 * Browser
 	 *
+	 * Adapted from Chris Schuld's class, to be used in static context
+	 *
 	 * Usage:
 	 * 		Browser::isBrowser(Browser::BROWSER_SAFARI) // to determine if the browser is safari
 	 *
 	 * @package PharosPHP.Core.Classes
-	 * @author Matt Brewer
+	 * @author Chris Schuld
+	 * @link {http://chrisschuld.com/projects/browser-php-detecting-a-users-browser-from-php/} Chris Schuld's Blog
 	 **/
 
 	class Browser {
