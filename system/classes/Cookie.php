@@ -36,7 +36,7 @@
 		 * @author Matthew
 		 **/
 		public static function get($key, $default=false) {
-			return cookie($key, $default);
+			return Input::cookie($key, $default);
 		}
 		
 		/**
