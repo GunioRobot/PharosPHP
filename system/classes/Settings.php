@@ -179,9 +179,11 @@
 		 **/
 		
 		public static function load_dynamic_system_settings() {
-						
-			define('SYS_ADMIN_EMAIL', self::get('dynamic.Admin Email', 'matt@dmgx.com', true));
-			define('SERVER_MAILER', self::get('dynamic.Server Email', 'matt@dmgx.com', true));
+
+			$default_email = new String('server@%s', Input::server("SERVER_NAME"));
+
+			define('SYS_ADMIN_EMAIL', self::get('dynamic.Admin Email', $default_email, true));
+			define('SERVER_MAILER', self::get('dynamic.Server Email', $default_email, true));
 			define('SITE_TAGLINE', self::get('dynamic.Site Tagline', 'CMS Framework for Developers', true));
 			define('TITLE_SEPARATOR', self::get('dynamic.Title Separator', ' | ', true));
 			define('DEFAULT_KEYWORDS', self::get('dynamic.Default Keywords', 'CMS, Content Management System, CMS-Lite, Matt Brewer, PHP', true));
@@ -191,7 +193,7 @@
 			define('SHOW_PROFILER_RESULTS', self::get('dynamic.Show Profiler Results', false, true)==="true"?true:false);	
 			define('DELETE_OLD_WHEN_UPLOADING_NEW', self::get('dynamic.Delete Old When Uploading New',"true",true)==="true"?true:false);
 			define('RESET_PASSWORD_RANDOM_WORD', self::get('dynamic.Reset Password Random Word', '_cmslite',true));
-				
+
 		}
 		
 		
