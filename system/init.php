@@ -25,6 +25,7 @@
 		
 				
 	// Load in the few classes that are needed early on in system initialization
+	require_once CLASSES_PATH.'Object.php';
 	require_once CLASSES_PATH.'String.php';
 	require_once CLASSES_PATH.'Loader.php';
 	Loader::load_class('Hooks');
