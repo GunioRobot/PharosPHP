@@ -9,7 +9,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	class Output {
+	class Output extends Object {
 		
 		const CSS_TYPE_ALL = "all";
 		const CSS_TYPE_PRINT = "print";

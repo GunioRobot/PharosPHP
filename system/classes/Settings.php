@@ -28,7 +28,7 @@
 	 **/
 	
 	
-	final class Settings {
+	final class Settings extends Object {
 			
 		private static $config = array();
 		

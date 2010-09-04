@@ -9,7 +9,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	final class Template {
+	final class Template extends Object {
 		
 		
 		/**

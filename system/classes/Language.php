@@ -6,7 +6,7 @@
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
 	 **/
-	final class Language {
+	final class Language extends Object {
 		
 		const DUTCH = "nl";
 		const ENGLISH = "en";

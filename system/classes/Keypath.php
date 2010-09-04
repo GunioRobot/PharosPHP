@@ -11,7 +11,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	final class Keypath {
+	final class Keypath extends Object {
 		
 		const VALUE_UNDEFINED = null;
 		

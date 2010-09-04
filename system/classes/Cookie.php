@@ -9,7 +9,7 @@
 	 *
 	 **/
 	
-	final class Cookie {
+	final class Cookie extends Object {
 		
 		
 		/**

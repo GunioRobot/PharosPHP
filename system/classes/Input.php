@@ -2,12 +2,12 @@
 
 	/**
 	 * Input
-	 *
+	 *  
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
 	 **/
 
-	final class Input {
+	final class Input extends Object {
 		
 		
 		/**

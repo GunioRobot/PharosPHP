@@ -19,7 +19,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	final class Router {
+	final class Router extends Object {
 
 		private static $raw = "";
 		private static $components = array();

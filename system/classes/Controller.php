@@ -10,7 +10,7 @@
 	 *
 	 **/
 	
-	class Controller {
+	class Controller extends Object {
 		
 	
 		/**
@@ -18,7 +18,6 @@
 		*	Protected instance vars (available to subclasses)
 		*
 		*/
-		protected $db;
 		protected $load;
 		
 		
@@ -47,10 +46,9 @@
 		 *
 		 **/
 		public function __construct() {
-			
-			global $db;
-				
-			$this->db =& $db;
+
+			parent::__construct();
+
 			$this->output = new Output();
 						
 			$this->name = get_class($this);

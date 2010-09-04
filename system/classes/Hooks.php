@@ -20,7 +20,7 @@
 	 *
 	 **/
 
-	final class Hooks {
+	final class Hooks extends Object {
 	
 		protected static $hooks = array();
 		protected static $initialized = false;

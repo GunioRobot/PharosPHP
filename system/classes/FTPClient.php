@@ -20,7 +20,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	class FTPClient	{
+	class FTPClient	extends Object {
 		
 		const FILE_HANDLE = "handle";
 		const FILE_PATH = "path";

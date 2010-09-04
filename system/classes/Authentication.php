@@ -9,12 +9,11 @@
 	 *
 	 **/
 
-	final class Authentication {
+	final class Authentication extends Object {
 				
 		protected $logged_in = false;
 		protected $login_required = false;
 		protected $user;
-		protected $db;
 		
 		static protected $instance;
 
@@ -32,14 +31,6 @@
 				$t->lookup();
 				self::$instance = $t;
 			} return self::$instance;
-		}
-
-
-		protected function __construct() {
-						
-			global $db;
-			$this->db =& $db;
-			
 		}
 
 

@@ -16,7 +16,7 @@
 	 * 	@author Matt Brewer
 	 **/
 	
-	final class Modules {
+	final class Modules extends Object {
 	
 		private static $modules = array();
 		private static $config = array();

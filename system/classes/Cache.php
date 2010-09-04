@@ -9,7 +9,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	final class Cache {
+	final class Cache extends Object {
 		
 		/**
 		*

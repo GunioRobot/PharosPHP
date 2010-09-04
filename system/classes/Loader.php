@@ -15,7 +15,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	final class Loader {
+	final class Loader extends Object {
 		
 				
 		/**

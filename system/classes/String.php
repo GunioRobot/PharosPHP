@@ -24,7 +24,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	class String {
+	class String extends Object {
 		
 		const CASE_SENSITIVE 	= 0x00001;	// 1
 		const CASE_INSENSITIVE 	= 0x00010;	// 2
