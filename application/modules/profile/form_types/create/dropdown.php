@@ -6,9 +6,9 @@
 	if ( isset($_GET[$form_array['name']]) ) {
 		$value = $_GET[$form_array['name']];
 	} else {
-		if ( $form_array['default'] AND !$value ) {
+		if ( isset($form_array['default']) AND !isset($value) ) {
 			$value = $form_array['default'];
-		} else if ( !$value ) {
+		} else if ( !isset($value) ) {
 			$item .= '<option value="">Select a Option</option>';
 		}
 	} 
