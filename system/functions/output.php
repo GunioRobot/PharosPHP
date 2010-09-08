@@ -34,7 +34,7 @@
 	function enqueue_script($scripts) {
 		if ( is_array($scripts) ) {
 			foreach($scripts as $script) {
-				Application::controller()->output->javascript($script)
+				Application::controller()->output->javascript(strval($script));
 			}
 		} else {
 			Application::controller()->output->javascript(strval($scripts));
