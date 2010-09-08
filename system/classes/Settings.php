@@ -237,7 +237,7 @@
 						
 			define('SECURE_KEYWORD',md5(self::get('application.system.site.name')));
 			define('APPLICATION_SECRET_KEY', md5(self::get('application.system.site.name')));
-			define('SALT', self::get("application.salt"));
+			define('SALT', self::get("application.system.salt"));
 			
 		}
 		
