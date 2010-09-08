@@ -9,7 +9,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	final class Cache extends Object {
+	final class Cache {
 		
 		/**
 		*
@@ -34,7 +34,7 @@
 		*/
 		private function __construct() {}
 		private function __destruct() {}
-		public function init() {
+		public static function init() {
 			
 			// Don't allow more than once
 			if ( self::$initialized ) {
