@@ -269,7 +269,7 @@
 
 		public function parse() {
 			$arr = array();
-			parse_str($this->value, &$arr);
+			parse_str($this->value, $arr);
 			return $arr;
 		}
 		
