@@ -209,7 +209,7 @@
 		public static function is_current_parent_nav($page) {
 
 			$controllerClass = substr(Router::controller(), 0, -strlen("Controller"));
-			if ( is_array($page->children) ) {
+			if ( isset($page->children) && is_array($page->children) ) {
 				foreach($page->children as $p) {
 
 					$parts = explode("/", trim($p->page, " /"));
