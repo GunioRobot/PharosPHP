@@ -35,6 +35,7 @@
 
 		public static function pre_bootstrap() {
 			
+			Loader::load_class('Input');
 			Loader::load_class('Output');
 			Loader::load_class('Cookie');
 			
