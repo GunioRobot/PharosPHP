@@ -86,7 +86,8 @@
 
 
 			// Load in all the application defined functions
-			foreach(glob(APPLICATION_FUNCTIONS_PATH.'*.php') as $filename) {
+			$files = glob(APPLICATION_FUNCTIONS_PATH.'*.php');
+			foreach(($files !== false ? $files : array()) as $filename) {
 				require_once $filename;
 			}
 			
