@@ -37,8 +37,8 @@
 				
 				<?foreach($pages as $pid => $parent) : ?>
 					<div id="nav<?=$parent->id?>Sub" class="subNav">
-						<? $i = 0; $count = count($parent->children); ?>
-						<? if ( !empty($parent->children) ) : foreach($parent->children as $c) : ?>
+						<? if ( isset($parent->children) && is_array($parent->children) && !empty($parent->children)): ?>
+						<? $i = 0; $count = count($parent->children); foreach($parent->children as $c) : ?>
 						<a href="<?=Template::site_link($c->page)?>" id="<?=$c->id?>-nav"><?=$c->name?></a>
 						<? if ( ++$i != $count ): ?><span class="divider">|</span><? endif ?>
 					<? endforeach; endif; ?>
