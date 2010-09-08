@@ -7,7 +7,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	final class Input extends Object {
+	final class Input {
 		
 		
 		/**
@@ -52,7 +52,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
-		public static function Input::request($key, $default=false) {
+		public static function request($key, $default=false) {
 			return self::retrieve(__FUNCTION__, $key, $default);
 		}
 		
