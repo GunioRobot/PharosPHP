@@ -225,7 +225,7 @@
 										
 				} 
 				
-				return $params['value'];
+				return isset($params['value']) ? $params['value'] : reset($params);
 
 			} else throw new InvalidHookException(sprintf("Hooks::execute(%s). Hook was undefined.", $name));
 
