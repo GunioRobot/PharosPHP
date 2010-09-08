@@ -40,7 +40,7 @@
 		public static function load($path) {
 			
 			$info = pathinfo($path);
-			$ext = $info['extension'] != "" ? strtolower($info['extension']) : "yml";
+			$ext = (isset($info['extension']) && $info['extension']) != "" ? strtolower($info['extension']) : "yml";
 			$file = $info['filename'];
 			$filename = $file.".".$ext;
 						
