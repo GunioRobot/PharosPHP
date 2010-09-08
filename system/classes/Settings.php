@@ -213,7 +213,7 @@
 			$root_dir = trim(substr($root, 0, $pos), "/");
 						
 			$host = ( isset($_SERVER['REDIRECT_HTTPS']) && $_SERVER['REDIRECT_HTTPS'] == "on" ) ? "https://" : "http://";
-			define('ROOT_URL', $host.$_SERVER['HTTP_HOST'].'/'.$root_dir.'/');
+			define('ROOT_URL', $host.$_SERVER['HTTP_HOST'].'/'.($root_dir!="" ? $root_dir."/" : $root_dir));
 						
 			if ( !defined("UPLOAD_PATH") ) {
 				define("UPLOAD_PATH", APP_PATH."uploads/");
