@@ -72,7 +72,7 @@
 			// Pull from a new post, or just grab the existing get one passed in
 			$search = ( ($s = Input::post("search")) ) ? $s : $search;
 
-			if ( $search != '' ) {
+			if ( $search != '' && $search != "_" ) {
 				$where = basic_where($search, $this->table->id);
 				$this->table->search = $search;
 			} else {
