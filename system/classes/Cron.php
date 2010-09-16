@@ -44,6 +44,7 @@
 			$sql = sprintf("CREATE TABLE IF NOT EXISTS `%s` (
 			  `id` int(11) NOT NULL auto_increment,
 			  `task` text NOT NULL,
+			  `params` text NOT NULL,
 			  `type` VARCHAR(200) NOT NULL,
 			  `repeats` VARCHAR(7) NOT NULL default 'false',
 			  `interval` int(11) NOT NULL default 0,
@@ -61,6 +62,7 @@
 		 * register()
 		 *
 		 * @param string $task
+		 * @param array $params
 		 * @param string (optional) $cron_task_type (TYPE_CURL | TYPE_FUNCTION | TYPE_CLASS )
 		 * @param int (optional) $delay - in minutes
 		 * @param boolean (optional) $repeats
@@ -70,11 +72,11 @@
 		 * @author Matt Brewer
 		 **/
 
-		public static function register($task, $type=self::TYPE_FUNCTION, $delay=0, $repeats=false, $interval=1) {
+		public static function register($task, $params=array(), $type=self::TYPE_FUNCTION, $delay=0, $repeats=false, $interval=1) {
 
 			global $db;
 			if ( $task != "" ) {
-				$sql = sprintf("INSERT INTO %s (`task`,`type`,`repeats`,`interval`,`timestamp`,`in_progress`) VALUES('%s','%s','%s','%d',NOW() + INTERVAL %d MINUTE,'false')", self::TABLE, $db->prepare_input($task), $db->prepare_input($type), ($repeats?"true":"false"), $interval, $delay);
+				$sql = sprintf("INSERT INTO %s (`task`,`params`,`type`,`repeats`,`interval`,`timestamp`,`in_progress`) VALUES('%s','%s','%s','%s','%d',NOW() + INTERVAL %d MINUTE,'false')", self::TABLE, $db->prepare_input($task), $db->prepare_input(serialize($params)), $db->prepare_input($type), ($repeats?"true":"false"), $interval, $delay);
 				$db->Execute($sql);
 			}
 
@@ -84,10 +86,12 @@
 		/**
 		 * _run_task()
 		 *
+		 * @param object $obj
+		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
-		private static function _run_task() {
+		private static function _run_task($obj) {
 			
 			global $db;
 
@@ -117,7 +121,7 @@
 
 					}
 
-					call_user_func(array($class, $method));
+					call_user_func_array(array($class, $method), unserialize($obj->params));
 					self::_mark_cron_as_completed($obj);
 
 				break;
@@ -125,7 +129,7 @@
 				case self::TYPE_FUNCTION:
 				default:
 					if ( function_exists($obj->task) ) {
-						call_user_func($obj->task);
+						call_user_func_array($obj->task, unserialize($obj->params));
 						self::_mark_cron_as_completed($obj);
 					}
 				break;
