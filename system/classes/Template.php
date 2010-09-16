@@ -152,7 +152,7 @@
 						$data = $js['data']; 
 						require PUBLIC_PATH.'js/'.$js['path']; 
 					} else {
-						echo '<script type="text/javascript" src="'.PUBLIC_URL.'js/'.$js['path'].'"></script>';
+						echo '<script type="text/javascript" src="'.$js['path'].'"></script>';
 					}
 				}
 			}

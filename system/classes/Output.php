@@ -142,7 +142,13 @@
 					return true;
 
 				} else {
-					$this->javascript[] = array('path' => $path, 'type' => (strrpos($path,'.php')===false?self::JAVASCRIPT_EXTERNAL:self::JAVASCRIPT_INCLUDE), 'data' => $data);
+					
+					$type = strrpos($path,'.php') === false ? self::JAVASCRIPT_EXTERNAL : self::JAVASCRIPT_INCLUDE;
+					if ( $type == self::JAVASCRIPT_EXTERNAL && strpos($path, "http") === false ) {
+						$path = PUBLIC_URL."js/".$path;
+					} 
+					
+					$this->javascript[] = compact("path", "type", "data");
 				}
 
 			} else {
