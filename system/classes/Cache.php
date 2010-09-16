@@ -87,16 +87,18 @@
 		 * @param string $contents
 		 * @param string $file_path, relative to the CACHE_PATH
 		 * @param int duration in seconds
+		 * @param array $headers
+		 *
 		 * @return boolean $success
 		 * @author Matt Brewer
 		 **/
 
-		public static function write($contents, $file, $duration) {
+		public static function write($contents, $file, $duration, array $headers=array()) {
 			
 			if ( !self::$enabled ) throw new CacheNotEnabledException();
 			
 			$future = time() + ($duration * 60);	// Convert to seconds
-			return @file_put_contents(CACHE_PATH.$file, sprintf("%s\n%s", $future, $contents), LOCK_EX);
+			return @file_put_contents(CACHE_PATH.$file, sprintf("%s\n[headers]\n%s\n[/headers]\n%s", $future, implode("\n", $headers), $contents), LOCK_EX);
 			
 		}
 		
@@ -108,7 +110,7 @@
 		 * @throws CachedFileExpiredException - if cached file has expired
 		 *
 		 * @param string $filename
-		 * @return string $contents
+		 * @return array(string $contents, array $headers)
 		 * @author Matt Brewer
 		 **/
 
@@ -118,8 +120,16 @@
 			if ( self::expired($file) ) throw new CachedFileExpiredException();
 			
 			$contents = @file(CACHE_PATH.$file);
-			return is_array($contents) ? implode("\n", array_slice($contents, 1)) : "";
 			
+			$start = array_search("[headers]\n", $contents);
+			$stop = array_search("[/headers]\n", $contents);
+			$headers = array_slice($contents, $start+1, ($stop-$start)-1);
+			$contents = array_slice($contents, $stop+1);
+			
+			if ( count($headers) == 1 && $headers[0] == "\n" ) $headers = array();
+						
+			return is_array($contents) ? (object)array("content" => implode("\n", array_slice($contents, 1)), "headers" => $headers) : (object)array("content" => "", "headers" => array());
+						
 		}
 		
 		

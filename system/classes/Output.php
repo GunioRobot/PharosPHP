@@ -407,7 +407,7 @@
 		private function _write_to_cache($str) {
 			try {
 				if ( Cache::expired($this->cached_file) ) {
-					Cache::write($str, $this->cached_file, $this->cache_duration);
+					Cache::write($str, $this->cached_file, $this->cache_duration, $this->headers);
 				}
 			} catch(CacheNotEnabledException $e) {}	
 		}	

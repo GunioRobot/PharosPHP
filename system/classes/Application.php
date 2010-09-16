@@ -42,7 +42,7 @@
 			Loader::load_class('Authentication');
 			Hooks::execute(Hooks::HOOK_AUTHENTICATION_LOADED);
 			
-			Loader::load_class('Cache');
+			Loader::load_class('Cache');			
 			Cache::init();
 			Hooks::execute(Hooks::HOOK_CACHE_LOADED);
 			
@@ -51,7 +51,7 @@
 			
 			Browser::reset();
 			Cron::install();
-			Router::parse();		
+			Router::parse();					
 			
 			Hooks::execute(Hooks::HOOK_SYSTEM_SHORT_INIT_COMPLETE);	
 			
@@ -83,7 +83,7 @@
 			if ( version_compare(phpversion(), "5.3.0") >= 0 ) {
 				require_once CLASSES_PATH.'ActiveRecord/init.php';
 			}
-
+			
 
 			// Load in all the application defined functions
 			$files = glob(APPLICATION_FUNCTIONS_PATH.'*.php');
@@ -227,7 +227,12 @@
 
 						// Simply return cached information it's available
 						if ( Input::server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
-							die($cache);
+							if ( !empty($cache->headers) ) {
+								foreach($cache->headers as $h) {
+									header($h);
+								}
+							}
+							die($cache->content);
 						}
 
 						self::_execute();
