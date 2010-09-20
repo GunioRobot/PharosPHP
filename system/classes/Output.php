@@ -144,7 +144,7 @@
 				} else {
 					
 					$type = strrpos($path,'.php') === false ? self::JAVASCRIPT_EXTERNAL : self::JAVASCRIPT_INCLUDE;
-					if ( $type == self::JAVASCRIPT_EXTERNAL && strpos($path, "http") === false ) {
+					if ( $type == self::JAVASCRIPT_EXTERNAL && stripos($path, "http") === false ) {
 						$path = PUBLIC_URL."js/".$path;
 					} 
 					
