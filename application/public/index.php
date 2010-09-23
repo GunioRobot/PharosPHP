@@ -52,8 +52,12 @@
 	
 	// Core path
 	if ( !defined("SYSTEM_PATH") ) {
-		define("APP_PATH", ROOT.APP_DIR."/");
 		define("SYSTEM_PATH", PHAROS_CORE_INCLUDE_PATH."system/");
+	}
+	
+	// App Path
+	if ( !defined("APP_PATH") ) {
+		define("APP_PATH", ROOT.APP_DIR."/");
 	}
 
 	// Begin loading the system
