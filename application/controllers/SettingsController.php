@@ -69,7 +69,7 @@
 
 					if ( is_super() ) {
 						$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-						$actions .= '<a href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
+						$actions .= '<a class="confirm-with-popup" href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
 					}
 
 
