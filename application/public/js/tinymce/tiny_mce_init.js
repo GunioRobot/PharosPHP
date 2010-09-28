@@ -1,7 +1,7 @@
 
 	$(function() {
 	
-		$('textarea').tinymce({
+		$('textarea:not(.exclude-tinymce)').tinymce({
 		
 			// Location of TinyMCE script
 			script_url : CMSLite.PUBLIC_URL+'js/tinymce/tiny_mce.js',
