@@ -74,7 +74,7 @@
 		
 			if ( !isset(self::$modules[$name]) ) {
 
-				$folder = MODULES_PATH.$name;
+				$folder = APPLICATION_MODULES_PATH.$name;
 				$file = $folder."/include.php";
 
 				if ( @file_exists($folder) && is_dir($folder) && @file_exists($file) ) {
@@ -83,6 +83,13 @@
 					self::$modules[$name] = $file;
 					Hooks::execute(Hooks::HOOK_MODULE_LOADED, array($name));
 
+				} else if ( @file_exists(MODULES_PATH.$name) && is_dir(MODULES_PATH.$name) && @file_exists(MODULES_PATH.$name.'/include.php') ) {
+					
+					$file = MODULES_PATH.$name.'/include.php';
+					include $file;
+					self::$modules[$name] = $file;
+					Hooks::execute(Hooks::HOOK_MODULE_LOADED, array($name));
+				
 				} else {
 					throw new Exception("Error loading module ($name).  File did not exist.");
 				}

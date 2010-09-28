@@ -26,7 +26,7 @@
 	
 	function is_valid_email_address($email) {
 		
-		require_once MODULES_PATH.'forms/classes/EmailAddressValidator.php';
+		require_once dirname(__FILE__).'/forms/classes/EmailAddressValidator.php';
 		
 		$validator = new EmailAddressValidator;
         return $validator->check_email_address($email);

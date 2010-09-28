@@ -14,7 +14,8 @@
 	define('MODELS_PATH', APP_PATH.'models/');
 	define('CONFIGURATION_PATH', APP_PATH.'configure/');
 	define('CONTROLLER_PATH', APP_PATH.'controllers/');
-	define('MODULES_PATH', APP_PATH.'modules/');
+	define('MODULES_PATH', SYSTEM_PATH.'modules/');
+	define('APPLICATION_MODULES_PATH', APP_PATH.'modules/');
 	define('APPLICATION_CLASSES_PATH', APP_PATH.'classes/');
 	define('APPLICATION_FUNCTIONS_PATH', APP_PATH.'functions/');
 	define('APPLICATION_LANGUAGES_PATH', APP_PATH.'languages/');
