@@ -165,5 +165,18 @@
 		$db->Execute($sql);
 		
 	}
+	
+	
+	/**
+	 * sanitize_incoming_xml
+	 * Sanitizes incoming XML, stripping out invalid characters. Would be fine if values were wrapped in CDATA tags...
+	 *
+	 * @return string $XML
+	 * @author Matt Brewer
+	 **/
+	
+	function sanitize_incoming_xml() {
+		return str_replace(array("&", "&&amp;"), "&amp;", file_get_contents("php://input"));
+	}
 
 ?>

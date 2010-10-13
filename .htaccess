@@ -14,7 +14,6 @@ RewriteEngine On
 
 # Just use the directory or filename if that's what we're going for
 RewriteCond %{REQUEST_FILENAME} !-f
-# RewriteCond %{REQUEST_FILENAME} !-d
 
 RewriteRule (.*) application/public/index.php?args=$1
 
