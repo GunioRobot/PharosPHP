@@ -234,6 +234,10 @@
 			if ( !defined("MODULES_URL") ) {
 				define("MODULES_URL", APP_URL."modules/");
 			}
+			
+			if ( !defined("DEFAULT_APP_ID") ) {
+				define("DEFAULT_APP_ID", self::get("application.system.default_app_id", 1));
+			}
 						
 			define('SECURE_KEYWORD',md5(self::get('application.system.site.name')));
 			define('APPLICATION_SECRET_KEY', md5(self::get('application.system.site.name')));
