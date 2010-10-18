@@ -87,7 +87,7 @@
 			$css = Application::controller()->output->css();
 			if ( !empty($css) ) {
 				foreach($css as $style) {
-					echo sprintf('<link rel="stylesheet" type="text/css" media="%s" href="%s" />'."\n", $style['type'], PUBLIC_URL.'css/'.$style['path']);
+					echo sprintf('<link rel="stylesheet" type="text/css" media="%s" href="%s" />'."\n", $style['type'], $style['path']);
 				} 
 			}
 
