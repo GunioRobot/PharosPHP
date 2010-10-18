@@ -34,10 +34,9 @@
 		protected function tableColumns() {
 			$this->table->columns = array();
 			$this->table->columns[] =  array('name' => 'Name', 'key' => 'setting_name', 'class' => 'center');
-			$this->table->columns[] =  array('name' => 'Acess', 'key' => 'setting_level', 'class' => 'center');
+			$this->table->columns[] =  array('name' => 'Access', 'key' => 'setting_level', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Date Added', 'key' => 'date_added', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Last Updated', 'key' => 'last_updated', 'class' => 'center');
-			$this->table->columns[] =  array('name' => 'Action', 'class' => 'actions');
 		}
 		
 		
@@ -59,21 +58,18 @@
 
 					$class = ( $i % 2 ) ? 'listTier1' : 'listTier2';
 					$row = array('class' => $class, 'data' => array());
+				
+					$hovers = array();					
+					$hovers[] = (object)array("name" => "Edit", "href" => Template::edit(__CLASS__,$id), "title" => "Edit this ".$this->type, "class" => "edit-link");
+					if ( is_super() ) {
+						$hovers[] = (object)array("name" => "Delete", "href" => Template::delete(__CLASS__,$id), "title" => "Delete this ".$this->type, "class" => "delete-link confirm-with-popup");
+					}
 
-					$row['data'][] = format_title($info->fields['setting_name']);
+					$row['data'][] = table_hover_cell(format_title($info->fields['setting_name']), $hovers);
+					
 					$row['data'][] = $this->levels[$info->fields['setting_level']];
 					$row['data'][] = format_date($info->fields['date_added'],true);
 					$row['data'][] = format_date($info->fields['last_updated'],true);
-
-					$actions = '<a href="'.Template::edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
-
-					if ( is_super() ) {
-						$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-						$actions .= '<a class="confirm-with-popup" href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
-					}
-
-
-					$row['data'][] = $actions;
 
 					$data[] = $row;
 				}

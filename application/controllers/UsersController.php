@@ -58,7 +58,7 @@
 					$class = ( $i % 2 ) ? 'listTier1' : 'listTier2';
 					$row = array('class' => $class, 'data' => array());
 
-					
+					$hovers = array();					
 					$hovers[] = (object)array("name" => "Edit", "href" => Template::edit(__CLASS__,$id), "title" => "Edit this ".$this->type, "class" => "edit-link");
 					$hovers[] = (object)array("name" => "Delete", "href" => Template::delete(__CLASS__,$id), "title" => "Delete this ".$this->type, "class" => "delete-link confirm-with-popup");
 					

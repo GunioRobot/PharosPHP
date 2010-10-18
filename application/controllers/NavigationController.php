@@ -35,7 +35,6 @@
 			$this->table->columns[] = array('name' => 'Max', 'key' => 'max_lvl', 'class' => 'center');
 			$this->table->columns[] = array('name' => 'Date Added', 'key' => 'date_added', 'class' => 'center');
 			$this->table->columns[] = array('name' => 'Last Updated', 'key' => 'last_updated', 'class' => 'center');
-			$this->table->columns[] = array('name' => 'Action', 'class' => 'actions');
 		}
 		
 
@@ -61,18 +60,18 @@
 					$row = array('class' => $class, 'data' => array());
 
 					$row['data'][] = $id;
-					$row['data'][] = format_title($info->fields['name']);
+					
+					$hovers = array();					
+					$hovers[] = (object)array("name" => "Edit", "href" => Template::edit(__CLASS__,$id), "title" => "Edit this ".$this->type, "class" => "edit-link");
+					$hovers[] = (object)array("name" => "Delete", "href" => Template::delete(__CLASS__,$id), "title" => "Delete this ".$this->type, "class" => "delete-link confirm-with-popup");
+
+					$row['data'][] = table_hover_cell(format_title($info->fields['name']), $hovers);
+				
 					$row['data'][] = $levels[$info->fields['min_lvl']];
 					$row['data'][] = $levels[$info->fields['max_lvl']];
 					$row['data'][] = format_date($info->fields['date_added'],true);
 					$row['data'][] = format_date($info->fields['last_updated'],true);
-
-					$actions = '<a href="'.Template::edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
-					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					$actions .= '<a class="confirm-with-popup" href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
-
-					$row['data'][] = $actions;
-
+				
 					$data[] = $row;
 				}
 
