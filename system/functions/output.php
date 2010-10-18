@@ -32,12 +32,15 @@
 	 * @author Matt Brewer
 	 **/
 	function enqueue_script($scripts) {
-		if ( is_array($scripts) ) {
-			foreach($scripts as $script) {
-				Application::controller()->output->javascript(strval($script));
+		if ( !is_array($scripts) ) {
+			$scripts = array($scripts);
+		}
+		
+		foreach($scripts as $script) {
+			if ( !is_object($script) ) {
+				$script = (object)array("path" => strval($script), "data" => array(), "dir" => null);
 			}
-		} else {
-			Application::controller()->output->javascript(strval($scripts));
+			Application::controller()->output->javascript($script->path, $script->data, $script->dir);
 		}
 	}
 	
@@ -51,12 +54,15 @@
 	 * @author Matt Brewer
 	 **/
 	function enqueue_style($scripts) {
-		if ( is_array($scripts) ) {
-			foreach($scripts as $script) {
-				Application::controller()->output->css(strval($script));
+		if ( !is_array($scripts) ) {
+			$scripts = array($scripts);
+		}
+
+		foreach($scripts as $script) {
+			if ( !is_object($script) ) {
+				$script = (object)array("path" => strval($script), "type" => array(), "dir" => null);
 			}
-		} else {
-			Application::controller()->output->css(strval($scripts));
+			Application::controller()->output->css($script->path, $script->type, $script->dir);
 		}
 	}
 	

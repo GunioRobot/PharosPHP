@@ -24,7 +24,7 @@
 	 * @author Matt Brewer
 	 **/
 	function module_dir($path) {
-		return (is_shared_module($path) ? basename(SYSTEM_PATH) : APP_DIR) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . basename($path);
+		return (is_shared_module($path) ? basename(SYSTEM_PATH) : APP_DIR) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . basename($path) . DIRECTORY_SEPARATOR;
 	}
 	
 	
@@ -38,7 +38,7 @@
 	 * @author Matt Brewer
 	 **/
 	function module_url($path) {
-		return ROOT_URL.module_dir($path);
+		return (is_shared_module($path) ? SYSTEM_URL : APP_URL ) . 'modules' . DIRECTORY_SEPARATOR . basename($path) . DIRECTORY_SEPARATOR;
 	}
 
 ?>

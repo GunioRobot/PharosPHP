@@ -89,7 +89,7 @@
 		*
 		*/
 		
-		public function css($path='', $type=self::CSS_TYPE_ALL) {
+		public function css($path='', $type=self::CSS_TYPE_ALL, $dir=null) {
 
 			if ( $path != '' ) {
 
@@ -107,8 +107,12 @@
 						$type = self::CSS_TYPE_ALL;
 						break;
 				}
+				
+				if ( stripos($path, "http") === false ) {
+					$path = (is_null($dir) ? PUBLIC_URL.'css'.DIRECTORY_SEPARATOR : ROOT_URL.$dir).$path;
+				}
 
-				$this->css[] = array('path' => $path, 'type' => $type);
+				$this->css[] = compact("path","type");
 
 			} else {
 				return $this->css;
@@ -128,7 +132,7 @@
 		*
 		*/
 
-		public function javascript($path='',$data=array()) {
+		public function javascript($path='',$data=array(), $dir=null) {
 
 			if ( !is_array($data) ) $data = array();
 
@@ -145,7 +149,7 @@
 					
 					$type = strrpos($path,'.php') === false ? self::JAVASCRIPT_EXTERNAL : self::JAVASCRIPT_INCLUDE;
 					if ( $type == self::JAVASCRIPT_EXTERNAL && stripos($path, "http") === false ) {
-						$path = PUBLIC_URL."js/".$path;
+						$path = ROOT_URL.(is_null($dir) ? PUBLIC_DIR.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR : $dir).$path;
 					} 
 					
 					$this->javascript[] = compact("path", "type", "data");
@@ -422,11 +426,11 @@
 		 **/
 		public function __destruct() {
 			
-			function _save($var) {
-				return $var->save;
+			$to_save = array();
+			foreach($this->flash as $f) {
+				$to_save[] = $f->save;
 			}
-			
-			$to_save = array_filter($this->flash, "_save");
+		
 			$_SESSION['pharos_flash'] = $to_save;
 			
 		}	
