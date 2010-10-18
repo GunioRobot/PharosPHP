@@ -231,8 +231,8 @@
 				define("UPLOAD_URL", APP_URL."uploads/");
 			}
 			
-			if ( !defined("MODULES_URL") ) {
-				define("MODULES_URL", APP_URL."modules/");
+			if ( !defined("SYSTEM_URL") ) {
+				define("SYSTEM_URL", ROOT_URL.basename(SYSTEM_PATH).DIRECTORY_SEPARATOR);
 			}
 			
 			if ( !defined("DEFAULT_APP_ID") ) {
