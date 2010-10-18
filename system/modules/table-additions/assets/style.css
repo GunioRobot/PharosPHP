@@ -1,0 +1,25 @@
+div.table-hover-cell-hover {
+	position:absolute;
+	display:none;
+	text-align:center;
+	width:100%;
+}
+
+div.table-hover-cell-hover ul {
+	padding:0;
+	margin:0;
+	list-style:none;
+}
+
+div.table-hover-cell-hover li {
+	display:inline;
+}
+
+div.table-hover-cell-container {
+	position:relative;
+	padding-bottom:12px;
+}
+
+table.list td {
+	vertical-align:top;
+}

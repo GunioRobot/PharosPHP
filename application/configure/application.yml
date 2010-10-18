@@ -11,6 +11,7 @@ modules:
     autoload:
         - console
         - images
+        - "table-additions"
         
 routes:
     root: 
