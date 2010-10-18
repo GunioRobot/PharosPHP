@@ -1,9 +1,9 @@
 $(function() {
 
 	$("div.table-hover-cell-container").hover(function() {
-		$("div.table-hover-cell-hover").show();
+		$(this).find("div.table-hover-cell-hover").show();
 	}, function() {
-		$("div.table-hover-cell-hover").hide();
+		$(this).find("div.table-hover-cell-hover").hide();
 	});
 	
 });
