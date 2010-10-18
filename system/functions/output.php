@@ -60,4 +60,26 @@
 		}
 	}
 	
+	
+	/**
+	 * render_view
+	 *
+	 * @param string $view - path to view, or static string
+	 * @param array $params - values to be made available inside the view
+	 * @param boolean $controller - true if should be rendered on the main controller, false if just want to render the view and up to you to use the returned value
+	 *
+	 * @return string $view
+	 * @author Matt Brewer
+	 **/
+	function render_view($view, array $params=array(), $controller=true) {
+		
+		$output = $controller === true ? Application::controller()->output : new Output();
+		foreach($params as $key => $value) {
+			$output->set($key, $value);
+		}
+		
+		return $output->view($view);
+		
+	}
+	
 ?>
