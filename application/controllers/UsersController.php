@@ -18,7 +18,7 @@
 			
 			$this->levels = user_levels_array(Settings::get('application.users.levels.super'));
 			$this->auth->login_required(true);
-						
+									
 		}
 		
 		
@@ -36,7 +36,6 @@
 			$this->table->columns[] =  array('name' => 'Level', 'key' => 'user_level', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Date Added', 'key' => 'date_added', 'class' => 'center');
 			$this->table->columns[] =  array('name' => 'Last Login', 'key' => 'user_last_login', 'class' => 'center');
-			$this->table->columns[] =  array('name' => 'Action', 'class' => 'actions');
 		}
 		
 		
@@ -59,7 +58,12 @@
 					$class = ( $i % 2 ) ? 'listTier1' : 'listTier2';
 					$row = array('class' => $class, 'data' => array());
 
-					$row['data'][] = $info->fields['user_first_name'] . ' ' .$info->fields['user_last_name'];
+					
+					$hovers[] = (object)array("name" => "Edit", "href" => Template::edit(__CLASS__,$id), "title" => "Edit this ".$this->type, "class" => "edit-link");
+					$hovers[] = (object)array("name" => "Delete", "href" => Template::delete(__CLASS__,$id), "title" => "Delete this ".$this->type, "class" => "delete-link confirm-with-popup");
+					
+					$row['data'][] = table_hover_cell($info->fields['user_first_name'] . ' ' .$info->fields['user_last_name'], $hovers);
+					
 					$row['data'][] = '<a href="mailto:'.$info->fields['user_primary_email'].'">'.$info->fields['user_primary_email'].'</a>';
 					$row['data'][] = $this->levels[$info->fields['user_level']];
 					$row['data'][] = format_date($info->fields['date_added'],true);
@@ -67,12 +71,6 @@
 					$loginDate = format_date($info->fields['user_last_login'],true);
 					if ( $loginDate == "" ) $loginDate = "<em>Never</em>";
 					$row['data'][] = $loginDate;
-
-					$actions = '<a href="'.Template::edit(__CLASS__,$id).'" title="Edit this '.$this->type.'">Edit</a>';
-					$actions .= '&nbsp;&nbsp;|&nbsp;&nbsp;';
-					$actions .= '<a class="confirm-with-popup" href="'.Template::delete(__CLASS__,$id).'" title="Delete this '.$this->type.'">Delete</a>';
-
-					$row['data'][] = $actions;
 
 					$data[] = $row;
 				}
@@ -139,7 +137,7 @@
 		          $this->table->get_html($this->table->current_page, $page_count, $start, $total);
 
 			echo $view;
-
+			
 		}
 		
 		
