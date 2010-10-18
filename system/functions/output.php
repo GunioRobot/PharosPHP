@@ -41,4 +41,23 @@
 		}
 	}
 	
+	
+	/**
+	 * enqueue_style
+	 *
+	 * @param (string|String|array) $path(s)
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+	function enqueue_style($scripts) {
+		if ( is_array($scripts) ) {
+			foreach($scripts as $script) {
+				Application::controller()->output->css(strval($script));
+			}
+		} else {
+			Application::controller()->output->css(strval($scripts));
+		}
+	}
+	
 ?>
