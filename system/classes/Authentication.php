@@ -212,7 +212,7 @@ HTML;
 			if ( ($user = Cookie::get("pharos_authentication")) !== false ) {
 								
 				$uid = $user["uid"];
-				$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' AND logged_in = 'true' AND DATE_ADD(user_last_login, INTERVAL %d MINUTE) >= NOW() LIMIT 1", $uid, Settings::get("application.users.login_interval"));
+				$sql = sprintf("SELECT * FROM users WHERE user_id = '%d' AND logged_in = 'true' LIMIT 1", $uid);
 				$info = $this->db->Execute($sql);
 
 				if ( !$info->EOF && $info->fields['user_id'] > 0 ) {
