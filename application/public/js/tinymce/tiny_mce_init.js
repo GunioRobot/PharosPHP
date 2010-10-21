@@ -1,14 +1,14 @@
 
 	$(function() {
 	
-		$('textarea:not(.exclude-tinymce)').tinymce({
+		$('textarea').tinymce({
 		
 			// Location of TinyMCE script
-			script_url : CMSLite.PUBLIC_URL+'js/tinymce/tiny_mce.js',
+			script_url : CMSLite.PUBLIC_SERVER+'js/tinymce/tiny_mce.js',
 
 			// General options
 			theme : "advanced",
-			plugins : "safari,pagebreak,style,advhr,inlinepopups,searchreplace,contextmenu,paste,directionality,xhtmlxtras,template",			
+			plugins : "safari,pagebreak,style,advhr,inlinepopups,searchreplace,contextmenu,paste,directionality,xhtmlxtras,template,wordpress,wpeditimage",			
 
 			
 			// Theme options
@@ -17,12 +17,15 @@
 			theme_advanced_buttons3 : "",
 			theme_advanced_buttons4 : "",
 			theme_advanced_blockformats : "p,div,h1,h2,h3",
+			
+			relative_urls: false,
 	
 			theme_advanced_toolbar_location : "top",
 			theme_advanced_toolbar_align : "center",
 			theme_advanced_statusbar_location : "bottom",
 			theme_advanced_resizing : true,
 			theme_advanced_resize_horizontal : false,
+			// wordpress_adv_toolbar : ,
 			// Example content CSS (should be your site CSS)
 			//content_css : "../css/content.css",
 
