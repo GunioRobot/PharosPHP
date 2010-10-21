@@ -742,3 +742,27 @@ a.actions-button {
 div.actions-wrapper {
 	margin-top:4px;
 }
+
+
+body.ajax {
+	background:#fff;
+	color:#333;
+	font-size:14px;
+}
+
+div#ajax-content {
+	color:#333;
+	padding:10px;
+}
+
+div.file {
+	float:none;
+	clear:both;
+	margin-top:5px;
+	height:100px;
+}
+
+div.file img {
+	max-width:100px;
+	max-height:100px;
+}
