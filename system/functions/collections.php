@@ -1,37 +1,12 @@
 <?
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	applications_array()
-	//
-	// Returns array of applications in system
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function applications_array() {
-		
-		global $db;
-		
-		if ( is_super() ) { 
-			$sql = "SELECT * FROM applications ORDER BY app_name ASC";
-		} else if ( is_admin() ) $sql = "SELECT * FROM applications WHERE active = 'true' ORDER BY app_name ASC";
-		
-		for ( $ret = array(), $info = $db->Execute($sql); !$info->EOF; $info->moveNext() ) {
-			$ret[$info->fields['app_id']] = clean_object($info->fields);
-		} return $ret;
-		
-	}
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	states_array()
-	//
-	// Returns array of US States
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * states_array
+	 * Array of uses states
+	 * 
+	 * @return array $states
+	 * @author Matt Brewer
+	 **/
 	function states_array() {
 	
 		static $states = array();
@@ -90,15 +65,18 @@
 		return $states;
 	}
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	user_levels_array($maxLevel)
-	//
-	// Returns array of user levels based on security level given
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+
+	/**
+	 * user_levels_array
+	 * Returns array of user levels based on security level given
+	 *
+	 * @param int $max_level
+	 *
+	 * @uses Database
+	 *
+	 * @return array $levels
+	 * @author Matt Brewer
+	 **/
 	function user_levels_array($maxLevel) {
 		
 		global $db;
