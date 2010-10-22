@@ -1,13 +1,15 @@
 <?
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	csv_download($filename, $content)
-	//
-	//	Pushes the content as a CSV download through the broswer (with $filename)
-	//
-	////////////////////////////////////////////////////////////////////////////////
-
+	/**
+	 * csv_download
+	 * Pushes the content as a CSV download through the browser
+	 *
+	 * @param string $filename
+	 * @param string $content
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
 	function csv_download($filename, $content) {
 	
 		// Create a temp file from the string
@@ -36,18 +38,31 @@
 	}
 	
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	force_download($filename)
-	//
-	//	Pushes the content as a generic download through the broswer (with $filename)
-	//
-	////////////////////////////////////////////////////////////////////////////////
-
-	function force_download($filename) {
-			
-		if ( $filename && file_exists($filename) ) {
+	/**
+	 * force_download
+	 * Pushes the content as a generic download through the browser. 
+	 * If $content is provided, will send the $content instead of contents of $filename
+	 *
+	 * @param string $filename
+	 * @param (string|null) $content
+	 *
+	 * @return boolean $success
+	 * @author Matt Brewer
+	 **/
+	function force_download($filename, $content=null) {
+		
+		if ( !is_null($content) ) {
+			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
+			header('Content-Disposition: attachment; filename="'.basename($filename).'"');
+			header("Content-Type: application/octet-stream");
+			header('Content-Description: File Transfer');
+			header('Content-Transfer-Encoding: binary');
+			header('Content-Length: '.strlen($content));
+			header('Pragma: public');
+		    header('Expires: 0');
+			echo $content;
+			return true;
+		} else if ( $filename && file_exists($filename) ) {
 			header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
 			header('Content-Disposition: attachment; filename="'.basename($filename).'"');
 			header("Content-Type: application/octet-stream");
@@ -56,29 +71,22 @@
 			header('Content-Length: '.filesize($filename));
 			header('Pragma: public');
 		    header('Expires: 0');
-			
-			$fp = fopen($filename, 'rb');
-			fpassthru($fp);
-		}
+			readfile($filename);
+			return true;
+		} else return false;
 	
 	}
 	
-	
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	csv_data($string)
-	//
-	//	Returns sanitized string for use as data in a CSV cell
-	//	Cell can correctly contain quotes, commas, etc
-	//
-	//	ie, 'Something, I really "really" like' becomes
-	//		'"Something, I really ""really"" like"'
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+
+	/**
+	 * csv_data
+	 * Sanitizes a string for use as data in a CSV cell
+	 *
+	 * @param string $content
+	 *
+	 * @return string $safe_content
+	 * @author Matt Brewer
+	 **/
 	function csv_data($string) {
 		return '"'.str_replace('"', '""', stripslashes($string)).'"';
 	}

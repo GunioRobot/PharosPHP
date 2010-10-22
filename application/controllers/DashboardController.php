@@ -627,7 +627,7 @@
 			
 			}
 			
-			csv_download($filename, $output);
+			force_download($filename, $output);
 			exit;
 			
 		}
