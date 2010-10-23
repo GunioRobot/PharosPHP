@@ -9,6 +9,7 @@
 	 * @return boolean $status
 	 * @author Matt Brewer
 	 **/
+	
 	function is_shared_module($path) {
 		return stripos($path, SYSTEM_PATH) !== false;
 	}
@@ -23,8 +24,9 @@
 	 * @return string $dir
 	 * @author Matt Brewer
 	 **/
+	
 	function module_dir($path) {
-		return (is_shared_module($path) ? basename(SYSTEM_PATH) : APP_DIR) . DIRECTORY_SEPARATOR . 'modules' . DIRECTORY_SEPARATOR . basename($path) . DIRECTORY_SEPARATOR;
+		return (is_shared_module($path) ? basename(SYSTEM_PATH) : APP_DIR) . DS . 'modules' . DS . basename($path) . DS;
 	}
 	
 	
@@ -37,8 +39,9 @@
 	 * @return string $url
 	 * @author Matt Brewer
 	 **/
+	
 	function module_url($path) {
-		return (is_shared_module($path) ? SYSTEM_URL : APP_URL ) . 'modules' . DIRECTORY_SEPARATOR . basename($path) . DIRECTORY_SEPARATOR;
+		return (is_shared_module($path) ? SYSTEM_URL : APP_URL ) . 'modules' . DS . basename($path) . DS;
 	}
 
 ?>
