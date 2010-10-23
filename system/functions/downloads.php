@@ -1,42 +1,4 @@
 <?
-
-	/**
-	 * csv_download
-	 * Pushes the content as a CSV download through the browser
-	 *
-	 * @param string $filename
-	 * @param string $content
-	 *
-	 * @return void
-	 * @author Matt Brewer
-	 **/
-	function csv_download($filename, $content) {
-	
-		// Create a temp file from the string
-		$tmpfile = tempnam("/tmp", "random_file_");
-		file_put_contents($tmpfile, $content);
-		
-		// Make sure we have the extension there
-		if ( strrpos($filename, ".csv") === false ) {
-			$filename .= ".csv";
-		}
-
-		// Push headers to start the download
-	    header('Cache-Control: must-revalidate, post-check=0, pre-check=0');
-		header('Content-Disposition: attachment; filename="'.$filename.'"');
-		header('Content-Type: application/octet-stream');
-		header('Content-Description: File Transfer');
-		header('Content-Transfer-Encoding: binary');
-		header('Content-Length: '.filesize($tmpfile));
-	    header('Pragma: public');
-		header('Expires: 0');
-
-		// Push file through to browser
-		ob_end_clean();
-		readfile($tmpfile);
-	
-	}
-	
 	
 	/**
 	 * force_download
