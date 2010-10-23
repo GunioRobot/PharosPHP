@@ -1,16 +1,17 @@
 <?
-
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	chmod_dir($dir, $changeSubdirs, $permissionNum, $output)
-	//
-	//	Will change permissions on specified folder and all contents, including
-	//	recursively moving through subfolders if specified.
-	//
-	//	Optional output
-	//
-	////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * chmod_dir
+	 * Will change permissions on specified folder and all contents, including
+	 * recursively moving through subfolders if specified.
+	 *
+	 * @param string $directory
+	 * @param boolean $recursive
+	 * @param octal $permissions
+	 * @param boolean $output_to_buffer
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/	
 	
 	function chmod_dir($dir, $subdirs=true, $perm=0644, $output=true) {
 	
@@ -41,50 +42,49 @@
 		}
 	}
 	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	download_link_href($filename)
-	//
-	//	Simply returns the full download path to a file
-	//
-	////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * download_link_href
+	 * URL to force a download of this file
+	 *
+	 * @param string $filename (relative to UPLOAD_URL)
+	 *
+	 * @return string $href
+	 * @author Matt Brewer
+	 **/
 	
 	function download_link_href($file) {
 		if ( $file != '' ) {
 			return UPLOAD_URL.'push.php?f='.$file;
-		} else return '';
+		} else return '#';
 	}
 	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	internal_external_link($src, $prefix)
-	//
-	//	Takes something like "index.php?pid=36" or "http://www.google.com" and
-	//	figures out which ones are already a full link.  If not full, prepends
-	//	the ROOT_URL (or your own prefix, if passed)
-	//
-	//	Returns a string for using in an anchor href attribute
-	//
-	////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * internal_external_link
+	 * Returns original if is valid URI, else prepends $prefix to make full URI
+	 *
+	 * @param string $href
+	 * @param string $prefix
+	 *
+	 * @return string $href
+	 * @author Matt Brewer
+	 **/
 	
 	function internal_external_link($link, $prefix=ROOT_URL) {
-		return (strpos($link, 'http://') !== false) ? $link : $prefix.$link;
+		return (stripos($link, 'http://') !== false) ? $link : $prefix . $link;
 	}
-	
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	redirect($url)
-	//
-	// 	Wrapper for header() and exit calls
-	//
-	////////////////////////////////////////////////////////////////////////////////	
+		
+
+	/**
+	 * redirect
+	 * Issues page redirect request. ENDS SCRIPT EXECUTION
+	 * 
+	 * @param string $URL
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
 	
 	function redirect($url) {
 		header("Location: $url");
@@ -92,14 +92,15 @@
 	}
 	
 	
+	/**
+	 * clean_upload_dir
+	 * Removes all files marked for deletion during the next app publication
+	 *
+	 * @return int $num_removed
+	 * @author Matt Brewer
+	 **/
 	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	Removes all extraneous files from the content directory when publishing
-	//	XML for an application
-	//
-	////////////////////////////////////////////////////////////////////////////////
-
+	Hooks::register_callback(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
 	function clean_upload_dir($app) {
 	
 		global $db;
@@ -118,29 +119,18 @@
 	}
 	
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	Places a path in the "trashed_files" table, creating the table if needed
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * remove_file
+	 * Marks a file for deletion at a later date (clean_upload_dir function performs deletion)
+	 *
+	 * @return int $database_id
+	 * @author Matt Brewer
+	 **/
+
 	function remove_file($path) {
 		
 		global $db, $CURRENT_APP_ID;
-		
-		/*
-		$sql = "CREATE TABLE IF NOT EXISTS `trashed_files` (
-		  `id` int(11) NOT NULL auto_increment,
-		  `path` text NOT NULL,
-		  `app_id` int(11) NOT NULL default '0',
-		  `date_added` datetime NOT NULL default '0000-00-00 00:00:00',
-		  PRIMARY KEY  (`id`)
-		) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;";
-		
-		$db->Execute($sql);
-		*/
-		
+				
 		$sql = "INSERT INTO trashed_files VALUES(NULL,'".$path."','".$CURRENT_APP_ID."',NOW())";
 		$db->Execute($sql);
 		
@@ -149,6 +139,13 @@
 	}
 	
 	
+	/**
+	 * register_trashed_files_table
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
 	Hooks::register_callback(Hooks::HOOK_CORE_CLASSES_LOADED, 'register_trashed_files_table');
 	function register_trashed_files_table() {
 		

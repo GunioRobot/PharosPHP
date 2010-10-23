@@ -328,9 +328,7 @@
 		 **/
 
 		private static function _register_default_hooks() {
-			
-			self::register_callback(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
-						
+									
 			self::register_callback(self::HOOK_TEMPLATE_HEADER, 'Template::write_header_meta');
 			self::register_callback(self::HOOK_TEMPLATE_HEADER, 'Template::write_css');
 			self::register_callback(self::HOOK_TEMPLATE_HEADER, 'Template::write_js');
