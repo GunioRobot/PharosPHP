@@ -293,7 +293,6 @@
 			
 			if ( $flags & self::CASE_SENSITIVE ) {
 				
-				
 				if ( $flags & self::DIRECTION_LEFT ) {
 					return strpos($this->value, $str, $offset);
 				} else return strrpos($this->value, $str, $offset);
