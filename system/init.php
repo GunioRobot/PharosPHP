@@ -2,39 +2,39 @@
 
 	session_start();	
 	
+	define('DS', DIRECTORY_SEPARATOR);
 	
-	// Initialize some path information used throughout the system		
-	define('CLASSES_PATH', SYSTEM_PATH.'classes/');
-	define('FUNCTIONS_PATH', SYSTEM_PATH.'functions/');
-	define('LANGUAGES_PATH', SYSTEM_PATH.'languages/');
+	define('CLASSES_PATH', SYSTEM_PATH . 'classes' . DS);
+	define('FUNCTIONS_PATH', SYSTEM_PATH . 'functions' . DS);
+	define('LANGUAGES_PATH', SYSTEM_PATH . 'languages' . DS);
 	
-	define('CACHE_PATH', APP_PATH.'cache/');		
-	define('VIEWS_PATH', APP_PATH.'views/');	
-	define('LAYOUTS_PATH', APP_PATH.'layouts/');
-	define('MODELS_PATH', APP_PATH.'models/');
-	define('CONFIGURATION_PATH', APP_PATH.'configure/');
-	define('CONTROLLER_PATH', APP_PATH.'controllers/');
-	define('MODULES_PATH', SYSTEM_PATH.'modules/');
-	define('APPLICATION_MODULES_PATH', APP_PATH.'modules/');
-	define('APPLICATION_CLASSES_PATH', APP_PATH.'classes/');
-	define('APPLICATION_FUNCTIONS_PATH', APP_PATH.'functions/');
-	define('APPLICATION_LANGUAGES_PATH', APP_PATH.'languages/');
+	define('CACHE_PATH', APP_PATH . 'cache' . DS);		
+	define('VIEWS_PATH', APP_PATH . 'views/');	
+	define('LAYOUTS_PATH', APP_PATH . 'layouts' . DS);
+	define('MODELS_PATH', APP_PATH . 'models' . DS);
+	define('CONFIGURATION_PATH', APP_PATH . 'configure' . DS);
+	define('CONTROLLER_PATH', APP_PATH . 'controllers' . DS);
+	define('MODULES_PATH', SYSTEM_PATH . 'modules' . DS);
+	define('APPLICATION_MODULES_PATH', APP_PATH . 'modules' . DS);
+	define('APPLICATION_CLASSES_PATH', APP_PATH . 'classes' . DS);
+	define('APPLICATION_FUNCTIONS_PATH', APP_PATH . 'functions' . DS);
+	define('APPLICATION_LANGUAGES_PATH', APP_PATH . 'languages' . DS);
 			
 	
 	// Load in all the exceptions used in the system
-	require_once CLASSES_PATH.'Exceptions.php';
+	require_once CLASSES_PATH . 'Exceptions.php';
 		
 				
 	// Load in the few classes that are needed early on in system initialization
-	require_once CLASSES_PATH.'Object.php';
-	require_once CLASSES_PATH.'String.php';
-	require_once CLASSES_PATH.'Loader.php';
+	require_once CLASSES_PATH . 'Object.php';
+	require_once CLASSES_PATH . 'String.php';
+	require_once CLASSES_PATH . 'Loader.php';
 	Loader::load_class('Hooks');
 	Hooks::init();
 	
 	
 	// Load in the next set of classes
-	Loader::load_class('YAML/sfYaml.php');
+	Loader::load_class('YAML' . DS . 'sfYaml.php');
 	Loader::load_class('Keypath');
 	Loader::load_class('Settings');	
 	
@@ -45,7 +45,7 @@
 	
 	
 	// Load in the system defined functions
-	foreach(glob(FUNCTIONS_PATH.'*.php') as $filename) {
+	foreach(glob(FUNCTIONS_PATH . '*.php') as $filename) {
 		require_once $filename;
 	}
 	
@@ -65,6 +65,5 @@
 	
 	// Call any attached actions after the core has been loaded & begin the boostrap process
 	Hooks::execute(Hooks::HOOK_CORE_CLASSES_LOADED);
-	
 		
 ?>
