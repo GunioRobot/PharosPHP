@@ -1,13 +1,15 @@
 <?
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	get_remote_last_modified($URL)
-	//
-	// 	Get remote file last modification date (returns unix timestamp)
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * get_remote_last_modified
+	 * Get remote file last modification date (returns unix timestamp)
+	 *
+	 * @param string $URL
+	 *
+	 * @return int $timestamp
+	 * @author Matt Brewer
+	 **/
+
 	function get_remote_last_modified($URL) {
 	
 	    $unixtime = 0;
@@ -41,14 +43,15 @@
 	}
 	
 	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	remote_file_exists($URL)
-	//
-	// 	true/false
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * remote_file_exists
+	 *
+	 * @param string $URL
+	 *
+	 * @return boolean $exists
+	 * @author Matt Brewer
+	 **/
+
 	function remote_file_exists($URL) {
 		$fp = @fopen($URL, "r");
 		$success = $fp !== false ? true : false;
