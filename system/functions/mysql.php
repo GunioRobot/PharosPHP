@@ -1,15 +1,15 @@
 <?
 	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	// basic_where($keywords, $table)
-	//
-	// Constructs a MySQL " where table.field1 RLIKE $keyword AND table.field2 
-	// RLIKE $keyword AND table.field3.....etc 
-	//
-	//	Returns a string to use in a SQL call
-	//
-	////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * basic_where
+	 * Constructs where part of SQL statement for searching
+	 * 
+	 * @param string $keywords
+	 * @param string $table_name
+	 *
+	 * @return string $SQL
+	 * @author Matt Brewer
+	 **/
 
 	function basic_where($keywords, $table) {
 	
@@ -31,13 +31,15 @@
 		return $where;
 	}
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	Intelligent function that formats db fields according to type
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+
+	/**
+	 * formatFields
+	 * Used for a call in array_walk to format an array
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
 	function formatFields(&$item, $key) {
 		if ( is_string($item) ) {
 			
@@ -57,11 +59,15 @@
 	}
 
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	Formats incoming db results array as object
-	//
-	////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * clean_object
+	 * Formats array fields, returns as object (stdClass)
+	 *
+	 * @uses formatFields
+	 *
+	 * @return stdClass $obj
+	 * @author Matt Brewer
+	 **/
 
 	function clean_object($obj) {		
 		array_walk($obj, "formatFields");		
@@ -69,12 +75,16 @@
 	}
 	
 	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	Formats incoming db results array as array
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * clean_array
+	 * Formats array fields
+	 *
+	 * @uses formatFields
+	 * 
+	 * @return array $arr
+	 * @author Matt Brewer
+	 **/
+
 	function clean_array($obj) {
 		array_walk($obj, "formatFields");
 		return $obj;
