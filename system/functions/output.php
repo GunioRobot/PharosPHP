@@ -5,21 +5,22 @@
 	 *
 	 * @param array $options
 	 * @param (string|String|int) $selected=""
-	 * @param (string|String) $id=""
-	 * @param (string|String) $name=""
-	 * @param (string|String) $style=""
-	 * @param (string|String) $class=""
+	 * @param (stdClass) $prefs
 	 *
 	 * @return String $html
 	 * @author Matt Brewer
 	 **/
-
-	function array_to_dropdown($options,$default="",$id="",$name="",$style="",$class="") {
-		$html = '<select '.($id!==""?'id="'.$id.'" ':'').($name!==""?'name="'.$name.'" ':'').($style!==""?'style="'.$style.'" ':'').($class!==""?'style="'.$style.'"':'').'>';
-		foreach($options as $i => $o) {
-			$html .= '<option value="'.$i.'" '.($default==$i?'selected="selected"':'').'>'.$o.'</option>';
+	
+	function array_to_dropdown(array $options, $selected=0, stdClass $prefs) {
+		$html = '<select ';
+		$html .= $prefs->id != "" ? 'id="'.$prefs->id.'" ' : '';
+		$html .= $prefs->name != "" ? 'name="'.$prefs->name.'" ' : '';
+		$html .= $prefs->class != "" ? 'class="'.$prefs->class.'" ' : '';
+		$html .= $prefs->style != "" ? 'style="'.$prefs->style.'" ' : '';
+		foreach($options as $key => $value) {
+			$html .= '<option value="'.$key.'" '.($selected == $key ? 'selected="selected"') . '>' . $value . '</option>';
 		}
-		return new String($html.'</select>');
+		return String::create($html.'</select>');
 	}
 	
 	
@@ -78,7 +79,7 @@
 	 * @return string $view
 	 * @author Matt Brewer
 	 **/
-	function render_view($view, $dir=VIEWS_DIR, array $params=array(), $controller=true) {
+	function render_view($view, $dir=VIEWS_PATH, array $params=array(), $controller=true) {
 		
 		$output = $controller === true ? Application::controller()->output : new Output();
 		foreach($params as $key => $value) {
