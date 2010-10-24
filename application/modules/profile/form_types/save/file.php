@@ -42,7 +42,7 @@
 		try {
 						
 			if ( $options['save_as_image'] && $options['resize_image'] && $options['image_width'] && $options['image_height'] ) { 
-				$filename = save_uploaded_file($data, UPLOAD_PATH, array(), true, array('width' => $options['image_width'], 'height' => $options['image_height']));
+				$filename = save_uploaded_file($data, array("is_image" => true, "resize" => array("width" => $options['image_width'], "height" => $options['image_height'])))
 			} else $filename = save_uploaded_file($data);
 			
 			$_POST[$data] = $filename;

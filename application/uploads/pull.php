@@ -13,7 +13,7 @@
 				$height = Input::request("image_height");
 				
 				if ( $image && $resizeImage && $width && $height ) { 
-					$filename = save_uploaded_file($name, UPLOAD_PATH, array(), true, array('width' => $width, 'height' => $height));
+					$filename = save_uploaded_file($name, array("is_image" => true, "resize" => compact("width", "height")))
 				} else $filename = save_uploaded_file($name);
 				
 			} catch (Exception $e) {

@@ -165,6 +165,94 @@
 	
 	
 	/**
+	 * save_uploaded_file
+	 * Saves an uploaded file to the specified directory, returns filename
+	 * 
+	 * USAGE:
+	 * try {
+	 * 		$filename = save_uploaded_file("input-name", array("is_image" => true, "resize" => array("width" => 100, "height" => 100)));
+	 * } catch (Exception $e) {
+	 * 		echo $e->getMessage();
+	 * }
+	 * 
+	 * @throws InvalidFileSystemPathException
+	 *
+	 * @return (string|false) $filename if success, false if couldn't move file to location
+	 * @author Matt Brewer
+	 **/
+
+	function save_uploaded_file($key, array $options=array()) {
+		
+		// Merge defaults & options for this function
+		$options = (object)extend(array(
+			"dir" => UPLOAD_PATH,
+			"filetypes" => array(),
+			"is_image" => false,
+			"resize" => array('width' => false, 'height' => 'false')
+		), $options);
+		
+		global $db;
+		if ( isset($_FILES[$uploadName]) && $_FILES[$uploadName]['tmp_name'] ) {
+												
+			// If it's just a file, do extension checking
+			if ( !$options->is_image ) {
+				
+				$info = pathinfo($_FILES[$uploadName]['name']);
+				if ( $info['extension'] == "" ) {
+					throw new InvalidFileSystemPathException("Unknown filetype - extension not found!");
+				}			
+				
+				// If checking for filetypes	
+				if ( count($options->filetypes) > 0 ) {
+				
+					if ( !in_array($info['extension'], $options->filetypes) ) {
+						throw new InvalidFileSystemPathException("Unsupported filetype of (".$info['extension'].")!");
+					}
+				}
+				
+			} else { // Since it's an image, do image type checking
+				
+				if ( !class_exists("Image") ) {
+					Loader::load_class("Image");
+				}
+				
+				try {
+					
+					if ( $resize['width'] && $resize['height'] ) {
+						$image = new Image($_FILES[$uploadName]['tmp_name'], $resize['width'], $resize['height']);
+					} else $image = new Image($_FILES[$uploadName]['tmp_name']);
+					
+					$image->save_img($_FILES[$uploadName]['tmp_name']);
+							
+				} catch ( Exception $e ) {
+					unset($image);	// Cleanup
+					throw new Exception($e->getMessage());
+				}
+				
+			}
+
+
+			$item_name = String::clean_filename($_FILES[$uploadName]['name']);
+			$info = pathinfo($item_name);
+			$location = $dir.$item_name;
+						
+			// If already exists, create a new destination
+			if( file_exists($location) ) {
+				$item_name = $info['filename'] . '_' . rand(0,99) . '.' . $info['extension'];
+				$location = $dir . $item_name;
+			}
+				
+			// Save the thumbnail (size previously set) in final destination (original hasn't been moved)
+			if ( move_uploaded_file($_FILES[$uploadName]['tmp_name'], $location) ) {
+				return $item_name;
+			} else return false;
+			
+		} else throw new Exception('$_FILES['.$uploadName.'] was not set.');
+		
+	}
+	
+	
+	/**
 	 * sanitize_incoming_xml
 	 * Sanitizes incoming XML, stripping out invalid characters. Would be fine if values were wrapped in CDATA tags...
 	 *
