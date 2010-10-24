@@ -43,5 +43,33 @@
 	function module_url($path) {
 		return (is_shared_module($path) ? SYSTEM_URL : APP_URL ) . 'modules' . DS . basename($path) . DS;
 	}
+	
+	
+	/**
+	 * extend
+	 * Takes at least two arrays, the first argument being your defaults
+	 * Returns array with keys in later arrays overwriting default values, if provided
+	 *
+	 * @param array $defaults
+	 * @param array $array1
+	 * @param array $array2
+	 * ............ $array3 etc
+	 *
+	 * @throws InvalidArgumentException
+	 * 
+	 * @return array $extended
+	 * @author Matt Brewer
+	 **/
+	
+	function extend() {
+		
+		if ( func_num_args() < 2 ) {
+			throw new InvalidArgumentException(__FUNCTION__ . ': Expects at least two arrays');
+		}
+		
+		$args = func_get_args();
+		return call_user_func_array('array_merge_recursive', $args);
+		
+	}
 
 ?>
