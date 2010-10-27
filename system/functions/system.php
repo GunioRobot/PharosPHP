@@ -1,13 +1,13 @@
 <?php
 	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	load_content_types() 
-	//
-	//	defines "USER_TYPE_ID" etc from the entries in the content_types_table
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * load_content_types
+	 * Defines constants from the content_types table in the database
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
 	function load_content_types() {
 		
 		global $db;
@@ -20,24 +20,20 @@
 	}
 	
 
+	/**
+	 * select_app
+	 * Sets the ID for the current application
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	select_app($id)
-	//
-	//	Sets the id for the current application.  Must refresh page to call 
-	//	app_bootstrap() after this
-	//
-	////////////////////////////////////////////////////////////////////////////////
 	function select_app($id) {
 				
+		global $CURRENT_APP_ID;		
 		$CURRENT_APP_ID = $id;
 		$_SESSION['app_id'] = $CURRENT_APP_ID;
 						
 	}
 	
-	
-	
-
-
 ?>
