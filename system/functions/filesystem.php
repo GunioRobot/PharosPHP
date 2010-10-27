@@ -100,7 +100,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	Hooks::register_callback(self::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
+	Hooks::register_callback(Hooks::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
 	function clean_upload_dir($app) {
 	
 		global $db;

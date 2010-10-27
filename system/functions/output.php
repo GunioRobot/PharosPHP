@@ -18,7 +18,7 @@
 		$html .= $prefs->class != "" ? 'class="'.$prefs->class.'" ' : '';
 		$html .= $prefs->style != "" ? 'style="'.$prefs->style.'" ' : '';
 		foreach($options as $key => $value) {
-			$html .= '<option value="'.$key.'" '.($selected == $key ? 'selected="selected"') . '>' . $value . '</option>';
+			$html .= '<option value="'.$key.'" '.($selected == $key ? 'selected="selected"' : '') . '>' . $value . '</option>';
 		}
 		return String::create($html.'</select>');
 	}
