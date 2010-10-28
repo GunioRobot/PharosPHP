@@ -21,6 +21,24 @@
 	
 	
 	/**
+	 * table_hover_cell_edit_delete_options
+	 * Function to help create the hovers for the standard edit/delete options (for the active controller object)
+	 *
+	 * @return array $options
+	 * @author Matt Brewer
+	 **/
+	function table_hover_cell_edit_delete_options($id) {
+		if ( ($controller = Application::controller()) !== null ) {
+			$class = get_class($controller);
+			$hovers = array();					
+			$hovers[] = (object)array("name" => "Edit", "href" => Template::edit($class, $id), "title" => "Edit this ".$controller->type, "class" => "edit-link");
+			$hovers[] = (object)array("name" => "Delete", "href" => Template::delete($class, $id), "title" => "Delete this ".$controller->type, "class" => "delete-link confirm-with-popup");
+			return $hovers;
+		}
+	}
+	
+	
+	/**
 	 * register_table_additions_script_and_styles
 	 * Registers javascript & css when using this module
 	 *
