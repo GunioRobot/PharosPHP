@@ -192,12 +192,12 @@
 		), $options);
 		
 		global $db;
-		if ( isset($_FILES[$uploadName]) && $_FILES[$uploadName]['tmp_name'] ) {
+		if ( isset($_FILES[$key]) && $_FILES[$key]['tmp_name'] ) {
 												
 			// If it's just a file, do extension checking
 			if ( !$options->is_image ) {
 				
-				$info = pathinfo($_FILES[$uploadName]['name']);
+				$info = pathinfo($_FILES[$key]['name']);
 				if ( $info['extension'] == "" ) {
 					throw new InvalidFileSystemPathException("Unknown filetype - extension not found!");
 				}			
@@ -218,11 +218,11 @@
 				
 				try {
 					
-					if ( $resize['width'] && $resize['height'] ) {
-						$image = new Image($_FILES[$uploadName]['tmp_name'], $resize['width'], $resize['height']);
-					} else $image = new Image($_FILES[$uploadName]['tmp_name']);
+					if ( $options->resize['width'] && $options->resize['height'] ) {
+						$image = new Image($_FILES[$key]['tmp_name'], $options->resize['width'], $options->resize['height']);
+					} else $image = new Image($_FILES[$key]['tmp_name']);
 					
-					$image->save_img($_FILES[$uploadName]['tmp_name']);
+					$image->save_img($_FILES[$key]['tmp_name']);
 							
 				} catch ( Exception $e ) {
 					unset($image);	// Cleanup
@@ -232,22 +232,22 @@
 			}
 
 
-			$item_name = String::clean_filename($_FILES[$uploadName]['name']);
+			$item_name = String::clean_filename($_FILES[$key]['name']);
 			$info = pathinfo($item_name);
-			$location = $dir.$item_name;
+			$location = $options->dir . $item_name;
 						
 			// If already exists, create a new destination
 			if( file_exists($location) ) {
 				$item_name = $info['filename'] . '_' . rand(0,99) . '.' . $info['extension'];
-				$location = $dir . $item_name;
+				$location = $options->dir . $item_name;
 			}
-				
+							
 			// Save the thumbnail (size previously set) in final destination (original hasn't been moved)
-			if ( move_uploaded_file($_FILES[$uploadName]['tmp_name'], $location) ) {
+			if ( move_uploaded_file($_FILES[$key]['tmp_name'], $location) ) {
 				return $item_name;
 			} else return false;
 			
-		} else throw new Exception('$_FILES['.$uploadName.'] was not set.');
+		} else throw new Exception('$_FILES['.$key.'] was not set.');
 		
 	}
 	
