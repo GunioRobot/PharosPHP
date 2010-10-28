@@ -19,7 +19,6 @@
 			$this->tableColumns();
 			
 			$this->levels = user_levels_array(Settings::get('application.users.levels.super'));
-			$this->auth->login_required(true);
 						
 		}
 		

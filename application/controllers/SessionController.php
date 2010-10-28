@@ -4,6 +4,7 @@
 		
 		public function __construct() {
 			parent::__construct();
+			$this->auth->login_required(false);
 			$this->title = "Login";
 		}
 
