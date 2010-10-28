@@ -6,7 +6,7 @@
 	
 	
 		protected $table;
-		protected $type = "";
+		public $type = "";
 		protected $dataKey = "";
 		
 		//////////////////////////////////////////////////////////////////
