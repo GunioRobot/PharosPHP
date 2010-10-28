@@ -37,6 +37,66 @@
 		}
 	}
 	
+	
+	/**
+	 * constrain_to_fit
+	 * Returns information regarding the ratio & new width/height after constraining to fit in a certain bounding box
+	 * 
+	 * @param array ($width, $height)
+	 * @param array ($width, $height)
+	 *
+	 * @return array $dimensions
+	 * @author Matt Brewer
+	 **/
+	
+	function constrain_to_fit(array $current, array $constraint) {
+		
+		$width = $current[0];
+		$height = $current[1];
+		$ratio = 1;
+				
+		// Check width, size down
+		if ( $current[0] > $constraint[0] ) {
+			$width = $constraint[0];
+			$ratio = $constraint[0] / $current[0];
+			$height = $ratio * $current[1];
+		}
+		
+		// If height was too large, and also the larger of the large dimensions, resize off of instead of width
+		if ( $current[1] > $constraint[1] && ($constraint[1] / $current[1]) > $ratio ) {
+			$height = $constraint[1];
+			$ratio = $constraint[1] / $current[1];
+			$width = $ratio * $current[0];
+		}
+				
+		return array($width, $height, $ratio);
+		
+	}
+	
+	
+	/**
+	 * constrain_image_to_fit
+	 * Takes full path to an image file and will return the new dimensions (including resize ratio) after constraining to fit in the bounding box
+	 * 
+	 * @uses constrain_to_fit
+	 * @throws InvalidArgumentException
+	 *
+	 * @param string $path
+	 * @param array ($width, $height)
+	 *
+	 * @return array $dimensions
+	 * @author Matt Brewer
+	 **/
+	
+	function constrain_image_to_fit($path, array $constraints) {
+		if ( $path != "" && file_exists($path) ) {
+			list($width, $height) = getimagesize($path);
+			return constrain_to_fit(array($width, $height), $constraints);
+		} else {
+			throw new InvalidArgumentException(sprintf("constrain_image_to_fit: argument 1 expected to be full path to file which exists."));
+		}
+	}
+		
 
 	/**
 	 * chmod_dir
