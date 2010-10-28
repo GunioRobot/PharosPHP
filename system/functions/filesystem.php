@@ -1,4 +1,43 @@
 <?
+
+
+	/**
+	 * check_and_remove_file
+	 * If the file exists, remove it from the directory
+	 *
+	 * @param string $filename
+	 * @param string $directory
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
+	function check_and_remove_file($file, $dir=UPLOAD_PATH) {
+		if ( $dir.$file != "" && @file_exists($dir.$file) ) {
+			@unlink($dir.$file);
+		}
+	}
+	
+	
+	/**
+	 * check_and_remove_files_from_array
+	 * Given an array of files, will loop through second parameter and if that file exists in $dir.$file, will be removed
+	 *
+	 * @param array $index_keys_into_second_param
+	 * @param array $fields (such as $info->fields from database call)
+	 * @param string $directory
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
+	function check_and_remove_files_from_array($files, $arr, $dir=UPLOAD_PATH) {
+		foreach($files as $f) {
+			if ( isset($arr[$f]) ) check_and_remove_file($arr[$f], $dir);
+		}
+	}
+	
+
 	/**
 	 * chmod_dir
 	 * Will change permissions on specified folder and all contents, including
