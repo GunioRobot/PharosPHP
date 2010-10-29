@@ -15,6 +15,7 @@
 						
 			$this->dataKey = "user_id";			
 			$this->tableColumns();
+			$this->load->module("fusion_charts");
 															
 		}
 		
@@ -34,6 +35,7 @@
 						
 			$this->output->css("dashboard.css");
 			$this->output->javascript("dashboard.js");
+			include_fusion_chart_js();
 						
 			
 			// Find the top 5 uesrs
@@ -284,7 +286,7 @@
 				$top_whatever_dropdown .= '</select>';			
 
 				// The gorgeous area chart
-				echo include_fusion_chart_js().renderChart(fusion_chart("FCF_Area2D.swf"), encodeDataURL(Template::controller_link(__CLASS__,"activity-data/10/$content_type_id/")), "", "activity_chart", 569, 350);
+				echo renderChart(fusion_chart("FCF_Area2D.swf"), encodeDataURL(Template::controller_link(__CLASS__,"activity-data/10/$content_type_id/")), "", "activity_chart", 569, 350);
 				
 
 				// Table header
