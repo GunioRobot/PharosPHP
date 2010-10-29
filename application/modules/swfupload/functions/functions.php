@@ -1,24 +1,37 @@
 <?
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	swf_upload_path()
-	//
-	//	Returns the path to the swf object
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * swf_upload_path
+	 * Returns the path to the swf
+	 *
+	 * @return string $URL
+	 * @author Matt Brewer
+	 **/
+
 	function swf_upload_path() {
-		return MODULES_URL.'swfupload/swf/swfupload.swf';
+		return module_url(realpath("../")) . 'swfupload/swf/swfupload.swf';
 	}
 	
 	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	Just returns the array to use when calling the javascript file
-	//
-	/////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * swf_data_array
+	 * Returns the array to use when calling the javascript file
+	 * 
+	 * @param int $id
+	 * @param string $key
+	 * @param string $table_name
+	 * @param string $post_name
+	 * @param boolean $store_file_size
+	 * @param boolean $store_file_type
+	 * @param string $file_size_limit
+	 * @param boolean $is_image
+	 * @param int $width
+	 * @param int $height
+	 *
+	 * @return array $params
+	 * @author Matt Brewer
+	 **/
+
 	function swf_data_array($id, $key, $table, $postName, $storeFileSize=true, $storeFileType=true, $filesizeLimit="5 MB", $isImage=false, $width=false, $height=false) {
 		return array(
 			"visible" => ($id>0), 
