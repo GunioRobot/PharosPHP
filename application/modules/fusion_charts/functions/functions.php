@@ -1,11 +1,28 @@
 <?
 
+	/**
+	 * fusion_chart
+	 * Returns URL to the appropriate swf file
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
 	function fusion_chart($name='') {
-		return MODULES_URL.'fusion_charts/swf/'.$name;
+		return module_url(realpath('../')) . 'fusion_charts' . DS . 'swf' . DS . $name;
 	} 
 	
+	
+	/**
+	 * include_fusion_chart_js
+	 * Enqueues js file for this library
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
 	function include_fusion_chart_js() {
-		return '<script type="text/javascript" src="'.MODULES_URL.'fusion_charts/includes/fusionCharts.js"></script>';
+		enqueue_script(module_url(realpath('../')) . 'fusion_charts' . DS . 'includes' . DS . 'fusionCharts.js');
 	}
 
 ?>
