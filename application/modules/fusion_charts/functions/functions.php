@@ -22,7 +22,7 @@
 	 **/
 
 	function include_fusion_chart_js() {
-		enqueue_script(module_url(realpath('../')) . 'fusion_charts' . DS . 'includes' . DS . 'fusionCharts.js');
+		enqueue_script(module_url(realpath(dirname(__FILE__).'/../')) . 'includes' . DS . 'fusionCharts.js');
 	}
 
 ?>
