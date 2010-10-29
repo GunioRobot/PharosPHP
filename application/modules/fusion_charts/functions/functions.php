@@ -9,7 +9,7 @@
 	 **/
 
 	function fusion_chart($name='') {
-		return module_url(realpath('../')) . 'fusion_charts' . DS . 'swf' . DS . $name;
+		return module_url(realpath(dirname(__FILE__).'/../')) . DS . 'swf' . DS . $name;
 	} 
 	
 	
