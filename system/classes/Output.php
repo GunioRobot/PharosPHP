@@ -149,7 +149,7 @@
 					
 					$type = strrpos($path,'.php') === false ? self::JAVASCRIPT_EXTERNAL : self::JAVASCRIPT_INCLUDE;
 					if ( $type == self::JAVASCRIPT_EXTERNAL && stripos($path, "http") === false ) {
-						$path = ROOT_URL.(is_null($dir) ? PUBLIC_DIR.DIRECTORY_SEPARATOR.'js'.DIRECTORY_SEPARATOR : $dir).$path;
+						$path = ROOT_URL . (is_null($dir) ? APP_DIR . DS . PUBLIC_DIR . DS . 'js' . DS : $dir) . $path;
 					} 
 					
 					$this->javascript[] = compact("path", "type", "data");
