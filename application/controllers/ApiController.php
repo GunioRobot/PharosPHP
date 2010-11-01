@@ -121,7 +121,7 @@
 					} else {
 						
 						$new_password = Authentication::get()->random_password();
-						$sql = sprintf("INSERT INTO `users` (`%s`,`user_password`,`registered_ip_address`,`date_added`,`last_updated`) VALUES('%s','%s','%s',NOW(),NOW())", implode("`,`", $this->fields), implode("','", $fields), $new_password, server("REMOTE_ADDR",""));
+						$sql = sprintf("INSERT INTO `users` (`%s`,`user_password`,`registered_ip_address`,`date_added`,`last_updated`) VALUES('%s','%s','%s',NOW(),NOW())", implode("`,`", $this->fields), implode("','", $fields), $new_password, Input::server("REMOTE_ADDR",""));
 						$this->db->Execute($sql);
 						$id = $this->db->insert_ID();
 						
