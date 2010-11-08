@@ -56,6 +56,21 @@
 	
 	
 	/**
+	 * ControllerActionNotFoundException
+	 *
+	 * @package PharosPHP.Core.Classes.Exceptions
+	 * @author Matt Brewer
+	 **/
+	class ControllerActionNotFoundException extends Exception {
+		public function __construct($controller, $method) {
+			parent::__construct();
+			$this->message = sprintf('%s->%s() is not implemented.');
+		}
+	}  
+	
+	
+	
+	/**
 	 * FTPClientConnectionException
 	 *
 	 * @package PharosPHP.Core.Classes.Exceptions
@@ -81,7 +96,7 @@
 	 **/
 
 	class FTPClientInvalidConnectionSettingsException extends Exception {
-		public function __construct($settings) {
+		public function __construct(array $settings) {
 			parent::__construct();
 
 			$this->message = "Invalid Connection Settings: {";
