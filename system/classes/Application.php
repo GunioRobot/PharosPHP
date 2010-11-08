@@ -279,9 +279,9 @@
 				
 				self::$controller->__postLoader();
 
-			} else if ( method_exists(self::$controller, "__pharosErrorHandler") ) {
-				self::$controller->__pharosErrorHandler($method);			
-			} else throw new ControllerActionNotFoundException($controllerClass, $method);
+			} else {
+				self::$controller->__missingControllerAction($controllerClass, $method);			
+			}
 			
 		}
 		

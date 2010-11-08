@@ -65,6 +65,23 @@
 		
 		
 		/**
+		 * __missingControllerAction
+		 * Error handler for an unimplemented controller action (on a per controller basis)
+		 * NOTE: To use, override this method without calling parent::____missingControllerAction() so as to avoid throwing the exception
+		 *
+		 * @param string $class
+		 * @param string $method
+		 * @throws ControllerActionNotFoundException
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public function __missingControllerAction($class, $method) {
+			throw new ControllerActionNotFoundException($class, $method);
+		}
+		
+		
+		/**
 		 * __preRender
 		 * Called after the constructer, but before the corresponding method is called (determined by the Router)
 		 * Note that this is not called if the Route was cached
