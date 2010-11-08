@@ -280,7 +280,7 @@
 				self::$controller->__postRender();
 
 			} else {
-				self::$controller->__missingControllerAction($controllerClass, $method);			
+				self::$controller->__missingControllerAction(get_class(self::$controller), $method);			
 			}
 			
 		}
