@@ -268,13 +268,19 @@
 			// Call a method on the class (determined by the Router) & capture the output		
 			$method = Router::method();	
 			if ( method_exists(self::$controller, $method) ) {
+				
+				self::$controller->__preLoader();
 
 				if ( Router::using_named_params() ) {
 					call_user_func(array(self::$controller, $method), Router::params());
 				} else {
 					call_user_func_array(array(self::$controller, $method), Router::params());
 				}
+				
+				self::$controller->__postLoader();
 
+			} else if ( method_exists(self::$controller, "__pharosErrorHandler") ) {
+				self::$controller->__pharosErrorHandler($method);			
 			} else throw new Exception("Unknown method (".$method.") for class($controllerClass)");
 			
 		}

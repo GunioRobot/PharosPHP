@@ -36,6 +36,7 @@
 		
 		/**
 		 * Constructor
+		 * Note that this is called, even if the Route was cached
 		 *
 		 * @return self
 		 * @author Matthew Brewer
@@ -60,6 +61,32 @@
 			
 			$this->load = new Loader();
 					
+		}
+		
+		
+		/**
+		 * __preRender
+		 * Called after the constructer, but before the corresponding method is called (determined by the Router)
+		 * Note that this is not called if the Route was cached
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public function __preRender() {
+			
+		}
+		
+		
+		/**
+		 * __postRender
+		 * Called after the method was executed (determined by the Router)
+		 * Note that this is not called if the Route was cached
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public function __postRender() {
+			
 		}
 
 	}
