@@ -281,7 +281,7 @@
 
 			} else if ( method_exists(self::$controller, "__pharosErrorHandler") ) {
 				self::$controller->__pharosErrorHandler($method);			
-			} else throw new Exception("Unknown method (".$method.") for class($controllerClass)");
+			} else throw new ControllerActionNotFoundException($controllerClass, $method);
 			
 		}
 		
