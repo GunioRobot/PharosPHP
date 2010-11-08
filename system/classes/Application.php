@@ -35,6 +35,8 @@
 
 		public static function pre_bootstrap() {
 			
+			set_exception_handler(array(__CLASS__, 'exception_handler'));
+			
 			Loader::load_class('Input');
 			Loader::load_class('Output');
 			Loader::load_class('Cookie');
@@ -51,8 +53,8 @@
 			
 			Browser::reset();
 			Cron::install();
-			Router::parse();					
-			
+			Router::parse();		
+						
 			Hooks::execute(Hooks::HOOK_SYSTEM_SHORT_INIT_COMPLETE);	
 			
 		}
@@ -251,6 +253,21 @@
 				redirect(Template::controller_link("PageNotFound"));
 			}
 			
+		}
+		
+		
+		/**
+		 * exception_handler
+		 * Handles all uncaught exceptions in the application
+		 * NOTE: Script execution stops after this method completes execution
+		 *
+		 * @param Exception $exception
+		 * 
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public static function exception_handler($exception) {
+			require_once VIEWS_PATH . 'errors' . DS . 'exception.php';
 		}
 		
 		
