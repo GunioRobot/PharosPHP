@@ -247,7 +247,7 @@
 
 				}
 
-			} catch (Exception $e) {
+			} catch (ControllerActionNotFoundException $e) {
 				redirect(Template::controller_link("PageNotFound"));
 			}
 			
