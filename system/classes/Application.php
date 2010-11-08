@@ -36,6 +36,7 @@
 		public static function pre_bootstrap() {
 			
 			set_exception_handler(array(__CLASS__, 'exception_handler'));
+			set_error_handler(array(__CLASS__, 'error_handler'));
 			
 			Loader::load_class('Input');
 			Loader::load_class('Output');
@@ -268,6 +269,57 @@
 		 **/
 		public static function exception_handler($exception) {
 			require_once VIEWS_PATH . 'errors' . DS . 'exception.php';
+		}
+		
+		
+		/**
+		 * error_handler
+		 * Handles errors that occur in the script
+		 *
+		 * @param int $errno
+		 * @param string $errstr
+		 * @param string $errfile
+		 * @param int $errline
+		 * @param array $errcontext
+		 * 
+		 * @return boolean $halt_execution
+		 * @author Matt Brewer
+		 **/
+		public static function error_handler($errno, $errstr, $errfile, $errline, $errcontext) {
+
+			// This error code is not included in error_reporting
+			if ( !(error_reporting() & $errno) ) {
+		        return;
+		    }
+
+			$message = "";
+		    switch ($errno) {
+		   	 	case E_USER_ERROR:
+					NSLog("ERROR: [%d]: '%s' on line %s in file %s.", $errno, $errstr, $errline, $errfile);
+			        $message .= "<b>FATAL ERROR</b> [$errno] $errstr<br />\n";
+			        $message .= "  Fatal error on line $errline in file $errfile";
+			        $message .= ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
+			        $message .= "Aborting...<br />\n";
+					require VIEWS_PATH . 'errors' . DS . 'error.php';
+			        exit(1);
+			        break;
+
+			    case E_USER_WARNING:
+					NSLog("WARNING: [%d]: %s", $errno, $errstr);
+			        break;
+
+			    case E_USER_NOTICE:
+					NSLog("NOTICE: [%d]: %s", $errno, $errstr);
+			        break;
+
+			    default:
+			       	NSLog("UNKNOWN: [%d]: %s", $errno, $errstr);
+			        break;
+		    }
+
+		    // Don't execute PHP internal error handler
+		    return true;
+			
 		}
 		
 		
