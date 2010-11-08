@@ -269,7 +269,7 @@
 			$method = Router::method();	
 			if ( method_exists(self::$controller, $method) ) {
 				
-				self::$controller->__preLoader();
+				self::$controller->__preRender();
 
 				if ( Router::using_named_params() ) {
 					call_user_func(array(self::$controller, $method), Router::params());
@@ -277,7 +277,7 @@
 					call_user_func_array(array(self::$controller, $method), Router::params());
 				}
 				
-				self::$controller->__postLoader();
+				self::$controller->__postRender();
 
 			} else {
 				self::$controller->__missingControllerAction($controllerClass, $method);			
