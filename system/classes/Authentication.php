@@ -216,6 +216,12 @@ HTML;
 				$info = $this->db->Execute($sql);
 
 				if ( !$info->EOF && $info->fields['user_id'] > 0 ) {
+					
+					// Update this cookie information so that we are tracking login_interval minutes of INACTIVITY 
+					// instead of just logging the user out every login_interval minutes, regardless of usage
+					$duration = Settings::get("application.users.login_interval") * 60 + time();
+					Cookie::set("pharos_authentication[uid]", $user['uid'], $duration);
+					Cookie::set("pharos_authentication[name]", $user['name'], $duration);
 
 					$this->logged_in = true;
 					unset($info->fields['user_password']);
