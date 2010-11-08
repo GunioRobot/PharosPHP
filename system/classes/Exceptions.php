@@ -64,7 +64,7 @@
 	class ControllerActionNotFoundException extends Exception {
 		public function __construct($controller, $method) {
 			parent::__construct();
-			$this->message = sprintf('%s->%s() is not implemented.');
+			$this->message = sprintf('%s->%s() is not implemented.', $controller, $method);
 		}
 	}  
 	
