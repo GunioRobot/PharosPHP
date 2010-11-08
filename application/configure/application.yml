@@ -12,6 +12,7 @@ modules:
         - console
         - images
         - "table-additions"
+        - "nslog"
         
 routes:
     root: 
