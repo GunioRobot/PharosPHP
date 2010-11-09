@@ -48,7 +48,7 @@
 		
 		
 		/**
-		 * delete($key)
+		 * delete
 		 * Removes all values from a particular key
 		 *
 		 * @param string $key
