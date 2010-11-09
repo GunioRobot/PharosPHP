@@ -3,6 +3,9 @@
 	/**
 	 * 
 	 * Authentication framework
+	 * 
+	 * Provides a generalized authentication framework based off of the `users` table in the database.
+	 * Uses cookies for client side authentication.
 	 *
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
@@ -18,13 +21,13 @@
 		static protected $instance;
 
 		/**
-		 * global()
-		 * 
+		 * get
 		 * Static accessor to the session Authentication object
 		 *
 		 * @return Authentication obj 
 		 * @author Matthew
 		 **/
+		
 		public static function get() {		
 			if ( !self::$instance ) {
 				$t = new Authentication();
@@ -35,15 +38,16 @@
 
 
 		/**
-		 * user($u)
-		 *
+		 * user
 		 * Will return the stored user object if called with no parameters.
 		 * Otherwise takes the specified parameter and stores internally
 		 *
 		 * @param object user (optional) - expects a clean_object($database_info->fields) param
-		 * @return void
+		 *
+		 * @return stdClass $user
 		 * @author Matthew
 		 **/
+		
 		public function user($u=false) {
 			
 			if ( $u !== false ) {
@@ -57,8 +61,7 @@
 		
 		
 		/**
-		 * login()
-		 *
+		 * login
 		 * Takes the three provided params and validates against the database 
 		 *
 		 * @param string $username
@@ -69,6 +72,7 @@
 		 * @return bool - true if the login was successful
 		 * @author Matthew
 		 **/
+		
 		public function login($username, $password, $level, $comparison_operator) {
 			
 			$sql = sprintf("SELECT * FROM users WHERE user_username = '%s' AND user_password = '%s' AND user_level %s '%d' LIMIT 1", $this->db->prepare_input($username), $this->db->prepare_input($password), $comparison_operator, $level);
@@ -93,6 +97,15 @@
 			
 		}
 		
+		
+		/**
+		 * logout
+		 * Performs a logout operation, does not redirect the user to the login page
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public function logout() {
 			$this->db->Execute(sprintf("UPDATE users SET last_logout = NOW(), logged_in = 'false' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
 			Cookie::delete("pharos_authentication");
@@ -102,12 +115,12 @@
 		
 		/**
 		 * logged_in
-		 *
 		 * If the user is currently logged in
 		 * 
 		 * @return bool
 		 * @author Matthew
-		 **/		
+		 **/	
+			
 		public function logged_in() {
 			return $this->logged_in;
 		}
@@ -115,13 +128,13 @@
 		
 		/**
 		 * login_required
-		 *
 		 * If this :controller & :action require login
 		 *
 		 * @return bool
 		 * @param bool - set if the login is required or not
 		 * @author Matthew
 		 **/
+		
 		public function login_required($bool=null) {
 			if ( is_bool($bool) ) $this->login_required = $bool;
 			else return $this->login_required;
@@ -130,6 +143,11 @@
 		
 		/**
 		 * reset_password($username)
+		 * Will reset the password to a random password for the specified username
+		 * Optionally sends reset password email notification to user
+		 * 
+		 * @uses Hooks::FILTER_PASSWORD_RESET_EMAIL_HTML
+		 * @uses Hooks::FILTER_PASSWORD_RESET_EMAIL_SUBJECT
 		 *
 		 * @param string $username
 		 * @param bool $send_email
@@ -137,6 +155,7 @@
 		 * @return void
 		 * @author Matthew
 		 **/
+		
 		public function reset_password($username, $send_email=true) {
 
 			Modules::load("rmail");
@@ -191,10 +210,14 @@ HTML;
 		
 		/**
 		 * random_password()
+		 * Generates a random password
+		 * 
+		 * @uses Hooks::FILTER_PASSWORD_RANDOM_GENERATE
 		 *
 		 * @return string new_password
 		 * @author Matthew
 		 **/
+		
 		public static function random_password() {
 			$value = substr(md5(time()),0,15);
 			return Hooks::execute(Hooks::FILTER_PASSWORD_RANDOM_GENERATE, compact("value"));
@@ -203,10 +226,12 @@ HTML;
 		
 		/**
 		 * lookup()
+		 * Performs user validation (based on database & cookie), returning true if the user is logged in
 		 *
-		 * @return boolean true if user is logged in
+		 * @return boolean $logged_in
 		 * @author Matthew
 		 **/
+		
 		protected function lookup() {
 			
 			if ( ($user = Cookie::get("pharos_authentication")) !== false ) {
