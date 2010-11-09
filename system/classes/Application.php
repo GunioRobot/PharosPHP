@@ -27,6 +27,7 @@
 		
 		
 		/**
+		 * pre_bootstrap
 		 * Loads the minimal amount of classes needed to run, without i18n support
 		 *
 		 * @return void
@@ -101,6 +102,7 @@
 		
 		
 		/**
+		 * bootstrap
 		 * Performs all the initializing needed before a Controller is created and run
 		 *
 		 * @return void
@@ -142,7 +144,6 @@
 		 * run
 		 * Performs the main work of the site - loads in the appropriate controller and executes it
 		 *
-		 * @throws Exception
 		 * @throws InvalidFileSystemPathException
 		 *
 		 * @return void
@@ -325,8 +326,10 @@
 		
 		/**
 		 * _execute()
+		 * The most important method in the entire framework
+		 * Executes the correct method on the ApplicationController subclass
 		 *
-		 * @throws Exception
+		 * @throws ControllerActionNotFoundException
 		 * 
 		 * @return void
 		 * @author Matt Brewer
