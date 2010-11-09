@@ -34,8 +34,11 @@
 		
 		/**
 		 * load
+		 * Loads a configuration file
 		 *
 		 * @param string $filename
+		 *
+		 * @throws InvalidFileSystemPathException
 		 *
 		 * @return void
 		 * @author Matt Brewer
@@ -57,7 +60,7 @@
 		
 		
 		/**
-		 * get($path, $default=false, $stripTags=false)
+		 * get
 		 * Retrieves a value by recursive lookup using the keypath
 		 * 
 		 * NOTE: To retrieve a setting not stored in the settings YAML but in the database, use a keypath
@@ -68,6 +71,7 @@
 		 * @param (Keypath|string) $keypath
 		 * @param mixed (optional) $default
 		 * @param mixed (optional) $stripTags - if true, strip all tags, if false, strip none, if strip, those are the allowable tags (pass to striptags())
+		 *
 		 * @return mixed $value
 		 * @author Matt Brewer
 		 **/
@@ -120,7 +124,7 @@
 		
 		
 		/**
-		 * set($keypath, $value)
+		 * set
 		 * Sets a given keypath to the provided value
 		 * 
 		 * @throws InvalidKeyPathException - if keypath was invalid
@@ -170,7 +174,7 @@
 		
 
 		/**
-		 * load_dynamic_system_settings()
+		 * load_dynamic_system_settings
 		 * PharosPHP uses several constants in code that are in fact dynamic settings from the database.
 		 * This method loads those dynamic settings into the system as constants
 		 * 
