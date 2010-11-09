@@ -46,7 +46,7 @@ system:
     timezone: "America/New_York"
     language: en
     site:
-        name: "CMSLite"
+        name: "PharosPHP"
     
     
 users:
