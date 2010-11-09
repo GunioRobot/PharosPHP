@@ -46,6 +46,7 @@
 		 * in order for the subclass to behave properly!
 		 *
 		 **/
+		
 		public function __construct() {
 
 			parent::__construct();
@@ -76,6 +77,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public function __missingControllerAction($class, $method) {
 			throw new ControllerActionNotFoundException($class, $method);
 		}
@@ -89,6 +91,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public function __preRender() {
 			
 		}
@@ -102,6 +105,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public function __postRender() {
 			
 		}
