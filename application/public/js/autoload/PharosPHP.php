@@ -1,11 +1,11 @@
 <script type="text/javascript" src="<?=PUBLIC_URL?>js/autoload/jquery.js"></script>
 <script type="text/javascript">
 
-	CMSLite = {};
-	CMSLite.ROOT_URL = "<?=ROOT_URL?>";
-	CMSLite.PUBLIC_URL = "<?=PUBLIC_URL?>";
-	CMSLite.UPLOAD_URL = "<?=UPLOAD_URL?>";
-	CMSLite.SITE_NAME = "<?=Settings::get('application.system.site.name')?>";
+	PharosPHP = {};
+	PharosPHP.ROOT_URL = "<?=ROOT_URL?>";
+	PharosPHP.PUBLIC_URL = "<?=PUBLIC_URL?>";
+	PharosPHP.UPLOAD_URL = "<?=UPLOAD_URL?>";
+	PharosPHP.SITE_NAME = "<?=Settings::get('application.system.site.name')?>";
 
 	$(function() {	
 		
@@ -14,7 +14,7 @@
 		}, 3500);
 		
 		$('#application').change(function() {
-			$.post(CMSLite.ROOT_URL+'Applications/change/'+$(this).val()+'/', {redirect:window.location.href}, function(data) {
+			$.post(PharosPHP.ROOT_URL+'Applications/change/'+$(this).val()+'/', {redirect:window.location.href}, function(data) {
 				window.location.href = data.redirect;
 			}, "json");
 		})
