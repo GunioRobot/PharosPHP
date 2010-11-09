@@ -71,7 +71,7 @@
 	
 			
 		/**
-		 * init()
+		 * init
 		 * Constructs object & registers default set of hook actions
 		 *
 		 * @return void
@@ -139,7 +139,7 @@
 		
 		
 		/**
-		 * register_callback($name, $function, $params)
+		 * register_callback
 		 * Register a function to be executed when/if the system performs the action
 		 *
 		 * @param string $name
@@ -179,7 +179,7 @@
 		
 		
 		/**
-		 * execute($name, $params=array())
+		 * execute
 		 * Called by the system to execute associated functions that requested to be called
 		 * The return value is the result of the called functions. For a chain of functions attached to one hook, 
 		 * the result returned by the first function is passed in to the next function, etc - the hook returns the last
@@ -234,12 +234,13 @@
 		
 		
 		/**
-		 * define($name)
+		 * define
 		 * Register a new action so other modules can attach to this action in your code
 		 * 
 		 * @throws InvalidHookException - when attempting to redefine a hook
 		 * 
 		 * @param string $name
+		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
@@ -257,11 +258,12 @@
 		
 		
 		/**
-		 * remove_callback($name, $function)
+		 * remove_callback
 		 * Remove a function from the specified action hook
 		 *
 		 * @param string $name
 		 * @param string $function_name
+		 *
 		 * @return boolean $success
 		 * @author Matt Brewer
 		 **/
@@ -282,10 +284,11 @@
 		
 		
 		/**
-		 * unset_hook($name)
+		 * unset_hook
 		 * Remove all functions from the specified action hook
 		 * 
 		 * @param string $name
+		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
@@ -293,21 +296,14 @@
 		public static function unset_hook($name) {
 			unset(self::$hooks[$name]);	// Don't care if it's valid or not
 		}
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				
 		
 		/**
-		 * _valid_hook($name)
+		 * _valid_hook
 		 * Internal function determining if the hook action is a valid one
 		 * 
 		 * @param string $name
+		 *
 		 * @return boolean $exists
 		 * @author Matt Brewer
 		 **/
@@ -320,7 +316,7 @@
 		
 		
 		/**
-		 * _register_default_hooks()
+		 * _register_default_hooks
 		 * Internal function registering default set of action hooks
 		 *
 		 * @return void
