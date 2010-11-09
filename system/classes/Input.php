@@ -52,6 +52,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public static function request($key, $default=false) {
 			return self::retrieve(__FUNCTION__, $key, $default);
 		}
@@ -67,6 +68,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public static function server($key, $default=false) {
 			return self::retrieve(__FUNCTION__, $key, $default);
 		}
@@ -82,6 +84,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public static function session($key, $default=false) {
 			return self::retrieve(__FUNCTION__, $key, $default);
 		}
@@ -97,6 +100,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public static function cookie($key, $default=false) {
 			return self::retrieve(__FUNCTION__, $key, $default);
 		}
@@ -113,6 +117,7 @@
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		protected static function retrieve($var, $key, $default=false) {
 			$var = "_".strtoupper($var);
 			global $$var;
