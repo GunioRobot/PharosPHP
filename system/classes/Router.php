@@ -29,7 +29,7 @@
 		
 		
 		/**
-		 * parse()
+		 * parse
 		 *
 		 * @return mixed $components
 		 * @author Matt Brewer
@@ -78,7 +78,7 @@
 		
 
 		/**
-		 * controller()
+		 * controller
 		 * Calculates the name of the controller to use
 		 *
 		 * @return string $controller_name
@@ -132,6 +132,7 @@
 		 * @return bool $removed
 		 * @author Matt Brewer
 		 **/
+		
 		public static function disconnect($pattern) {
 			
 			if ( is_array(self::$routes) ) {
@@ -149,7 +150,7 @@
 		
 		
 		/**
-		 * method()
+		 * method
 		 * Calculates the name of the method to call on the controller.  
 		 * NOTE: Does not check if the method exists for the controller
 		 *		 
@@ -187,7 +188,8 @@
 		
 		
 		/**
-		 * params()
+		 * params
+		 * Returns an array of parameters to pass to the controller/method combo
 		 *
 		 * @return array $params - parameters to pass to the method
 		 * @author Matt Brewer
@@ -203,7 +205,7 @@
 		
 		
 		/**
-		 * url()
+		 * url
 		 * The raw URL that the browser requested
 		 *
 		 * @return string $url
@@ -216,7 +218,7 @@
 		
 		
 		/**
-		 * using_named_params()
+		 * using_named_params
 		 *
 		 * @return boolean $using_named_parameters
 		 * @author Matt Brewer
@@ -234,11 +236,6 @@
 			} else return false;
 
 		}
-		
-		
-		
-		
-		
 		
 		
 		/**
