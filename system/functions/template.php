@@ -1,15 +1,17 @@
 <?
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	truncate_str($str, $lenght, $delim)
-	//
-	//	Nicely truncates text with the delimiter given, if > length
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * truncate_str
+	 * 
+	 * @param string $original
+	 * @param int $length
+	 * @param string $delimiter
+	 *
+	 * @return string $truncated_string
+	 * @author Matt Brewer
+	 **/
+
 	function truncate_str($str, $length, $delim='...') {
-	
 		if ( strlen($str) > $length ) {
 			$new_str = substr($str, 0, $length - strlen($delim));
 			$new_str .= $delim;
@@ -17,53 +19,52 @@
 		} else return $str;
 	}
 	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	format_title($string)
-	//
-	//	Uppercase words, removes underscores and hypens
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function format_title($str){
+	/**
+	 * format_title
+	 *
+	 * @param string $original
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
+	function format_title($str) {
 		return ucwords(str_replace(array("_","-")," ",stripslashes(trim($str))));	
 	}
 	
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	insert_substr($exisingString, $position, $stringToInsert)
-	//
-	// 	Just inserts the string somewhere in the existing string
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * insert_substr
+	 * Just inserts the string somewhere in the existing string
+	 * 
+	 * @param string $subject
+	 * @param int $offset
+	 * @param string $substr
+	 *
+	 * @return string $string
+	 * @author Matt Brewer
+	 **/
+
 	function insert_substr($str, $pos, $substr) {
-		$s = substr($str,0,$pos);
-		$s2 = substr($str,$pos);    
-	    return $s.$substr.$s2;
+		$s = substr($str, 0, $pos);
+		$s2 = substr($str, $pos);    
+	    return $s . $substr . $s2;
 	}
 	
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	alt_tag(string $file)
-	//
-	//	Returns a properly formatted alt tag from a filename, ie
-	//		"some_file.jpg" becomes "Some File"
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * alt_tag
+	 *
+	 * @param string $filename
+	 * 
+	 * @return string $alt
+	 * @author Matt Brewer
+	 **/
+
 	function alt_tag($file) {
 		return ucwords(substr(str_replace(array('_','-'), ' ', $file), 0, strrpos($file, '.')));
 	}
-	
-	
-	
+		
 	
 	////////////////////////////////////////////////////////////////////////////////
 	//
@@ -78,10 +79,15 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function format_date($date, $use_time=null, $pretty=null, $hourOffset=0) {
+		
+		static $timezone = null;
+		if ( is_null($timezone) ) {
+			$timezone = new DateTimeZone(date_default_timezone_get());
+		}
 
 		if ( $date != '' AND $date != '0000-00-00 00:00:00' AND $date != '0000-00-00' ) {
 		
-			$finalDate = new DateTime($date, new DateTimeZone(date_default_timezone_get()));
+			$finalDate = new DateTime($date, $timezone);
 			
 			if ( is_int($hourOffset) AND $hourOffset != 0 ) $finalDate->modify($hourOffset.' hour');
 			$info = date_parse($finalDate->format('Y-m-d H:i:s'));
@@ -113,16 +119,18 @@
 	}
 	
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	format_filesize($size)
-	//
-	//	Expects $size in bytes (int) and retuns a string properly formatted
-	//
-	////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * format_filesize
+	 * Expects $size in bytes (int) and returns a string properly formatted
+	 * 
+	 * @param int $size
+	 * @param int $decimal_places
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
 
-	function format_filesize($size,$decimals=1) {
+	function format_filesize($size, $decimals=1) {
 		
 		$sizes = array(
 			// ========================= Origin ====
@@ -139,42 +147,19 @@
 	
 	}
 	
+	
+	/**
+	 * split_camel_case
+	 * Takes string and returns array of all words, split by capital letters
+	 * 
+	 * @param string $string
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
 
-
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	splitCamelCase(string)
-	//
-	//	Takes "ManageSession" => array('manage', 'session')
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
 	function split_camel_case($str) {
 	  return preg_split('/(?<=\\w)(?=[A-Z])/', $str);
 	}
 	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	p_to_br(string)
-	//
-	//	Returns a string that has all paragraphs removed and uses line breaks instead
-	//
-	////////////////////////////////////////////////////////////////////////////////
-
-	function p_to_br($s) {
-		return str_replace("<p>","",str_replace("</p>","<br />",$s));
-	}
-	
-	
-	
-
-	
-	
-	
-	
-
 ?>
