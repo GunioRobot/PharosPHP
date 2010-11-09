@@ -13,7 +13,12 @@
 		
 		
 		/**
-		 * layout()
+		 * layout
+		 * Determines the layout to be used to render the response
+		 * The controller can provide a custom layout by setting the layout property on the controller's output object property (without the file extension)
+		 * Alternatively, this method will search for a corresponding file in the application/layouts directory to match the request URL, ie:
+		 * /session/login/ will search for a file first in application/layouts/session-controller.php and if not found, then application/layouts/session-controller-login.php
+		 * The failsafe default layout is application.php
 		 *
 		 * @return mixed (string $filename | boolean $success)
 		 * @author Matt Brewer
@@ -42,7 +47,8 @@
 		
 		
 		/**
-		 * _layout_file($class)
+		 * _layout_file
+		 * Determines the layout for the given class
 		 * 
 		 * @param string $class
 		 * @return string $filename
@@ -56,8 +62,8 @@
 		
 
 		/**
-		 * write_css()
-		 * Writes out CSS import lines for all CSS files starting with "style_"
+		 * write_css
+		 * Writes out CSS import lines for all CSS files auto loaded and requested by the controller
 		 *
 		 * @return void
 		 * @author Matt Brewer
@@ -97,8 +103,9 @@
 
 
 		/**
-		 * write_js()
-		 * Writes out JS include lines for all JS files starting with "js_"
+		 * write_js
+		 * Writes out JS include lines for all JS files auto loaded and requested by the controller
+		 * NOTE: This method always includes PharosPHP.php, to include jQuery & setup a global CMSLite javascript object
 		 *
 		 * @return void
 		 * @author Matt Brewer
@@ -123,7 +130,7 @@
 			if ( !empty($js) ) {
 
 				// Always first
-				require_once PUBLIC_PATH.'js/autoload/CMSLite.php';
+				require_once PUBLIC_PATH.'js/autoload/PharosPHP.php';
 
 				// Include any .js files (alphabetically sorted)
 				if ( !empty($js['js']) ) {
@@ -163,7 +170,7 @@
 
 			
 		/**
-		 * write_header_meta()
+		 * write_header_meta
 		 * Simply writes out <meta/> tags in the HTML header for any provided for the
 		 * active global controller object
 		 *
@@ -184,24 +191,27 @@
 	
 
 		/**
-		 * page_class($file)
+		 * page_class
 		 * Returns a list of class names to determine whether a navigation item should be active or not
 		 *
 		 * @param string $filename
+		 * @param string $class
+		 *
 		 * @return string $class
 		 * @author Matt Brewer
 		 **/
 
-		public static function page_class($file) {
-			return basename($_SERVER['SCRIPT_FILENAME'], '.php') === basename($file,'.php') ? 'btnOn' : '';
+		public static function page_class($file, $class="btnOn") {
+			return basename($_SERVER['SCRIPT_FILENAME'], '.php') === basename($file,'.php') ? $class : '';
 		}
 
 
 		/**
-		 * is_current_parent_nav($page)
+		 * is_current_parent_nav
 		 * Returns true if one of the top level navigation items kid is currently on display
 		 *
 		 * @param Database Object $Page
+		 *
 		 * @return boolean $is_current
 		 * @author Matt Brewer
 		 **/
@@ -226,17 +236,12 @@
 		}
 	
 	
-	
-	
-	
-	
-	
-	
 		/**
-		 * site_link($link='')
+		 * site_link
 		 * Prepends the full site path to beginning of link
 		 *
 		 * @param string (optional) $link
+		 *
 		 * @return string $link
 		 * @author Matt Brewer
 		 **/
@@ -248,9 +253,10 @@
 		
 	
 		/**
-		 * make_id($string)
+		 * make_id
 		 *
-		 * @param string $string
+		 * @param string $string 
+		 *
 		 * @return string $sanitized_string
 		 * @author Matt Brewer
 		 **/
@@ -262,9 +268,10 @@
 
 
 		/**
-		 * controller_name($string)
+		 * controller_name
 		 *
 		 * @param string $string
+		 *
 		 * @return string $controller
 		 * @author Matt Brewer
 		 **/
@@ -276,10 +283,11 @@
 
 
 		/**
-		 * controller_link($class, $action='')
+		 * controller_link
 		 *
 		 * @param string $class
 		 * @param string (optional) $optional
+		 *
 		 * @return string $link
 		 * @author Matt Brewer
 		 **/
@@ -292,7 +300,7 @@
 		
 		
 		/**
-		 * controller_slug($class)
+		 * controller_slug
 		 *
 		 * @return string $controller_slug
 		 * @author Matt Brewer
@@ -309,7 +317,7 @@
 	
 	
 		/**
-		 * render()
+		 * render
 		 * Renders the template, calling the specific hooks
 		 *
 		 * @return void
@@ -342,83 +350,104 @@
 		}
 		
 		
-		
-		/*
-		*
-		*	The following are helper methods for generating valid site links quickly
-		*
-		*/
-
-
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Helper function for "class/view/id/" like links
-		//
-		////////////////////////////////////////////////////////////////////////////////
+		/**
+		 * view
+		 * Helper function to generate links such as "class/view/id/"
+		 *
+		 * @param string $class
+		 * @param int $id
+		 *
+		 * @return string $URL
+		 * @author Matt Brewer
+		 **/
 
 		public static function view($class,$id) {
-			return self::controller_link($class,"view/$id/");
+			return self::controller_link($class, sprintf("view/%d/", $id));
 		}
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for edit links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
+		/**
+		 * edit
+		 * Helper function to generate links such as "class/edit/id/"
+		 *
+		 * @param string $class
+		 * @param int $id
+		 *
+		 * @return string $URL
+		 * @author Matt Brewer
+		 **/
+		
 		public static function edit($class,$id) {
-			return self::controller_link($class,"edit/$id/");
+			return self::controller_link($class, sprintf("edit/%d/", $id));
 		}
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for delete links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
+		/**
+		 * delete
+		 * Helper function to generate links such as "class/delete/id/"
+		 *
+		 * @param string $class
+		 * @param int $id
+		 *
+		 * @return string $URL
+		 * @author Matt Brewer
+		 **/
+		
 		public static function delete($class,$id) {
-			return self::controller_link($class,"delete/$id/");
+			return self::controller_link($class, sprintf("delete/%d/", $id));
 		}
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for create links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
+		/**
+		 * create
+		 * Helper function to generate links such as "class/create/id/"
+		 *
+		 * @param string $class
+		 *
+		 * @return string $URL
+		 * @author Matt Brewer
+		 **/
+		
 		public static function create($class) {
-			return self::controller_link($class,"create/");
+			return self::controller_link($class, "create/");
 		}
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for save links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
-		public static function save($class,$id=0) {
+		/**
+		 * save
+		 * Helper function to generate links such as "class/save/id/"
+		 *
+		 * @param string $class
+		 * @param int $id
+		 *
+		 * @return string $URL
+		 * @author Matt Brewer
+		 **/
+		
+		public static function save($class, $id=0) {
 			return self::controller_link($class,"save/".($id>0?"$id/":""));
 		}
 
 
-		////////////////////////////////////////////////////////////////////////////////
-		//
-		//	Quick helper function for manage links
-		//
-		////////////////////////////////////////////////////////////////////////////////
-
+		/**
+		 * manage
+		 * Helper function to generate links such as "class/manage/id/"
+		 *
+		 * @param string $class
+		 * @param int $id
+		 *
+		 * @return string $URL
+		 * @author Matt Brewer
+		 **/
+		
 		public static function manage($class) {
-			return self::controller_link($class,"manage/");
+			return self::controller_link($class, "manage/");
 		}
 		
 	
-	
 		/**
-		 * icon($name, $alt="")
+		 * icon
+		 * Returns an <img /> tag with the specified icon file in PUBLIC_URL.images/dev-icons/
 		 *
 		 * @param string $icon_name
 		 * @param string $alt_text
@@ -433,12 +462,14 @@
 
 
 		/**
-		 * button($href, $title, $image, $options=array())
+		 * button
+		 * Returns <a /> containing an <img /> generated from Template::icon()
 		 *
 		 * @param string $href
 		 * @param string $title
 		 * @param string $image_name
 		 * @param array $options
+		 *
 		 * @return string $html
 		 * @author Matt Brewer
 		 **/
@@ -449,10 +480,12 @@
 
 
 		/**
-		 * file_icon($file_type, $alt="")
+		 * file_icon
+		 * Returns <img /> for the appropriate file type
 		 *
 		 * @param string $file_type
 		 * @param string $alt_text
+		 *
 		 * @return string $html
 		 * @author Matt Brewer
 		 **/
@@ -477,6 +510,7 @@
 		
 		/**
 		 * keywords
+		 * Returns the keywords for a response, after filtering
 		 *
 		 * @uses Hooks::FILTER_META_KEYWORDS
 		 *
@@ -492,6 +526,7 @@
 		
 		/**
 		 * description
+		 * Returns the description for a response, after filtering
 		 *
 		 * @uses Hooks::FILTER_META_DESCRIPTION
 		 *
@@ -507,6 +542,7 @@
 		
 		/**
 		 * title
+		 * Returns the page title for a response, after filtering
 		 * 
 		 * @uses Hooks::FILTER_META_TITLE
 		 *
