@@ -52,7 +52,8 @@
 		
 		
 		/**
-		 * enabled()
+		 * enabled
+		 * Determines if caching is enabled globally
 		 *
 		 * @return boolean $enabled
 		 * @author Matt Brewer
@@ -64,11 +65,13 @@
 		
 		
 		/**
-		 * set_enabled($bool)
+		 * set_enabled
+		 * Enables/disables caching globally
 		 *
 		 * @throws CacheNotWritableException 
 		 *
 		 * @param boolean $enabled
+		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
@@ -80,7 +83,8 @@
 		
 		
 		/**
-		 * write($contents, $file, $duration)
+		 * write
+		 * Writes the contents to the specified cached file, including any HTTP headers provided
 		 *
 		 * @throws CacheNotEnabledException - if caching has not been enabled
 		 *
@@ -104,7 +108,8 @@
 		
 		
 		/**
-		 * read($file)
+		 * read
+		 * Attempts to read the contents from the cached asset.
 		 * 
 		 * @throws CacheNotEnabledException - if caching has not been enabled
 		 * @throws CachedFileExpiredException - if cached file has expired
@@ -134,8 +139,9 @@
 		
 		
 		/**
-		 * expired($file)
-		 * 
+		 * expired
+		 * Determines if the cached asset is still valid
+		 *
 		 * @throws CacheNotEnabledException - if caching has not been enabled
 		 *
 		 * @param string $filename
@@ -155,11 +161,10 @@
 			
 		}
 		
-		
-		
-		
+	
 		/**
-		 * delete($file)
+		 * delete
+		 * Removes the one specified cache file
 		 * 
 		 * @param string $filename
 		 * @return void
@@ -173,7 +178,8 @@
 		
 		
 		/**
-		 * clear_cache()
+		 * clear_cache
+		 * Deletes the contents of the cache folder
 		 *
 		 * @return void
 		 * @author Matt Brewer
