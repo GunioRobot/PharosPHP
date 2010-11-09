@@ -2,10 +2,21 @@
 
 	/**
 	 * Language API
+	 * 
+	 * Most users will use the class statically, ie:
+	 * 		Language::setLanguage(Language::DUTCH);
+	 * 		echo Language::lookup("actions.save", "Save")
+	 * 
+	 * However, you may initiate an instance of the class to easily use different languages at once, ie:
+	 * 		$lang = new Language(Language::ENGLISH);
+	 *  	$lang->language = Language::FRENCH;
+	 *		$lang->language = "bob";	// Throws exception, not a valid language
+	 *		echo $lang->language;		// prints "fr"
 	 *
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
 	 **/
+		
 	final class Language extends Object {
 		
 		const DUTCH = "nl";
@@ -19,14 +30,69 @@
 		const RUSSIAN = "ru";
 		const SPANISH = "es";
 		
+		protected static $available_languages = array(
+			self::DUTCH, 
+			self::ENGLISH, 
+			self::FRENCH,
+			self::GERMAN,
+			self::ITALIAN,
+			self::JAPENESE,
+			self::KOREAN,
+			self::PORTUGUESE,
+			self::RUSSIAN,
+			self::SPANISH
+		);
+		
 		protected static $languages = array();
 		protected static $current_language = self::ENGLISH;
 		
-		public $language = self::ENGLISH;
+		protected $language = self::ENGLISH;
+		
+		
+		/**
+		 * __construct
+		 * Constructor
+		 * 
+		 * @param string $language_or_path
+		 * 
+		 * @throws InvalidArgumentException
+		 * @throws InvalidFileSystemPathException
+		 *
+		 * @return Language $obj
+		 * @author Matt Brewer
+		 **/
+		
+		public function __construct($lang=self::ENGLISH) {
+			parent::__construct();
+			$this->language = $lang;
+		}
+		
+		
+		/**
+		 * __set
+		 * Dynamic mutator method. 
+		 * Calling $lang->language = "en"; verifies the assignment is valid, and loads the associated language file
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public function __set($key, $lang) {
+			if ( $key == "language" ) {
+				if ( !in_array($lang, self::$available_languages) ) {
+					throw new InvalidArgumentException(sprintf("[Language]: Invalid language provided to setLanguage() => %s", $lang));
+				} 
+
+				$this->language = $lang;
+				self::load($lang);
+			}
+		}
 		
 		
 		/**
 		 * load
+		 * Attempts to load the requested file path, using the basename of the file as the language identifier (ie, "en.yml" for English or "fr.yml" for French)
+		 * This method first checks in application/languages, then in system/languages if the path is relative. If a full path is provided, the resource is loaded from that location.
 		 *
 		 * @param string $path|$language (all paths must be {i18n abbrev}.yml)
 		 *
@@ -85,6 +151,8 @@
 		
 		/**
 		 * lookup
+		 * Performs a lookup operation with the given keypath from the current (or provided) language. 
+		 * If the value is not set, the $default parameter is returned.
 		 *
 		 * @param (Keypath|string) $keypath
 		 * @param (string|String) $default_text (optional - used if value is not defined)
@@ -120,6 +188,8 @@
 		
 		/**
 		 * retrieve
+		 * Performs a lookup of the keypath with the current language, returning the $default if not set
+		 * NOTE: Currently the only non-static method in the class, requires an instance to use this method
 		 *
 		 * @param (Keypath|string) $keypath
 		 * @param string $default_text (optional - used if value is not defined)
@@ -135,6 +205,10 @@
 		
 		/**
 		 * setLanguage
+		 * Changes the current language
+		 *
+		 * @uses Language::load($lang)
+		 * @throws InvalidArgumentException
 		 *
 		 * @param string $language
 		 * 
@@ -143,12 +217,18 @@
 		 **/
 		
 		public static function setLanguage($lang) {
+			if ( !in_array($lang, self::$available_languages) ) {
+				throw new InvalidArgumentException(sprintf("[Language]: Invalid language provided to setLanguage() => %s", $lang));
+			} 
+			 
 			self::$current_language = $lang;
+			self::load($lang);
 		}
 		
 		
 		/**
 		 * currentLanguage
+		 * Returns the current language
 		 *
 		 * @return string $current_language
 		 * @author Matt Brewer
