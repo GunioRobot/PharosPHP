@@ -4,7 +4,7 @@
 		$('textarea').tinymce({
 		
 			// Location of TinyMCE script
-			script_url : CMSLite.PUBLIC_URL+'js/tinymce/tiny_mce.js',
+			script_url : PharosPHP.PUBLIC_URL+'js/tinymce/tiny_mce.js',
 
 			// General options
 			theme : "advanced",
