@@ -20,7 +20,7 @@
 		
 		
 		/**
-		 * Constructor
+		 * __construct
 		 *
 		 * @param string (optional) $title
 		 * @param string (optional) $description
@@ -45,7 +45,7 @@
 		
 		
 		/**
-		 * set_data($data)
+		 * set_data
 		 *
 		 * @param array $data
 		 * @return void
@@ -58,7 +58,7 @@
 		
 		
 		/**
-		 * compile_header()
+		 * compile_header
 		 *
 		 * @return void
 		 * @author Matt Brewer
@@ -89,7 +89,7 @@
 		
 		
 		/**
-		 * compile_body()
+		 * compile_body
 		 *
 		 * @return void
 		 * @author Matt Brewer
@@ -121,7 +121,7 @@
 		
 		
 		/**
-		 * feed()
+		 * feed
 		 *
 		 * @return string(XML) $RSS 
 		 * @author Matt Brewer
@@ -144,7 +144,7 @@
 		
 		
 		/**
-		 * printFeed()
+		 * printFeed
 		 * NOTE: This method stops the execution of the current script
 		 *
 		 * @return void
