@@ -4,6 +4,7 @@
 	 * Output
 	 * 
 	 * Handles all output related functionality for the Controller class and subclasses
+	 * including caching, javascript, stylesheets, flash data, HTTP headers, meta tags, and more
 	 *
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
@@ -56,7 +57,7 @@
 		
 		
 		/**
-		 * Constructor
+		 * __constuct
 		 *
 		 * @return Output
 		 * @author Matt Brewer
@@ -78,17 +79,17 @@
 		}
 		
 	
-	
 		/**
-		*
-		*	css
-		*
-		*	@param path (optional)  - path to CSS file, relative to /public
-		*	@param type (optional) - type of CSS media
-		*	@return array - array of css files to include
-		*
-		*/
-		
+		 * css
+		 * Adds a stylesheet to be rendered with the output object
+		 * 
+		 * @param string $path
+		 * @param string $media_type
+		 *
+		 * @return array $css
+		 * @author Matt Brewer
+		 **/
+
 		public function css($path='', $type=self::CSS_TYPE_ALL, $dir=null) {
 
 			if ( $path != '' ) {
@@ -121,25 +122,25 @@
 		}
 
 
-
 		/**
-		*
-		*	javascript
-		*
-		*	@param $path (optional) - path to JS file, if empty return array of all js files
-		*	@param $data (optional) - data array available to interpreted js files (.php)
-		*	@return array - array of js files to include
-		*
-		*/
+		 * javascript
+		 * Adds a javascript file to be used when rendering this output object
+		 *
+		 * @param string $path
+		 * @param array $data - provided to .php files 
+		 *
+		 * @return array $js
+		 * @author Matt Brewer
+		 **/
 
-		public function javascript($path='',$data=array(), $dir=null) {
+		public function javascript($path='', $data=array(), $dir=null) {
 
 			if ( !is_array($data) ) $data = array();
 
 			if ( $path != '' ) {
 
 				// Don't keep adding the same thing
-				if ( ($index = array_search($path,$this->javascript)) !== false ) {
+				if ( ($index = array_search($path, $this->javascript)) !== false ) {
 
 					// Replace data array if called a second time
 					$this->javascript[$index]['data'] = $data;
@@ -163,44 +164,53 @@
 
 		}
 
-
-
-		/**
-		*
-		*	meta
-		*
-		*	@param $meta (optional) - array with keys for "name", "content" & "http-equiv"
-		*	@return mixed - void if $meta was array, array of meta options if null
-		*
-		*/
 		
+		/**
+		 * meta
+		 * Stores an array with keys for "name" & "content" to generate custom HTML meta tags
+		 * 
+		 * @param array $meta
+		 *
+		 * @return array $meta
+		 * @author Matt Brewer
+		 **/
+
 		public function meta($meta=null) {
 			if ( !is_null($meta) ) {
-				$this->meta[$meta['name']] = $meta;
+				return $this->meta[$meta['name']] = $meta;
 			} else return $this->meta;
 		}
 		
 		
-		
 		/**
-		*
-		*	@param $output string
-		*
-		*/
+		 * finalize
+		 * Conditionally sets the argument to the output buffer, if the output buffer was previously empty
+		 *
+		 * @param string $output
+		 *
+		 * @return string $output
+		 * @author Matt Brewer
+		 **/
+
 		public function finalize($output) {
 			if ( $this->content() === "" ) $this->content($output);
+			return $this->content();
 		}
 		
 		
 		/**
-		*
-		*	content($string)
-		*
-		*
-		*/
+		 * content
+		 * Sets the argument as the objects output buffer, or if null, returns the output buffer
+		 *
+		 * @param (null|string) $string
+		 *
+		 * @return string $content
+		 * @author Matt Brewer
+		 **/
+
 		public function content($string='') {
 			if ( $string != '' || $string === null ) {
-				$this->content = $string;
+				return $this->content = $string;
 			} else {
 				return $this->content;
 			}
@@ -209,10 +219,13 @@
 		
 		
 		/**
-		 * header($str)
+		 * header
+		 * Takes a string to use with the PHP header() function. Send headers to the browser this way
+		 * and if the content is cached, the same headers will be sent when viewing the cached content
 		 *
-		 * @param string (optional) $header
-		 * @return mixed
+		 * @param string $header
+		 *
+		 * @return (array|void) $headers
 		 * @author Matt Brewer
 		 **/
 		
@@ -223,9 +236,12 @@
 		
 		
 		/**
-		 * flash($value)
+		 * flash
+		 * Stores a string in the Output objects flash storage, meaning it will be available on the next
+		 * page load, and then will automatically be removed. Very useful for providing alerts to users.
 		 *
-		 * @param string $value
+		 * @param string $value 
+		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
@@ -236,11 +252,14 @@
 		
 		
 		/**
-		 * flash_contents()
+		 * flash_contents
+		 * Retrieves the contents of flash storage, valid for the current request.
+		 * Objects added to the flash storage during the current request will not be returned.
 		 *
 		 * @return array $contents
 		 * @author Matt Brewer
 		 **/
+		
 		public function flash_contents() {
 			
 			$ret = array();
@@ -255,38 +274,40 @@
 		
 		
 		/**
-		*
-		*	set()
-		*
-		*	@param string Key
-		*	@param mixed Value
-		*	@return void
-		*
-		*/
+		 * set
+		 * Assigns a value to a key, making the variable accessible inside the view context.
+		 * Assigning a value to a key that already exists overwrites the previous value.
+		 *
+		 * @param string $key
+		 * @param mixed $value
+		 * 
+		 * @return void
+		 *
+		**/
+		
 		public function set($key, $value) {
 			$this->members[$key] = $value;
 		}
 		
-		
-		
+			
 		/**
-		*
-		*	view()
-		* 
-		*	If $str is a PHP file, the file is interpreted with all the data members set in the controller exposed locally
-		* 	If $str is any other type of file, the contents of the file are added to internal $content instance var
-		* 	If $str is not a file, $str is treated as a static string and added to the protected $content instance var
-		*
-		*	@throws Exception - if file is not PHP and contents could not be obtained
-		*
-		*	@param string $str
-		*	@param string $directory (optional)
-		*	@return string $rendered_view or $str
-		*
-		*/
+		 * view
+		 * If $str is a PHP file, the file is interpreted with all the data members set in the controller exposed locally
+		 * If $str is any other type of file, the contents of the file are added to internal $content instance var
+		 * If $str is not a file, $str is treated as a static string and added to the protected $content instance var
+		 * 
+		 * @param string $str
+		 * @param string $directory
+		 * 
+		 * @throws InvalidFileSystemPathException if file is not accessible
+		 *
+		 * @return string $view_contents
+		 * @author Matt Brewer
+		 **/
+		
 		public function view($str, $directory=VIEWS_PATH) {
 			
-			$file = $directory.$str;
+			$file = $directory . $str;
 			if ( $str != "" && file_exists($file) ) {
 				
 				$info = pathinfo($file);
@@ -301,7 +322,7 @@
 					if ( ($contents = @file_get_contents($file)) !== false ) {
 						$this->content .= $contents;
 						return $contents;
-					} else throw new Exception(sprintf("Provided %s of type %s and was unable to get contents.", $file, $info['extension']));
+					} else throw new InvalidFileSystemPathException(sprintf("Provided %s of type %s and was unable to get contents.", $file, $info['extension']));
 				}
 							
 			} else {
@@ -314,16 +335,15 @@
 		}
 		
 		
-		
-		
 		/**
-		*
-		* 	cache()
-		*
-		*	@param time (optional) - null to get string of cached contents, time in minutes to store output to cache
-		*	@return mixed - true/false if was written to cache, string for cached contents
-		*
-		*/
+		 * cache
+		 * Will write the string to the corresponding cache file, or set the cache's duration if an integer is provided
+		 * 
+		 * @param (string|int) $contents|$duration
+		 *
+		 * @return boolean $was_written
+		 * @author Matt Brewer
+		 **/
 		
 		public function cache($mixed) {
 									
@@ -344,37 +364,39 @@
 	
 		
 		/**
-		*
-		*	cache_enabled()
-		*
-		*	@return bool 
-		*
-		*/
-		
+		 * cache_enabled
+		 * Determines if caching is enabled for this Output object
+		 *
+		 * @return boolean $caching_enabled
+		 * @author Matt Brewer
+		 **/
+
 		public function cache_enabled() {
 			return Cache::enabled() && $this->cache_duration > 0;
 		}
 		
 		
 		/**
-		*
-		*	cached_name
-		*
-		*	@return string filename
-		*
-		*/
+		 * cached_name
+		 * The corresponding cached file
+		 * 
+		 * @return string $filename
+		 * @author Matt Brewer
+		 **/
+
 		public static function cached_name() {
 			return md5(Router::url()).'.cache';
 		}
 		
 		
 		/**
-		*
-		*	cached_content
-		*
-		*	@return string content
-		*
-		*/
+		 * cached_content
+		 * Returns the contents of the cache if available, false if not
+		 *
+		 * @return (string|false) $contents
+		 * @author Matt Brewer
+		 **/
+
 		public static function cached_content() {
 				
 			try {
@@ -389,25 +411,26 @@
 		
 		
 		/**
-		*
-		*	delete
-		*
-		*	@return void
-		*
-		*/
+		 * delete
+		 * Deletes the corresponding cache file
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public function delete() {
 			Cache::delete($this->cached_file);
 		}
 		
-		
-		
-		
-		/*
-		*
-		*	Private Caching Functions
-		*
-		*/
-		
+
+		/**
+		 * _write_to_cache
+		 * Writes the contents to cache
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		private function _write_to_cache($str) {
 			try {
 				if ( Cache::expired($this->cached_file) ) {
@@ -420,10 +443,12 @@
 		
 		/**
 		 * __destruct()
+		 * Called when the object is deallocated to save the flash contents to $_SESSION
 		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		public function __destruct() {
 			
 			$to_save = array();
