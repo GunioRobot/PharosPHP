@@ -19,7 +19,7 @@
 		<div id="nav">
 			<?
 
-				require_once CLASSES_PATH.'Sidebar.php' ;
+				Loader::load_class("Sidebar");
 				$sidebar = new Sidebar();
 				$sidebar->build();	
 
