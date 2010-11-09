@@ -54,7 +54,6 @@
 			Loader::load_class('Browser');
 			
 			Browser::reset();
-			Cron::install();
 			Router::parse();		
 						
 			Hooks::execute(Hooks::HOOK_SYSTEM_SHORT_INIT_COMPLETE);	
