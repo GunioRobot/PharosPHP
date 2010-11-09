@@ -18,7 +18,8 @@
 		
 		
 		/**
-		 * process()
+		 * process
+		 * Processes the next task, if one is available
 		 *
 		 * @return void
 		 * @author Matt Brewer
@@ -29,37 +30,11 @@
 				self::_run_task($job);
 			}
 		}
-		
-		
-		/**
-		 * install()
-		 *
-		 * @return void
-		 * @author Matt Brewer
-		 **/
-
-		public static function install() {
-			
-			global $db;
-			$sql = sprintf("CREATE TABLE IF NOT EXISTS `%s` (
-			  `id` int(11) NOT NULL auto_increment,
-			  `task` text NOT NULL,
-			  `params` text NOT NULL,
-			  `type` VARCHAR(200) NOT NULL,
-			  `repeats` VARCHAR(7) NOT NULL default 'false',
-			  `interval` int(11) NOT NULL default 0,
-			  `timestamp` datetime NOT NULL default '0000-00-00 00:00:00',
-			  `in_progress` VARCHAR(7) NOT NULL default 'false',
-			  PRIMARY KEY  (`id`)
-			) ENGINE=MyISAM DEFAULT CHARSET=latin1 AUTO_INCREMENT=1 ;", self::TABLE);
-
-			$db->Execute($sql);
-			
-		}
-		
+				
 		
 		/**
-		 * register()
+		 * register
+		 * Register a task to be performed later
 		 *
 		 * @param string $task
 		 * @param array $params
@@ -84,13 +59,15 @@
 		
 		
 		/**
-		 * _run_task()
+		 * _run_task
+		 * Runs a specified task
 		 *
 		 * @param object $obj
 		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
+		
 		private static function _run_task($obj) {
 			
 			global $db;
@@ -140,9 +117,10 @@
 		
 		
 		/**
-		 * _next_job()
+		 * _next_job
+		 * Retrieves the next task from the queue, returning false if one is not available
 		 *
-		 * @return object $task
+		 * @return (object|false) $task
 		 * @author Matt Brewer
 		 **/
 
@@ -166,9 +144,11 @@
 		
 		
 		/**
-		 * _mark_cron_as_completed()
+		 * _mark_cron_as_completed
+		 * Marks a task as completed, removing it from the queue
 		 *
 		 * @param object $job
+		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
