@@ -21,9 +21,13 @@
 		private static $modules = array();
 		private static $config = array();
 		
+		private function __construct();
+		private function __clone();
+		
 		
 		/**
-		 * init()
+		 * init
+		 * Initializes the modules API
 		 *
 		 * @return void
 		 * @author Matt Brewer
@@ -36,12 +40,13 @@
 		
 		
 		/**
-		 * load($name)
+		 * load
 		 * Modules::load($name) loads a module into the system
 		 * 
 		 * @throws Exception - if loading a module failed
 		 * 
 		 * @param mixed $module_name (array of module names, or just one module name)
+		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
@@ -61,11 +66,13 @@
 	
 	
 		/**
-		 * _load($name)
+		 * _load
+		 * Protected method that actually performs the loading, calling the appropriate system hooks as it executes
 		 *
 		 * @throws Exception - if loading a module failed
 		 *
 		 * @param string $module_name
+		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
@@ -98,12 +105,10 @@
 			
 		}
 		
-		
-		
-		
-		
+	
 		/**
-		 * load_automatic_modules()
+		 * load_automatic_modules
+		 * Loads the modules defined in application.modules.autoload
 		 *
 		 * @return void
 		 * @author Matt Brewer
