@@ -19,6 +19,18 @@
 		protected $components = array();
 		protected $path = "";
 		
+		
+		/**
+		 * __construct
+		 * Creates a new Keypath object
+		 *
+		 * @param string $keypath
+		 * @param string $separator
+		 *
+		 * @return Keypath $obj
+		 * @author Matt Brewer
+		 **/
+
 		public function __construct($keypath=null, $separator=null) {
 			
 			if ( ($separator = strval($separator)) != "" ) {
@@ -32,6 +44,7 @@
 		
 		/**
 		 * set
+		 * Updates the keypath representation
 		 *
 		 * @param string $keypath
 		 *
@@ -62,6 +75,8 @@
 		
 		/**
 		 * retrieve
+		 * Attempts to retrieve the value from the provided $dictionary according to the Keypath representation, 
+		 * returning Keypath::VALUE_UNDEFINED if unable to retrieve.
 		 *
 		 * @param mixed $dictionary
 		 * 
@@ -112,6 +127,7 @@
 		
 		/**
 		 * separator
+		 * Change the separator
 		 *
 		 * @param (string|String) $separator
 		 *
@@ -128,6 +144,7 @@
 		
 		/**
 		 * components
+		 * Retrieve array of the keypath components
 		 *
 		 * @return array $components
 		 * @author Matt Brewer
@@ -140,7 +157,8 @@
 		
 		/**
 		 * length
-		 *
+		 * Retrieve the the number of components in the keypath
+		 * 
 		 * @return int $length
 		 * @author Matt Brewer
 		 **/
@@ -152,7 +170,8 @@
 		
 		/**
 		 * item
-		 * 
+		 * Indexer to retrieve a particular component from the keypath 
+		 *
 		 * @param int $i
 		 * 
 		 * @throws OutOfBoundsException
@@ -171,6 +190,14 @@
 		}
 		
 		
+		/**
+		 * __toString
+		 * Returns string representation of the object (implicitly called)
+		 *
+		 * @return string $string_representation
+		 * @author Matt Brewer
+		 **/
+
 		public function __toString() {
 			return sprintf("Keypath: (%s)", $this->path);
 		}
