@@ -1,16 +1,15 @@
 <?
 
-	
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	level_for_user($user=null)
-	//
-	// Returns integer security level for supplied user, of if null, current user
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * level_for_user
+	 * Determines int security level for user
+	 * 
+	 * @param int $user_id
+	 *
+	 * @return boolean $is_user
+	 * @author Matt Brewer
+	 **/
+
 	function level_for_user($user=null) {
 		
 		global $db;
@@ -23,15 +22,15 @@
 	}
 	
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	level_for_user($user=null)
-	//
-	// 	true/false for supplied user, of if null, current user
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * is_super
+	 * Determines if the current or provided user_id is a super user
+	 * 
+	 * @param int $user_id
+	 *
+	 * @return boolean $is_user
+	 * @author Matt Brewer
+	 **/
 	function is_super($user=null) {
 		
 		global $db;
@@ -43,14 +42,16 @@
 	}
 	
 	
+	/**
+	 * is_admin
+	 * Determines if the current or provided user_id is an administrator
+	 * 
+	 * @param int $user_id
+	 *
+	 * @return boolean $is_user
+	 * @author Matt Brewer
+	 **/
 	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	is_admin($user=null)
-	//
-	// 	true/false for supplied user, of if null, current user
-	//
-	////////////////////////////////////////////////////////////////////////////////
 	function is_admin($user=null) {
 		
 		global $db;
@@ -61,14 +62,17 @@
 		} else return SECURITY_LVL >= Settings::get('application.users.levels.admin');
 	}
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	is_user($user=null)
-	//
-	// 	true/false for supplied user, of if null, current user
-	//
-	////////////////////////////////////////////////////////////////////////////////
+
+	/**
+	 * is_user
+	 * Determines if the current or provided user_id is a valid user
+	 * 
+	 * @param int $user_id
+	 *
+	 * @return boolean $is_user
+	 * @author Matt Brewer
+	 **/
+
 	function is_user($user=null) {
 		
 		global $db;
@@ -79,8 +83,5 @@
 		} else return SECURITY_LVL >= Settings::get('application.users.levels.basic');
 	}
 	
-	
-
-
 	
 ?>
