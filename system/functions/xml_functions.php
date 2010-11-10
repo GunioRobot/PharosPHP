@@ -1,20 +1,18 @@
 <?
 
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	responseXML()
-	//
-	//	Creates the standard <response></response> node used when communicating
-	//	with our flash apps.  Returns DOMNode for $response
-	//
-	//	USAGE:
-	//
-	//		responseXML("false", "", $dom, $root);
-	//
-	//		$dom is now a DOMDocument ($dom->saveXML(), etc)
-	//		$root is the <root></root> DOMNode to append stuff to
-	//
-	////////////////////////////////////////////////////////////////////////////////
+	
+	/**
+	 * responseXML
+	 * Creates the standardized response XML used in API communications
+	 *
+	 * @param boolean $status
+	 * @param string $reason
+	 * @param DOMDocument &$dom
+	 * @param DOMElement &$root
+	 *
+	 * @return DOMElement $response
+	 * @author Matt Brewer
+	 **/
 
 	function responseXML($status, $reason, &$dom=null, &$root=null) {
 
@@ -35,31 +33,34 @@
 	}
 	
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	throwErrorXML($reason)
-	//
-	// 	Takes a string as an error reason and pushes response XML to the browser.
-	//	Mainly used when communicating with our flash apps.
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function throwErrorXML($reason) {
-		responseXML("true", $reason, $dom);
+	/**
+	 * throwErrorXML
+	 * Provides error XML with the provided message as the response
+	 * NOTE: Ends script execution
+	 *
+	 * @param string $message
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
+	function throwErrorXML($message) {
+		responseXML("true", $message, $dom);
 		printXML($dom->saveXML());
 	}
 	
 	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	printXML($string) 
-	//
-	//	Pushes the string to the browser with correct content type
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
+	/**
+	 * printXML
+	 * Sends the XML to the browser with the appropriate HTTP headers
+	 * NOTE: Ends script execution
+	 *
+	 * @param string $XML
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+
 	function printXML($XML) {
 		header('Content-type: text/xml');
 		print $XML;
@@ -67,15 +68,18 @@
 	}
 	
 	
-
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	xml_data($s, $color)
-	//
-	//	Converts known HTML idiosycracies to flash loveable characters. Color is 
-	//	hyperlink color.
-	//
-	////////////////////////////////////////////////////////////////////////////////
+	/**
+	 * xml_data
+	 * Converts known HTML idiosycracies to flash loveable characters
+	 *
+	 * @param string $s
+	 * @param string $color_for_hyperlink
+	 * 
+	 * @uses Hooks::FILTER_XML_FLASH_CDATA
+	 *
+	 * @return string $filtered
+	 * @author Matt Brewer
+	 **/
 
 	function xml_data($s, $color="#f09bc2") {
 		
@@ -100,6 +104,18 @@
 	}
 	
 	
+	/**
+	 * flash_tlf_format_str
+	 * Formats the string for use in a TLF field (ActionScript 3)
+	 *
+	 * @param string $str
+	 * 
+	 * @uses Hooks::FILTER_XML_FLASH_TLF_FORMAT
+	 *
+	 * @return string $filtered
+	 * @author Matt Brewer
+	 **/
+
 	function flash_tlf_format_str($str) {
 		
 		// Format bold/italic text
@@ -121,26 +137,39 @@
 	}
 
 
-	
-	
-	////////////////////////////////////////////////////////////////////////////////
-	//
-	//	fixStringEncoding($string)
-	//
-	//	Converts input string to the proper encoding 
-	//
-	////////////////////////////////////////////////////////////////////////////////
-	
-	function fixStringEncoding($in_str) {
+	/**
+	 * fix_string_encoding
+	 * Converts string to UTF-8 encoding if not already
+	 * 
+	 * @param string $str
+	 *
+	 * @return string $utf8_string
+	 * @author Matt Brewer
+	 **/
+
+	function fix_string_encoding($str) {
  		
-		$cur_encoding = mb_detect_encoding($in_str);
-		if ( $cur_encoding == "UTF-8" && mb_check_encoding($in_str,"UTF-8") ) {
-			return $in_str;
+		$cur_encoding = mb_detect_encoding($str);
+		if ( $cur_encoding == "UTF-8" && mb_check_encoding($str, "UTF-8") ) {
+			return $str;
 		} else {
-		    return utf8_encode($in_str);
+		    return utf8_encode($str);
 		}
 	}
 	
+	
+	/**
+	 * write_xml_with_xml
+	 * Writes the given XML to the appropriate files on the server, creating an archive of the previous XML as well
+	 *
+	 * @param string $app_folder
+	 * @param string $archive_folder
+	 * @param string $xml
+	 * @param string $name
+	 *
+	 * @return stdClass (error, message)
+	 * @author Matt Brewer
+	 **/
 	
 	function write_xml_with_xml($app_folder, $archive_folder, $xml, $name) {
 		
