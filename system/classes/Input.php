@@ -2,7 +2,9 @@
 
 	/**
 	 * Input
-	 *  
+	 *
+	 * Provides convenient access to the super globals
+	 *   
 	 * @package PharosPHP.Core.Classes
 	 * @author Matt Brewer
 	 **/

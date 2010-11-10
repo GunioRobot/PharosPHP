@@ -1,5 +1,12 @@
 <?
 
+	/**
+	 * PageNotFoundController
+	 *
+	 * @package PharosPHP.Application.Controllers
+	 * @author Matt Brewer
+	 **/
+	
 	class PageNotFoundController extends ApplicationGenericPageController {
 		
 		public function __construct() {

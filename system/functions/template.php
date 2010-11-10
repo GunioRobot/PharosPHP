@@ -1,6 +1,11 @@
 <?
 
 	/**
+	 * @file template.php
+	 * @brief Functions for formatting output
+	 */
+
+	/**
 	 * truncate_str
 	 * 
 	 * @param string $original

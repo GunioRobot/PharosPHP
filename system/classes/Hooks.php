@@ -4,7 +4,6 @@
 	 * Hooks API
 	 *
 	 * @package PharosPHP.Core.Classes
-	 * @author Matt Brewer
 	 *
 	 * 	System Actions, aka "Hooks"
 	 *	Hooks provide the foundation for a flexible framework.
@@ -17,6 +16,9 @@
 	 *	For even more flexibility, PharosPHP allows developers to register their own
 	 *	"system action" so that other developers can register callback functions,
 	 *	creating a rich collaborative framework architecture.
+	 *
+	 * @author Matt Brewer
+	 *
 	 *
 	 **/
 

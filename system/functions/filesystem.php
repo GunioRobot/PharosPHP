@@ -1,5 +1,9 @@
 <?
 
+	/**
+	 * @file filesystem.php
+	 * @brief Functions for common filesystem actions
+	 */
 
 	/**
 	 * check_and_remove_file

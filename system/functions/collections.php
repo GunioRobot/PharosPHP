@@ -1,6 +1,11 @@
 <?
 
 	/**
+	 * @file collections.php
+	 * @brief Functions for retrieving common collections
+	 */
+
+	/**
 	 * states_array
 	 * Array of uses states
 	 * 

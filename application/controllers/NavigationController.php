@@ -1,5 +1,12 @@
 <?php
-
+	
+	/**
+	 * NavigationController
+	 *
+	 * @package PharosPHP.Application.Controllers
+	 * @author Matt Brewer
+	 **/
+	
 	class NavigationController extends TableController {
 		
 		

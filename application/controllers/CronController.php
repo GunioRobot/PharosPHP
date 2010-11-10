@@ -1,5 +1,12 @@
 <?
 
+	/**
+	 * CronController
+	 *
+	 * @package PharosPHP.Application.Controllers
+	 * @author Matt Brewer
+	 **/
+	
 	class CronController extends ApplicationController {
 		
 		public function __construct() {

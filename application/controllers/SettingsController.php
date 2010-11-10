@@ -1,5 +1,12 @@
 <?php
 
+	/**
+	 * SettingsController
+	 *
+	 * @package PharosPHP.Application.Controllers
+	 * @author Matt Brewer
+	 **/
+	
 	class SettingsController extends TableController {
 		
 		protected	$levels;

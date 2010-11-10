@@ -1,6 +1,11 @@
 <?
 
 	/**
+	 * @file modules.php
+	 * @brief Functions for module developers
+	 */
+
+	/**
 	 * is_shared_module
 	 * Checks to see if the module is installed in the SYSTEM_DIR directory
 	 *

@@ -1,6 +1,11 @@
 <?
 
 	/**
+	 * @file language.php
+	 * @brief Functions for the i18n "localization" framework
+	 */
+
+	/**
 	 * i18n()
 	 * Alias for "Language::lookup()"
 	 *

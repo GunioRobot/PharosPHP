@@ -3,7 +3,7 @@
 	/**
 	 * ApiController
 	 *
-	 * @package Phoenix Sessions
+	 * @package PharosPHP.Application.Controllers
 	 * @author Matt Brewer
 	 **/
 		

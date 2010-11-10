@@ -1,6 +1,11 @@
 <?
 
 	/**
+	 * @file output.php
+	 * @brief Functions for controlling output, rendering views and enqueueing resources
+	 */
+
+	/**
 	 * array_to_dropdown
 	 *
 	 * @param array $options

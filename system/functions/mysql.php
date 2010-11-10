@@ -1,4 +1,9 @@
 <?
+
+	/**
+	 * @file mysql.php
+	 * @brief Functions for extending MYSQL functionality
+	 */
 	
 	/**
 	 * basic_where

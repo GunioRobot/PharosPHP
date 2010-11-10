@@ -1,6 +1,11 @@
 <?
 
 	/**
+	 * @file user_management.php
+	 * @brief Functions for managing user levels & permissions
+	 */
+
+	/**
 	 * level_for_user
 	 * Determines int security level for user
 	 * 

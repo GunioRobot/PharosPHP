@@ -1,5 +1,12 @@
 <?php
 
+	/**
+	 * UsersController
+	 *
+	 * @package PharosPHP.Application.Controllers
+	 * @author Matt Brewer
+	 **/
+	
 	class UsersController extends TableController {
 		
 		

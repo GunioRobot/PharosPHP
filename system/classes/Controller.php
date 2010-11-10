@@ -12,25 +12,55 @@
 	
 	class Controller extends Object {
 		
-	
 		/**
-		*
-		*	Protected instance vars (available to subclasses)
-		*
-		*/
+		 * Instance of the Loader class for loading modules, classes, config files and more
+		 *
+		 * @var Loader
+		 */
 		protected $load;
 		
 		
 		/**
-		*
-		*	Public instance vars
-		*
-		*/
-		public $name;
+		 * Title for the controller, used in Template::title()
+		 *
+		 * @uses Hooks::FILTER_META_TITLE
+		 * @var string
+		 */		
 		public $title;
+		
+		
+		/**
+		 * Keywords for the controller, used in Template::keywords()
+		 *
+		 * @uses Hooks::FILTER_META_KEYWORDS
+		 * @var string
+		 */
 		public $keywords;
+		
+		
+		/**
+		 * Description or the controller, used in Template::description()
+		 *
+		 * @uses Hooks::FILTER_META_DESCRIPTION
+		 * @var string
+		 */
 		public $description;
+		
+		
+		/**
+		 * Instance of the Output class for managing caching, views, and resources as the response to the received request
+		 *
+		 * @var Output
+		 */
 		public $output;
+		
+		
+		/**
+		 * Instance of the Authentication class for access to the built in Authentication framework
+		 *
+		 * @copydoc Authentication
+		 * @var Authentication
+		 */
 		public $auth;
 		
 		
@@ -53,7 +83,6 @@
 
 			$this->output = new Output();
 						
-			$this->name = get_class($this);
 			$this->title = "";
 			$this->keywords = DEFAULT_KEYWORDS;
 			$this->description = DEFAULT_DESCRIPTION;

@@ -1,5 +1,10 @@
 <?
 
+	/**
+	 * @file xml.php
+	 * @brief Functions for working with XML and providing a consistent API to external applications
+	 */
+
 	
 	/**
 	 * responseXML

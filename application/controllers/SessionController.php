@@ -1,5 +1,12 @@
 <?
 
+	/**
+	 * SessionController
+	 *
+	 * @package PharosPHP.Application.Controllers
+	 * @author Matt Brewer
+	 **/
+	
 	class SessionController extends ApplicationController {
 		
 		public function __construct() {

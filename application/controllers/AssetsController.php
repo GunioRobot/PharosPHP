@@ -1,5 +1,12 @@
 <?php
 
+	/**
+	 * AssetsController
+	 *
+	 * @package PharosPHP.Application.Controllers
+	 * @author Matt Brewer
+	 **/
+	
 	class AssetsController extends TableController {
 		
 		protected $brands = array();

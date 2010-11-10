@@ -1,6 +1,11 @@
 <?
 
 	/**
+	 * @file remote_filesystem.php
+	 * @brief Functions for working with remote filesytems
+	 */
+
+	/**
 	 * get_remote_last_modified
 	 * Get remote file last modification date (returns unix timestamp)
 	 *

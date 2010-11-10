@@ -1,7 +1,7 @@
 <?
 
 	/**
-	 * FTP Client
+	 * FTPClient
 	 * 
 	 * Comprehensive class wrapper for all PHP provided FTP functions and operations.
 	 * Provides more intuitive and cohesive API than the one provided with PHP.

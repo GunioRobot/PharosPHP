@@ -1,4 +1,9 @@
 <?php
+
+	/**
+	 * @file system.php
+	 * @brief Functions for common system actions
+	 */
 	
 	/**
 	 * load_content_types

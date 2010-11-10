@@ -1,5 +1,12 @@
 <?php
 
+	/**
+	 * DashboardController
+	 *
+	 * @package PharosPHP.Application.Controllers
+	 * @author Matt Brewer
+	 **/
+	
 	class DashboardController extends TableController {
 				
 		

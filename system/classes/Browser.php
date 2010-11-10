@@ -10,7 +10,6 @@
 	 *
 	 * @package PharosPHP.Core.Classes
 	 * @author Chris Schuld
-	 * @link {http://chrisschuld.com/projects/browser-php-detecting-a-users-browser-from-php/} Chris Schuld's Blog
 	 **/
 
 	final class Browser {

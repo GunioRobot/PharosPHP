@@ -1,4 +1,9 @@
 <?
+
+	/**
+	 * @file downloads.php
+	 * @brief Functions for delivering downloadable content to the browser
+	 */
 	
 	/**
 	 * force_download
