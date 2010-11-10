@@ -1,0 +1,110 @@
+\hypertarget{class_cookie}{
+\section{Cookie Class Reference}
+\label{class_cookie}\index{Cookie@{Cookie}}
+}
+Inheritance diagram for Cookie:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_cookie}
+\end{center}
+\end{figure}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_cookie_a7cd5135d4b73e3a85c9c6c6aacd7cff0}{set} (\$key, \$value, \$expire)
+\item 
+static \hyperlink{class_cookie_af32cb1870a1e461ef9dbcf3c68a09df1}{get} (\$key, \$default=false)
+\item 
+static \hyperlink{class_cookie_a891f08cef3dc72caf9cdd0412ff15d2e}{delete} (\$key)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_object_a1fa3127fc82f96b1436d871ef02be319}{
+{\bfseries \$db} = null}
+\label{class_object_a1fa3127fc82f96b1436d871ef02be319}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_cookie_a891f08cef3dc72caf9cdd0412ff15d2e}{
+\index{Cookie@{Cookie}!delete@{delete}}
+\index{delete@{delete}!Cookie@{Cookie}}
+\subsubsection[{delete}]{\setlength{\rightskip}{0pt plus 5cm}static delete (
+\begin{DoxyParamCaption}
+\item[{\$}]{ key}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cookie_a891f08cef3dc72caf9cdd0412ff15d2e}
+delete Removes all values from a particular key
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean (true$|$false) -\/ true if delete was successful 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_cookie_af32cb1870a1e461ef9dbcf3c68a09df1}{
+\index{Cookie@{Cookie}!get@{get}}
+\index{get@{get}!Cookie@{Cookie}}
+\subsubsection[{get}]{\setlength{\rightskip}{0pt plus 5cm}static get (
+\begin{DoxyParamCaption}
+\item[{\$}]{ key, }
+\item[{\$}]{ default = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cookie_af32cb1870a1e461ef9dbcf3c68a09df1}
+get Attempts to retrieve a value from the \$\_\-COOKIE array
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & \\
+\hline
+ & {\em mixed} & (optional) \$default\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+mixed -\/ returns the value stored in the cookie 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_cookie_a7cd5135d4b73e3a85c9c6c6aacd7cff0}{
+\index{Cookie@{Cookie}!set@{set}}
+\index{set@{set}!Cookie@{Cookie}}
+\subsubsection[{set}]{\setlength{\rightskip}{0pt plus 5cm}static set (
+\begin{DoxyParamCaption}
+\item[{\$}]{ key, }
+\item[{\$}]{ value, }
+\item[{\$}]{ expire}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cookie_a7cd5135d4b73e3a85c9c6c6aacd7cff0}
+set Stores a key/value pair on the client machine for a specified amount of time NOTE: This method stores the value in the \$\_\-COOKIE array on the current request for convenience
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$key} & \\
+\hline
+string & {\em \$value} & \\
+\hline
+int & {\em \$expire} & (in milliseconds)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean (true$|$false) -\/ true if setting the cookie was successful 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+system/classes/Cookie.php\end{DoxyCompactItemize}

@@ -1,0 +1,182 @@
+\hypertarget{class_loader}{
+\section{Loader Class Reference}
+\label{class_loader}\index{Loader@{Loader}}
+}
+Inheritance diagram for Loader:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_loader}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_loader_abc6be440e54582b55d57a55b0a20415d}{module} (\$name)
+\item 
+\hyperlink{class_loader_a4685e3ef6b0bf19ebdbe9ecc502e5dc1}{klass} (\$name)
+\item 
+\hyperlink{class_loader_aaad68183dd74b4723de4b7f3ec1195e3}{config} (\$filename)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_loader_a72a2a8fb114e735a9b24ca34054e2f2c}{load\_\-class} (\$name)
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_loader_ae36ffb3324beb3deb2ca786111c4906c}{\_\-load\_\-class} (\$name)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_object_a1fa3127fc82f96b1436d871ef02be319}{
+{\bfseries \$db} = null}
+\label{class_object_a1fa3127fc82f96b1436d871ef02be319}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_loader_ae36ffb3324beb3deb2ca786111c4906c}{
+\index{Loader@{Loader}!\_\-load\_\-class@{\_\-load\_\-class}}
+\index{\_\-load\_\-class@{\_\-load\_\-class}!Loader@{Loader}}
+\subsubsection[{\_\-load\_\-class}]{\setlength{\rightskip}{0pt plus 5cm}static \_\-load\_\-class (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static, protected\mbox{]}}}}
+\label{class_loader_ae36ffb3324beb3deb2ca786111c4906c}
+\_\-load\_\-class
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$class\_\-name} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_class_not_found_exception}{ClassNotFoundException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_loader_aaad68183dd74b4723de4b7f3ec1195e3}{
+\index{Loader@{Loader}!config@{config}}
+\index{config@{config}!Loader@{Loader}}
+\subsubsection[{config}]{\setlength{\rightskip}{0pt plus 5cm}config (
+\begin{DoxyParamCaption}
+\item[{\$}]{ filename}
+\end{DoxyParamCaption}
+)}}
+\label{class_loader_aaad68183dd74b4723de4b7f3ec1195e3}
+config
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$filename} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & \\
+\hline
+{\em \hyperlink{class_invalid_file_system_path_exception}{InvalidFileSystemPathException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_loader_a4685e3ef6b0bf19ebdbe9ecc502e5dc1}{
+\index{Loader@{Loader}!klass@{klass}}
+\index{klass@{klass}!Loader@{Loader}}
+\subsubsection[{klass}]{\setlength{\rightskip}{0pt plus 5cm}klass (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_loader_a4685e3ef6b0bf19ebdbe9ecc502e5dc1}
+klass
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$class\_\-name} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em ClassNotFoundException();} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_loader_a72a2a8fb114e735a9b24ca34054e2f2c}{
+\index{Loader@{Loader}!load\_\-class@{load\_\-class}}
+\index{load\_\-class@{load\_\-class}!Loader@{Loader}}
+\subsubsection[{load\_\-class}]{\setlength{\rightskip}{0pt plus 5cm}static load\_\-class (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_loader_a72a2a8fb114e735a9b24ca34054e2f2c}
+load\_\-class
+
+
+\begin{DoxyParams}{Parameters}
+{\em (array$|$string)} & \$class\_\-name\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_class_not_found_exception}{ClassNotFoundException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_loader_abc6be440e54582b55d57a55b0a20415d}{
+\index{Loader@{Loader}!module@{module}}
+\index{module@{module}!Loader@{Loader}}
+\subsubsection[{module}]{\setlength{\rightskip}{0pt plus 5cm}module (
+\begin{DoxyParamCaption}
+\item[{\$}]{ name}
+\end{DoxyParamCaption}
+)}}
+\label{class_loader_abc6be440e54582b55d57a55b0a20415d}
+module
+
+
+\begin{DoxyParams}[1]{Parameters}
+mixed & {\em \$module\_\-name} & (array of module names, or just one module name)\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em Exception} & -\/ if module failed to load\\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+system/classes/Loader.php\end{DoxyCompactItemize}

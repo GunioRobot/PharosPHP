@@ -1,0 +1,854 @@
+\hypertarget{class_f_t_p_client}{
+\section{FTPClient Class Reference}
+\label{class_f_t_p_client}\index{FTPClient@{FTPClient}}
+}
+Inheritance diagram for FTPClient:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_f_t_p_client}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_f_t_p_client_a7b039c120cfd23322f2853d9218f9e5b}{\_\-\_\-construct} (\$host=null, \$username=null, \$password=null, \$port=21, \$timeout=90, \$ssl=false)
+\item 
+\hyperlink{class_f_t_p_client_ada0765ad7f447a800abb350143f56663}{settings} (\$host=null, \$username=null, \$password=null, \$port=21, \$timeout=90, \$ssl=false)
+\item 
+\hyperlink{class_f_t_p_client_a25029a4eb4d4323e219419cc1d69029a}{connect} (\$host=null, \$username=null, \$password=null, \$port=21, \$timeout=90, \$ssl=false)
+\item 
+\hyperlink{class_f_t_p_client_a619b11b2b96625def5ac30e28236e784}{cd} (\$dir=\char`\"{}\char`\"{})
+\item 
+\hyperlink{class_f_t_p_client_aa4f501a61b8c6660f5cd9ab7fbbddc05}{chmod} (\$mode, \$filename)
+\item 
+\hyperlink{class_f_t_p_client_ab81b2fcdcce182104aa8f835eb6aa836}{size} (\$path)
+\item 
+\hyperlink{class_f_t_p_client_a3781b6798de8723f69a7100c025eb38e}{rm} (\$path, \$recursive=true)
+\item 
+\hyperlink{class_f_t_p_client_a3b72c7c069843a8b41663af2a26988d6}{exec} (\$cmd, \$type=self::EXEC)
+\item 
+\hyperlink{class_f_t_p_client_ab9b72253b2bae412688b82c2cafbc388}{download} (\$file\_\-info, \$remote\_\-path, \$asynchronous=false, \$mode=FTP\_\-BINARY, \$resumepos=0)
+\item 
+\hyperlink{class_f_t_p_client_a76949113e1b51cabad6a4b6e8e1012fa}{upload} (\$file\_\-info, \$remote\_\-path, \$asynchronous=false, \$mode=FTP\_\-BINARY, \$resumepos=0)
+\item 
+\hyperlink{class_f_t_p_client_a9569596e11e5eef366d04f377841ebe6}{ls} (\$dir=\char`\"{}.\char`\"{}, \$raw=false)
+\item 
+\hyperlink{class_f_t_p_client_a628c099e44c71266ac750ac9991d7ee1}{mv} (\$old, \$new)
+\item 
+\hyperlink{class_f_t_p_client_a0669c4833b879d8f4b7d0f47afe6407e}{set\_\-option} (\$option, \$value)
+\item 
+\hyperlink{class_f_t_p_client_ad1e77e1e084da710f1f28626173c94c0}{get\_\-option} (\$option)
+\item 
+\hyperlink{class_f_t_p_client_abf14e152165c50abe01c69633a676d58}{passive} (\$bool)
+\item 
+\hyperlink{class_f_t_p_client_a1511823794ead286997c53a7825d3b98}{pwd} ()
+\item 
+\hyperlink{class_f_t_p_client_a955a12491968dd12e288385ceddbed71}{mkdir} (\$dir)
+\item 
+\hyperlink{class_f_t_p_client_aec70350d58be4e57731fc2d4c29b1505}{nb\_\-continue} ()
+\item 
+\hyperlink{class_f_t_p_client_a2a03052ba2317d6c4b96ddd9bb4537c3}{debug} (\$bool=null)
+\item 
+\hyperlink{class_f_t_p_client_abe175fcf658475bc56e9d6fa02bc88ec}{disconnect} ()
+\item 
+\hyperlink{class_f_t_p_client_a421831a265621325e1fdd19aace0c758}{\_\-\_\-destruct} ()
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_f_t_p_client_a5c96dd102721ec8d215ecb67a668761b}{
+const {\bfseries FILE\_\-HANDLE} = \char`\"{}handle\char`\"{}}
+\label{class_f_t_p_client_a5c96dd102721ec8d215ecb67a668761b}
+
+\item 
+\hypertarget{class_f_t_p_client_a8df70f66519ce5f2724a88ae7cd4adcd}{
+const {\bfseries FILE\_\-PATH} = \char`\"{}path\char`\"{}}
+\label{class_f_t_p_client_a8df70f66519ce5f2724a88ae7cd4adcd}
+
+\item 
+\hypertarget{class_f_t_p_client_a497e112a3bd77a87bd87a1ad44287c07}{
+const {\bfseries SITE\_\-EXEC} = 1}
+\label{class_f_t_p_client_a497e112a3bd77a87bd87a1ad44287c07}
+
+\item 
+\hypertarget{class_f_t_p_client_a89f4b08f023dda747b77fdf0234fd57c}{
+const {\bfseries EXEC} = 2}
+\label{class_f_t_p_client_a89f4b08f023dda747b77fdf0234fd57c}
+
+\item 
+\hypertarget{class_f_t_p_client_ac8b2ab99e4ae0ff97ec02ae3d5450741}{
+const {\bfseries RAW} = 3}
+\label{class_f_t_p_client_ac8b2ab99e4ae0ff97ec02ae3d5450741}
+
+\item 
+\hypertarget{class_f_t_p_client_a711797613cb863ca0756df789c396bf2}{
+{\bfseries \$host}}
+\label{class_f_t_p_client_a711797613cb863ca0756df789c396bf2}
+
+\item 
+\hypertarget{class_f_t_p_client_a0eb82aa5f81cf845de4b36cd653c42cf}{
+{\bfseries \$username}}
+\label{class_f_t_p_client_a0eb82aa5f81cf845de4b36cd653c42cf}
+
+\item 
+\hypertarget{class_f_t_p_client_a607686ef9f99ea7c42f4f3dd3dbb2b0d}{
+{\bfseries \$password}}
+\label{class_f_t_p_client_a607686ef9f99ea7c42f4f3dd3dbb2b0d}
+
+\item 
+\hypertarget{class_f_t_p_client_aa0787efab4b22e8a212882f3409d4c77}{
+{\bfseries \$port} = 21}
+\label{class_f_t_p_client_aa0787efab4b22e8a212882f3409d4c77}
+
+\item 
+\hypertarget{class_f_t_p_client_a84320a9bf3e591d7ae20dfcb0dfe6a0d}{
+{\bfseries \$timeout} = 90}
+\label{class_f_t_p_client_a84320a9bf3e591d7ae20dfcb0dfe6a0d}
+
+\item 
+\hypertarget{class_f_t_p_client_a10c5b56c377e4f3a08f69704e49c87e6}{
+{\bfseries \$ssl} = false}
+\label{class_f_t_p_client_a10c5b56c377e4f3a08f69704e49c87e6}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_f_t_p_client_a88ff3977462a8faeb36023dc7422b33f}{validate\_\-settings} ()
+\item 
+\hyperlink{class_f_t_p_client_aee71988626fd18d005dbe639deb2bcb2}{delete} (\$path, \$recursive, \$echo=false)
+\item 
+\hyperlink{class_f_t_p_client_a39c177afa6c7c4a42fa41e282911d556}{\_\-size} (\$path, \$echo=false)
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_f_t_p_client_a0d9c79b9b86b3f5891c6d3892f12c6a0}{
+{\bfseries \$connection}}
+\label{class_f_t_p_client_a0d9c79b9b86b3f5891c6d3892f12c6a0}
+
+\item 
+\hypertarget{class_f_t_p_client_a85ae3e64cd40e9564adceb010085e9dd}{
+{\bfseries \$debug} = false}
+\label{class_f_t_p_client_a85ae3e64cd40e9564adceb010085e9dd}
+
+\item 
+\hypertarget{class_object_a1fa3127fc82f96b1436d871ef02be319}{
+{\bfseries \$db} = null}
+\label{class_object_a1fa3127fc82f96b1436d871ef02be319}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_f_t_p_client_a7b039c120cfd23322f2853d9218f9e5b}{
+\index{FTPClient@{FTPClient}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!FTPClient@{FTPClient}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
+\begin{DoxyParamCaption}
+\item[{\$}]{ host = {\ttfamily null}, }
+\item[{\$}]{ username = {\ttfamily null}, }
+\item[{\$}]{ password = {\ttfamily null}, }
+\item[{\$}]{ port = {\ttfamily 21}, }
+\item[{\$}]{ timeout = {\ttfamily 90}, }
+\item[{\$}]{ ssl = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a7b039c120cfd23322f2853d9218f9e5b}
+Constructor
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$host} & \\
+\hline
+string & {\em \$username} & \\
+\hline
+string & {\em \$password} & \\
+\hline
+string & {\em \$port} & \\
+\hline
+string & {\em \$timeout} & \\
+\hline
+string & {\em \$ssl} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_f_t_p_client}{FTPClient} -\/ Initialized object 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a421831a265621325e1fdd19aace0c758}{
+\index{FTPClient@{FTPClient}!\_\-\_\-destruct@{\_\-\_\-destruct}}
+\index{\_\-\_\-destruct@{\_\-\_\-destruct}!FTPClient@{FTPClient}}
+\subsubsection[{\_\-\_\-destruct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-destruct (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a421831a265621325e1fdd19aace0c758}
+Destructor
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_f_t_p_client_a39c177afa6c7c4a42fa41e282911d556}{
+\index{FTPClient@{FTPClient}!\_\-size@{\_\-size}}
+\index{\_\-size@{\_\-size}!FTPClient@{FTPClient}}
+\subsubsection[{\_\-size}]{\setlength{\rightskip}{0pt plus 5cm}\_\-size (
+\begin{DoxyParamCaption}
+\item[{\$}]{ path, }
+\item[{\$}]{ echo = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_f_t_p_client_a39c177afa6c7c4a42fa41e282911d556}
+\_\-size
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$path} & \\
+\hline
+bool & {\em \$echo} & (optional)\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em InvalidArgumentException} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a619b11b2b96625def5ac30e28236e784}{
+\index{FTPClient@{FTPClient}!cd@{cd}}
+\index{cd@{cd}!FTPClient@{FTPClient}}
+\subsubsection[{cd}]{\setlength{\rightskip}{0pt plus 5cm}cd (
+\begin{DoxyParamCaption}
+\item[{\$}]{ dir = {\ttfamily \char`\"{}\char`\"{}}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a619b11b2b96625def5ac30e28236e784}
+cd
+
+
+\begin{DoxyParams}{Parameters}
+{\em \$dir} & (optional) -\/ leave blank to go up a directory level\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_aa4f501a61b8c6660f5cd9ab7fbbddc05}{
+\index{FTPClient@{FTPClient}!chmod@{chmod}}
+\index{chmod@{chmod}!FTPClient@{FTPClient}}
+\subsubsection[{chmod}]{\setlength{\rightskip}{0pt plus 5cm}chmod (
+\begin{DoxyParamCaption}
+\item[{\$}]{ mode, }
+\item[{\$}]{ filename}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_aa4f501a61b8c6660f5cd9ab7fbbddc05}
+chmod
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$mode} & \\
+\hline
+string & {\em \$filename} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a25029a4eb4d4323e219419cc1d69029a}{
+\index{FTPClient@{FTPClient}!connect@{connect}}
+\index{connect@{connect}!FTPClient@{FTPClient}}
+\subsubsection[{connect}]{\setlength{\rightskip}{0pt plus 5cm}connect (
+\begin{DoxyParamCaption}
+\item[{\$}]{ host = {\ttfamily null}, }
+\item[{\$}]{ username = {\ttfamily null}, }
+\item[{\$}]{ password = {\ttfamily null}, }
+\item[{\$}]{ port = {\ttfamily 21}, }
+\item[{\$}]{ timeout = {\ttfamily 90}, }
+\item[{\$}]{ ssl = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a25029a4eb4d4323e219419cc1d69029a}
+connect
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$host} & \\
+\hline
+string & {\em \$username} & \\
+\hline
+string & {\em \$password} & \\
+\hline
+string & {\em \$port} & \\
+\hline
+string & {\em \$timeout} & \\
+\hline
+string & {\em \$ssl} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_multiple_connect_calls_exception}{FTPClientMultipleConnectCallsException}} & \\
+\hline
+{\em \hyperlink{class_f_t_p_client_connection_exception}{FTPClientConnectionException}} & \\
+\hline
+{\em \hyperlink{class_f_t_p_client_login_failure_exception}{FTPClientLoginFailureException}} & \\
+\hline
+{\em \hyperlink{class_f_t_p_client_invalid_connection_settings_exception}{FTPClientInvalidConnectionSettingsException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a2a03052ba2317d6c4b96ddd9bb4537c3}{
+\index{FTPClient@{FTPClient}!debug@{debug}}
+\index{debug@{debug}!FTPClient@{FTPClient}}
+\subsubsection[{debug}]{\setlength{\rightskip}{0pt plus 5cm}debug (
+\begin{DoxyParamCaption}
+\item[{\$}]{ bool = {\ttfamily null}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a2a03052ba2317d6c4b96ddd9bb4537c3}
+debug
+
+
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$bool} & (optional) -\/ if not provided, returns debug status\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool \$debug 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_aee71988626fd18d005dbe639deb2bcb2}{
+\index{FTPClient@{FTPClient}!delete@{delete}}
+\index{delete@{delete}!FTPClient@{FTPClient}}
+\subsubsection[{delete}]{\setlength{\rightskip}{0pt plus 5cm}delete (
+\begin{DoxyParamCaption}
+\item[{\$}]{ path, }
+\item[{\$}]{ recursive, }
+\item[{\$}]{ echo = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_f_t_p_client_aee71988626fd18d005dbe639deb2bcb2}
+delete
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$path} & \\
+\hline
+bool & {\em \$recursive} & \\
+\hline
+bool & {\em \$echo} & (optional)\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em InvalidArgumentException} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_abe175fcf658475bc56e9d6fa02bc88ec}{
+\index{FTPClient@{FTPClient}!disconnect@{disconnect}}
+\index{disconnect@{disconnect}!FTPClient@{FTPClient}}
+\subsubsection[{disconnect}]{\setlength{\rightskip}{0pt plus 5cm}disconnect (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_abe175fcf658475bc56e9d6fa02bc88ec}
+disconnect
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_ab9b72253b2bae412688b82c2cafbc388}{
+\index{FTPClient@{FTPClient}!download@{download}}
+\index{download@{download}!FTPClient@{FTPClient}}
+\subsubsection[{download}]{\setlength{\rightskip}{0pt plus 5cm}download (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file\_\-info, }
+\item[{\$}]{ remote\_\-path, }
+\item[{\$}]{ asynchronous = {\ttfamily false}, }
+\item[{\$}]{ mode = {\ttfamily FTP\_\-BINARY}, }
+\item[{\$}]{ resumepos = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_ab9b72253b2bae412688b82c2cafbc388}
+download
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$fileinfo} & (FTPClient::FILE\_\-HANDLE $|$ FTPClient::FILE\_\-PATH must be provided) \\
+\hline
+string & {\em \$remote\_\-path} & \\
+\hline
+bool & {\em \$asynchronous} & (optional) -\/ defaults to false \\
+\hline
+string & {\em \$mode} & (optional) -\/ defaults to FTP\_\-BINARY (FTP\_\-BINARY $|$ FTP\_\-ASCII ) \\
+\hline
+int & {\em \$resumepos} & (optional) -\/ default to 0\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a3b72c7c069843a8b41663af2a26988d6}{
+\index{FTPClient@{FTPClient}!exec@{exec}}
+\index{exec@{exec}!FTPClient@{FTPClient}}
+\subsubsection[{exec}]{\setlength{\rightskip}{0pt plus 5cm}exec (
+\begin{DoxyParamCaption}
+\item[{\$}]{ cmd, }
+\item[{\$}]{ type = {\ttfamily self::EXEC}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a3b72c7c069843a8b41663af2a26988d6}
+exec
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$command} & \\
+\hline
+string & {\em \$type} & (FTPClient::EXEC $|$ FTPClient::SITE\_\-EXEC $|$ FTPClient::RAW )\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em InvalidArgumentException} & \\
+\hline
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_ad1e77e1e084da710f1f28626173c94c0}{
+\index{FTPClient@{FTPClient}!get\_\-option@{get\_\-option}}
+\index{get\_\-option@{get\_\-option}!FTPClient@{FTPClient}}
+\subsubsection[{get\_\-option}]{\setlength{\rightskip}{0pt plus 5cm}get\_\-option (
+\begin{DoxyParamCaption}
+\item[{\$}]{ option}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_ad1e77e1e084da710f1f28626173c94c0}
+get\_\-option
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$option} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em InvalidArgumentException} & \\
+\hline
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a9569596e11e5eef366d04f377841ebe6}{
+\index{FTPClient@{FTPClient}!ls@{ls}}
+\index{ls@{ls}!FTPClient@{FTPClient}}
+\subsubsection[{ls}]{\setlength{\rightskip}{0pt plus 5cm}ls (
+\begin{DoxyParamCaption}
+\item[{\$}]{ dir = {\ttfamily \char`\"{}.\char`\"{}}, }
+\item[{\$}]{ raw = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a9569596e11e5eef366d04f377841ebe6}
+ls Lists a directory's contents
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$dir} & (optional) -\/ defaults to current working directory \\
+\hline
+bool & {\em \$raw\_\-listing} & (optional) -\/ defaults to false\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+mixed \$listing 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a955a12491968dd12e288385ceddbed71}{
+\index{FTPClient@{FTPClient}!mkdir@{mkdir}}
+\index{mkdir@{mkdir}!FTPClient@{FTPClient}}
+\subsubsection[{mkdir}]{\setlength{\rightskip}{0pt plus 5cm}mkdir (
+\begin{DoxyParamCaption}
+\item[{\$}]{ dir}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a955a12491968dd12e288385ceddbed71}
+mkdir
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$dir} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a628c099e44c71266ac750ac9991d7ee1}{
+\index{FTPClient@{FTPClient}!mv@{mv}}
+\index{mv@{mv}!FTPClient@{FTPClient}}
+\subsubsection[{mv}]{\setlength{\rightskip}{0pt plus 5cm}mv (
+\begin{DoxyParamCaption}
+\item[{\$}]{ old, }
+\item[{\$}]{ new}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a628c099e44c71266ac750ac9991d7ee1}
+mv
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$old} & \\
+\hline
+string & {\em \$new} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_aec70350d58be4e57731fc2d4c29b1505}{
+\index{FTPClient@{FTPClient}!nb\_\-continue@{nb\_\-continue}}
+\index{nb\_\-continue@{nb\_\-continue}!FTPClient@{FTPClient}}
+\subsubsection[{nb\_\-continue}]{\setlength{\rightskip}{0pt plus 5cm}nb\_\-continue (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_aec70350d58be4e57731fc2d4c29b1505}
+nb\_\-continue
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+int (FTP\_\-FAILED $|$ FTP\_\-FINISHED $|$ FTP\_\-MOREDATA) 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_abf14e152165c50abe01c69633a676d58}{
+\index{FTPClient@{FTPClient}!passive@{passive}}
+\index{passive@{passive}!FTPClient@{FTPClient}}
+\subsubsection[{passive}]{\setlength{\rightskip}{0pt plus 5cm}passive (
+\begin{DoxyParamCaption}
+\item[{\$}]{ bool}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_abf14e152165c50abe01c69633a676d58}
+passive
+
+
+\begin{DoxyParams}[1]{Parameters}
+bool & {\em \$passive} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a1511823794ead286997c53a7825d3b98}{
+\index{FTPClient@{FTPClient}!pwd@{pwd}}
+\index{pwd@{pwd}!FTPClient@{FTPClient}}
+\subsubsection[{pwd}]{\setlength{\rightskip}{0pt plus 5cm}pwd (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a1511823794ead286997c53a7825d3b98}
+pwd
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+mixed -\/ \$path on success, false on error 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a3781b6798de8723f69a7100c025eb38e}{
+\index{FTPClient@{FTPClient}!rm@{rm}}
+\index{rm@{rm}!FTPClient@{FTPClient}}
+\subsubsection[{rm}]{\setlength{\rightskip}{0pt plus 5cm}rm (
+\begin{DoxyParamCaption}
+\item[{\$}]{ path, }
+\item[{\$}]{ recursive = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a3781b6798de8723f69a7100c025eb38e}
+rm
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$path} & \\
+\hline
+bool & {\em \$recursive} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em InvalidArgumentException} & \\
+\hline
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a0669c4833b879d8f4b7d0f47afe6407e}{
+\index{FTPClient@{FTPClient}!set\_\-option@{set\_\-option}}
+\index{set\_\-option@{set\_\-option}!FTPClient@{FTPClient}}
+\subsubsection[{set\_\-option}]{\setlength{\rightskip}{0pt plus 5cm}set\_\-option (
+\begin{DoxyParamCaption}
+\item[{\$}]{ option, }
+\item[{\$}]{ value}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a0669c4833b879d8f4b7d0f47afe6407e}
+set\_\-option
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$option} & \\
+\hline
+string & {\em \$value} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em InvalidArgumentException} & \\
+\hline
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_ada0765ad7f447a800abb350143f56663}{
+\index{FTPClient@{FTPClient}!settings@{settings}}
+\index{settings@{settings}!FTPClient@{FTPClient}}
+\subsubsection[{settings}]{\setlength{\rightskip}{0pt plus 5cm}settings (
+\begin{DoxyParamCaption}
+\item[{\$}]{ host = {\ttfamily null}, }
+\item[{\$}]{ username = {\ttfamily null}, }
+\item[{\$}]{ password = {\ttfamily null}, }
+\item[{\$}]{ port = {\ttfamily 21}, }
+\item[{\$}]{ timeout = {\ttfamily 90}, }
+\item[{\$}]{ ssl = {\ttfamily false}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_ada0765ad7f447a800abb350143f56663}
+settings
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$host} & \\
+\hline
+string & {\em \$username} & \\
+\hline
+string & {\em \$password} & \\
+\hline
+string & {\em \$port} & \\
+\hline
+string & {\em \$timeout} & \\
+\hline
+string & {\em \$ssl} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_ab81b2fcdcce182104aa8f835eb6aa836}{
+\index{FTPClient@{FTPClient}!size@{size}}
+\index{size@{size}!FTPClient@{FTPClient}}
+\subsubsection[{size}]{\setlength{\rightskip}{0pt plus 5cm}size (
+\begin{DoxyParamCaption}
+\item[{\$}]{ path}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_ab81b2fcdcce182104aa8f835eb6aa836}
+size
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$path} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+int \$size 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a76949113e1b51cabad6a4b6e8e1012fa}{
+\index{FTPClient@{FTPClient}!upload@{upload}}
+\index{upload@{upload}!FTPClient@{FTPClient}}
+\subsubsection[{upload}]{\setlength{\rightskip}{0pt plus 5cm}upload (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file\_\-info, }
+\item[{\$}]{ remote\_\-path, }
+\item[{\$}]{ asynchronous = {\ttfamily false}, }
+\item[{\$}]{ mode = {\ttfamily FTP\_\-BINARY}, }
+\item[{\$}]{ resumepos = {\ttfamily 0}}
+\end{DoxyParamCaption}
+)}}
+\label{class_f_t_p_client_a76949113e1b51cabad6a4b6e8e1012fa}
+upload
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$fileinfo} & (FTPClient::FILE\_\-HANDLE $|$ FTPClient::FILE\_\-PATH must be provided) \\
+\hline
+string & {\em \$remote\_\-path} & \\
+\hline
+bool & {\em \$asynchronous} & (optional) -\/ defaults to false \\
+\hline
+string & {\em \$mode} & (optional) -\/ defaults to FTP\_\-BINARY (FTP\_\-BINARY $|$ FTP\_\-ASCII ) \\
+\hline
+int & {\em \$resumepos} & (optional) -\/ default to 0\\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_f_t_p_client_not_connected_exception}{FTPClientNotConnectedException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+bool \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_f_t_p_client_a88ff3977462a8faeb36023dc7422b33f}{
+\index{FTPClient@{FTPClient}!validate\_\-settings@{validate\_\-settings}}
+\index{validate\_\-settings@{validate\_\-settings}!FTPClient@{FTPClient}}
+\subsubsection[{validate\_\-settings}]{\setlength{\rightskip}{0pt plus 5cm}validate\_\-settings (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_f_t_p_client_a88ff3977462a8faeb36023dc7422b33f}
+validate\_\-settings
+
+\begin{DoxyReturn}{Returns}
+bool \$valid 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+system/classes/FTPClient.php\end{DoxyCompactItemize}

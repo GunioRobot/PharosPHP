@@ -1,0 +1,114 @@
+\hypertarget{user__management_8php}{
+\section{system/functions/user\_\-management.php File Reference}
+\label{user__management_8php}\index{system/functions/user\_\-management.php@{system/functions/user\_\-management.php}}
+}
+
+
+Functions for managing user levels \& permissions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{user__management_8php_a3d62ffee7988aae806c85dbfb7482cc8}{level\_\-for\_\-user} (\$user=null)
+\item 
+\hyperlink{user__management_8php_af8c91222ddd66a9d28cdb89fc8b389fb}{is\_\-super} (\$user=null)
+\item 
+\hyperlink{user__management_8php_aebceba249f7272db18a6f2edaba14620}{is\_\-admin} (\$user=null)
+\item 
+\hyperlink{user__management_8php_a07f6d8487fc0cd97382fa214a1b14ceb}{is\_\-user} (\$user=null)
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions for managing user levels \& permissions. 
+
+\subsection{Function Documentation}
+\hypertarget{user__management_8php_aebceba249f7272db18a6f2edaba14620}{
+\index{user\_\-management.php@{user\_\-management.php}!is\_\-admin@{is\_\-admin}}
+\index{is\_\-admin@{is\_\-admin}!user_management.php@{user\_\-management.php}}
+\subsubsection[{is\_\-admin}]{\setlength{\rightskip}{0pt plus 5cm}is\_\-admin (
+\begin{DoxyParamCaption}
+\item[{\$}]{ user = {\ttfamily null}}
+\end{DoxyParamCaption}
+)}}
+\label{user__management_8php_aebceba249f7272db18a6f2edaba14620}
+is\_\-admin Determines if the current or provided user\_\-id is an administrator
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$user\_\-id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean \$is\_\-user 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{user__management_8php_af8c91222ddd66a9d28cdb89fc8b389fb}{
+\index{user\_\-management.php@{user\_\-management.php}!is\_\-super@{is\_\-super}}
+\index{is\_\-super@{is\_\-super}!user_management.php@{user\_\-management.php}}
+\subsubsection[{is\_\-super}]{\setlength{\rightskip}{0pt plus 5cm}is\_\-super (
+\begin{DoxyParamCaption}
+\item[{\$}]{ user = {\ttfamily null}}
+\end{DoxyParamCaption}
+)}}
+\label{user__management_8php_af8c91222ddd66a9d28cdb89fc8b389fb}
+is\_\-super Determines if the current or provided user\_\-id is a super user
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$user\_\-id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean \$is\_\-user 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{user__management_8php_a07f6d8487fc0cd97382fa214a1b14ceb}{
+\index{user\_\-management.php@{user\_\-management.php}!is\_\-user@{is\_\-user}}
+\index{is\_\-user@{is\_\-user}!user_management.php@{user\_\-management.php}}
+\subsubsection[{is\_\-user}]{\setlength{\rightskip}{0pt plus 5cm}is\_\-user (
+\begin{DoxyParamCaption}
+\item[{\$}]{ user = {\ttfamily null}}
+\end{DoxyParamCaption}
+)}}
+\label{user__management_8php_a07f6d8487fc0cd97382fa214a1b14ceb}
+is\_\-user Determines if the current or provided user\_\-id is a valid user
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$user\_\-id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean \$is\_\-user 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{user__management_8php_a3d62ffee7988aae806c85dbfb7482cc8}{
+\index{user\_\-management.php@{user\_\-management.php}!level\_\-for\_\-user@{level\_\-for\_\-user}}
+\index{level\_\-for\_\-user@{level\_\-for\_\-user}!user_management.php@{user\_\-management.php}}
+\subsubsection[{level\_\-for\_\-user}]{\setlength{\rightskip}{0pt plus 5cm}level\_\-for\_\-user (
+\begin{DoxyParamCaption}
+\item[{\$}]{ user = {\ttfamily null}}
+\end{DoxyParamCaption}
+)}}
+\label{user__management_8php_a3d62ffee7988aae806c85dbfb7482cc8}
+level\_\-for\_\-user Determines int security level for user
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$user\_\-id} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean \$is\_\-user 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}

@@ -1,0 +1,250 @@
+\hypertarget{class_cache}{
+\section{Cache Class Reference}
+\label{class_cache}\index{Cache@{Cache}}
+}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cache_a9f0be6ae273d3669e11c29910a0be338}{
+static {\bfseries init} ()}
+\label{class_cache_a9f0be6ae273d3669e11c29910a0be338}
+
+\item 
+static \hyperlink{class_cache_a6b09fd0540f8d04cc8441c3f14ea7181}{enabled} ()
+\item 
+static \hyperlink{class_cache_a9f1def6fae4447a333307a3e85a44d92}{set\_\-enabled} (\$bool)
+\item 
+static \hyperlink{class_cache_a7f33c63248074f3bcf164506bdc2173a}{write} (\$contents, \$file, \$duration, array \$headers=array())
+\item 
+static \hyperlink{class_cache_aaa251a117e5087b977d179a9e933b20f}{read} (\$file)
+\item 
+static \hyperlink{class_cache_ade5311a5003432124249ff2360b09632}{expired} (\$file)
+\item 
+static \hyperlink{class_cache_a5bc3a8248b0ac2e90555d3392643e443}{delete} (\$file)
+\item 
+static \hyperlink{class_cache_a62080e0c2b29627f7b9a662bc1802ace}{clear\_\-cache} ()
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+const \hyperlink{class_cache_adf679c9dc5e14af2dc7ba9b332d3fae0}{MINUTES} = 1
+\item 
+\hypertarget{class_cache_a2476ba24044af4c7c06fa060b49f75c1}{
+const {\bfseries HOURS} = 60}
+\label{class_cache_a2476ba24044af4c7c06fa060b49f75c1}
+
+\item 
+\hypertarget{class_cache_af093acdd4cf8cb2ac82aa4521a0a940e}{
+const {\bfseries DAYS} = 1440}
+\label{class_cache_af093acdd4cf8cb2ac82aa4521a0a940e}
+
+\item 
+\hypertarget{class_cache_af782850f5509ffc2a49d5332a8f06ddb}{
+const {\bfseries WEEKS} = 10080}
+\label{class_cache_af782850f5509ffc2a49d5332a8f06ddb}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_cache_a8d376199cc641e3e7af6e1a0d5c736d9}{
+static {\bfseries \$enabled} = false}
+\label{class_cache_a8d376199cc641e3e7af6e1a0d5c736d9}
+
+\item 
+\hypertarget{class_cache_a533c66c9995bd9f022b5f5b325c12ad4}{
+static {\bfseries \$initialized} = false}
+\label{class_cache_a533c66c9995bd9f022b5f5b325c12ad4}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_cache_a62080e0c2b29627f7b9a662bc1802ace}{
+\index{Cache@{Cache}!clear\_\-cache@{clear\_\-cache}}
+\index{clear\_\-cache@{clear\_\-cache}!Cache@{Cache}}
+\subsubsection[{clear\_\-cache}]{\setlength{\rightskip}{0pt plus 5cm}static clear\_\-cache (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cache_a62080e0c2b29627f7b9a662bc1802ace}
+clear\_\-cache Deletes the contents of the cache folder
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_cache_a5bc3a8248b0ac2e90555d3392643e443}{
+\index{Cache@{Cache}!delete@{delete}}
+\index{delete@{delete}!Cache@{Cache}}
+\subsubsection[{delete}]{\setlength{\rightskip}{0pt plus 5cm}static delete (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cache_a5bc3a8248b0ac2e90555d3392643e443}
+delete Removes the one specified cache file
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$filename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_cache_a6b09fd0540f8d04cc8441c3f14ea7181}{
+\index{Cache@{Cache}!enabled@{enabled}}
+\index{enabled@{enabled}!Cache@{Cache}}
+\subsubsection[{enabled}]{\setlength{\rightskip}{0pt plus 5cm}static enabled (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cache_a6b09fd0540f8d04cc8441c3f14ea7181}
+enabled Determines if caching is enabled globally
+
+\begin{DoxyReturn}{Returns}
+boolean \$enabled 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_cache_ade5311a5003432124249ff2360b09632}{
+\index{Cache@{Cache}!expired@{expired}}
+\index{expired@{expired}!Cache@{Cache}}
+\subsubsection[{expired}]{\setlength{\rightskip}{0pt plus 5cm}static expired (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cache_ade5311a5003432124249ff2360b09632}
+expired Determines if the cached asset is still valid
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_cache_not_enabled_exception}{CacheNotEnabledException}} & -\/ if caching has not been enabled\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$filename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean \$expired 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_cache_aaa251a117e5087b977d179a9e933b20f}{
+\index{Cache@{Cache}!read@{read}}
+\index{read@{read}!Cache@{Cache}}
+\subsubsection[{read}]{\setlength{\rightskip}{0pt plus 5cm}static read (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cache_aaa251a117e5087b977d179a9e933b20f}
+read Attempts to read the contents from the cached asset.
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_cache_not_enabled_exception}{CacheNotEnabledException}} & -\/ if caching has not been enabled \\
+\hline
+{\em \hyperlink{class_cached_file_expired_exception}{CachedFileExpiredException}} & -\/ if cached file has expired\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$filename} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array(string \$contents, array \$headers) 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_cache_a9f1def6fae4447a333307a3e85a44d92}{
+\index{Cache@{Cache}!set\_\-enabled@{set\_\-enabled}}
+\index{set\_\-enabled@{set\_\-enabled}!Cache@{Cache}}
+\subsubsection[{set\_\-enabled}]{\setlength{\rightskip}{0pt plus 5cm}static set\_\-enabled (
+\begin{DoxyParamCaption}
+\item[{\$}]{ bool}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cache_a9f1def6fae4447a333307a3e85a44d92}
+set\_\-enabled Enables/disables caching globally
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_cache_not_writable_exception}{CacheNotWritableException}} & \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}[1]{Parameters}
+boolean & {\em \$enabled} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_cache_a7f33c63248074f3bcf164506bdc2173a}{
+\index{Cache@{Cache}!write@{write}}
+\index{write@{write}!Cache@{Cache}}
+\subsubsection[{write}]{\setlength{\rightskip}{0pt plus 5cm}static write (
+\begin{DoxyParamCaption}
+\item[{\$}]{ contents, }
+\item[{\$}]{ file, }
+\item[{\$}]{ duration, }
+\item[{array \$}]{ headers = {\ttfamily array()}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_cache_a7f33c63248074f3bcf164506bdc2173a}
+write Writes the contents to the specified cached file, including any HTTP headers provided
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_cache_not_enabled_exception}{CacheNotEnabledException}} & -\/ if caching has not been enabled\\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$contents} & \\
+\hline
+string & {\em \$file\_\-path,relative} & to the CACHE\_\-PATH \\
+\hline
+ & {\em int} & duration in seconds \\
+\hline
+array & {\em \$headers} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean \$success 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+
+
+\subsection{Field Documentation}
+\hypertarget{class_cache_adf679c9dc5e14af2dc7ba9b332d3fae0}{
+\index{Cache@{Cache}!MINUTES@{MINUTES}}
+\index{MINUTES@{MINUTES}!Cache@{Cache}}
+\subsubsection[{MINUTES}]{\setlength{\rightskip}{0pt plus 5cm}const {\bf MINUTES} = 1}}
+\label{class_cache_adf679c9dc5e14af2dc7ba9b332d3fae0}
+Class Constants for Time Manipulation 
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+system/classes/Cache.php\end{DoxyCompactItemize}

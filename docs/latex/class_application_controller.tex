@@ -1,0 +1,167 @@
+\hypertarget{class_application_controller}{
+\section{ApplicationController Class Reference}
+\label{class_application_controller}\index{ApplicationController@{ApplicationController}}
+}
+Inheritance diagram for ApplicationController:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=1.752739cm]{class_application_controller}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_application_controller_a095c5d389db211932136b53f25f39685}{\_\-\_\-construct} ()
+\item 
+\hypertarget{class_application_controller_a149eb92716c1084a935e04a8d95f7347}{
+{\bfseries index} ()}
+\label{class_application_controller_a149eb92716c1084a935e04a8d95f7347}
+
+\item 
+\hyperlink{class_controller_a728c573e418d1f979340a4669524cacd}{\_\-\_\-missingControllerAction} (\$class, \$method)
+\item 
+\hyperlink{class_controller_ad86994d2463ea27cab892176e6509bdb}{\_\-\_\-preRender} ()
+\item 
+\hyperlink{class_controller_adc3c9cc4788f7ba7d1368fdc43568b1d}{\_\-\_\-postRender} ()
+\end{DoxyCompactItemize}
+\subsection*{Data Fields}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_controller_ada57e7bb7c152edad18fe2f166188691}{
+{\bfseries \$title}}
+\label{class_controller_ada57e7bb7c152edad18fe2f166188691}
+
+\item 
+\hypertarget{class_controller_a9fbd95bfcdf27d802a8c7938529a61ba}{
+{\bfseries \$keywords}}
+\label{class_controller_a9fbd95bfcdf27d802a8c7938529a61ba}
+
+\item 
+\hypertarget{class_controller_a87b032cba06009e3467abf1c8018d960}{
+{\bfseries \$description}}
+\label{class_controller_a87b032cba06009e3467abf1c8018d960}
+
+\item 
+\hypertarget{class_controller_a73004ce9cd673c1bfafd1dc351134797}{
+{\bfseries \$output}}
+\label{class_controller_a73004ce9cd673c1bfafd1dc351134797}
+
+\item 
+\hypertarget{class_controller_a20d7415a9c3391b32d7fe2136fce6e2c}{
+{\bfseries \$auth}}
+\label{class_controller_a20d7415a9c3391b32d7fe2136fce6e2c}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_controller_a98494fb905b8ee62599dad677dd67fe0}{
+{\bfseries \$load}}
+\label{class_controller_a98494fb905b8ee62599dad677dd67fe0}
+
+\item 
+\hypertarget{class_object_a1fa3127fc82f96b1436d871ef02be319}{
+{\bfseries \$db} = null}
+\label{class_object_a1fa3127fc82f96b1436d871ef02be319}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Constructor \& Destructor Documentation}
+\hypertarget{class_application_controller_a095c5d389db211932136b53f25f39685}{
+\index{ApplicationController@{ApplicationController}!\_\-\_\-construct@{\_\-\_\-construct}}
+\index{\_\-\_\-construct@{\_\-\_\-construct}!ApplicationController@{ApplicationController}}
+\subsubsection[{\_\-\_\-construct}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-construct (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{class_application_controller_a095c5d389db211932136b53f25f39685}
+Constructor Note that this is called, even if the Route was cached
+
+\begin{DoxyReturn}{Returns}
+self 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matthew Brewer
+\end{DoxyAuthor}
+NOTE: All subclasses that override this method must be sure to call parent::\_\-\_\-construct() in order for the subclass to behave properly! 
+
+Reimplemented from \hyperlink{class_controller_a095c5d389db211932136b53f25f39685}{Controller}.
+
+
+
+Reimplemented in \hyperlink{class_api_controller_a095c5d389db211932136b53f25f39685}{ApiController}, \hyperlink{class_applications_controller_a095c5d389db211932136b53f25f39685}{ApplicationsController}, \hyperlink{class_assets_controller_a095c5d389db211932136b53f25f39685}{AssetsController}, \hyperlink{class_cron_controller_a095c5d389db211932136b53f25f39685}{CronController}, \hyperlink{class_dashboard_controller_a095c5d389db211932136b53f25f39685}{DashboardController}, \hyperlink{class_navigation_controller_a095c5d389db211932136b53f25f39685}{NavigationController}, \hyperlink{class_page_not_found_controller_a095c5d389db211932136b53f25f39685}{PageNotFoundController}, \hyperlink{class_session_controller_a095c5d389db211932136b53f25f39685}{SessionController}, \hyperlink{class_settings_controller_a095c5d389db211932136b53f25f39685}{SettingsController}, and \hyperlink{class_users_controller_a095c5d389db211932136b53f25f39685}{UsersController}.
+
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_controller_a728c573e418d1f979340a4669524cacd}{
+\index{ApplicationController@{ApplicationController}!\_\-\_\-missingControllerAction@{\_\-\_\-missingControllerAction}}
+\index{\_\-\_\-missingControllerAction@{\_\-\_\-missingControllerAction}!ApplicationController@{ApplicationController}}
+\subsubsection[{\_\-\_\-missingControllerAction}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-missingControllerAction (
+\begin{DoxyParamCaption}
+\item[{\$}]{ class, }
+\item[{\$}]{ method}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_controller_a728c573e418d1f979340a4669524cacd}
+\_\-\_\-missingControllerAction Error handler for an unimplemented controller action (on a per controller basis) NOTE: To use, override this method without calling parent::\_\-\_\-\_\-\_\-missingControllerAction() so as to avoid throwing the exception
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$class} & \\
+\hline
+string & {\em \$method} & \\
+\hline
+\end{DoxyParams}
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_controller_action_not_found_exception}{ControllerActionNotFoundException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_controller_adc3c9cc4788f7ba7d1368fdc43568b1d}{
+\index{ApplicationController@{ApplicationController}!\_\-\_\-postRender@{\_\-\_\-postRender}}
+\index{\_\-\_\-postRender@{\_\-\_\-postRender}!ApplicationController@{ApplicationController}}
+\subsubsection[{\_\-\_\-postRender}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-postRender (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_controller_adc3c9cc4788f7ba7d1368fdc43568b1d}
+\_\-\_\-postRender Called after the method was executed (determined by the \hyperlink{class_router}{Router}) Note that this is not called if the Route was cached
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_controller_ad86994d2463ea27cab892176e6509bdb}{
+\index{ApplicationController@{ApplicationController}!\_\-\_\-preRender@{\_\-\_\-preRender}}
+\index{\_\-\_\-preRender@{\_\-\_\-preRender}!ApplicationController@{ApplicationController}}
+\subsubsection[{\_\-\_\-preRender}]{\setlength{\rightskip}{0pt plus 5cm}\_\-\_\-preRender (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_controller_ad86994d2463ea27cab892176e6509bdb}
+\_\-\_\-preRender Called after the constructer, but before the corresponding method is called (determined by the \hyperlink{class_router}{Router}) Note that this is not called if the Route was cached
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+application/classes/ApplicationController.php\end{DoxyCompactItemize}

@@ -1,0 +1,409 @@
+\hypertarget{class_advanced_processor}{
+\section{AdvancedProcessor Class Reference}
+\label{class_advanced_processor}\index{AdvancedProcessor@{AdvancedProcessor}}
+}
+Inheritance diagram for AdvancedProcessor:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_advanced_processor}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_advanced_processor_a7f6abf3ece14da58ccf492ab194a8ec3}{
+{\bfseries GenerateAco} (\$colors=array(), \$file)}
+\label{class_advanced_processor_a7f6abf3ece14da58ccf492ab194a8ec3}
+
+\item 
+\hyperlink{class_advanced_processor_a7db87c55f2344d257a4cb785cd4945ae}{GetPixelColor} (\$file, \$x, \$y)
+\item 
+\hyperlink{class_advanced_processor_a59b8b78906c35dd1e405ae4cdcdd06ca}{GetColorMap} (\$file)
+\item 
+\hyperlink{class_advanced_processor_a6774ba25d60b79dd1ea92f906273b530}{CreateMapImage} (\$map, \$colorwidth=40, \$colorheight=20)
+\item 
+\hyperlink{class_advanced_processor_af247233cba6be6dde043a0fceb7450c2}{BatchResize} (\$directory, \$destination, \$width=null, \$height=null, \$mode=RESIZE\_\-STRETCH)
+\item 
+\hyperlink{class_image_processor_a741991b58a904e7d360ba248c0635a3a}{Resize} (\$width=100, \$height=100, \$mode=RESIZE\_\-STRETCH, \$auto\_\-orientation=false)
+\item 
+\hyperlink{class_image_processor_a2022a4c342adae35c0c98bd84b5189ac}{Rotate} (\$degrees=180)
+\item 
+\hyperlink{class_image_processor_a4467f85d2e8929da1ba99b14b5ced06a}{Watermark} (\$image, \$horizontal=POSITION\_\-RIGHT, \$vertical=POSITION\_\-BOTTOM)
+\item 
+\hyperlink{class_image_processor_a084ac19ce186da9093c5f3e110613f25}{Load} (\$image, \$lazy\_\-load=false)
+\item 
+\hyperlink{class_image_processor_a5e84b5fa1a09c453046710cf4a372235}{Save} (\$destination, \$quality=80)
+\item 
+\hyperlink{class_image_processor_aff78404716b7c12faf48b4d90d86304f}{Parse} (\$quality=80)
+\item 
+\hyperlink{class_image_processor_af283f640a2de333ced2616be941ee5dd}{Destroy} ()
+\item 
+\hyperlink{class_image_processor_a5e3a491a7d0b485efa3171b4f0ee4341}{FilterNegative} ()
+\item 
+\hyperlink{class_image_processor_ab2ad017b33e16bd351ded87dcccdc844}{FilterGray} ()
+\item 
+\hyperlink{class_image_processor_a02b33fb5a0b2d51c228ad72a745c235f}{GetResource} ()
+\item 
+\hyperlink{class_image_processor_a3d6489e0bd2240e539582a6f12ccf39e}{SetResource} (\$image)
+\item 
+\hyperlink{class_image_processor_a41530fad864e3c73788e176fab35ab59}{EnableCache} (\$folder=\char`\"{}cache/\char`\"{}, \$ttl=60)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_image_processor_af5b55597bf6435397d8a7f6f6b3a2fbc}{
+static {\bfseries clearCache} ()}
+\label{class_image_processor_af5b55597bf6435397d8a7f6f6b3a2fbc}
+
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_image_processor_afed9aac4fb3e2b4586e9215651abe1c1}{
+{\bfseries \$\_\-image\_\-name}}
+\label{class_image_processor_afed9aac4fb3e2b4586e9215651abe1c1}
+
+\item 
+\hypertarget{class_image_processor_acd8b3fcd9c909d4704159fc7438eaa99}{
+{\bfseries \$\_\-mime}}
+\label{class_image_processor_acd8b3fcd9c909d4704159fc7438eaa99}
+
+\item 
+\hypertarget{class_image_processor_a5c8824e9846349e9d3f49db20184f6db}{
+{\bfseries \$\_\-extension}}
+\label{class_image_processor_a5c8824e9846349e9d3f49db20184f6db}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_advanced_processor_af247233cba6be6dde043a0fceb7450c2}{
+\index{AdvancedProcessor@{AdvancedProcessor}!BatchResize@{BatchResize}}
+\index{BatchResize@{BatchResize}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{BatchResize}]{\setlength{\rightskip}{0pt plus 5cm}BatchResize (
+\begin{DoxyParamCaption}
+\item[{\$}]{ directory, }
+\item[{\$}]{ destination, }
+\item[{\$}]{ width = {\ttfamily null}, }
+\item[{\$}]{ height = {\ttfamily null}, }
+\item[{\$}]{ mode = {\ttfamily RESIZE\_\-STRETCH}}
+\end{DoxyParamCaption}
+)}}
+\label{class_advanced_processor_af247233cba6be6dde043a0fceb7450c2}
+Batch resize
+
+public 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$directory} & \\
+\hline
+string & {\em \$destination} & \\
+\hline
+int & {\em \$width} & \\
+\hline
+int & {\em \$height} & \\
+\hline
+defined & {\em \$mode} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{class_advanced_processor_a6774ba25d60b79dd1ea92f906273b530}{
+\index{AdvancedProcessor@{AdvancedProcessor}!CreateMapImage@{CreateMapImage}}
+\index{CreateMapImage@{CreateMapImage}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{CreateMapImage}]{\setlength{\rightskip}{0pt plus 5cm}CreateMapImage (
+\begin{DoxyParamCaption}
+\item[{\$}]{ map, }
+\item[{\$}]{ colorwidth = {\ttfamily 40}, }
+\item[{\$}]{ colorheight = {\ttfamily 20}}
+\end{DoxyParamCaption}
+)}}
+\label{class_advanced_processor_a6774ba25d60b79dd1ea92f906273b530}
+Create image from colorarray
+
+If file is empty the image will be outputed to the screen else it will be saved to the given file
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$map} & \\
+\hline
+int & {\em \$colorwidth} & \\
+\hline
+int & {\em \$colorheight} & \\
+\hline
+string & {\em \$file} & \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_image_processor_af283f640a2de333ced2616be941ee5dd}{
+\index{AdvancedProcessor@{AdvancedProcessor}!Destroy@{Destroy}}
+\index{Destroy@{Destroy}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{Destroy}]{\setlength{\rightskip}{0pt plus 5cm}Destroy (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_af283f640a2de333ced2616be941ee5dd}
+Destroy resources
+
+public \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_a41530fad864e3c73788e176fab35ab59}{
+\index{AdvancedProcessor@{AdvancedProcessor}!EnableCache@{EnableCache}}
+\index{EnableCache@{EnableCache}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{EnableCache}]{\setlength{\rightskip}{0pt plus 5cm}EnableCache (
+\begin{DoxyParamCaption}
+\item[{\$}]{ folder = {\ttfamily \char`\"{}cache/\char`\"{}}, }
+\item[{\$}]{ ttl = {\ttfamily 60}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a41530fad864e3c73788e176fab35ab59}
+Enable caching
+
+public 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$folder} & \\
+\hline
+int & {\em \$ttl} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_ab2ad017b33e16bd351ded87dcccdc844}{
+\index{AdvancedProcessor@{AdvancedProcessor}!FilterGray@{FilterGray}}
+\index{FilterGray@{FilterGray}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{FilterGray}]{\setlength{\rightskip}{0pt plus 5cm}FilterGray (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_ab2ad017b33e16bd351ded87dcccdc844}
+Filter: Grayscale effect
+
+public \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_a5e3a491a7d0b485efa3171b4f0ee4341}{
+\index{AdvancedProcessor@{AdvancedProcessor}!FilterNegative@{FilterNegative}}
+\index{FilterNegative@{FilterNegative}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{FilterNegative}]{\setlength{\rightskip}{0pt plus 5cm}FilterNegative (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a5e3a491a7d0b485efa3171b4f0ee4341}
+Filter: Negative effect
+
+public \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{class_advanced_processor_a59b8b78906c35dd1e405ae4cdcdd06ca}{
+\index{AdvancedProcessor@{AdvancedProcessor}!GetColorMap@{GetColorMap}}
+\index{GetColorMap@{GetColorMap}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{GetColorMap}]{\setlength{\rightskip}{0pt plus 5cm}GetColorMap (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file}
+\end{DoxyParamCaption}
+)}}
+\label{class_advanced_processor_a59b8b78906c35dd1e405ae4cdcdd06ca}
+Generate colorarray for a given image
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$file} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\hypertarget{class_advanced_processor_a7db87c55f2344d257a4cb785cd4945ae}{
+\index{AdvancedProcessor@{AdvancedProcessor}!GetPixelColor@{GetPixelColor}}
+\index{GetPixelColor@{GetPixelColor}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{GetPixelColor}]{\setlength{\rightskip}{0pt plus 5cm}GetPixelColor (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file, }
+\item[{\$}]{ x, }
+\item[{\$}]{ y}
+\end{DoxyParamCaption}
+)}}
+\label{class_advanced_processor_a7db87c55f2344d257a4cb785cd4945ae}
+Get the color of the pixel on position \$x,\$y from the image \$file
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$file} & \\
+\hline
+int & {\em \$x} & \\
+\hline
+int & {\em \$y} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_a02b33fb5a0b2d51c228ad72a745c235f}{
+\index{AdvancedProcessor@{AdvancedProcessor}!GetResource@{GetResource}}
+\index{GetResource@{GetResource}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{GetResource}]{\setlength{\rightskip}{0pt plus 5cm}GetResource (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a02b33fb5a0b2d51c228ad72a745c235f}
+Get image resources
+
+public \begin{DoxyReturn}{Returns}
+resource 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_a084ac19ce186da9093c5f3e110613f25}{
+\index{AdvancedProcessor@{AdvancedProcessor}!Load@{Load}}
+\index{Load@{Load}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{Load}]{\setlength{\rightskip}{0pt plus 5cm}Load (
+\begin{DoxyParamCaption}
+\item[{\$}]{ image, }
+\item[{\$}]{ lazy\_\-load = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a084ac19ce186da9093c5f3e110613f25}
+Create image resource from path or url
+
+public 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$location} & \\
+\hline
+bool & {\em \$lazy\_\-load} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+
+\end{DoxyReturn}
+\hypertarget{class_image_processor_aff78404716b7c12faf48b4d90d86304f}{
+\index{AdvancedProcessor@{AdvancedProcessor}!Parse@{Parse}}
+\index{Parse@{Parse}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{Parse}]{\setlength{\rightskip}{0pt plus 5cm}Parse (
+\begin{DoxyParamCaption}
+\item[{\$}]{ quality = {\ttfamily 80}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_aff78404716b7c12faf48b4d90d86304f}
+Print image to screen
+
+public \begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_a741991b58a904e7d360ba248c0635a3a}{
+\index{AdvancedProcessor@{AdvancedProcessor}!Resize@{Resize}}
+\index{Resize@{Resize}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{Resize}]{\setlength{\rightskip}{0pt plus 5cm}Resize (
+\begin{DoxyParamCaption}
+\item[{\$}]{ width = {\ttfamily 100}, }
+\item[{\$}]{ height = {\ttfamily 100}, }
+\item[{\$}]{ mode = {\ttfamily RESIZE\_\-STRETCH}, }
+\item[{\$}]{ auto\_\-orientation = {\ttfamily false}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a741991b58a904e7d360ba248c0635a3a}
+Resize
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$width} & \\
+\hline
+int & {\em \$height} & \\
+\hline
+define & {\em \$mode} & \\
+\hline
+bool & {\em \$auto\_\-orientation} & houd rekening met orientatie wanneer er een resize gebeurt \\
+\hline
+\end{DoxyParams}
+\hypertarget{class_image_processor_a2022a4c342adae35c0c98bd84b5189ac}{
+\index{AdvancedProcessor@{AdvancedProcessor}!Rotate@{Rotate}}
+\index{Rotate@{Rotate}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{Rotate}]{\setlength{\rightskip}{0pt plus 5cm}Rotate (
+\begin{DoxyParamCaption}
+\item[{\$}]{ degrees = {\ttfamily 180}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a2022a4c342adae35c0c98bd84b5189ac}
+Rotate an image
+
+public 
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$degrees} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_a5e84b5fa1a09c453046710cf4a372235}{
+\index{AdvancedProcessor@{AdvancedProcessor}!Save@{Save}}
+\index{Save@{Save}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{Save}]{\setlength{\rightskip}{0pt plus 5cm}Save (
+\begin{DoxyParamCaption}
+\item[{\$}]{ destination, }
+\item[{\$}]{ quality = {\ttfamily 80}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a5e84b5fa1a09c453046710cf4a372235}
+Save image to computer
+
+public 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$destination} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_a3d6489e0bd2240e539582a6f12ccf39e}{
+\index{AdvancedProcessor@{AdvancedProcessor}!SetResource@{SetResource}}
+\index{SetResource@{SetResource}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{SetResource}]{\setlength{\rightskip}{0pt plus 5cm}SetResource (
+\begin{DoxyParamCaption}
+\item[{\$}]{ image}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a3d6489e0bd2240e539582a6f12ccf39e}
+Set image resources
+
+public 
+\begin{DoxyParams}[1]{Parameters}
+resource & {\em \$image} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+resource 
+\end{DoxyReturn}
+\hypertarget{class_image_processor_a4467f85d2e8929da1ba99b14b5ced06a}{
+\index{AdvancedProcessor@{AdvancedProcessor}!Watermark@{Watermark}}
+\index{Watermark@{Watermark}!AdvancedProcessor@{AdvancedProcessor}}
+\subsubsection[{Watermark}]{\setlength{\rightskip}{0pt plus 5cm}Watermark (
+\begin{DoxyParamCaption}
+\item[{\$}]{ image, }
+\item[{\$}]{ horizontal = {\ttfamily POSITION\_\-RIGHT}, }
+\item[{\$}]{ vertical = {\ttfamily POSITION\_\-BOTTOM}}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}inherited\mbox{]}}}}
+\label{class_image_processor_a4467f85d2e8929da1ba99b14b5ced06a}
+Add watermark
+
+To use the left right bottom top center parameters you must first d
+
+public 
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$image} & \\
+\hline
+define & {\em \$horizontal} & \\
+\hline
+define & {\em \$vertical} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+application/modules/images/library/advancedprocessor.php\end{DoxyCompactItemize}

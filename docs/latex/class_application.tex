@@ -1,0 +1,243 @@
+\hypertarget{class_application}{
+\section{Application Class Reference}
+\label{class_application}\index{Application@{Application}}
+}
+Inheritance diagram for Application:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{class_application}
+\end{center}
+\end{figure}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_application_ad79a780a0dc0d1a39276ff7eef4bb9e3}{controller} ()
+\item 
+static \hyperlink{class_application_a2ab7f7dbf9a7b36227d797809dd47ec0}{pre\_\-bootstrap} ()
+\item 
+static \hyperlink{class_application_a68b925f285a0ff30c36c1494907152d2}{load\_\-modules} ()
+\item 
+static \hyperlink{class_application_ae808594fd5dc6d3b8cf71ba10a21e94a}{load\_\-application\_\-files} ()
+\item 
+static \hyperlink{class_application_a73f9b330de6451728da16c8d2e18dba3}{bootstrap} ()
+\item 
+static \hyperlink{class_application_ad3a572002fd350672b531756f7306e8f}{run} ()
+\item 
+static \hyperlink{class_application_ab80413147ae5942946499c40feaaab9e}{exception\_\-handler} (\$exception)
+\item 
+static \hyperlink{class_application_a705a3b2cc157da9de137ff422ad4b8b1}{error\_\-handler} (\$errno, \$errstr, \$errfile, \$errline, \$errcontext)
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \hyperlink{class_application_a6ac4f15b4f6a1c98eb2e38413279aee1}{\_\-execute} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_object_a1fa3127fc82f96b1436d871ef02be319}{
+{\bfseries \$db} = null}
+\label{class_object_a1fa3127fc82f96b1436d871ef02be319}
+
+\end{DoxyCompactItemize}
+\subsection*{Static Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\hypertarget{class_application_a388ef7b1db5e6f728e63cee704ce6e23}{
+static {\bfseries \$controller} = null}
+\label{class_application_a388ef7b1db5e6f728e63cee704ce6e23}
+
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_application_a6ac4f15b4f6a1c98eb2e38413279aee1}{
+\index{Application@{Application}!\_\-execute@{\_\-execute}}
+\index{\_\-execute@{\_\-execute}!Application@{Application}}
+\subsubsection[{\_\-execute}]{\setlength{\rightskip}{0pt plus 5cm}static \_\-execute (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static, protected\mbox{]}}}}
+\label{class_application_a6ac4f15b4f6a1c98eb2e38413279aee1}
+\hyperlink{class_application_a6ac4f15b4f6a1c98eb2e38413279aee1}{\_\-execute()} The most important method in the entire framework Executes the correct method on the \hyperlink{class_application_controller}{ApplicationController} subclass
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_controller_action_not_found_exception}{ControllerActionNotFoundException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_application_a73f9b330de6451728da16c8d2e18dba3}{
+\index{Application@{Application}!bootstrap@{bootstrap}}
+\index{bootstrap@{bootstrap}!Application@{Application}}
+\subsubsection[{bootstrap}]{\setlength{\rightskip}{0pt plus 5cm}static bootstrap (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_application_a73f9b330de6451728da16c8d2e18dba3}
+bootstrap Performs all the initializing needed before a \hyperlink{class_controller}{Controller} is created and run
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_application_ad79a780a0dc0d1a39276ff7eef4bb9e3}{
+\index{Application@{Application}!controller@{controller}}
+\index{controller@{controller}!Application@{Application}}
+\subsubsection[{controller}]{\setlength{\rightskip}{0pt plus 5cm}static controller (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_application_ad79a780a0dc0d1a39276ff7eef4bb9e3}
+controller
+
+\begin{DoxyReturn}{Returns}
+\hyperlink{class_application_controller}{ApplicationController} (subclass of) 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_application_a705a3b2cc157da9de137ff422ad4b8b1}{
+\index{Application@{Application}!error\_\-handler@{error\_\-handler}}
+\index{error\_\-handler@{error\_\-handler}!Application@{Application}}
+\subsubsection[{error\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static error\_\-handler (
+\begin{DoxyParamCaption}
+\item[{\$}]{ errno, }
+\item[{\$}]{ errstr, }
+\item[{\$}]{ errfile, }
+\item[{\$}]{ errline, }
+\item[{\$}]{ errcontext}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_application_a705a3b2cc157da9de137ff422ad4b8b1}
+error\_\-handler Handles errors that occur in the script
+
+
+\begin{DoxyParams}[1]{Parameters}
+int & {\em \$errno} & \\
+\hline
+string & {\em \$errstr} & \\
+\hline
+string & {\em \$errfile} & \\
+\hline
+int & {\em \$errline} & \\
+\hline
+array & {\em \$errcontext} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+boolean \$halt\_\-execution 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_application_ab80413147ae5942946499c40feaaab9e}{
+\index{Application@{Application}!exception\_\-handler@{exception\_\-handler}}
+\index{exception\_\-handler@{exception\_\-handler}!Application@{Application}}
+\subsubsection[{exception\_\-handler}]{\setlength{\rightskip}{0pt plus 5cm}static exception\_\-handler (
+\begin{DoxyParamCaption}
+\item[{\$}]{ exception}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_application_ab80413147ae5942946499c40feaaab9e}
+exception\_\-handler Handles all uncaught exceptions in the application NOTE: Script execution stops after this method completes execution
+
+
+\begin{DoxyParams}[1]{Parameters}
+Exception & {\em \$exception} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_application_ae808594fd5dc6d3b8cf71ba10a21e94a}{
+\index{Application@{Application}!load\_\-application\_\-files@{load\_\-application\_\-files}}
+\index{load\_\-application\_\-files@{load\_\-application\_\-files}!Application@{Application}}
+\subsubsection[{load\_\-application\_\-files}]{\setlength{\rightskip}{0pt plus 5cm}static load\_\-application\_\-files (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_application_ae808594fd5dc6d3b8cf71ba10a21e94a}
+load\_\-application\_\-files
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_application_a68b925f285a0ff30c36c1494907152d2}{
+\index{Application@{Application}!load\_\-modules@{load\_\-modules}}
+\index{load\_\-modules@{load\_\-modules}!Application@{Application}}
+\subsubsection[{load\_\-modules}]{\setlength{\rightskip}{0pt plus 5cm}static load\_\-modules (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_application_a68b925f285a0ff30c36c1494907152d2}
+load\_\-modules
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_application_a2ab7f7dbf9a7b36227d797809dd47ec0}{
+\index{Application@{Application}!pre\_\-bootstrap@{pre\_\-bootstrap}}
+\index{pre\_\-bootstrap@{pre\_\-bootstrap}!Application@{Application}}
+\subsubsection[{pre\_\-bootstrap}]{\setlength{\rightskip}{0pt plus 5cm}static pre\_\-bootstrap (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_application_a2ab7f7dbf9a7b36227d797809dd47ec0}
+pre\_\-bootstrap Loads the minimal amount of classes needed to run, without i18n support
+
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{class_application_ad3a572002fd350672b531756f7306e8f}{
+\index{Application@{Application}!run@{run}}
+\index{run@{run}!Application@{Application}}
+\subsubsection[{run}]{\setlength{\rightskip}{0pt plus 5cm}static run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}static\mbox{]}}}}
+\label{class_application_ad3a572002fd350672b531756f7306e8f}
+run Performs the main work of the site -\/ loads in the appropriate controller and executes it
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_invalid_file_system_path_exception}{InvalidFileSystemPathException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+system/classes/Application.php\end{DoxyCompactItemize}

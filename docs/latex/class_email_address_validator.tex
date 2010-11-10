@@ -1,0 +1,100 @@
+\hypertarget{class_email_address_validator}{
+\section{EmailAddressValidator Class Reference}
+\label{class_email_address_validator}\index{EmailAddressValidator@{EmailAddressValidator}}
+}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_email_address_validator_a11a8f25060bdf13ebd328348908c5a98}{check\_\-email\_\-address} (\$strEmailAddress)
+\end{DoxyCompactItemize}
+\subsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{class_email_address_validator_a22def614d48f871a76ecffca29160c75}{check\_\-local\_\-portion} (\$strLocalPortion)
+\item 
+\hyperlink{class_email_address_validator_a032db7f665ed820cf64d28928a447e1b}{check\_\-domain\_\-portion} (\$strDomainPortion)
+\item 
+\hyperlink{class_email_address_validator_a2ec24ae7cc62a5e99f43d8fbf5562217}{check\_\-text\_\-length} (\$strText, \$intMinimum, \$intMaximum)
+\end{DoxyCompactItemize}
+
+
+\subsection{Member Function Documentation}
+\hypertarget{class_email_address_validator_a032db7f665ed820cf64d28928a447e1b}{
+\index{EmailAddressValidator@{EmailAddressValidator}!check\_\-domain\_\-portion@{check\_\-domain\_\-portion}}
+\index{check\_\-domain\_\-portion@{check\_\-domain\_\-portion}!EmailAddressValidator@{EmailAddressValidator}}
+\subsubsection[{check\_\-domain\_\-portion}]{\setlength{\rightskip}{0pt plus 5cm}check\_\-domain\_\-portion (
+\begin{DoxyParamCaption}
+\item[{\$}]{ strDomainPortion}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_email_address_validator_a032db7f665ed820cf64d28928a447e1b}
+Checks email section after \char`\"{}@\char`\"{} symbol for validity 
+\begin{DoxyParams}{Parameters}
+{\em strDomainPortion} & Text to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if domain portion is valid, false if not 
+\end{DoxyReturn}
+\hypertarget{class_email_address_validator_a11a8f25060bdf13ebd328348908c5a98}{
+\index{EmailAddressValidator@{EmailAddressValidator}!check\_\-email\_\-address@{check\_\-email\_\-address}}
+\index{check\_\-email\_\-address@{check\_\-email\_\-address}!EmailAddressValidator@{EmailAddressValidator}}
+\subsubsection[{check\_\-email\_\-address}]{\setlength{\rightskip}{0pt plus 5cm}check\_\-email\_\-address (
+\begin{DoxyParamCaption}
+\item[{\$}]{ strEmailAddress}
+\end{DoxyParamCaption}
+)}}
+\label{class_email_address_validator_a11a8f25060bdf13ebd328348908c5a98}
+Check email address validity 
+\begin{DoxyParams}{Parameters}
+{\em strEmailAddress} & Email address to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if email is valid, false if not 
+\end{DoxyReturn}
+\hypertarget{class_email_address_validator_a22def614d48f871a76ecffca29160c75}{
+\index{EmailAddressValidator@{EmailAddressValidator}!check\_\-local\_\-portion@{check\_\-local\_\-portion}}
+\index{check\_\-local\_\-portion@{check\_\-local\_\-portion}!EmailAddressValidator@{EmailAddressValidator}}
+\subsubsection[{check\_\-local\_\-portion}]{\setlength{\rightskip}{0pt plus 5cm}check\_\-local\_\-portion (
+\begin{DoxyParamCaption}
+\item[{\$}]{ strLocalPortion}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_email_address_validator_a22def614d48f871a76ecffca29160c75}
+Checks email section before \char`\"{}@\char`\"{} symbol for validity 
+\begin{DoxyParams}{Parameters}
+{\em strLocalPortion} & Text to be checked \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if local portion is valid, false if not 
+\end{DoxyReturn}
+\hypertarget{class_email_address_validator_a2ec24ae7cc62a5e99f43d8fbf5562217}{
+\index{EmailAddressValidator@{EmailAddressValidator}!check\_\-text\_\-length@{check\_\-text\_\-length}}
+\index{check\_\-text\_\-length@{check\_\-text\_\-length}!EmailAddressValidator@{EmailAddressValidator}}
+\subsubsection[{check\_\-text\_\-length}]{\setlength{\rightskip}{0pt plus 5cm}check\_\-text\_\-length (
+\begin{DoxyParamCaption}
+\item[{\$}]{ strText, }
+\item[{\$}]{ intMinimum, }
+\item[{\$}]{ intMaximum}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily  \mbox{[}protected\mbox{]}}}}
+\label{class_email_address_validator_a2ec24ae7cc62a5e99f43d8fbf5562217}
+Check given text length is between defined bounds 
+\begin{DoxyParams}{Parameters}
+{\em strText} & Text to be checked \\
+\hline
+{\em intMinimum} & Minimum acceptable length \\
+\hline
+{\em intMaximum} & Maximum acceptable length \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+True if string is within bounds (inclusive), false if not 
+\end{DoxyReturn}
+
+
+The documentation for this class was generated from the following file:\begin{DoxyCompactItemize}
+\item 
+application/modules/forms/classes/EmailAddressValidator.php\end{DoxyCompactItemize}

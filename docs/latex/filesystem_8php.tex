@@ -1,0 +1,317 @@
+\hypertarget{filesystem_8php}{
+\section{system/functions/filesystem.php File Reference}
+\label{filesystem_8php}\index{system/functions/filesystem.php@{system/functions/filesystem.php}}
+}
+
+
+Functions for common filesystem actions.  
+
+
+\subsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{filesystem_8php_a0ffdf27b838ccffe2a6c3d3f9ea72233}{check\_\-and\_\-remove\_\-file} (\$file, \$dir=UPLOAD\_\-PATH)
+\item 
+\hyperlink{filesystem_8php_adcdbf22e1e95588f963953cf63f37aee}{check\_\-and\_\-remove\_\-files\_\-from\_\-array} (\$files, \$arr, \$dir=UPLOAD\_\-PATH)
+\item 
+\hyperlink{filesystem_8php_a1e2325b8103adf7f2782e46ca35f454e}{constrain\_\-to\_\-fit} (array \$current, array \$constraint)
+\item 
+\hyperlink{filesystem_8php_ac6bc3ce0546ea6da737ace627fe564e8}{constrain\_\-image\_\-to\_\-fit} (\$path, array \$constraints)
+\item 
+\hyperlink{filesystem_8php_a183ca92b18137179f3f033232f6162d5}{chmod\_\-dir} (\$dir, \$subdirs=true, \$perm=0644, \$output=true)
+\item 
+\hyperlink{filesystem_8php_aa55f798f1c0e792aff16e3b9a263a059}{download\_\-link\_\-href} (\$file)
+\item 
+\hyperlink{filesystem_8php_a04f1537a8f746fa170d0fbf8d81fbfd9}{internal\_\-external\_\-link} (\$link, \$prefix=ROOT\_\-URL)
+\item 
+\hyperlink{filesystem_8php_acea4248a073af4582d5069babd4656b2}{redirect} (\$url)
+\item 
+\hypertarget{filesystem_8php_a754ae2465f66842b68b0089648cf9d7c}{
+{\bfseries clean\_\-upload\_\-dir} (\$app)}
+\label{filesystem_8php_a754ae2465f66842b68b0089648cf9d7c}
+
+\item 
+\hyperlink{filesystem_8php_ac5d785c1c0bd45c268085f60ab055447}{remove\_\-file} (\$path)
+\item 
+\hypertarget{filesystem_8php_afaa475e1ae3f97349017a1e639170d3e}{
+{\bfseries register\_\-trashed\_\-files\_\-table} ()}
+\label{filesystem_8php_afaa475e1ae3f97349017a1e639170d3e}
+
+\item 
+\hyperlink{filesystem_8php_a061e6c60eddda2e65bbc5ee58d7af1c1}{save\_\-uploaded\_\-file} (\$key, array \$options=array())
+\item 
+\hyperlink{filesystem_8php_a82c3278468f4ae53cedbace012891a6a}{sanitize\_\-incoming\_\-xml} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Functions for common filesystem actions. 
+
+\subsection{Function Documentation}
+\hypertarget{filesystem_8php_a0ffdf27b838ccffe2a6c3d3f9ea72233}{
+\index{filesystem.php@{filesystem.php}!check\_\-and\_\-remove\_\-file@{check\_\-and\_\-remove\_\-file}}
+\index{check\_\-and\_\-remove\_\-file@{check\_\-and\_\-remove\_\-file}!filesystem.php@{filesystem.php}}
+\subsubsection[{check\_\-and\_\-remove\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}check\_\-and\_\-remove\_\-file (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file, }
+\item[{\$}]{ dir = {\ttfamily UPLOAD\_\-PATH}}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_a0ffdf27b838ccffe2a6c3d3f9ea72233}
+check\_\-and\_\-remove\_\-file If the file exists, remove it from the directory
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$filename} & \\
+\hline
+string & {\em \$directory} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_adcdbf22e1e95588f963953cf63f37aee}{
+\index{filesystem.php@{filesystem.php}!check\_\-and\_\-remove\_\-files\_\-from\_\-array@{check\_\-and\_\-remove\_\-files\_\-from\_\-array}}
+\index{check\_\-and\_\-remove\_\-files\_\-from\_\-array@{check\_\-and\_\-remove\_\-files\_\-from\_\-array}!filesystem.php@{filesystem.php}}
+\subsubsection[{check\_\-and\_\-remove\_\-files\_\-from\_\-array}]{\setlength{\rightskip}{0pt plus 5cm}check\_\-and\_\-remove\_\-files\_\-from\_\-array (
+\begin{DoxyParamCaption}
+\item[{\$}]{ files, }
+\item[{\$}]{ arr, }
+\item[{\$}]{ dir = {\ttfamily UPLOAD\_\-PATH}}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_adcdbf22e1e95588f963953cf63f37aee}
+check\_\-and\_\-remove\_\-files\_\-from\_\-array Given an array of files, will loop through second parameter and if that file exists in \$dir.\$file, will be removed
+
+
+\begin{DoxyParams}[1]{Parameters}
+array & {\em \$index\_\-keys\_\-into\_\-second\_\-param} & \\
+\hline
+array & {\em \$fields} & (such as \$info-\/$>$fields from database call) \\
+\hline
+string & {\em \$directory} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_a183ca92b18137179f3f033232f6162d5}{
+\index{filesystem.php@{filesystem.php}!chmod\_\-dir@{chmod\_\-dir}}
+\index{chmod\_\-dir@{chmod\_\-dir}!filesystem.php@{filesystem.php}}
+\subsubsection[{chmod\_\-dir}]{\setlength{\rightskip}{0pt plus 5cm}chmod\_\-dir (
+\begin{DoxyParamCaption}
+\item[{\$}]{ dir, }
+\item[{\$}]{ subdirs = {\ttfamily true}, }
+\item[{\$}]{ perm = {\ttfamily 0644}, }
+\item[{\$}]{ output = {\ttfamily true}}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_a183ca92b18137179f3f033232f6162d5}
+chmod\_\-dir Will change permissions on specified folder and all contents, including recursively moving through subfolders if specified.
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$directory} & \\
+\hline
+boolean & {\em \$recursive} & \\
+\hline
+octal & {\em \$permissions} & \\
+\hline
+boolean & {\em \$output\_\-to\_\-buffer} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_ac6bc3ce0546ea6da737ace627fe564e8}{
+\index{filesystem.php@{filesystem.php}!constrain\_\-image\_\-to\_\-fit@{constrain\_\-image\_\-to\_\-fit}}
+\index{constrain\_\-image\_\-to\_\-fit@{constrain\_\-image\_\-to\_\-fit}!filesystem.php@{filesystem.php}}
+\subsubsection[{constrain\_\-image\_\-to\_\-fit}]{\setlength{\rightskip}{0pt plus 5cm}constrain\_\-image\_\-to\_\-fit (
+\begin{DoxyParamCaption}
+\item[{\$}]{ path, }
+\item[{array \$}]{ constraints}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_ac6bc3ce0546ea6da737ace627fe564e8}
+constrain\_\-image\_\-to\_\-fit Takes full path to an image file and will return the new dimensions (including resize ratio) after constraining to fit in the bounding box
+
+constrain\_\-to\_\-fit 
+\begin{DoxyExceptions}{Exceptions}
+{\em InvalidArgumentException} & \\
+\hline
+\end{DoxyExceptions}
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$path} & \\
+\hline
+ & {\em array} & (\$width, \$height)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array \$dimensions 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_a1e2325b8103adf7f2782e46ca35f454e}{
+\index{filesystem.php@{filesystem.php}!constrain\_\-to\_\-fit@{constrain\_\-to\_\-fit}}
+\index{constrain\_\-to\_\-fit@{constrain\_\-to\_\-fit}!filesystem.php@{filesystem.php}}
+\subsubsection[{constrain\_\-to\_\-fit}]{\setlength{\rightskip}{0pt plus 5cm}constrain\_\-to\_\-fit (
+\begin{DoxyParamCaption}
+\item[{array \$}]{ current, }
+\item[{array \$}]{ constraint}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_a1e2325b8103adf7f2782e46ca35f454e}
+constrain\_\-to\_\-fit Returns information regarding the ratio \& new width/height after constraining to fit in a certain bounding box
+
+
+\begin{DoxyParams}{Parameters}
+{\em array} & (\$width, \$height) \\
+\hline
+{\em array} & (\$width, \$height)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+array \$dimensions 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_aa55f798f1c0e792aff16e3b9a263a059}{
+\index{filesystem.php@{filesystem.php}!download\_\-link\_\-href@{download\_\-link\_\-href}}
+\index{download\_\-link\_\-href@{download\_\-link\_\-href}!filesystem.php@{filesystem.php}}
+\subsubsection[{download\_\-link\_\-href}]{\setlength{\rightskip}{0pt plus 5cm}download\_\-link\_\-href (
+\begin{DoxyParamCaption}
+\item[{\$}]{ file}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_aa55f798f1c0e792aff16e3b9a263a059}
+download\_\-link\_\-href URL to force a download of this file
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$filename} & (relative to UPLOAD\_\-URL)\\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string \$href 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_a04f1537a8f746fa170d0fbf8d81fbfd9}{
+\index{filesystem.php@{filesystem.php}!internal\_\-external\_\-link@{internal\_\-external\_\-link}}
+\index{internal\_\-external\_\-link@{internal\_\-external\_\-link}!filesystem.php@{filesystem.php}}
+\subsubsection[{internal\_\-external\_\-link}]{\setlength{\rightskip}{0pt plus 5cm}internal\_\-external\_\-link (
+\begin{DoxyParamCaption}
+\item[{\$}]{ link, }
+\item[{\$}]{ prefix = {\ttfamily ROOT\_\-URL}}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_a04f1537a8f746fa170d0fbf8d81fbfd9}
+internal\_\-external\_\-link Returns original if is valid URI, else prepends \$prefix to make full URI
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$href} & \\
+\hline
+string & {\em \$prefix} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+string \$href 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_acea4248a073af4582d5069babd4656b2}{
+\index{filesystem.php@{filesystem.php}!redirect@{redirect}}
+\index{redirect@{redirect}!filesystem.php@{filesystem.php}}
+\subsubsection[{redirect}]{\setlength{\rightskip}{0pt plus 5cm}redirect (
+\begin{DoxyParamCaption}
+\item[{\$}]{ url}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_acea4248a073af4582d5069babd4656b2}
+redirect Issues page redirect request. ENDS SCRIPT EXECUTION
+
+
+\begin{DoxyParams}[1]{Parameters}
+string & {\em \$URL} & \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+void 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_ac5d785c1c0bd45c268085f60ab055447}{
+\index{filesystem.php@{filesystem.php}!remove\_\-file@{remove\_\-file}}
+\index{remove\_\-file@{remove\_\-file}!filesystem.php@{filesystem.php}}
+\subsubsection[{remove\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}remove\_\-file (
+\begin{DoxyParamCaption}
+\item[{\$}]{ path}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_ac5d785c1c0bd45c268085f60ab055447}
+remove\_\-file Marks a file for deletion at a later date (clean\_\-upload\_\-dir function performs deletion)
+
+\begin{DoxyReturn}{Returns}
+int \$database\_\-id 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_a82c3278468f4ae53cedbace012891a6a}{
+\index{filesystem.php@{filesystem.php}!sanitize\_\-incoming\_\-xml@{sanitize\_\-incoming\_\-xml}}
+\index{sanitize\_\-incoming\_\-xml@{sanitize\_\-incoming\_\-xml}!filesystem.php@{filesystem.php}}
+\subsubsection[{sanitize\_\-incoming\_\-xml}]{\setlength{\rightskip}{0pt plus 5cm}sanitize\_\-incoming\_\-xml (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_a82c3278468f4ae53cedbace012891a6a}
+sanitize\_\-incoming\_\-xml Sanitizes incoming XML, stripping out invalid characters. Would be fine if values were wrapped in CDATA tags...
+
+\begin{DoxyReturn}{Returns}
+string \$XML 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
+\hypertarget{filesystem_8php_a061e6c60eddda2e65bbc5ee58d7af1c1}{
+\index{filesystem.php@{filesystem.php}!save\_\-uploaded\_\-file@{save\_\-uploaded\_\-file}}
+\index{save\_\-uploaded\_\-file@{save\_\-uploaded\_\-file}!filesystem.php@{filesystem.php}}
+\subsubsection[{save\_\-uploaded\_\-file}]{\setlength{\rightskip}{0pt plus 5cm}save\_\-uploaded\_\-file (
+\begin{DoxyParamCaption}
+\item[{\$}]{ key, }
+\item[{array \$}]{ options = {\ttfamily array()}}
+\end{DoxyParamCaption}
+)}}
+\label{filesystem_8php_a061e6c60eddda2e65bbc5ee58d7af1c1}
+save\_\-uploaded\_\-file Saves an uploaded file to the specified directory, returns filename
+
+USAGE: try \{ \$filename = save\_\-uploaded\_\-file(\char`\"{}input-\/name\char`\"{}, array(\char`\"{}is\_\-image\char`\"{} =$>$ true, \char`\"{}resize\char`\"{} =$>$ array(\char`\"{}width\char`\"{} =$>$ 100, \char`\"{}height\char`\"{} =$>$ 100))); \} catch (Exception \$e) \{ echo \$e-\/$>$getMessage(); \}
+
+
+\begin{DoxyExceptions}{Exceptions}
+{\em \hyperlink{class_invalid_file_system_path_exception}{InvalidFileSystemPathException}} & \\
+\hline
+\end{DoxyExceptions}
+\begin{DoxyReturn}{Returns}
+(string$|$false) \$filename if success, false if couldn't move file to location 
+\end{DoxyReturn}
+\begin{DoxyAuthor}{Author}
+Matt Brewer 
+\end{DoxyAuthor}
