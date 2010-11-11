@@ -1,5 +1,11 @@
 <?
 
+	/**
+	 * @file system/init.php
+	 * @brief Begins the application initialization process and provides several useful filesystem path constants
+	 * @author Matt Brewer
+	 */
+
 	session_start();	
 	
 	define('DS', DIRECTORY_SEPARATOR);
