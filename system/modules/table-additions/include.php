@@ -1,7 +1,13 @@
 <?
+
+	/**
+	 * @file table-additions/include.php
+	 * @brief Provides several helper functions for creating output for use with TableController
+	 */
 	
 	define('HOOK_TABLE_ADDITIONS_HOVER_CELL_FORMAT', 'hook_table_additions_hover_cell_format');
 	Hooks::define(HOOK_TABLE_ADDITIONS_HOVER_CELL_FORMAT);
+	
 	
 	/**
 	 * table_hover_cell
@@ -15,7 +21,7 @@
 	 **/
 	function table_hover_cell($line, array $hovers=array()) {
 		register_table_additions_script_and_styles();
-		$value = render_view("table-hover-cell.php", dirname(__FILE__) . DIRECTORY_SEPARATOR . 'views' . DIRECTORY_SEPARATOR, compact("line", "hovers"), false);
+		$value = render_view("table-hover-cell.php", dirname(__FILE__) . DS . 'views' . DS, compact("line", "hovers"), false);
 		return Hooks::execute(HOOK_TABLE_ADDITIONS_HOVER_CELL_FORMAT, compact("value", "line", "hovers"));
 	}
 	
@@ -48,8 +54,8 @@
 	function register_table_additions_script_and_styles() {
 		static $registered = false;
 		if ( !$registered ) {
-			enqueue_style(module_url(dirname(__FILE__)) . 'assets' . DIRECTORY_SEPARATOR . 'style.css');
-			enqueue_script(module_url(dirname(__FILE__)) . 'assets' . DIRECTORY_SEPARATOR . 'table-cell-hover.js');
+			enqueue_style(module_url(dirname(__FILE__)) . 'assets' . DS . 'style.css');
+			enqueue_script(module_url(dirname(__FILE__)) . 'assets' . DS . 'table-cell-hover.js');
 		}
 	}
 
