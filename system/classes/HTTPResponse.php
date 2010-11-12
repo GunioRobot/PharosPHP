@@ -1,7 +1,7 @@
 <?
 
 	/**
-	 * Output
+	 * HTTPResponse
 	 * 
 	 * Handles all output related functionality for the Controller class and subclasses
 	 * including caching, javascript, stylesheets, flash data, HTTP headers, meta tags, and more
@@ -10,7 +10,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	class Output extends Object {
+	class HTTPResponse extends Object {
 		
 		const CSS_TYPE_ALL = "all";
 		const CSS_TYPE_PRINT = "print";
@@ -19,11 +19,16 @@
 		const JAVASCRIPT_EXTERNAL = "link_js";
 				
 		/**
-		*
-		*	Layout Information
-		*
-		*/
-		public $layout=null;
+		 * @var string
+		 * Determines the layout to be used to render the response
+		 * The controller can provide a custom layout by setting the layout property on the controller's output object property (without the file extension)
+		 * Alternatively, this method will search for a corresponding file in the application/layouts directory to match the request URL, ie:
+		 * /session/login/ will search for a file first in application/layouts/session-controller.php and if not found, then application/layouts/session-controller-login.php
+		 * The failsafe default layout is application.php
+		 *
+		 */
+		
+		protected $layout=null;
 		
 		/**
 		*
@@ -46,7 +51,7 @@
 		
 		/** 
 		*
-		*	Output from the controller
+		*	HTTPResponse from the controller
 		*
 		*/
 		protected $content = "";
@@ -59,7 +64,7 @@
 		/**
 		 * __constuct
 		 *
-		 * @return Output
+		 * @return HTTPResponse
 		 * @author Matt Brewer
 		 **/
 		
@@ -237,7 +242,7 @@
 		
 		/**
 		 * flash
-		 * Stores a string in the Output objects flash storage, meaning it will be available on the next
+		 * Stores a string in the HTTPResponse objects flash storage, meaning it will be available on the next
 		 * page load, and then will automatically be removed. Very useful for providing alerts to users.
 		 *
 		 * @param string $value 
@@ -365,7 +370,7 @@
 		
 		/**
 		 * cache_enabled
-		 * Determines if caching is enabled for this Output object
+		 * Determines if caching is enabled for this HTTPResponse object
 		 *
 		 * @return boolean $caching_enabled
 		 * @author Matt Brewer
@@ -459,6 +464,68 @@
 			$_SESSION['pharos_flash'] = $to_save;
 			
 		}	
+		
+		
+		/**
+		 * __get
+		 * Magic method for providing public access to protected instance vars
+		 *
+		 * @param string $key
+		 *
+		 * @return mixed $value
+		 * @author Matt Brewer
+		 **/
+		
+		public function __get($key) {
+			switch ($key) {
+				case "layout":
+					
+					if ( !is_null($this->layout) && @file_exists(LAYOUTS_PATH . $this->layout . ".php") ) {
+						return LAYOUTS_PATH . $this->layout . ".php";
+					} else {
+						
+						$layout = strtolower(implode('-', split_camel_case(Router::controller())));
+						$file = strtolower(implode('-', split_camel_case($layout . Router::method() . ".php")));
+
+						if ( @file_exists(LAYOUTS_PATH . $file) ) {
+							return LAYOUTS_PATH . $file;
+						} else if ( @file_exists(LAYOUTS_PATH . $layout . ".php") ) {
+							return LAYOUTS_PATH . $layout . ".php";
+						} else if ( @file_exists(LAYOUTS_PATH . 'application.php') ) {
+							return LAYOUTS_PATH . 'application.php';
+						} else return false;
+						
+					}
+					
+					break;
+					
+				default:
+					return $this->{$key};
+			}
+		}
+		
+		
+		/**
+		 * __set
+		 * Magic method for providing public access to protected instance vars
+		 * 
+		 * @param string $key
+		 * @param mixed $value
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public function __set($key, $value) {
+			switch ($key) {
+				case "layout":
+					$this->{$key} = $value;
+					break;
+				
+				default:
+					throw new ReadOnlyPropertyException($key);
+			}
+		}
 				
 	}
 

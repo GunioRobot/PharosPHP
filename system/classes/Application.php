@@ -40,7 +40,7 @@
 			set_error_handler(array(__CLASS__, 'error_handler'));
 			
 			Loader::load_class('Input');
-			Loader::load_class('Output');
+			Loader::load_class('HTTPResponse');
 			Loader::load_class('Cookie');
 			
 			Loader::load_class('Authentication');
@@ -229,7 +229,7 @@
 						}
 
 						// Simply return cached information it's available
-						if ( Input::server("REQUEST_METHOD") === "GET" && ($cache = Output::cached_content()) !== false ) {
+						if ( Input::server("REQUEST_METHOD") === "GET" && ($cache = HTTPResponse::cached_content()) !== false ) {
 							if ( !empty($cache->headers) ) {
 								foreach($cache->headers as $h) {
 									header($h);

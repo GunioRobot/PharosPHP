@@ -48,7 +48,7 @@
 		
 		
 		/**
-		 * Instance of the Output class for managing caching, views, and resources as the response to the received request
+		 * Instance of the HTTPResponse class for managing caching, views, and resources as the response to the received request
 		 *
 		 * @var Output
 		 */
@@ -81,7 +81,7 @@
 
 			parent::__construct();
 
-			$this->output = new Output();
+			$this->output = new HTTPResponse();
 						
 			$this->title = "";
 			$this->keywords = DEFAULT_KEYWORDS;

@@ -86,7 +86,7 @@
 	 **/
 	function render_view($view, $dir=VIEWS_PATH, array $params=array(), $controller=true) {
 		
-		$output = $controller === true ? Application::controller()->output : new Output();
+		$output = $controller === true ? Application::controller()->output : new HTTPResponse();
 		foreach($params as $key => $value) {
 			$output->set($key, $value);
 		}

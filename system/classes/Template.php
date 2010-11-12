@@ -25,42 +25,10 @@
 		 **/
 		
 		public static function layout() {
-						
-			if ( !is_null(Application::controller()->output->layout) && @file_exists(LAYOUTS_PATH.Application::controller()->output->layout.".php") ) {
-				return LAYOUTS_PATH.Application::controller()->output->layout.".php";
-			} else {
-			
-				$layout = self::_layout_file(Router::controller());
-				$file = self::_layout_file($layout.Router::method().".php");
-
-				if ( @file_exists(LAYOUTS_PATH.$file) ) {
-					return LAYOUTS_PATH.$file;
-				} else if ( @file_exists(LAYOUTS_PATH.$layout.".php") ) {
-					return LAYOUTS_PATH.$layout.".php";
-				} else if ( @file_exists(LAYOUTS_PATH.'application.php') ) {
-					return LAYOUTS_PATH.'application.php';
-				} else return false;
-				
-			}
-			
+			return Application::controller()->output->layout;
 		}
 		
 		
-		/**
-		 * _layout_file
-		 * Determines the layout for the given class
-		 * 
-		 * @param string $class
-		 * @return string $filename
-		 * @author Matt Brewer
-		 **/
-
-		private static function _layout_file($class) {
-			return strtolower(implode('-',split_camel_case($class)));
-		}
-		
-		
-
 		/**
 		 * write_css
 		 * Writes out CSS import lines for all CSS files auto loaded and requested by the controller
@@ -155,7 +123,7 @@
 			$javascript = Application::controller()->output->javascript();		
 			if ( !empty($javascript) ) {
 				foreach($javascript as $js) {
-					if ( $js['type'] == Output::JAVASCRIPT_INCLUDE ) {
+					if ( $js['type'] == HTTPResponse::JAVASCRIPT_INCLUDE ) {
 						$data = $js['data']; 
 						require PUBLIC_PATH.'js/'.$js['path']; 
 					} else {
@@ -335,16 +303,21 @@
 
 			Hooks::execute(Hooks::HOOK_TEMPLATE_PRE_RENDER);
 
-			if ( ($layout = self::layout()) !== false ) {
+			// If a layout is available, render using the layout. Otherwise just use the response from the controller
+			if ( ($layout = Application::controller()->output->layout) !== false ) {
 				require_once $layout;
 			} else {
 				echo Application::controller()->output();
 			}
-
-			Hooks::execute(Hooks::HOOK_TEMPLATE_POST_RENDER);
 			
-			$output = ob_get_clean();
-			if ( Application::controller()->output->cache_enabled() ) Application::controller()->output->cache($output);		// Write the contents of this to the cache
+			// Give module developers a chance to filter the output generated from the controller
+			$output = Hooks::execute(Hooks::HOOK_TEMPLATE_POST_RENDER, array("value" => ob_get_clean()));
+			
+			// Write the contents of this to the cache
+			if ( Application::controller()->output->cache_enabled() ) {
+				Application::controller()->output->cache($output);		
+			}
+			
 			echo $output;
 
 		}
