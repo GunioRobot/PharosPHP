@@ -1,6 +1,22 @@
 <?
 
 	/**
+	 * PharosBaseException
+	 * Provides basic exception additions that all built-in exceptions make use of
+	 *
+	 * @package PharosPHP.Core.Classes.Exceptions
+	 * @author Matt Brewer
+	 **/
+	
+	class PharosBaseException extends Exception {
+		public function __construct($message) {
+			parent::__construct();
+			$this->message = $message;
+		}
+	}
+	
+
+	/**
 	 * CachedFileExpiredException
 	 * Raised when using the Cache and the resource has expired
 	 *
@@ -215,22 +231,6 @@
 	class InvalidKeyPathException extends PharosBaseException {
 		protected $message = "Invalid Key Path Specified";
 	}
-	
-	
-	/**
-	 * PharosBaseException
-	 * Provides basic exception additions that all built-in exceptions make use of
-	 *
-	 * @package PharosPHP.Core.Classes.Exceptions
-	 * @author Matt Brewer
-	 **/
-	
-	class PharosBaseException extends Exception {
-		public function __construct($message) {
-			parent::__construct();
-			$this->message = $message;
-		}
-	} 
 	
 	
 	/**
