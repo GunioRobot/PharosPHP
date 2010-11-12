@@ -244,8 +244,8 @@
 	
 	class ReadOnlyPropertyException extends PharosBaseException {
 		public $property = "";
-		public function __construct($message, $property) {
-			parent::__construct($message);
+		public function __construct($property) {
+			parent::__construct(sprintf("The property [%s] is read-only.", $property));
 			$this->property = $property;
 		}
 	} 
