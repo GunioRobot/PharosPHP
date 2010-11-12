@@ -51,12 +51,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	class ClassNotFoundException extends PharosBaseException {
-		public function __construct($message) {
-			parent::__construct();
-			$this->message = $message;
-		}
-	}
+	class ClassNotFoundException extends PharosBaseException {}
 	
 	
 	
@@ -89,9 +84,10 @@
 
 	class FTPClientConnectionException extends PharosBaseException {
 
+		public $host;
 		public function __construct($host) {
-			parent::__construct();
-			$this->message = "Error connecting to ".$host;
+			parent::__construct(sprintf("Error connecting to [%s]", $host));
+			$this->host = $host;
 		}
 		
 	}
@@ -191,19 +187,7 @@
 		 **/
 
 		public $path = "";
-		
-		
-		/**
-		 * __construct
-		 *
-		 * @return InvalidFileSystemPathException $obj
-		 * @author Matt Brewer
-		 **/
-
-		public function __construct($message) {
-			parent::__construct();
-			$this->message = $message;
-		}
+	
 	}
 	
 	
@@ -260,6 +244,10 @@
 	
 	class ReadOnlyPropertyException extends PharosBaseException {
 		public $property = "";
+		public function __construct($message, $property) {
+			parent::__construct($message);
+			$this->property = $property;
+		}
 	} 
 	
 
