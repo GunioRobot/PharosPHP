@@ -21,9 +21,6 @@
 		private static $modules = array();
 		private static $config = array();
 		
-		private function __construct();
-		private function __clone();
-		
 		
 		/**
 		 * init
