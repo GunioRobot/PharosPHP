@@ -1,10 +1,8 @@
 <?
 
 	/**
-	 * Index
-	 * 
-	 * Handles all incoming requests
-	 *
+	 * @file index.php
+	 * @brief Handles all incoming requests
 	 **/
 	
 	
@@ -17,7 +15,7 @@
 
 	// Full path to the directory enclosing the framework & application
 	if ( !defined("ROOT") ) {
-		define("ROOT", dirname(dirname(dirname(__FILE__)))."/");
+		define("ROOT", dirname(dirname(dirname(__FILE__))) . DIRECTORY_SEPARATOR);
 	}
 	
 	
@@ -47,21 +45,21 @@
 	
 	// Path of the "public" directory
 	if ( !defined("PUBLIC_PATH") ) {
-		define("PUBLIC_PATH", dirname(__FILE__)."/");
+		define("PUBLIC_PATH", dirname(__FILE__) . DIRECTORY_SEPARATOR);
 	}
 	
 	// Core path
 	if ( !defined("SYSTEM_PATH") ) {
-		define("SYSTEM_PATH", PHAROS_CORE_INCLUDE_PATH."system/");
+		define("SYSTEM_PATH", PHAROS_CORE_INCLUDE_PATH . "system" . DIRECTORY_SEPARATOR);
 	}
 	
 	// App Path
 	if ( !defined("APP_PATH") ) {
-		define("APP_PATH", ROOT.APP_DIR."/");
+		define("APP_PATH", ROOT.APP_DIR . DIRECTORY_SEPARATOR);
 	}
 
 	// Begin loading the system
-	require_once SYSTEM_PATH.'init.php';
+	require_once SYSTEM_PATH . 'init.php';
 				
 	// System is initialized, now find & load controller & execute			
 	Application::run();
