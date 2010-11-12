@@ -1,13 +1,23 @@
 <?
 
 	/**
-	 * Write to the default log
+	 * @file nslog/library/functions.php
+	 * @brief Functions for logging activity to database for a log file
 	 *
-	 * @param var_args
+	 * @author Matt Brewer
+	 */
+
+
+	/**
+	 * NSLog
+	 * Write message to the database table
+	 *
+	 * @param va_args
 	 *
 	 * @return void
 	 * @author Matt Brewer
 	 **/
+	
 	function NSLog() {	
 		$args = func_get_args();
 		NSLogv($args);
@@ -15,6 +25,24 @@
 	
 	
 	/**
+	 * NSLogf
+	 * Write message to the default log file
+	 *
+	 * @param va_args
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+	
+	function NSLogf() {
+		global $db;
+		$args = func_get_args();
+		$db->Execute("INSERT INTO `nslog_messages` (`message`, `timestamp`), VALUES('%s', NOW())", sNSLog($args));
+	}
+	
+	
+	/**
+	 * sNSLog
 	 * Returns the formatted string instead of writing out to log file
 	 *
 	 * @param string $format
@@ -23,6 +51,7 @@
 	 * @return void
 	 * @author Matt Brewer
 	 **/
+	
 	function sNSLog($format) {
 		$args = func_get_args();		
 		if ( count($args) >= 1 ) {
@@ -32,21 +61,23 @@
 	
 	
 	/**
-	 * Write to a specified log file
+	 * NSLogvFile
+	 * Write to a specified log file, or to the database
 	 *
-	 * @param string $log_file
+	 * @param mixed $log_file - (string logfile, null to database)
 	 * @param var_args
 	 *
 	 * @return void
 	 * @author Matt Brewer
 	 **/
+	
 	function NSLogvFile($log_file="default.log", $format="") {
 						
 		static $dir = null;
 		if ( is_null($dir) ) {
 			if ( !defined('LOG_PATH') ) {
 				$dir = dirname(__FILE__).'/logs/';
-			}
+			} else $dir = LOG_PATH;
 		}
 		
 		$args = func_get_args();		
@@ -58,68 +89,18 @@
 	
 	
 	/**
+	 * NSLogv
 	 * Similar to NSLog, but takes one array instead of variable list of params
 	 *
 	 * @return void
 	 * @author Matt Brewer
 	 **/
+	
 	function NSLogv($args) {
 		call_user_func_array("NSLogvFile", array_merge(array("default.log"), $args));
 	}
 	
 	
-	/**
-	 * Formats value for logging (expands arrays/objects, etc)
-	 *
-	 * @return void
-	 * @author Matt Brewer
-	 **/	
-	function _formatted_output_from_var($var) {
-			
-		$boo = $var;
-		if ( is_bool($var) ) {
-			$var = $var === true ? "true" : "false";
-		} else if ( is_scalar($var) ) {
-			
-			if ( is_numeric($var) ) {
-				$var = "(".gettype($var).")".$var;
-			} else if ( is_resource($var) ) {
-				$var = gettype($var);
-			} else {
-				$var = strval($var);
-			}
-			
-		} else {
-			ob_start();
-			var_dump($var);
-			$var = ob_get_clean();
-		}
 
-		return $var;
-		
-	}
-	
-	function _parse_format($str) {
-		return str_replace("%@", "%s", $str);
-	}
-	
-	function _log_line($format, $args) {
-
-		preg_match_all("/(%[+-]?[\s0]?[-]?[\.[:digit:]]?[bcdeEufFgGosxX@])/", $format, $params);
-		
-		$params = $params[0];
-		$values = array_values($args);
-		$length = count($params);
-
-		$values = ($length < count($values) && $length >= 0) ? array_slice($values, 0, $length) : $values;
-		foreach($params as $index => $p) {
-			if ( $p == "%@" ) {
-				$values[$index] = _formatted_output_from_var($values[$index]);
-			}
-		}	
-		
-		return vsprintf(date("Y-m-d H:i:s").' -- '._parse_format($format), $values);
-		
-	}
 
 ?>
