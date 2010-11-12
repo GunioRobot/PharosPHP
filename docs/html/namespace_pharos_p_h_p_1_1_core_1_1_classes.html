@@ -75,6 +75,9 @@ Namespaces</h2></td></tr>
 <p>The file contains the core system actions defined in this version of PharosPHP. The <a class="el" href="class_hooks.html">Hooks</a> API allows for developers to easily register custom callback functions to be executed whenever the specified system action occurs.</p>
 <p>For even more flexibility, PharosPHP allows developers to register their own "system action" so that other developers can register callback functions, creating a rich collaborative framework architecture.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
+<p><a class="el" href="class_h_t_t_p_response.html">HTTPResponse</a></p>
+<p>Handles all output related functionality for the <a class="el" href="class_controller.html">Controller</a> class and subclasses including caching, javascript, stylesheets, flash data, HTTP headers, meta tags, and more</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
 <p><a class="el" href="class_input.html">Input</a></p>
 <p>Provides convenient access to the super globals</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
@@ -89,19 +92,16 @@ Namespaces</h2></td></tr>
 <p>This class is initialized and used as part of the <a class="el" href="class_controller.html">Controller</a> class, ie</p>
 <p>public function my_function() { try { $this-&gt;load-&gt;klass("MyClass"); } catch (<a class="el" href="class_class_not_found_exception.html">ClassNotFoundException</a> $e) {} }</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
-<p><a class="el" href="class_modules.html">Modules</a> API</p>
+<p><a class="el" href="namespace_pharos_p_h_p_1_1_core_1_1_modules.html">Modules</a> API</p>
 <p>The modules API allows developers to easily extend core functionality and provide that functionality across applications.</p>
 <p>A module developer should start by subclassing the "Module" class and overriding the documented methods within. Then the application code can explicitly request for the system to load the method at runtime, or the module can be configured to be auto loaded during application init by entering it in the "application.yml" configuration file under "modules -&gt; user"</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
 <p><a class="el" href="class_object.html">Object</a> The base class for most system classes in PharosPHP</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
-<p><a class="el" href="class_output.html">Output</a></p>
-<p>Handles all output related functionality for the <a class="el" href="class_controller.html">Controller</a> class and subclasses including caching, javascript, stylesheets, flash data, HTTP headers, meta tags, and more</p>
-<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
 <p><a class="el" href="class_router.html">Router</a> API</p>
 <p>The <a class="el" href="class_router.html">Router</a> API parses the browsers URL to determine which controller create, which method to call on the controller, and any arguments to be passed to that controller.</p>
 <p>By default, a naming convention is used to determine controller &amp; method. To override the default convention, add custom routing actions to the "application/configuration/application.yml" file under "routes".</p>
-<p>When the site is loaded with no obvious URL structure (index.php), the <a class="el" href="class_router.html">Router</a> API uses the "routes.root" as the controller with the default method of "index()";</p>
+<p>When the site is loaded with no obvious URL structure (<a class="el" href="index_8php.html" title="Handles all incoming requests.">index.php</a>), the <a class="el" href="class_router.html">Router</a> API uses the "routes.root" as the controller with the default method of "index()";</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
 <p><a class="el" href="class_r_s_s.html">RSS</a></p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
@@ -121,7 +121,7 @@ Namespaces</h2></td></tr>
 <p><a class="el" href="class_template.html">Template</a> Contains several useful functions for generating HTML</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Wed Nov 10 2010 14:27:36 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 12 2010 07:09:00 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>
