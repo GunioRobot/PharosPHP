@@ -291,11 +291,13 @@
 			if ( !(error_reporting() & $errno) ) {
 		        return;
 		    }
+		
+			$log = function_exists('NSLog');
 
 			$message = "";
 		    switch ($errno) {
 		   	 	case E_USER_ERROR:
-					NSLog("ERROR: [%d]: '%s' on line %s in file %s.", $errno, $errstr, $errline, $errfile);
+					if ( $log ) NSLog("ERROR: [%d]: '%s' on line %s in file %s.", $errno, $errstr, $errline, $errfile);
 			        $message .= "<b>FATAL ERROR</b> [$errno] $errstr<br />\n";
 			        $message .= "  Fatal error on line $errline in file $errfile";
 			        $message .= ", PHP " . PHP_VERSION . " (" . PHP_OS . ")<br />\n";
@@ -305,20 +307,20 @@
 			        break;
 
 			    case E_USER_WARNING:
-					NSLog("WARNING: [%d]: %s", $errno, $errstr);
+					if ( $log ) NSLog("WARNING: [%d]: %s", $errno, $errstr);
 			        break;
 
 			    case E_USER_NOTICE:
-					NSLog("NOTICE: [%d]: %s", $errno, $errstr);
+					if ( $log ) NSLog("NOTICE: [%d]: %s", $errno, $errstr);
 			        break;
 
 			    default:
-			       	NSLog("UNKNOWN: [%d]: %s", $errno, $errstr);
+			       	if ( $log ) NSLog("UNKNOWN: [%d]: %s", $errno, $errstr);
 			        break;
 		    }
 
 		    // Don't execute PHP internal error handler
-		    return true;
+		    return $log;
 			
 		}
 		
