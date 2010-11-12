@@ -87,7 +87,7 @@
 	
 	function _register_nslog_database() {
 		global $db;
-		$db->Execute("CREATE TABLE  `nslog_messages` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, `message` TEXT NOT NULL, `timestamp` DATETIME NOT NULL) ENGINE = MYISAM ;");
+		$db->Execute("CREATE TABLE IF NOT EXISTS  `nslog_messages` (`id` BIGINT NOT NULL AUTO_INCREMENT PRIMARY KEY, `message` TEXT NOT NULL, `timestamp` DATETIME NOT NULL) ENGINE = MYISAM ;");
 	}
 
 ?>
