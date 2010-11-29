@@ -70,11 +70,6 @@ Namespaces</h2></td></tr>
 <p>$ftp = new <a class="el" href="class_f_t_p_client.html">FTPClient</a>("localhost", $username, $password); $contents = $ftp-&gt;ls(); foreach($contents as $f) { echo $f; }</p>
 <p>$ftp-&gt;disconnect();</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
-<p><a class="el" href="class_hooks.html">Hooks</a> API</p>
-<p>System Actions, aka "Hooks" <a class="el" href="class_hooks.html">Hooks</a> provide the foundation for a flexible framework.</p>
-<p>The file contains the core system actions defined in this version of PharosPHP. The <a class="el" href="class_hooks.html">Hooks</a> API allows for developers to easily register custom callback functions to be executed whenever the specified system action occurs.</p>
-<p>For even more flexibility, PharosPHP allows developers to register their own "system action" so that other developers can register callback functions, creating a rich collaborative framework architecture.</p>
-<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
 <p><a class="el" href="class_h_t_t_p_response.html">HTTPResponse</a></p>
 <p>Handles all output related functionality for the <a class="el" href="class_controller.html">Controller</a> class and subclasses including caching, javascript, stylesheets, flash data, HTTP headers, meta tags, and more</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
@@ -95,6 +90,11 @@ Namespaces</h2></td></tr>
 <p><a class="el" href="namespace_pharos_p_h_p_1_1_core_1_1_modules.html">Modules</a> API</p>
 <p>The modules API allows developers to easily extend core functionality and provide that functionality across applications.</p>
 <p>A module developer should start by subclassing the "Module" class and overriding the documented methods within. Then the application code can explicitly request for the system to load the method at runtime, or the module can be configured to be auto loaded during application init by entering it in the "application.yml" configuration file under "modules -&gt; user"</p>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
+<p><a class="el" href="class_notification_center.html">NotificationCenter</a></p>
+<p>Notification system for application messaging, providing the foundation for a flexible framework.</p>
+<p>The file contains the core system actions defined in this version of PharosPHP. The <a class="el" href="class_notification_center.html">NotificationCenter</a> API allows for developers to easily register custom callback functions to be executed whenever the specified system action occurs.</p>
+<p>For even more flexibility, PharosPHP allows developers to register their own "system action" so that other developers can register callback functions, creating a rich collaborative framework architecture.</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
 <p><a class="el" href="class_object.html">Object</a> The base class for most system classes in PharosPHP</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer</dd></dl>
@@ -121,7 +121,7 @@ Namespaces</h2></td></tr>
 <p><a class="el" href="class_template.html">Template</a> Contains several useful functions for generating HTML</p>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 12 2010 07:09:00 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:56 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

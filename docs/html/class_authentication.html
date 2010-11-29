@@ -31,6 +31,7 @@
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
+<a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
 <a href="#pro-static-attribs">Static Protected Attributes</a>  </div>
@@ -60,6 +61,13 @@ Public Member Functions</h2></td></tr>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#a5ba61361bf0695a285bbaefefc427191">get</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#a46f9c5c93ad36418847b5a62e7204ebb">random_password</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#a611373659e3cbc40a3faae4522a320e5">register_notifications</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pub-attribs"></a>
+Data Fields</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc206ee57d786d56b5df5b751f9059fe"></a><!-- doxytag: member="Authentication::USER_LOGIN_NOTIFICATION" ref="adc206ee57d786d56b5df5b751f9059fe" args="" -->
+const&#160;</td><td class="memItemRight" valign="bottom"><b>USER_LOGIN_NOTIFICATION</b> = &quot;user_login_notification&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ac6028a77c1a6ba8b1e7a4343fa3c4f01"></a><!-- doxytag: member="Authentication::USER_LOGOUT_NOTIFICATION" ref="ac6028a77c1a6ba8b1e7a4343fa3c4f01" args="" -->
+const&#160;</td><td class="memItemRight" valign="bottom"><b>USER_LOGOUT_NOTIFICATION</b> = &quot;user_logout_notification&quot;</td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#a714f7b786f7fa5e2e99ff156710a1dcd">lookup</a> ()</td></tr>
@@ -246,9 +254,28 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$instance</b></td><
 </div>
 <div class="memdoc">
 <p><a class="el" href="class_authentication.html#a46f9c5c93ad36418847b5a62e7204ebb">random_password()</a> Generates a random password</p>
-<p>Hooks::FILTER_PASSWORD_RANDOM_GENERATE</p>
+<p>NotificationCenter::FILTER_PASSWORD_RANDOM_GENERATE</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>string new_password </dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matthew </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a611373659e3cbc40a3faae4522a320e5"></a><!-- doxytag: member="Authentication::register_notifications" ref="a611373659e3cbc40a3faae4522a320e5" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static register_notifications </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>register_notifications Registers the notifications that this class provides</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
 
 </div>
 </div>
@@ -277,7 +304,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$instance</b></td><
 </div>
 <div class="memdoc">
 <p>reset_password($username) Will reset the password to a random password for the specified username Optionally sends reset password email notification to user</p>
-<p>Hooks::FILTER_PASSWORD_RESET_EMAIL_HTML  Hooks::FILTER_PASSWORD_RESET_EMAIL_SUBJECT</p>
+<p>NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_HTML  NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_SUBJECT</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$username</td><td></td></tr>
@@ -320,7 +347,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$instance</b></td><
 <li>system/classes/Authentication.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Fri Nov 12 2010 07:08:59 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:52 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>
