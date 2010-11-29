@@ -8,7 +8,7 @@ environment:
             password: 'db_password'
             name: 'db_name'
             
-    test:
+    testing:
         enabled: false
         database:
             host: localhost
