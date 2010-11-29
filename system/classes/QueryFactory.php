@@ -17,8 +17,9 @@
 if ( class_exists("Settings") ) {
 	global $db;
 	$db = new queryFactory();
-	if ( !$db->connect(Settings::get('application.database.host'), Settings::get('application.database.username'), Settings::get('application.database.password'), Settings::get('application.database.name'), false, false) ) {
-		die("Error connecting to database");
+	$environment = Application::environment();
+	if ( !$db->connect($environment->settings->database->host, $environment->settings->database->username, $environment->settings->database->password, $environment->settings->database->name, false, false) ) {
+		throw new DatabaseConnectionException(sprintf("Error connecting to the database [%s]", $environment->settings->database->name));
 	}
 }
 
