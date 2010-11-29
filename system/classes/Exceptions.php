@@ -89,6 +89,15 @@
 	}  
 	
 	
+	/**
+	 * DatabaseConnectionException
+	 *
+	 * @package PharosPHP.Core.Classes.Exceptions
+	 * @author Matt Brewer
+	 **/
+	
+	class DatabaseConnectionException extends PharosBaseException {} 
+	
 	
 	/**
 	 * FTPClientConnectionException
