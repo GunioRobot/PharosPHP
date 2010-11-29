@@ -23,7 +23,7 @@ PharosPHP is a lightweight Object-Oriented framework aimed at providing common a
 	- Apple Plist (plain text and binary) read/write
 	- TinyMCE
 	- Several more...
-- Extensible module API, allowing developers to interact with PharosPHP core (Hooks API) and even interact with other modules
+- Extensible module API, allowing developers to interact with PharosPHP core (NotificationCenter API) and even interact with other modules
 
 ## Requirements
 
