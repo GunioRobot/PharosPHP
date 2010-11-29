@@ -64,11 +64,11 @@
 			Loader::load_class('Cookie');
 			
 			Loader::load_class('Authentication');
-			Hooks::execute(Hooks::HOOK_AUTHENTICATION_LOADED);
+			NotificationCenter::execute(NotificationCenter::AUTHENTICATION_LOADED_NOTIFICATION);
 			
 			Loader::load_class('Cache');			
 			Cache::init();
-			Hooks::execute(Hooks::HOOK_CACHE_LOADED);
+			NotificationCenter::execute(NotificationCenter::CACHE_LOADED_NOTIFICATION);
 			
 			Loader::load_class('Cron');
 			Loader::load_class('Browser');
@@ -76,7 +76,7 @@
 			Browser::reset();
 			Router::parse();		
 						
-			Hooks::execute(Hooks::HOOK_SYSTEM_SHORT_INIT_COMPLETE);	
+			NotificationCenter::execute(NotificationCenter::SYSTEM_SHORT_INIT_COMPLETE_NOTIFICATION);	
 			
 		}
 		
@@ -88,9 +88,9 @@
 		 * @author Matt Brewer
 		 **/
 		public static function load_modules() {
-			Hooks::execute(Hooks::HOOK_MODULES_PRE_LOADED);
+			NotificationCenter::execute(NotificationCenter::MODULES_PRE_LOADED_NOTIFICATION);
 			Modules::init();
-			Hooks::execute(Hooks::HOOK_MODULES_POST_LOADED);
+			NotificationCenter::execute(NotificationCenter::MODULES_POST_LOADED_NOTIFICATION);
 		}
 		
 		
@@ -115,7 +115,7 @@
 			}
 			
 			// Bootstrap the system
-			Hooks::execute(Hooks::HOOK_APPLICATION_CORE_LOADED);
+			NotificationCenter::execute(NotificationCenter::APPLICATION_CORE_LOADED_NOTIFICATION);
 			
 		}
 		
@@ -132,7 +132,7 @@
 			
 			global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
 
-			Hooks::execute(Hooks::HOOK_SYSTEM_PRE_BOOTSTRAP);
+			NotificationCenter::execute(NotificationCenter::SYSTEM_PRE_BOOTSTRAP_COMPLETE_NOTIFICATION);
 
 			// Set the system timezone
 			date_default_timezone_set(Settings::get("application.system.timezone"));
@@ -143,7 +143,7 @@
 					Language::setLanguage($language);
 					Language::load($language);
 				} 
-				Hooks::execute(Hooks::HOOK_LANGUAGE_API_LOADED);
+				NotificationCenter::execute(NotificationCenter::LANGUAGE_API_LOADED_NOTIFICATION);
 			} catch (InvalidKeyPathException $e) {}
 
 			load_content_types();
@@ -154,7 +154,7 @@
 			$title = $db->Execute("SELECT app_name FROM applications WHERE app_id = '$CURRENT_APP_ID' LIMIT 1");
 			$CURRENT_APP_NAME = format_title($title->fields['app_name']);
 
-			Hooks::execute(Hooks::HOOK_SYSTEM_POST_BOOTSTRAP);
+			NotificationCenter::execute(NotificationCenter::SYSTEM_POST_BOOTSTRAP_NOTIFICATION);
 			
 		}
 		
@@ -197,7 +197,7 @@
 							self::$controller = new $controllerClass();
 						}
 						
-						Hooks::execute(Hooks::HOOK_APPLICATION_CONTROLLER_LOADED, array($controllerClass));	
+						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, array($controllerClass));	
 
 						if ( method_exists(self::$controller, "page") ) {
 							self::$controller->page($page);
@@ -215,7 +215,7 @@
 						require_once APPLICATION_CLASSES_PATH.'ApplicationGenericPageController.php';
 						self::$controller = new ApplicationGenericPageController($page->title);
 						
-						Hooks::execute(Hooks::HOOK_APPLICATION_CONTROLLER_LOADED, array($controllerClass));	
+						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, array($controllerClass));	
 
 						if ( method_exists(self::$controller, "page") ) {
 							self::$controller->page($page);
@@ -241,7 +241,7 @@
 
 						require_once $file;
 						self::$controller = new $controllerClass();
-						Hooks::execute(Hooks::HOOK_APPLICATION_CONTROLLER_LOADED, array($controllerClass));	
+						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, array($controllerClass));	
 
 						// Determine if should process login information or not
 						if ( self::$controller->auth->login_required() && !self::$controller->auth->logged_in() ) {

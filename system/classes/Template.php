@@ -301,7 +301,7 @@
 			
 			ob_start();
 
-			Hooks::execute(Hooks::HOOK_TEMPLATE_PRE_RENDER);
+			NotificationCenter::execute(NotificationCenter::TEMPLATE_PRE_RENDER_NOTIFICATION);
 
 			// If a layout is available, render using the layout. Otherwise just use the response from the controller
 			if ( ($layout = Application::controller()->output->layout) !== false ) {
@@ -311,7 +311,7 @@
 			}
 			
 			// Give module developers a chance to filter the output generated from the controller
-			$output = Hooks::execute(Hooks::HOOK_TEMPLATE_POST_RENDER, array("value" => ob_get_clean()));
+			$output = NotificationCenter::execute(NotificationCenter::TEMPLATE_POST_RENDER_NOTIFICATION, array("value" => ob_get_clean()));
 			
 			// Write the contents of this to the cache
 			if ( Application::controller()->output->cache_enabled() ) {
@@ -485,7 +485,7 @@
 		 * keywords
 		 * Returns the keywords for a response, after filtering
 		 *
-		 * @uses Hooks::FILTER_META_KEYWORDS
+		 * @uses NotificationCenter::FILTER_META_KEYWORDS
 		 *
 		 * @return string $keywords
 		 * @author Matt Brewer
@@ -493,7 +493,7 @@
 
 		public static function keywords() {
 			$value = Application::controller()->keywords;
-			return Hooks::execute(Hooks::FILTER_META_KEYWORDS, compact("value"));
+			return NotificationCenter::execute(NotificationCenter::FILTER_META_KEYWORDS, compact("value"));
 		}
 		
 		
@@ -501,7 +501,7 @@
 		 * description
 		 * Returns the description for a response, after filtering
 		 *
-		 * @uses Hooks::FILTER_META_DESCRIPTION
+		 * @uses NotificationCenter::FILTER_META_DESCRIPTION
 		 *
 		 * @return string $description
 		 * @author Matt Brewer
@@ -509,7 +509,7 @@
 
 		public static function description() {
 			$value = Application::controller()->description;
-			return Hooks::execute(Hooks::FILTER_META_DESCRIPTION, compact("value"));
+			return NotificationCenter::execute(NotificationCenter::FILTER_META_DESCRIPTION, compact("value"));
 		}
 		
 		
@@ -517,7 +517,7 @@
 		 * title
 		 * Returns the page title for a response, after filtering
 		 * 
-		 * @uses Hooks::FILTER_META_TITLE
+		 * @uses NotificationCenter::FILTER_META_TITLE
 		 *
 		 * @return string $title
 		 * @author Matt Brewer
@@ -525,7 +525,7 @@
 		
 		public static function title() {
 			$value = Settings::get('application.system.site.name').TITLE_SEPARATOR.Application::controller()->title;
-			return Hooks::execute(Hooks::FILTER_META_TITLE, compact("value"));
+			return NotificationCenter::execute(NotificationCenter::FILTER_META_TITLE, compact("value"));
 		}
 
 			

@@ -80,7 +80,7 @@
 	 * @param string $s
 	 * @param string $color_for_hyperlink
 	 * 
-	 * @uses Hooks::FILTER_XML_FLASH_CDATA
+	 * @uses NotificationCenter::FILTER_XML_FLASH_CDATA
 	 *
 	 * @return string $filtered
 	 * @author Matt Brewer
@@ -104,7 +104,7 @@
 
 		$value = preg_replace('/<a([^>]*)>([^<]*)<\/a>/i', '<a$1><u><font color="'.$color.'">$2</font></u></a>', $s);
 		
-		return Hooks::execute(Hooks::FILTER_XML_FLASH_CDATA, compact("value", "color"));
+		return NotificationCenter::execute(NotificationCenter::FILTER_XML_FLASH_CDATA, compact("value", "color"));
 		
 	}
 	
@@ -115,7 +115,7 @@
 	 *
 	 * @param string $str
 	 * 
-	 * @uses Hooks::FILTER_XML_FLASH_TLF_FORMAT
+	 * @uses NotificationCenter::FILTER_XML_FLASH_TLF_FORMAT
 	 *
 	 * @return string $filtered
 	 * @author Matt Brewer
@@ -137,7 +137,7 @@
 		$str = str_replace(array("&amp;hellip;", "&hellip;"), "...", $str);
 		$str = str_replace(array("&amp;ndash;", "&ndash;", "&amp;mdash;", "&mdash;"), "-", $str);
 		
-		return Hooks::execute(Hooks::FILTER_XML_FLASH_TLF_FORMAT, array("value" => $str));
+		return NotificationCenter::execute(NotificationCenter::FILTER_XML_FLASH_TLF_FORMAT, array("value" => $str));
 		
 	}
 

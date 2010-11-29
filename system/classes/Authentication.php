@@ -11,8 +11,13 @@
 	 * @author Matt Brewer
 	 *
 	 **/
+	
+	NotificationCenter::register_callback(NotificationCenter::AUTHENTICATION_LOADED_NOTIFICATION, array("Authentication", "register_notifications"));
 
 	final class Authentication extends Object {
+		
+		const USER_LOGIN_NOTIFICATION = "user_login_notification";		// function($user_id) {}
+		const USER_LOGOUT_NOTIFICATION = "user_logout_notification";	// function($user_id) {}
 				
 		protected $logged_in = false;
 		protected $login_required = false;
@@ -90,6 +95,8 @@
 				Cookie::set("pharos_authentication[uid]", $this->user->user_id, $duration);				
 				Cookie::set("pharos_authentication[name]", $this->user->user_first_name." ".$this->user->user_last_name, $duration);
 				define('SECURITY_LVL', $this->user->user_level);
+				
+				NotificationCenter::execute(self::USER_LOGIN_NOTIFICATION, array($this->user->user_id));
 
 				return true;
 				
@@ -110,6 +117,7 @@
 			$this->db->Execute(sprintf("UPDATE users SET last_logout = NOW(), logged_in = 'false' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
 			Cookie::delete("pharos_authentication");
 			$this->logged_in = false;
+			NotificationCenter::execute(self::USER_LOGOUT_NOTIFICATION, array($this->user->user_id));
 		}
 		
 		
@@ -146,8 +154,8 @@
 		 * Will reset the password to a random password for the specified username
 		 * Optionally sends reset password email notification to user
 		 * 
-		 * @uses Hooks::FILTER_PASSWORD_RESET_EMAIL_HTML
-		 * @uses Hooks::FILTER_PASSWORD_RESET_EMAIL_SUBJECT
+		 * @uses NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_HTML
+		 * @uses NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_SUBJECT
 		 *
 		 * @param string $username
 		 * @param bool $send_email
@@ -189,8 +197,8 @@
 HTML;
 				
 					// Run the HTML through a filter
-					$html = Hooks::execute(Hooks::FILTER_PASSWORD_RESET_EMAIL_HTML, array("value" => $html, $new_password));
-					$subject = Hooks::execute(Hooks::FILTER_PASSWORD_RESET_EMAIL_SUBJECT, array("value" => Settings::get('application.system.site.name').': Password Reset'));
+					$html = NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_HTML, array("value" => $html, $new_password));
+					$subject = NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_SUBJECT, array("value" => Settings::get('application.system.site.name').': Password Reset'));
 
 					$mail = new Rmail();
 					$mail->setFrom($from);
@@ -212,7 +220,7 @@ HTML;
 		 * random_password()
 		 * Generates a random password
 		 * 
-		 * @uses Hooks::FILTER_PASSWORD_RANDOM_GENERATE
+		 * @uses NotificationCenter::FILTER_PASSWORD_RANDOM_GENERATE
 		 *
 		 * @return string new_password
 		 * @author Matthew
@@ -220,7 +228,7 @@ HTML;
 		
 		public static function random_password() {
 			$value = substr(md5(time()),0,15);
-			return Hooks::execute(Hooks::FILTER_PASSWORD_RANDOM_GENERATE, compact("value"));
+			return NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RANDOM_GENERATE, compact("value"));
 		}
 		
 		
@@ -263,6 +271,20 @@ HTML;
 				
 			} else return false;
 			
+		}
+		
+		
+		/**
+		 * register_notifications
+		 * Registers the notifications that this class provides
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public static function register_notifications() {
+			NotificationCenter::define(self::USER_LOGIN_NOTIFICATION);
+			NotificationCenter::define(self::USER_LOGOUT_NOTIFICATION);
 		}
 		
 		

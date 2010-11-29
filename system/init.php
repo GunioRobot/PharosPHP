@@ -35,8 +35,8 @@
 	require_once CLASSES_PATH . 'Object.php';
 	require_once CLASSES_PATH . 'String.php';
 	require_once CLASSES_PATH . 'Loader.php';
-	Loader::load_class('Hooks');
-	Hooks::init();
+	Loader::load_class('NotificationCenter');
+	NotificationCenter::init();
 	
 	
 	// Load in the next set of classes
@@ -75,6 +75,6 @@
 	
 	
 	// Call any attached actions after the core has been loaded & begin the boostrap process
-	Hooks::execute(Hooks::HOOK_CORE_CLASSES_LOADED);
+	NotificationCenter::execute(NotificationCenter::CORE_CLASSES_LOADED_NOTIFICATION);
 		
 ?>

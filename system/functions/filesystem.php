@@ -203,7 +203,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	Hooks::register_callback(Hooks::HOOK_APPLICATION_PUBLISH, 'clean_upload_dir');
+	NotificationCenter::register_callback(NotificationCenter::APPLICATION_PUBLISH_NOTIFICATION, 'clean_upload_dir');
 	function clean_upload_dir($app) {
 	
 		global $db;
@@ -249,7 +249,7 @@
 	 * @author Matt Brewer
 	 **/
 
-	Hooks::register_callback(Hooks::HOOK_CORE_CLASSES_LOADED, 'register_trashed_files_table');
+	NotificationCenter::register_callback(NotificationCenter::CORE_CLASSES_LOADED_NOTIFICATION, 'register_trashed_files_table');
 	function register_trashed_files_table() {
 		
 		global $db;

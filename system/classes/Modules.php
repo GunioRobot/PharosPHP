@@ -85,14 +85,14 @@
 
 					include $file;					
 					self::$modules[$name] = $file;
-					Hooks::execute(Hooks::HOOK_MODULE_LOADED, array($name));
+					NotificationCenter::execute(NotificationCenter::MODULE_LOADED_NOTIFICATION, array($name));
 
 				} else if ( @file_exists(MODULES_PATH.$name) && is_dir(MODULES_PATH.$name) && @file_exists(MODULES_PATH.$name.'/include.php') ) {
 					
 					$file = MODULES_PATH.$name.'/include.php';
 					include $file;
 					self::$modules[$name] = $file;
-					Hooks::execute(Hooks::HOOK_MODULE_LOADED, array($name));
+					NotificationCenter::execute(NotificationCenter::MODULE_LOADED_NOTIFICATION, array($name));
 				
 				} else {
 					throw new Exception("Error loading module ($name).  File did not exist.");

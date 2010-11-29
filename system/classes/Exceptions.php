@@ -217,15 +217,15 @@
 	
 	
 	/**
-	 * InvalidHookException
-	 * Raised when using the Hooks API and providing an invalid hook name (one that has not been registered)
+	 * InvalidNotificationException
+	 * Raised when using the NotificationCenter and providing an invalid hook name (one that has not been registered)
 	 *
 	 * @package PharosPHP.Core.Classes.Exceptions
 	 * @author Matt Brewer
 	 **/
 	
-	class InvalidHookException extends PharosBaseException {
-		protected $message = "Invalid Hook Specified";
+	class InvalidNotificationException extends PharosBaseException {
+		protected $message = "Invalid Notification Specified";
 	}
 	
 	

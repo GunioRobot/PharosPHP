@@ -23,7 +23,7 @@
 		/**
 		 * Title for the controller, used in Template::title()
 		 *
-		 * @uses Hooks::FILTER_META_TITLE
+		 * @uses NotificationCenter::FILTER_META_TITLE
 		 * @var string
 		 */		
 		public $title;
@@ -32,7 +32,7 @@
 		/**
 		 * Keywords for the controller, used in Template::keywords()
 		 *
-		 * @uses Hooks::FILTER_META_KEYWORDS
+		 * @uses NotificationCenter::FILTER_META_KEYWORDS
 		 * @var string
 		 */
 		public $keywords;
@@ -41,7 +41,7 @@
 		/**
 		 * Description or the controller, used in Template::description()
 		 *
-		 * @uses Hooks::FILTER_META_DESCRIPTION
+		 * @uses NotificationCenter::FILTER_META_DESCRIPTION
 		 * @var string
 		 */
 		public $description;
