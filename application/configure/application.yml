@@ -1,9 +1,29 @@
-database:
-    host: localhost
-    username: 'db_username'
-    password: 'db_password'
-    name: 'db_name'
+environment:
     
+    development:
+        enabled: true
+        database:
+            host: localhost
+            username: 'db_username'
+            password: 'db_password'
+            name: 'db_name'
+            
+    test:
+        enabled: false
+        database:
+            host: localhost
+            username: 'db_username'
+            password: 'db_password'
+            name: 'db_name'
+            
+    production:
+        enabled: false
+        database:
+            host: localhost
+            username: 'db_username'
+            password: 'db_password'
+            name: 'db_name'
+            
 filesystem:
 
     
