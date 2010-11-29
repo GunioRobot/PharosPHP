@@ -242,7 +242,7 @@
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);
 				
-				Hooks::execute(Hooks::HOOK_APPLICATION_DELETED, array($id));
+				NotificationCenter::execute(NotificationCenter::APPLICATION_DELETED_NOTIFICATION, array($id));
 				
 				select_app(DEFAULT_APP_ID);
 				
@@ -282,14 +282,14 @@
 				$newVersion = floatval($app->fields['xml_version']) + 0.1;
 				$app->fields['xml_version'] = $newVersion;
 
-				$status = Hooks::execute(Hooks::HOOK_APPLICATION_CREATE_XML, array(clean_object($app->fields)));
+				$status = NotificationCenter::execute(NotificationCenter::APPLICATION_CREATE_XML_NOTIFICATION, array(clean_object($app->fields)));
 				if ( !$status->error ) {
 
 					// Place new version in the db
 					$sql = "UPDATE applications SET xml_version = '$newVersion', previous_publish_timestamp = current_publish_timestamp, current_publish_timestamp = NOW() WHERE app_id = '$id' LIMIT 1";
 					$this->db->Execute($sql);
 					
-					Hooks::execute(Hooks::HOOK_APPLICATION_PUBLISH, array($id));
+					NotificationCenter::execute(NotificationCenter::APPLICATION_PUBLISH_NOTIFICATION, array($id));
 					
 					// SHOW SUCCESS PAGE
 					die(json_encode((object)array("error" => false, "title" => "Published Successfully", "message" => $status->message)));

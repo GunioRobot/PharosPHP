@@ -1,5 +1,4 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<!--<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">-->
 <html>
 <head>
 	<title><?=Template::title()?></title>
@@ -8,23 +7,6 @@
 	<meta name="description" content="<?=Template::description()?>" />
 	<meta name="author" content="Matt Brewer" />
 
-	<? Hooks::execute(Hooks::HOOK_TEMPLATE_HEADER); ?>
-	
-	<!--[if IE 6]>
+	<? NotificationCenter::execute(NotificationCenter::TEMPLATE_HEADER_NOTIFICATION); ?>
 		
-		<script type="text/javascript" src="<?=PUBLIC_URL.'js/'?>pngfix.js"></script>
-		<script type="text/javascript">
-			DD_belatedPNG.fix('img, a.ordered-down, a.ordered-up, #pointer, #iphone, #site, ul.iphone-list li');
-		</script>
-		
-		<style type="text/css">
-		
-			#nav {
-				top:24px;
-			}
-				
-		</style>
-				
-	<![endif]-->
-	
 </head>

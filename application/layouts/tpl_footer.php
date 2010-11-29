@@ -13,7 +13,7 @@
 	
 	<? if ( SHOW_PROFILER_RESULTS ) {global $profiler; $profiler->display($db);} ?>
 	
-	<? Hooks::execute(Hooks::HOOK_TEMPLATE_FOOTER) ?>
+	<? NotificationCenter::execute(NotificationCenter::TEMPLATE_FOOTER_NOTIFICATION) ?>
 
 	</body>
 </html>
