@@ -27,6 +27,26 @@
 		
 		
 		/**
+		 * environment
+		 * Retrieves the settings for the active environment
+		 *
+		 * @return stdClass $settings
+		 * @author Matt Brewer
+		 **/
+		
+		public static function environment() {
+			foreach(array("development", "testing", "production") as $env) {
+				if ( ($settings = Settings::get(sprintf("application.environment.%s.enabled", $env))) === true ) {
+					$ret = new stdClass;
+					$ret->env = $env;
+					$ret->settings = clean_object($settings);
+					return $ret;
+				}
+			}
+		}
+		
+		
+		/**
 		 * pre_bootstrap
 		 * Loads the minimal amount of classes needed to run, without i18n support
 		 *
@@ -35,9 +55,6 @@
 		 **/
 
 		public static function pre_bootstrap() {
-			
-			set_exception_handler(array(__CLASS__, 'exception_handler'));
-			set_error_handler(array(__CLASS__, 'error_handler'));
 			
 			Loader::load_class('Input');
 			Loader::load_class('HTTPResponse');
