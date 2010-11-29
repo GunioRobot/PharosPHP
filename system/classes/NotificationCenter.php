@@ -134,17 +134,16 @@
 		 *
 		 * @param string $notification
 		 * @param callback $callback
-		 * @param array $params
 		 * @param int $priority
+		 * @param ... va_args
 		 *
 		 * @return boolean $success
 		 * @author Matt Brewer
 		 **/
 
-		public static function register_callback($notification, $callback, array $params=array(), $priority=1) {
+		public static function register_callback($notification, $callback, $priority=1) {
 			
 			if ( (is_array($callback) && count($callback) != 2) || $callback == "" ) return false;
-						
 			if ( self::_valid_hook($notification) ) {
 				
 				// Attach multiple functions to one system action
@@ -153,6 +152,7 @@
 					$functions = array();
 				}
 				
+				$params = array_slice(func_get_args(), 2);
 				$functions[$priority][self::_serialize($callback)] = (object)compact("callback", "params");
 				
 				return true;
@@ -172,31 +172,40 @@
 		 * @throws InvalidHookException
 		 *
 		 * @param string $notification
-		 * @param array $params
+		 * @param ... va_args
 		 *
 		 * @return mixed $function_return_value
 		 * @author Matt Brewer
 		 **/
 		
-		public static function execute($notification, $params=array()) {
+		public static function execute($notification) {
 
+			$params = array_slice(func_get_args(), 1);
+			$value = "__ignore__";
+			
 			if ( self::_valid_hook($notification) ) {
 
 				// Call all functions associated with this task
 				$priorities = self::$hooks[$notification];
 				if ( is_array($priorities) ) {
-										
-					foreach($priorities as $functions) {
+																				
+					foreach($priorities as $priority => $functions) {		
 						
 						if ( is_array($functions) ) {
 
 							foreach($functions as $obj) {
 								
+								if ( $value !== "__ignore__" ) {
+									$args = array_merge(array($value), $obj->params, $params);
+								} else {
+									$args = array_merge($obj->params, $params);
+								}
+								
 								if ( count($obj->callback) == 2 ) {			// Static or instance method on a class/object
-									$params['value'] = call_user_func_array($obj->callback, $params + $obj->params);
+									$value = call_user_func_array($obj->callback, $args);
 								} else if ( count($obj->callback) == 1 ) {	// Function
 									if ( function_exists($obj->callback) ) {
-										$params['value'] = call_user_func_array($obj->callback, $params + $obj->params);
+										$value = call_user_func_array($obj->callback, $args);
 									} else throw new InvalidHookException(sprintf("NotificationCenter::execute(%s): skipping function (%s) - undefined.", $notification, $obj->callback));
 								}
 
@@ -209,7 +218,7 @@
 				}
 				
 				
-				return isset($params['value']) ? $params['value'] : reset($params);
+				return isset($value) ? $value : reset($params);
 
 			} else throw new InvalidHookException(sprintf("NotificationCenter::execute(%s). Hook was undefined.", $notification));
 

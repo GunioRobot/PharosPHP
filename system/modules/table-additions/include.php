@@ -22,7 +22,7 @@
 	function table_hover_cell($line, array $hovers=array()) {
 		register_table_additions_script_and_styles();
 		$value = render_view("table-hover-cell.php", dirname(__FILE__) . DS . 'views' . DS, compact("line", "hovers"), false);
-		return NotificationCenter::execute(HOOK_TABLE_ADDITIONS_HOVER_CELL_FORMAT, compact("value", "line", "hovers"));
+		return NotificationCenter::execute(HOOK_TABLE_ADDITIONS_HOVER_CELL_FORMAT, $value, $line, $hovers);
 	}
 	
 	

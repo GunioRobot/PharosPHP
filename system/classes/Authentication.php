@@ -96,7 +96,7 @@
 				Cookie::set("pharos_authentication[name]", $this->user->user_first_name." ".$this->user->user_last_name, $duration);
 				define('SECURITY_LVL', $this->user->user_level);
 				
-				NotificationCenter::execute(self::USER_LOGIN_NOTIFICATION, array($this->user->user_id));
+				NotificationCenter::execute(self::USER_LOGIN_NOTIFICATION, $this->user->user_id);
 
 				return true;
 				
@@ -197,8 +197,8 @@
 HTML;
 				
 					// Run the HTML through a filter
-					$html = NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_HTML, array("value" => $html, $new_password));
-					$subject = NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_SUBJECT, array("value" => Settings::get('application.system.site.name').': Password Reset'));
+					$html = NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_HTML, $html, $new_password);
+					$subject = NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RESET_EMAIL_SUBJECT, Settings::get('application.system.site.name').': Password Reset');
 
 					$mail = new Rmail();
 					$mail->setFrom($from);
@@ -228,7 +228,7 @@ HTML;
 		
 		public static function random_password() {
 			$value = substr(md5(time()),0,15);
-			return NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RANDOM_GENERATE, compact("value"));
+			return NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RANDOM_GENERATE, $value);
 		}
 		
 		

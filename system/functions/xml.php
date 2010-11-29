@@ -104,7 +104,7 @@
 
 		$value = preg_replace('/<a([^>]*)>([^<]*)<\/a>/i', '<a$1><u><font color="'.$color.'">$2</font></u></a>', $s);
 		
-		return NotificationCenter::execute(NotificationCenter::FILTER_XML_FLASH_CDATA, compact("value", "color"));
+		return NotificationCenter::execute(NotificationCenter::FILTER_XML_FLASH_CDATA, $value, $color);
 		
 	}
 	
@@ -137,7 +137,7 @@
 		$str = str_replace(array("&amp;hellip;", "&hellip;"), "...", $str);
 		$str = str_replace(array("&amp;ndash;", "&ndash;", "&amp;mdash;", "&mdash;"), "-", $str);
 		
-		return NotificationCenter::execute(NotificationCenter::FILTER_XML_FLASH_TLF_FORMAT, array("value" => $str));
+		return NotificationCenter::execute(NotificationCenter::FILTER_XML_FLASH_TLF_FORMAT, $str);
 		
 	}
 

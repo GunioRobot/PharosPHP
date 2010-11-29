@@ -311,7 +311,7 @@
 			}
 			
 			// Give module developers a chance to filter the output generated from the controller
-			$output = NotificationCenter::execute(NotificationCenter::TEMPLATE_POST_RENDER_NOTIFICATION, array("value" => ob_get_clean()));
+			$output = NotificationCenter::execute(NotificationCenter::TEMPLATE_POST_RENDER_NOTIFICATION, ob_get_clean());
 			
 			// Write the contents of this to the cache
 			if ( Application::controller()->output->cache_enabled() ) {
@@ -493,7 +493,7 @@
 
 		public static function keywords() {
 			$value = Application::controller()->keywords;
-			return NotificationCenter::execute(NotificationCenter::FILTER_META_KEYWORDS, compact("value"));
+			return NotificationCenter::execute(NotificationCenter::FILTER_META_KEYWORDS, $value);
 		}
 		
 		
@@ -509,7 +509,7 @@
 
 		public static function description() {
 			$value = Application::controller()->description;
-			return NotificationCenter::execute(NotificationCenter::FILTER_META_DESCRIPTION, compact("value"));
+			return NotificationCenter::execute(NotificationCenter::FILTER_META_DESCRIPTION, $value);
 		}
 		
 		
@@ -525,7 +525,7 @@
 		
 		public static function title() {
 			$value = Settings::get('application.system.site.name').TITLE_SEPARATOR.Application::controller()->title;
-			return NotificationCenter::execute(NotificationCenter::FILTER_META_TITLE, compact("value"));
+			return NotificationCenter::execute(NotificationCenter::FILTER_META_TITLE, $value);
 		}
 
 			

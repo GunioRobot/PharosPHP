@@ -197,7 +197,7 @@
 							self::$controller = new $controllerClass();
 						}
 						
-						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, array($controllerClass));	
+						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, $controllerClass);	
 
 						if ( method_exists(self::$controller, "page") ) {
 							self::$controller->page($page);
@@ -215,7 +215,7 @@
 						require_once APPLICATION_CLASSES_PATH.'ApplicationGenericPageController.php';
 						self::$controller = new ApplicationGenericPageController($page->title);
 						
-						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, array($controllerClass));	
+						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, $controllerClass);	
 
 						if ( method_exists(self::$controller, "page") ) {
 							self::$controller->page($page);
@@ -241,7 +241,7 @@
 
 						require_once $file;
 						self::$controller = new $controllerClass();
-						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, array($controllerClass));	
+						NotificationCenter::execute(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, $controllerClass);	
 
 						// Determine if should process login information or not
 						if ( self::$controller->auth->login_required() && !self::$controller->auth->logged_in() ) {
