@@ -35,64 +35,37 @@
 				
 		return $where;
 	}
-	
-
-	/**
-	 * formatFields
-	 * Used for a call in array_walk to format an array
-	 *
-	 * @return void
-	 * @author Matt Brewer
-	 **/
-
-	function formatFields(&$item, $key) {
-		if ( is_string($item) ) {
-			
-			if ( $key == "date_added" || $key == "last_updated" || $key == "publish_date" ) {
-				try {
-					$d = new DateTime($item);
-					$item = $d->format('U');
-				} catch (Exception $e) {
-					$item = html_entity_decode(stripslashes($item));
-				}
-				
-			} else {
-				$item = html_entity_decode(stripslashes($item));
-			}
-			
-		}
-	}
 
 
 	/**
 	 * clean_object
 	 * Formats array fields, returns as object (stdClass)
-	 *
-	 * @uses formatFields
-	 *
+	 *	 *
 	 * @return stdClass $obj
 	 * @author Matt Brewer
 	 **/
 
-	function clean_object($obj) {		
-		array_walk($obj, "formatFields");		
-		return (object)$obj;
-	}
-	
-	
-	/**
-	 * clean_array
-	 * Formats array fields
-	 *
-	 * @uses formatFields
-	 * 
-	 * @return array $arr
-	 * @author Matt Brewer
-	 **/
+	function clean_object(array $obj) {		
+		foreach($obj as $key => &$value) {
+			if ( is_string($value) ) {
 
-	function clean_array($obj) {
-		array_walk($obj, "formatFields");
-		return $obj;
+				if ( $key == "date_added" || $key == "last_updated" || $key == "publish_date" ) {
+					try {
+						$d = new DateTime($value);
+						$value = $d->format('U');
+					} catch (Exception $e) {
+						$value = html_entity_decode(stripslashes($value));
+					}
+
+				} else {
+					$value = html_entity_decode(stripslashes($value));
+				}
+
+			} else if ( is_array($value) ) {
+				$value = clean_object($value);
+			}
+		}
+		return (object)$obj;
 	}
 	
 	

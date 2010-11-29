@@ -39,7 +39,7 @@
 				if ( ($settings = Settings::get(sprintf("application.environment.%s.enabled", $env))) === true ) {
 					$ret = new stdClass;
 					$ret->env = $env;
-					$ret->settings = clean_object($settings);
+					$ret->settings = clean_object(Settings::get(sprintf("application.environment.%s", $env)));
 					return $ret;
 				}
 			}
@@ -55,6 +55,9 @@
 		 **/
 
 		public static function pre_bootstrap() {
+			
+			set_exception_handler(array(__CLASS__, 'exception_handler'));
+			set_error_handler(array(__CLASS__, 'error_handler'));
 			
 			Loader::load_class('Input');
 			Loader::load_class('HTTPResponse');
