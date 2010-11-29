@@ -56,6 +56,12 @@
 	}
 	
 	
+	// Load in the Application class & register error/exception handlers
+	Loader::load_class('Application');
+	set_exception_handler(array("Application", 'exception_handler'));
+	set_error_handler(array("Application", 'error_handler'));
+	
+	
 	// Load in the remaining classes that offer additional functionality
 	Loader::load_class('Language');
 	Loader::load_class('Router');
@@ -66,7 +72,6 @@
 	Loader::load_class('ApplicationGenericPageController');
 	Loader::load_class('TableController');
 	Loader::load_class('Modules');
-	Loader::load_class('Application');
 	
 	
 	// Call any attached actions after the core has been loaded & begin the boostrap process
