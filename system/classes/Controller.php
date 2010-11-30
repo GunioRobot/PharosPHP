@@ -101,13 +101,15 @@
 		 *
 		 * @param string $class
 		 * @param string $method
+		 * @param array $params
+		 * 
 		 * @throws ControllerActionNotFoundException
 		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
 		
-		public function __missingControllerAction($class, $method) {
+		public function __missingControllerAction($class, $method, array $params=array()) {
 			throw new ControllerActionNotFoundException($class, $method);
 		}
 		
