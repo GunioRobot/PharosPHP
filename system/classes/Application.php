@@ -42,6 +42,7 @@
 						$environment = new stdClass;
 						$environment->env = $env;
 						$environment->settings = clean_object(Settings::get(sprintf("application.environment.%s", $env)));
+						break;
 					}
 				}
 			} 
