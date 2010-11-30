@@ -126,7 +126,7 @@
 			$this->buildData($sql);
 
 			$view =  '<div class="titleTabs">
-		            <h1 id="page_title">'.$this->type.' Library</strong></h1>
+		            <h1 id="page_title"><strong>'.$this->type.' Library</strong></h1>
 		            <form id="'.$this->table->id.'_form" action="'.$this->table->basic_a."$orderField/$orderVal/$page/".'" method="post">
 		            <div class="contentTabCap"></div><div class="contentTab"><input id="search" name="search" value="'.$this->table->search.'"/><a href="#" onClick="$('."'".'#'.$this->table->id.'_form'."'".').submit();" class="inputPress">Search</a></div>';
 
