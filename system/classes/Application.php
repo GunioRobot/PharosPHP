@@ -35,14 +35,17 @@
 		 **/
 		
 		public static function environment() {
-			foreach(array("development", "testing", "production") as $env) {
-				if ( ($settings = Settings::get(sprintf("application.environment.%s.enabled", $env))) === true ) {
-					$ret = new stdClass;
-					$ret->env = $env;
-					$ret->settings = clean_object(Settings::get(sprintf("application.environment.%s", $env)));
-					return $ret;
+			static $environment = null;
+			if ( is_null($environment) ) {
+				foreach(array("development", "testing", "production") as $env) {
+					if ( ($settings = Settings::get(sprintf("application.environment.%s.enabled", $env))) === true ) {
+						$environment = new stdClass;
+						$environment->env = $env;
+						$environment->settings = clean_object(Settings::get(sprintf("application.environment.%s", $env)));
+					}
 				}
-			}
+			} 
+			return $environment;
 		}
 		
 		
@@ -143,7 +146,7 @@
 					Language::setLanguage($language);
 					Language::load($language);
 				} 
-				NotificationCenter::execute(NotificationCenter::LANGUAGE_API_LOADED_NOTIFICATION);
+				NotificationCenter::execute(NotificationCenter::LANGUAGE_API_LOADED_NOTIFICATION, $language);
 			} catch (InvalidKeyPathException $e) {}
 
 			load_content_types();
