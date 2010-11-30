@@ -7,7 +7,16 @@
 	 * @author Matt Brewer
 	 **/
 	
+	NotificationCenter::register_callback(NotificationCenter::APPLICATION_CORE_LOADED_NOTIFICATION, array("UsersController", "register_notifications"));
 	class UsersController extends TableController {
+		
+		const USER_CREATED_NOTIFICATION = "user_created_notification";	// function($user_id) {}
+		const USER_DELETED_NOTIFICATION = "user_deleted_notification";	// function($user_id) {}
+		
+		public static function register_notifications() {
+			NotificationCenter::define(self::USER_CREATED_NOTIFICATION);
+			NotificationCenter::define(self::USER_DELETED_NOTIFICATION);
+		}
 		
 		
 		//////////////////////////////////////////////////////////////////
@@ -223,6 +232,8 @@
 			
 			if ( ($confirmed = Input::post("confirmed")) === "true" ) {
 				
+				NotificationCenter::execute(self::USER_DELETED_NOTIFICATION, $id);
+				
 				// Delete tracking information
 				$sql = "DELETE FROM tracking WHERE content_type_id = '".(int)USER_TYPE_ID."' AND table_index = '".(int)$id."'";
 				$this->db->Execute($sql);
@@ -248,6 +259,15 @@
 				
 			}
 			
+		}
+		
+		public function save($id=0) {
+			$created = $id == 0;
+			$id = process_profile($id);
+			if ( $created ) {
+				NotificationCenter::execute(self::USER_CREATED_NOTIFICATION, $id);
+			}
+			redirect(Template::controller_link(get_class($this), sprintf("edit/%d/true/", $id)));
 		}
 		
 	}
