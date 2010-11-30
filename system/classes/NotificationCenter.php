@@ -217,8 +217,7 @@
 					
 				}
 				
-				
-				return isset($value) ? $value : reset($params);
+				return $value !== "__ignore__" ? $value : reset($params);
 
 			} else throw new InvalidHookException(sprintf("NotificationCenter::execute(%s). Hook was undefined.", $notification));
 
