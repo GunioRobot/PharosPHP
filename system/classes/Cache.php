@@ -44,7 +44,7 @@
 			self::$initialized = true;
 			
 			try {
-				self::set_enabled(Settings::get("application.system.cache"));
+				self::set_enabled(Application::environment()->settings->cache);
 			} catch(CacheNotWritableException $e) {
 				if ( class_exists("Console") ) Console::log($e->getMessage());
 			}
