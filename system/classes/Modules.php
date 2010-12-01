@@ -54,9 +54,9 @@
 		
 		/**
 		 * load
-		 * Modules::load($name) loads a module into the system
+		 * Loads a module into the system
 		 * 
-		 * @throws Exception - if loading a module failed
+		 * @throws ModuleNotFoundException
 		 * 
 		 * @param mixed $module_name (array of module names, or just one module name)
 		 *
@@ -65,15 +65,10 @@
 		 **/
 
 		public static function load($name) {
-			
-			if ( is_array($name) ) {
-				foreach($name as $n) {
-					self::_load($n);
-				}
-			} else {
-				self::_load($name);
+			if ( !is_array($name) ) $name = array($name);
+			foreach($name as $n) {
+				self::_load($n);
 			}
-		
 		}
 		
 	
@@ -82,7 +77,7 @@
 		 * _load
 		 * Protected method that actually performs the loading, calling the appropriate system hooks as it executes
 		 *
-		 * @throws Exception - if loading a module failed
+		 * @throws ModuleNotFoundException
 		 *
 		 * @param string $module_name
 		 *
@@ -111,7 +106,7 @@
 					NotificationCenter::execute(NotificationCenter::MODULE_LOADED_NOTIFICATION, $name);
 				
 				} else {
-					throw new Exception("Error loading module ($name).  File did not exist.");
+					throw new ModuleNotFoundException("Error loading module ($name).  File did not exist.");
 				}
 
 			}
