@@ -20,10 +20,11 @@
 				
 		/**
 		 * module
+		 * Attempts to load the requested module. Module placed in application/ has priority over module placed in system/
 		 *
 		 * @param mixed $module_name (array of module names, or just one module name)
 		 *
-		 * @throws Exception - if module failed to load
+		 * @throws ModuleNotFoundException
 		 *
 		 * @return void
 		 * @author Matt Brewer
@@ -36,10 +37,11 @@
 		
 		/**
 		 * klass
+		 * Attempts to load a class, first from the application directory, then looking inside the system directory
 		 *
 		 * @param string $class_name
 		 *
-		 * @throws ClassNotFoundException();
+		 * @throws ClassNotFoundException
 		 * 
 		 * @return void
 		 * @author Matt Brewer
@@ -52,6 +54,7 @@
 		
 		/**
 		 * load_class
+		 * Attempts to load a class, first from the application directory, then looking inside the system directory
 		 *
 		 * @param (array|string) $class_name
 		 *
@@ -75,6 +78,7 @@
 		
 		/**
 		 * _load_class
+		 * Class loader
 		 *
 		 * @param string $class_name
 		 *
@@ -134,6 +138,7 @@
 		
 		/**
 		 * config
+		 * Loads a specified config file from inside application/configuration
 		 *
 		 * @param string $filename
 		 *
