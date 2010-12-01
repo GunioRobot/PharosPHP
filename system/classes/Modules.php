@@ -31,8 +31,24 @@
 		 **/
 
 		public static function init() {
+			
+			NotificationCenter::execute(NotificationCenter::MODULES_PRE_LOADED_NOTIFICATION);
+			
 			self::$config = Settings::get("application.modules");
-			self::load_automatic_modules();
+			foreach(self::$config['autoload'] as $m) {
+				try {
+					self::load($m);
+				} catch (Exception $e) {
+					if ( class_exists("Console") ) {
+						Console::log($e->getMessage());
+					} else {
+						echo $e->getMessage();
+					}
+				}
+			}
+			
+			NotificationCenter::execute(NotificationCenter::MODULES_POST_LOADED_NOTIFICATION);
+
 		}
 		
 		
@@ -100,31 +116,6 @@
 
 			}
 			
-		}
-		
-	
-		/**
-		 * load_automatic_modules
-		 * Loads the modules defined in application.modules.autoload
-		 *
-		 * @return void
-		 * @author Matt Brewer
-		 **/
-
-		protected static function load_automatic_modules() {
-
-			foreach(self::$config['autoload'] as $m) {
-				try {
-					self::load($m);
-				} catch (Exception $e) {
-					if ( class_exists("Console") ) {
-						Console::log($e->getMessage());
-					} else {
-						echo $e->getMessage();
-					}
-				}
-			}
-				
 		}
 	
 	}

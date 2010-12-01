@@ -83,19 +83,6 @@
 		
 		
 		/**
-		 * load_modules
-		 *
-		 * @return void
-		 * @author Matt Brewer
-		 **/
-		public static function load_modules() {
-			NotificationCenter::execute(NotificationCenter::MODULES_PRE_LOADED_NOTIFICATION);
-			Modules::init();
-			NotificationCenter::execute(NotificationCenter::MODULES_POST_LOADED_NOTIFICATION);
-		}
-		
-		
-		/**
 		 * load_application_files
 		 *
 		 * @return void

@@ -15,7 +15,7 @@
 	define('LANGUAGES_PATH', SYSTEM_PATH . 'languages' . DS);
 	
 	define('CACHE_PATH', APP_PATH . 'cache' . DS);		
-	define('VIEWS_PATH', APP_PATH . 'views/');	
+	define('VIEWS_PATH', APP_PATH . 'views' . DS);	
 	define('LAYOUTS_PATH', APP_PATH . 'layouts' . DS);
 	define('MODELS_PATH', APP_PATH . 'models' . DS);
 	define('CONFIGURATION_PATH', APP_PATH . 'configure' . DS);
@@ -45,6 +45,12 @@
 	Loader::load_class('Settings');	
 	
 	
+	// Load in the Application class & register error/exception handlers
+	Loader::load_class('Application');
+	set_exception_handler(array("Application", 'exception_handler'));
+	set_error_handler(array("Application", 'error_handler'));
+	
+	
 	// Initialize the Settings API
 	Settings::load();
 	Settings::load_static_system_settings();
@@ -53,13 +59,7 @@
 	// Load in the system defined functions
 	foreach(glob(FUNCTIONS_PATH . '*.php') as $filename) {
 		require_once $filename;
-	}
-	
-	
-	// Load in the Application class & register error/exception handlers
-	Loader::load_class('Application');
-	set_exception_handler(array("Application", 'exception_handler'));
-	set_error_handler(array("Application", 'error_handler'));
+	}	
 	
 	
 	// Load in the remaining classes that offer additional functionality

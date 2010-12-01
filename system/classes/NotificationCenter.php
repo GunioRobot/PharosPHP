@@ -321,8 +321,8 @@
 			
 			self::register_callback(self::CORE_CLASSES_LOADED_NOTIFICATION, array("Application", "pre_bootstrap"));			
 			
-			self::register_callback(self::SYSTEM_SHORT_INIT_COMPLETE_NOTIFICATION, array("Application", "load_modules"));
-			
+			self::register_callback(self::SYSTEM_SHORT_INIT_COMPLETE_NOTIFICATION, array("Modules", "init"));
+						
 			self::register_callback(self::MODULES_POST_LOADED_NOTIFICATION, array("Application", "load_application_files"));
 			
 			self::register_callback(self::APPLICATION_CORE_LOADED_NOTIFICATION, array("Application", "bootstrap"));
