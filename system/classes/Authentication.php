@@ -80,7 +80,8 @@
 		
 		public function login($username, $password, $level, $comparison_operator) {
 			
-			$sql = sprintf("SELECT * FROM users WHERE user_username = '%s' AND user_password = '%s' AND user_level %s '%d' LIMIT 1", $this->db->prepare_input($username), $this->db->prepare_input($password), $comparison_operator, $level);
+			$encrypted_password = self::hashed_password($password);
+			$sql = sprintf("SELECT * FROM users WHERE user_username = '%s' AND user_password = '%s' AND user_level %s '%d' LIMIT 1", $this->db->prepare_input($username), $encrypted_password, $comparison_operator, $level);
 			$info = $this->db->Execute($sql);
 						
 			if ( !$info->EOF && $info->fields['user_id'] > 0 ) {
@@ -117,7 +118,7 @@
 			$this->db->Execute(sprintf("UPDATE users SET last_logout = NOW(), logged_in = 'false' WHERE user_id = '%d' LIMIT 1", $this->user->user_id));
 			Cookie::delete("pharos_authentication");
 			$this->logged_in = false;
-			NotificationCenter::execute(self::USER_LOGOUT_NOTIFICATION, array($this->user->user_id));
+			NotificationCenter::execute(self::USER_LOGOUT_NOTIFICATION, $this->user->user_id);
 		}
 		
 		
@@ -172,7 +173,7 @@
 			if ( $info->fields['user_primary_email'] != '' ) {
 
 				$new_password = self::random_password();
-				$this->db->Execute("UPDATE users SET user_password = '".$new_password."', last_updated = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
+				$this->db->Execute("UPDATE users SET user_password = '".self::hashed_password($new_password)."', last_updated = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
 
 				if ( $send_email ) {
 			
@@ -229,6 +230,23 @@ HTML;
 		public static function random_password() {
 			$value = substr(md5(time()),0,15);
 			return NotificationCenter::execute(NotificationCenter::FILTER_PASSWORD_RANDOM_GENERATE, $value);
+		}
+		
+		
+		/**
+		 * hashed_password
+		 * Takes an optional plain text password and secures it
+		 * 
+		 * @param string $password
+		 *
+		 * @return string $32_char_hash
+		 * @author Matt Brewer
+		 **/
+
+		public static function hashed_password($pass="") {
+			if ( $pass == "" ) {
+				$pass = self::random_password();
+			} return md5(Settings::get("application.system.salt") . $pass);
 		}
 		
 		
