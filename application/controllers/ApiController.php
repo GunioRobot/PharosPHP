@@ -120,8 +120,8 @@
 					 	$status = self::$ERROR_REGISTER_INVALID_USERNAME;
 					} else {
 						
-						$new_password = Authentication::get()->random_password();
-						$sql = sprintf("INSERT INTO `users` (`%s`,`user_password`,`registered_ip_address`,`date_added`,`last_updated`) VALUES('%s','%s','%s',NOW(),NOW())", implode("`,`", $this->fields), implode("','", $fields), $new_password, Input::server("REMOTE_ADDR",""));
+						$new_password = Authentication::random_password();
+						$sql = sprintf("INSERT INTO `users` (`%s`,`user_password`,`registered_ip_address`,`date_added`,`last_updated`) VALUES('%s','%s','%s',NOW(),NOW())", implode("`,`", $this->fields), implode("','", $fields), Authentication::hash_password($new_password), Input::server("REMOTE_ADDR",""));
 						$this->db->Execute($sql);
 						$id = $this->db->insert_ID();
 						
@@ -219,8 +219,7 @@
 					$status = self::$SUCCESSFUL_LOGIN;
 					
 					$username = $user->getElementsByTagName('username')->item(0)->nodeValue;
-					$password = $user->getElementsByTagName('password')->item(0)->nodeValue;
-
+					$password = Authentication::hash_password($user->getElementsByTagName('password')->item(0)->nodeValue);
 
 					$sql = sprintf("SELECT * FROM `users` WHERE (`user_username` = '%s' OR `user_primary_email` = '%s') AND `user_level` = '%d' LIMIT 1", $this->db->prepare_input($username), $this->db->prepare_input($username), $this->level);
 					$info = $this->db->Execute($sql);
@@ -234,17 +233,10 @@
 						$el = $dom->createElement("user");
 						$el->setAttribute("id", $info->fields['user_id']);
 						$el->setAttribute("name", $info->fields['user_first_name']. ' ' . $info->fields['user_last_name']);
-						// $el->setAttribute("brand_id", $info->fields['brand_id']);
-						// $el->setAttribute("dealership_id", $info->fields['dealership_id']);
-						
+							
 						$name = $dom->createElement("username");
-						// $pass = $dom->createElement("password");
-
 						$name->appendChild($dom->createCDATASection($info->fields['user_primary_email']));
-						// $pass->appendChild($dom->createCDATASection($info->fields['user_password']));
-						
 						$el->appendChild($name);
-						// $el->appendChild($pass);
 						
 						$root->appendChild($el);
 						
@@ -443,28 +435,9 @@
 
 					$info = $this->db->Execute("SELECT * FROM users WHERE (user_username = '$username' OR user_primary_email = '$username') AND user_level = '".Settings::get("application.users.levels.basic")."' LIMIT 1");
 					if ( $info->fields['user_primary_email'] != '' ) {
-
-						$new_password = Authentication::random_password();
-						$this->db->Execute("UPDATE users SET user_password = '".$new_password."', last_updated = NOW() WHERE user_id = '".$info->fields['user_id']."' LIMIT 1");
-
-						$html = '<html><body>';
-						$html .= '<h2>Password Reset</h2>';
-						$html .= 'You requested to have your password reset.  If you did not make the request, please user the system administrator at: <a href="mailto:'.Settings::get("application.email.password_reset").'?subject=Bad Password Reset">'.Settings::get("application.email.password_reset").'</a>';
-						$html .= '<br /><br /><hr>';
-						$html .= 'Your new password is: <strong>'.$new_password.'</strong><br /><br />';
-						$html .= 'Please enter your email address and this new password into the Login Screen of the Interactive Flash Drive for access.  You will need this password every time you wish to access the drive.';
-						$html .= '</body></html>';
-
-						$mail = new Rmail();
-						$mail->setFrom(Settings::get("application.email.password_reset"));
-						$mail->setSubject(Settings::get('application.system.site.name').': Password Reset');
-						$mail->setPriority('high');
-						$mail->setHTML($html);
-
-						if ( !$mail->send(array($info->fields['user_primary_email'])) ) {
+						if ( !Authentication::get()->reset_password($username) ) { 
 							$status = self::$FAILED_PASSWORD_RESET;
 						} 
-
 					} else {
 						$status = self::$FAILED_PASSWORD_RESET_USER_NOT_FOUND;
 					}
