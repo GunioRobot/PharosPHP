@@ -15,6 +15,7 @@
 		const CSS_TYPE_ALL = "all";
 		const CSS_TYPE_PRINT = "print";
 		const CSS_TYPE_SCREEN = "screen";
+		const FLASH_SESSION_KEY = "pharos_flash_storage";
 		const JAVASCRIPT_INCLUDE = "php_include_js";
 		const JAVASCRIPT_EXTERNAL = "link_js";
 				
@@ -75,9 +76,9 @@
 				$this->cached_file = self::cached_name();
 			}
 		
-			if ( ($items = Input::session("pharos_flash")) !== false && is_array($items) ) {
-				foreach($items as $obj) {
-					$this->flash[] = (object)array("save" => false, "value" => $obj->value);
+			if ( ($items = Input::session(self::FLASH_SESSION_KEY)) !== false && is_array($items) ) {
+				foreach($items as $value) {
+					$this->flash[] = (object)array("save" => false, "value" => $value);
 				}
 			}
 			
@@ -458,10 +459,10 @@
 			
 			$to_save = array();
 			foreach($this->flash as $f) {
-				$to_save[] = $f->save;
+				if ( $f->save ) $to_save[] = $f->value;
 			}
 		
-			$_SESSION['pharos_flash'] = $to_save;
+			$_SESSION[self::FLASH_SESSION_KEY] = $to_save;
 			
 		}	
 		
