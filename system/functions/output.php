@@ -22,6 +22,7 @@
 		$html .= $prefs->name != "" ? 'name="'.$prefs->name.'" ' : '';
 		$html .= $prefs->class != "" ? 'class="'.$prefs->class.'" ' : '';
 		$html .= $prefs->style != "" ? 'style="'.$prefs->style.'" ' : '';
+		$html .= '>';
 		foreach($options as $key => $value) {
 			$html .= '<option value="'.$key.'" '.($selected == $key ? 'selected="selected"' : '') . '>' . $value . '</option>';
 		}
