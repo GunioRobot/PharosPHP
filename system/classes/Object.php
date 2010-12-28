@@ -33,6 +33,19 @@
 			
 		}
 		
+		
+		/**
+		 * __wakeup
+		 * Called after the object has been unserialized
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		public function __wakeup() {
+			global $db;
+			$this->db =& $db;
+		}
+		
 	}
 
 ?>
