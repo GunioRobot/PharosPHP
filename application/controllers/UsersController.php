@@ -202,9 +202,7 @@
 				array('name' => 'user_level', 'type' => 'dropdown', 'option' => user_levels_array(SECURITY_LVL), 'default' => Settings::get('application.users.levels.admin')),
 	
 				array('name' => 'date_added', 'type' => 'date_added'),
-				array('name' => 'last_updated', 'type' => 'last_updated'),
-				array('name' => 'content_type_id', 'type' => 'hidden', 'value' => USER_TYPE_ID),
-				array('name' => 'content_type_name', 'type' => 'hidden', 'value' => strtolower(PROFILE_TITLE))
+				array('name' => 'last_updated', 'type' => 'last_updated')
 
 			);
 			
@@ -234,14 +232,6 @@
 				
 				NotificationCenter::execute(self::USER_DELETED_NOTIFICATION, $id);
 				
-				// Delete tracking information
-				$sql = "DELETE FROM tracking WHERE content_type_id = '".(int)USER_TYPE_ID."' AND table_index = '".(int)$id."'";
-				$this->db->Execute($sql);
-				
-				// Delete application to content links
-				$sql = "DELETE FROM applications_to_content WHERE content_type_id = '".(int)USER_TYPE_ID."' AND table_index = '".(int)$id."'";
-				$this->db->Execute($sql);
-
 				// Delete the note itself
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);

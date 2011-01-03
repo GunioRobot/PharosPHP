@@ -38,9 +38,6 @@
 	
 		const APPLICATION_CONTROLLER_LOADED_NOTIFICATION = "application_controller_loaded_hook";	// function($class) {}
 		const APPLICATION_CORE_LOADED_NOTIFICATION = 'application_core_loaded_hook';				// function() {}
-		const APPLICATION_CREATE_XML_NOTIFICATION = "application_create_xml_hook";					// function ($app) {}
-		const APPLICATION_DELETED_NOTIFICATION = 'application_deleted_hook';						// function($app_id) {}
-		const APPLICATION_PUBLISH_NOTIFICATION = 'application_published_hook';						// function($app_id) {}
 		
 		const AUTHENTICATION_LOADED_NOTIFICATION = 'authentication_loaded_hook';					// function() {}
 		
@@ -96,9 +93,6 @@
 							
 				self::APPLICATION_CONTROLLER_LOADED_NOTIFICATION => null,
 				self::APPLICATION_CORE_LOADED_NOTIFICATION => null,			
-				self::APPLICATION_CREATE_XML_NOTIFICATION => null,				
-				self::APPLICATION_DELETED_NOTIFICATION => null,
-				self::APPLICATION_PUBLISH_NOTIFICATION => null,
 				
 				self::AUTHENTICATION_LOADED_NOTIFICATION => null,
 				

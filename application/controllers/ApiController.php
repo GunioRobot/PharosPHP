@@ -198,7 +198,7 @@
 				$name = $dom->createElement("username");
 				$pass = $dom->createElement("password");
 				
-				$name->appendChild($dom->createCDATASection("matt@dmgx.com"));
+				$name->appendChild($dom->createCDATASection("matt@pharosphp.com"));
 				$pass->appendChild($dom->createCDATASection("password"));
 				
 				$el->appendChild($name);
@@ -290,7 +290,7 @@
 				
 				$name = $dom->createElement("username");
 				
-				$name->appendChild($dom->createCDATASection("matt@dmgx.com"));
+				$name->appendChild($dom->createCDATASection("matt@pharosphp.com"));
 				
 				$el->appendChild($name);
 				$root->appendChild($el);
@@ -411,7 +411,7 @@
 				$el->setAttribute("id", 1);
 
 				$name = $dom->createElement("username");
-				$name->appendChild($dom->createCDATASection("matt@dmgx.com"));
+				$name->appendChild($dom->createCDATASection("matt@pharosphp.com"));
 				$el->appendChild($name);
 				
 				$root->appendChild($el);

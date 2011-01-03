@@ -34,8 +34,6 @@
 		//
 		///////////////////////////////////////////////////////////////////////////
 		public function build(&$parent=null) {
-
-			global $CURRENT_APP_ID, $CURRENT_APP_NAME;
 			
 			if ( is_null($parent) ) {
 				$parent =& $this->pages[0];

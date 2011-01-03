@@ -15,10 +15,7 @@
 	$sqlUpdate = '';
 	$sqlFields = '';
 	$sqlValues = '';
-	
-	// Link content to application
-	$USE_APPS_TO_CONTENT_TABLE = false;
-	
+		
 	NotificationCenter::execute(EXTERNAL_HOOK_PROFILE_MODULE_PRE_PROCESSED, $fields);
 	
 	// Now process each of the incoming form fields
@@ -26,18 +23,6 @@
 	
 		$data = $input['name'];
 		$quoteValue = true;
-		
-		// Link content to application
-		if ( $data == 'content_type_id' AND $_POST[$data] != '' ) {
-			$USE_APPS_TO_CONTENT_TABLE = true;
-			continue;
-		}
-
-		// Link content to application
-		if ( $data == 'content_type_name' ) {
-			continue;
-		}
-		
 		
 		// Try to process the form_type, otherwise just log to console and continue
 		try {
@@ -90,12 +75,6 @@
 				
 		// Store newly created id		
 		$id = $db->insert_ID();
-		
-		// Link content to application
-		if ( $USE_APPS_TO_CONTENT_TABLE ) {
-			$sql = "INSERT INTO applications_to_content ( app_id,table_index,content_type_id,content_type_name ) VALUES ('$CURRENT_APP_ID','".$id."','".Input::post('content_type_id')."','".Input::post('content_type_name')."') ";
-			$db->Execute($sql);
-		}
 		
 	}
 	

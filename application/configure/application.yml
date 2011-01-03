@@ -32,8 +32,8 @@ filesystem:
     
 modules:
     autoload:
-        - console
-        - images
+        - "console"
+        - "images"
         - "table-additions"
         - "nslog"
         
@@ -63,7 +63,6 @@ routes:
 
 system:
     version: 1.5
-    default_app_id: 1
     salt: DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi
     timezone: "America/New_York"
     language: en

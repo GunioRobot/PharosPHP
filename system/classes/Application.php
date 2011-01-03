@@ -118,7 +118,7 @@
 
 		public static function bootstrap() {
 			
-			global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
+			global $db;
 
 			NotificationCenter::execute(NotificationCenter::SYSTEM_PRE_BOOTSTRAP_COMPLETE_NOTIFICATION);
 
@@ -136,12 +136,7 @@
 
 			load_content_types();
 			Settings::load_dynamic_system_settings();
-
-			$CURRENT_APP_ID = Input::session("app_id", 1);
-
-			$title = $db->Execute("SELECT app_name FROM applications WHERE app_id = '$CURRENT_APP_ID' LIMIT 1");
-			$CURRENT_APP_NAME = format_title($title->fields['app_name']);
-
+		
 			NotificationCenter::execute(NotificationCenter::SYSTEM_POST_BOOTSTRAP_NOTIFICATION);
 			
 		}

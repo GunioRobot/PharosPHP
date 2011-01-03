@@ -173,14 +173,10 @@
 				array('name' => '{form_link}', 'type' => 'static', 'value' => Template::save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
-				
 				array('name' => 'setting_value', 'type' => 'text_area', 'row' => '8', 'col' > '92', 'width' => '738px', 'height' => '100px'),
 				array('name' => 'setting_notes', 'type' => 'text_area', 'row' => '8', 'col' > '92', 'width' => '738px', 'height' => '100px'),
 				array('name' => 'date_added', 'type' => 'date_added'),
-				array('name' => 'last_updated', 'type' => 'last_updated'),
-
-				array('name' => 'content_type_id', 'type' => 'hidden', 'value' => SETTING_TYPE_ID),
-				array('name' => 'content_type_name', 'type' => 'hidden', 'value' => strtolower(PROFILE_TITLE))
+				array('name' => 'last_updated', 'type' => 'last_updated')
 
 			);
 			

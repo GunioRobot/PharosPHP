@@ -49,7 +49,6 @@
 	////////////////////////////////////////////////////////////////////////////////
 	
 	function process_profile($id) {
-		global $db, $CURRENT_APP_ID, $CURRENT_APP_NAME;
 		require_once FORM_TYPE_DIR.'/process_profile.php';
 		return $id;
 	}
