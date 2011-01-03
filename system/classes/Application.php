@@ -134,7 +134,6 @@
 				NotificationCenter::execute(NotificationCenter::LANGUAGE_API_LOADED_NOTIFICATION, $language);
 			} catch (InvalidKeyPathException $e) {}
 
-			load_content_types();
 			Settings::load_dynamic_system_settings();
 		
 			NotificationCenter::execute(NotificationCenter::SYSTEM_POST_BOOTSTRAP_NOTIFICATION);
