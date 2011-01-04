@@ -1,4 +1,4 @@
-<h2>Resource Not Found</h2>
+<h1>Resource Not Found</h1><div class="clearBoth"></div>
 <p>May we suggest:</p>
 
 <ul>
