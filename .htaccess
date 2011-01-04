@@ -1,23 +1,18 @@
 Options +SymLinksIfOwnerMatch
-# Options All -Indexes
+IndexIgnore .*
+
+ErrorDocument 400 application/public/index.php?args=error/400/
+ErrorDocument 402 application/public/index.php?args=error/402/
+ErrorDocument 404 application/public/index.php?args=error/404/
+ErrorDocument 403 application/public/index.php?args=error/403/
 
 <IfModule mod_security.c>
 SecFilterEngine Off
 SecFilterScanPOST Off
 </IfModule>
 
-# Just a simple redirect for all non-accessible items
-ErrorDocument 404 application/public/index.php?args=not-found
-
 <IfModule mod_rewrite.c>
 RewriteEngine On
-
-# Just use the directory or filename if that's what we're going for
 RewriteCond %{REQUEST_FILENAME} !-f
-
 RewriteRule (.*) application/public/index.php?args=$1
-
 </IfModule>
-
-# Hide our directory contents to prying eyes
-IndexIgnore .*

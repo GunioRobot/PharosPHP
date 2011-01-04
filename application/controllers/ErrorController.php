@@ -12,6 +12,14 @@
 		
 		
 		/**
+		 * codes
+		 *
+		 * @var array
+		 **/
+		private $codes = array(400 => "Bad Request", 401 => "Unauthorized Access", 403 => "Access Forbidden", 404 => "Resource Not Found");
+		
+		
+		/**
 		 * __construct
 		 * Constructor
 		 *
@@ -20,7 +28,7 @@
 		 **/
 		
 		public function __construct() {
-			parent::__construct();
+			parent::__construct("Error");
 			$this->output->layout = "session-controller-login";
 		}
 		
@@ -42,9 +50,10 @@
 		 **/
 
 		public function __missingControllerAction($class, $method, array $params=array()) {
-			if ( !in_array($method, array(400, 401, 403, 404)) ) {
+			if ( !in_array($method, array_keys($this->codes)) ) {
 				throw new ControllerActionNotFoundException($class, $method);
 			}
+			$this->title = $this->codes[$method];
 			$this->output->view("errors/$method.php");
 			$this->output->cache(1 * Cache::WEEKS);
 		}

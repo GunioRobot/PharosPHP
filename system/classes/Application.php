@@ -248,12 +248,16 @@
 						// Render the template to the browser
 						Template::render();
 
-					} else throw new InvalidFileSystemPathException(sprintf("Could not locate file: (%s)", $file));
+					} else {
+						throw new InvalidFileSystemPathException(sprintf("Could not locate file: (%s)", $file));
+					}
 
 				}
 
 			} catch (ControllerActionNotFoundException $e) {
-				redirect(Template::controller_link("PageNotFound"));
+				redirect(Template::controller_link("error/404"));
+			} catch (InvalidFileSystemPathException $e) {
+				redirect(Template::controller_link("error/404"));
 			}
 			
 		}
