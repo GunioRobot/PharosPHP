@@ -3,6 +3,7 @@ environment:
     development:
         enabled: true
         cache: false
+        debug: true
         database:
             host: localhost
             username: 'db_username'
@@ -12,6 +13,7 @@ environment:
     testing:
         enabled: false
         cache: true
+        debug: false
         database:
             host: localhost
             username: 'db_username'
@@ -21,6 +23,7 @@ environment:
     production:
         enabled: false
         cache: true
+        debug: false
         database:
             host: localhost
             username: 'db_username'
