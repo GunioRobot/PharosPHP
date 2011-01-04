@@ -42,21 +42,19 @@ Inheritance diagram for ApplicationController:<!-- endSectionHeader --></div>
  <div class="center">
   <img src="class_application_controller.png" usemap="#ApplicationController_map" alt=""/>
   <map id="ApplicationController_map" name="ApplicationController_map">
-<area href="class_controller.html" alt="Controller" shape="rect" coords="430,56,635,80"/>
-<area href="class_object.html" alt="Object" shape="rect" coords="430,0,635,24"/>
+<area href="class_controller.html" alt="Controller" shape="rect" coords="537,56,742,80"/>
+<area href="class_object.html" alt="Object" shape="rect" coords="537,0,742,24"/>
 <area href="class_api_controller.html" alt="ApiController" shape="rect" coords="0,168,205,192"/>
 <area href="class_cron_controller.html" alt="CronController" shape="rect" coords="215,168,420,192"/>
-<area href="class_generic_page_controller.html" alt="GenericPageController" shape="rect" coords="430,168,635,192"/>
-<area href="class_session_controller.html" alt="SessionController" shape="rect" coords="645,168,850,192"/>
+<area href="class_error_controller.html" alt="ErrorController" shape="rect" coords="430,168,635,192"/>
+<area href="class_generic_page_controller.html" alt="GenericPageController" shape="rect" coords="645,168,850,192"/>
+<area href="class_session_controller.html" alt="SessionController" shape="rect" coords="860,168,1065,192"/>
 <area href="class_table_controller.html" alt="TableController" shape="rect" coords="1182,168,1387,192"/>
-<area href="class_application_generic_page_controller.html" alt="ApplicationGenericPageController" shape="rect" coords="430,224,635,248"/>
-<area href="class_applications_controller.html" alt="ApplicationsController" shape="rect" coords="645,224,850,248"/>
+<area href="class_application_generic_page_controller.html" alt="ApplicationGenericPageController" shape="rect" coords="645,224,850,248"/>
 <area href="class_assets_controller.html" alt="AssetsController" shape="rect" coords="860,224,1065,248"/>
-<area href="class_dashboard_controller.html" alt="DashboardController" shape="rect" coords="1075,224,1280,248"/>
-<area href="class_navigation_controller.html" alt="NavigationController" shape="rect" coords="1290,224,1495,248"/>
-<area href="class_settings_controller.html" alt="SettingsController" shape="rect" coords="1505,224,1710,248"/>
-<area href="class_users_controller.html" alt="UsersController" shape="rect" coords="1720,224,1925,248"/>
-<area href="class_page_not_found_controller.html" alt="PageNotFoundController" shape="rect" coords="430,280,635,304"/>
+<area href="class_navigation_controller.html" alt="NavigationController" shape="rect" coords="1075,224,1280,248"/>
+<area href="class_settings_controller.html" alt="SettingsController" shape="rect" coords="1290,224,1495,248"/>
+<area href="class_users_controller.html" alt="UsersController" shape="rect" coords="1505,224,1710,248"/>
 </map>
  </div><!-- endSectionContent --></div>
 <table class="memberdecls">
@@ -65,9 +63,10 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_application_controller.html#a095c5d389db211932136b53f25f39685">__construct</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a149eb92716c1084a935e04a8d95f7347"></a><!-- doxytag: member="ApplicationController::index" ref="a149eb92716c1084a935e04a8d95f7347" args="()" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>index</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a728c573e418d1f979340a4669524cacd">__missingControllerAction</a> ($class, $method)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#aa79cd4ca11ccf2da0fa3a0fd4810fada">__missingControllerAction</a> ($class, $method, array $params=array())</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#ad86994d2463ea27cab892176e6509bdb">__preRender</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#adc3c9cc4788f7ba7d1368fdc43568b1d">__postRender</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada57e7bb7c152edad18fe2f166188691"></a><!-- doxytag: member="ApplicationController::$title" ref="ada57e7bb7c152edad18fe2f166188691" args="" -->
@@ -108,12 +107,12 @@ Protected Attributes</h2></td></tr>
 
 <p>Reimplemented from <a class="el" href="class_controller.html#a095c5d389db211932136b53f25f39685">Controller</a>.</p>
 
-<p>Reimplemented in <a class="el" href="class_api_controller.html#a095c5d389db211932136b53f25f39685">ApiController</a>, <a class="el" href="class_applications_controller.html#a095c5d389db211932136b53f25f39685">ApplicationsController</a>, <a class="el" href="class_assets_controller.html#a095c5d389db211932136b53f25f39685">AssetsController</a>, <a class="el" href="class_cron_controller.html#a095c5d389db211932136b53f25f39685">CronController</a>, <a class="el" href="class_dashboard_controller.html#a095c5d389db211932136b53f25f39685">DashboardController</a>, <a class="el" href="class_navigation_controller.html#a095c5d389db211932136b53f25f39685">NavigationController</a>, <a class="el" href="class_page_not_found_controller.html#a095c5d389db211932136b53f25f39685">PageNotFoundController</a>, <a class="el" href="class_session_controller.html#a095c5d389db211932136b53f25f39685">SessionController</a>, <a class="el" href="class_settings_controller.html#a095c5d389db211932136b53f25f39685">SettingsController</a>, and <a class="el" href="class_users_controller.html#a095c5d389db211932136b53f25f39685">UsersController</a>.</p>
+<p>Reimplemented in <a class="el" href="class_api_controller.html#a095c5d389db211932136b53f25f39685">ApiController</a>, <a class="el" href="class_assets_controller.html#a095c5d389db211932136b53f25f39685">AssetsController</a>, <a class="el" href="class_cron_controller.html#a095c5d389db211932136b53f25f39685">CronController</a>, <a class="el" href="class_error_controller.html#a095c5d389db211932136b53f25f39685">ErrorController</a>, <a class="el" href="class_navigation_controller.html#a095c5d389db211932136b53f25f39685">NavigationController</a>, <a class="el" href="class_session_controller.html#a095c5d389db211932136b53f25f39685">SessionController</a>, <a class="el" href="class_settings_controller.html#a095c5d389db211932136b53f25f39685">SettingsController</a>, and <a class="el" href="class_users_controller.html#a095c5d389db211932136b53f25f39685">UsersController</a>.</p>
 
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a728c573e418d1f979340a4669524cacd"></a><!-- doxytag: member="ApplicationController::__missingControllerAction" ref="a728c573e418d1f979340a4669524cacd" args="($class, $method)" -->
+<a class="anchor" id="aa79cd4ca11ccf2da0fa3a0fd4810fada"></a><!-- doxytag: member="ApplicationController::__missingControllerAction" ref="aa79cd4ca11ccf2da0fa3a0fd4810fada" args="($class, $method, array $params=array())" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -127,7 +126,13 @@ Protected Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"> <em>method</em>&#160;</td>
+          <td class="paramname"> <em>method</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array $&#160;</td>
+          <td class="paramname"> <em>params</em> = <code>array()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -142,6 +147,7 @@ Protected Attributes</h2></td></tr>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$class</td><td></td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$method</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -153,6 +159,8 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_error_controller.html#aa79cd4ca11ccf2da0fa3a0fd4810fada">ErrorController</a>.</p>
 
 </div>
 </div>
@@ -194,11 +202,30 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a19dd44fe063cfd1cbafe97452e57666c"></a><!-- doxytag: member="ApplicationController::__wakeup" ref="a19dd44fe063cfd1cbafe97452e57666c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__wakeup </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [inherited]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>__wakeup Called after the object has been unserialized</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>application/classes/ApplicationController.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:52 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:12 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

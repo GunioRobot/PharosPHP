@@ -52,6 +52,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#abc6be440e54582b55d57a55b0a20415d">module</a> ($name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#a4685e3ef6b0bf19ebdbe9ecc502e5dc1">klass</a> ($name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#aaad68183dd74b4723de4b7f3ec1195e3">config</a> ($filename)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#a72a2a8fb114e735a9b24ca34054e2f2c">load_class</a> ($name)</td></tr>
@@ -64,6 +65,25 @@ Protected Attributes</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>$db</b> = null</td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a19dd44fe063cfd1cbafe97452e57666c"></a><!-- doxytag: member="Loader::__wakeup" ref="a19dd44fe063cfd1cbafe97452e57666c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__wakeup </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [inherited]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>__wakeup Called after the object has been unserialized</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="ae36ffb3324beb3deb2ca786111c4906c"></a><!-- doxytag: member="Loader::_load_class" ref="ae36ffb3324beb3deb2ca786111c4906c" args="($name)" -->
 <div class="memitem">
 <div class="memproto">
@@ -78,7 +98,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>_load_class</p>
+<p>_load_class Class loader</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$class_name</td><td></td></tr>
@@ -110,7 +130,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>config</p>
+<p>config Loads a specified config file from inside application/configuration</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$filename</td><td></td></tr>
@@ -143,7 +163,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>klass</p>
+<p>klass Attempts to load a class, first from the application directory, then looking inside the system directory</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$class_name</td><td></td></tr>
@@ -152,7 +172,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table class="exception">
-    <tr><td class="paramname">ClassNotFoundException();</td><td></td></tr>
+    <tr><td class="paramname"><a class="el" href="class_class_not_found_exception.html">ClassNotFoundException</a></td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -175,7 +195,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>load_class</p>
+<p>load_class Attempts to load a class, first from the application directory, then looking inside the system directory</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramname">(array|string)</td><td>$class_name</td></tr>
@@ -207,7 +227,7 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>module</p>
+<p>module Attempts to load the requested module. Module placed in application/ has priority over module placed in system/</p>
 <dl><dt><b>Parameters:</b></dt><dd>
   <table class="params">
     <tr><td class="paramtype">mixed</td><td class="paramname">$module_name</td><td>(array of module names, or just one module name)</td></tr>
@@ -216,7 +236,7 @@ Protected Attributes</h2></td></tr>
 </dl>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table class="exception">
-    <tr><td class="paramname">Exception</td><td>- if module failed to load</td></tr>
+    <tr><td class="paramname"><a class="el" href="class_module_not_found_exception.html">ModuleNotFoundException</a></td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -229,7 +249,7 @@ Protected Attributes</h2></td></tr>
 <li>system/classes/Loader.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:54 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:13 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

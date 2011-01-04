@@ -29,6 +29,7 @@
 </div>
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Data Fields</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a> &#124;
@@ -47,6 +48,9 @@ Inheritance diagram for NotificationCenter:<!-- endSectionHeader --></div>
 </map>
  </div><!-- endSectionContent --></div>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_notification_center.html#a9f0be6ae273d3669e11c29910a0be338">init</a> ()</td></tr>
@@ -77,12 +81,6 @@ const&#160;</td><td class="memItemRight" valign="bottom"><b>FILTER_XML_FLASH_TLF
 const&#160;</td><td class="memItemRight" valign="bottom"><b>APPLICATION_CONTROLLER_LOADED_NOTIFICATION</b> = &quot;application_controller_loaded_hook&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a342692735c07d8af5392aaff784008dc"></a><!-- doxytag: member="NotificationCenter::APPLICATION_CORE_LOADED_NOTIFICATION" ref="a342692735c07d8af5392aaff784008dc" args="" -->
 const&#160;</td><td class="memItemRight" valign="bottom"><b>APPLICATION_CORE_LOADED_NOTIFICATION</b> = 'application_core_loaded_hook'</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad1f9f69f0f3a667bfee11b7c81d248d3"></a><!-- doxytag: member="NotificationCenter::APPLICATION_CREATE_XML_NOTIFICATION" ref="ad1f9f69f0f3a667bfee11b7c81d248d3" args="" -->
-const&#160;</td><td class="memItemRight" valign="bottom"><b>APPLICATION_CREATE_XML_NOTIFICATION</b> = &quot;application_create_xml_hook&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1b1b0e12f1c4c7fd40410c3ec56e4011"></a><!-- doxytag: member="NotificationCenter::APPLICATION_DELETED_NOTIFICATION" ref="a1b1b0e12f1c4c7fd40410c3ec56e4011" args="" -->
-const&#160;</td><td class="memItemRight" valign="bottom"><b>APPLICATION_DELETED_NOTIFICATION</b> = 'application_deleted_hook'</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a912ece9b6819681fc8cb4e3eb8a9dc28"></a><!-- doxytag: member="NotificationCenter::APPLICATION_PUBLISH_NOTIFICATION" ref="a912ece9b6819681fc8cb4e3eb8a9dc28" args="" -->
-const&#160;</td><td class="memItemRight" valign="bottom"><b>APPLICATION_PUBLISH_NOTIFICATION</b> = 'application_published_hook'</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4b1fad5d9dbf4c51ab0c7f2b15632f02"></a><!-- doxytag: member="NotificationCenter::AUTHENTICATION_LOADED_NOTIFICATION" ref="a4b1fad5d9dbf4c51ab0c7f2b15632f02" args="" -->
 const&#160;</td><td class="memItemRight" valign="bottom"><b>AUTHENTICATION_LOADED_NOTIFICATION</b> = 'authentication_loaded_hook'</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a0fb800d193c23defe25f93cb4352f197"></a><!-- doxytag: member="NotificationCenter::CACHE_LOADED_NOTIFICATION" ref="a0fb800d193c23defe25f93cb4352f197" args="" -->
@@ -123,6 +121,25 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$hooks</b> = array(
 static&#160;</td><td class="memItemRight" valign="bottom"><b>$initialized</b> = false</td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a19dd44fe063cfd1cbafe97452e57666c"></a><!-- doxytag: member="NotificationCenter::__wakeup" ref="a19dd44fe063cfd1cbafe97452e57666c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__wakeup </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [inherited]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>__wakeup Called after the object has been unserialized</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="af7dc2b515e5d25e0501015b1a3c1a5fa"></a><!-- doxytag: member="NotificationCenter::define" ref="af7dc2b515e5d25e0501015b1a3c1a5fa" args="($notification)" -->
 <div class="memitem">
 <div class="memproto">
@@ -319,7 +336,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$initialized</b> = 
 <li>system/classes/NotificationCenter.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:54 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:13 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

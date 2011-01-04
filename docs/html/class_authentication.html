@@ -57,10 +57,12 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#ad488b2fc379939d02890e0dc0533d1a4">logged_in</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#ad4cd87cb1a3b9b5adec7dff9a3e3e246">login_required</a> ($bool=null)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#ab7b9c251262cc35619f824845818d844">reset_password</a> ($username, $send_email=true)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#a5ba61361bf0695a285bbaefefc427191">get</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#a46f9c5c93ad36418847b5a62e7204ebb">random_password</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#af5f0334a3885d50de61ac3435cef1012">hashed_password</a> ($pass=&quot;&quot;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_authentication.html#a611373659e3cbc40a3faae4522a320e5">register_notifications</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
@@ -87,6 +89,25 @@ Static Protected Attributes</h2></td></tr>
 static&#160;</td><td class="memItemRight" valign="bottom"><b>$instance</b></td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a19dd44fe063cfd1cbafe97452e57666c"></a><!-- doxytag: member="Authentication::__wakeup" ref="a19dd44fe063cfd1cbafe97452e57666c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__wakeup </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [inherited]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>__wakeup Called after the object has been unserialized</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a5ba61361bf0695a285bbaefefc427191"></a><!-- doxytag: member="Authentication::get" ref="a5ba61361bf0695a285bbaefefc427191" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -103,6 +124,32 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$instance</b></td><
 <p>get Static accessor to the session <a class="el" href="class_authentication.html">Authentication</a> object</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="class_authentication.html">Authentication</a> obj </dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matthew </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="af5f0334a3885d50de61ac3435cef1012"></a><!-- doxytag: member="Authentication::hashed_password" ref="af5f0334a3885d50de61ac3435cef1012" args="($pass=&quot;&quot;)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static hashed_password </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"> <em>pass</em> = <code>&quot;&quot;</code>&#160;)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>hashed_password Takes an optional plain text password and secures it</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$password</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>string $32_char_hash </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
 
 </div>
 </div>
@@ -347,7 +394,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$instance</b></td><
 <li>system/classes/Authentication.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:52 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:12 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

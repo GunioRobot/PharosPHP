@@ -66,6 +66,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a421831a265621325e1fdd19aace0c758">__destruct</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a4537dad3b44254124991341cc91b28fb">__get</a> ($key)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a79b36d71c6f1d4f9e6c4c3e34c081456">__set</a> ($key, $value)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a1e3072c550f01769a7c02ff9b274c523">cached_name</a> ()</td></tr>
@@ -78,6 +79,8 @@ const&#160;</td><td class="memItemRight" valign="bottom"><b>CSS_TYPE_ALL</b> = &
 const&#160;</td><td class="memItemRight" valign="bottom"><b>CSS_TYPE_PRINT</b> = &quot;print&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a8a34ca8ad339f9e5b2c7c7987384a7a6"></a><!-- doxytag: member="HTTPResponse::CSS_TYPE_SCREEN" ref="a8a34ca8ad339f9e5b2c7c7987384a7a6" args="" -->
 const&#160;</td><td class="memItemRight" valign="bottom"><b>CSS_TYPE_SCREEN</b> = &quot;screen&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a28bbca9313cfab3dc2cc1f094d988150"></a><!-- doxytag: member="HTTPResponse::FLASH_SESSION_KEY" ref="a28bbca9313cfab3dc2cc1f094d988150" args="" -->
+const&#160;</td><td class="memItemRight" valign="bottom"><b>FLASH_SESSION_KEY</b> = &quot;pharos_flash_storage&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a4fb2f4861f8cbc4c0570a4136192d4ba"></a><!-- doxytag: member="HTTPResponse::JAVASCRIPT_INCLUDE" ref="a4fb2f4861f8cbc4c0570a4136192d4ba" args="" -->
 const&#160;</td><td class="memItemRight" valign="bottom"><b>JAVASCRIPT_INCLUDE</b> = &quot;php_include_js&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aecd7927737b024065994889ea07c8563"></a><!-- doxytag: member="HTTPResponse::JAVASCRIPT_EXTERNAL" ref="aecd7927737b024065994889ea07c8563" args="" -->
@@ -206,6 +209,25 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a19dd44fe063cfd1cbafe97452e57666c"></a><!-- doxytag: member="HTTPResponse::__wakeup" ref="a19dd44fe063cfd1cbafe97452e57666c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__wakeup </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [inherited]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>__wakeup Called after the object has been unserialized</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
 
@@ -674,7 +696,7 @@ Protected Attributes</h2></td></tr>
 <li>system/classes/HTTPResponse.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:54 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:13 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

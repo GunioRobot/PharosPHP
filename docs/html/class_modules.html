@@ -29,6 +29,7 @@
 </div>
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a>  </div>
@@ -46,6 +47,9 @@ Inheritance diagram for Modules:<!-- endSectionHeader --></div>
 </map>
  </div><!-- endSectionContent --></div>
 <table class="memberdecls">
+<tr><td colspan="2"><h2><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_modules.html#a9f0be6ae273d3669e11c29910a0be338">init</a> ()</td></tr>
@@ -53,13 +57,31 @@ Static Public Member Functions</h2></td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-methods"></a>
 Static Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_modules.html#a5d45011cda3d16c13bbc81242e540dca">_load</a> ($name)</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_modules.html#a71da93628d8cc592ca0f9ca7b615477d">load_automatic_modules</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fa3127fc82f96b1436d871ef02be319"></a><!-- doxytag: member="Modules::$db" ref="a1fa3127fc82f96b1436d871ef02be319" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>$db</b> = null</td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
+<a class="anchor" id="a19dd44fe063cfd1cbafe97452e57666c"></a><!-- doxytag: member="Modules::__wakeup" ref="a19dd44fe063cfd1cbafe97452e57666c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__wakeup </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [inherited]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>__wakeup Called after the object has been unserialized</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a5d45011cda3d16c13bbc81242e540dca"></a><!-- doxytag: member="Modules::_load" ref="a5d45011cda3d16c13bbc81242e540dca" args="($name)" -->
 <div class="memitem">
 <div class="memproto">
@@ -77,7 +99,7 @@ Protected Attributes</h2></td></tr>
 <p>_load Protected method that actually performs the loading, calling the appropriate system hooks as it executes</p>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table class="exception">
-    <tr><td class="paramname">Exception</td><td>- if loading a module failed</td></tr>
+    <tr><td class="paramname"><a class="el" href="class_module_not_found_exception.html">ModuleNotFoundException</a></td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -125,10 +147,10 @@ Protected Attributes</h2></td></tr>
       </table>
 </div>
 <div class="memdoc">
-<p>load <a class="el" href="class_modules.html#a26e162b6a3d4942a4e9859d7fa7e1168">Modules::load</a>($name) loads a module into the system</p>
+<p>load Loads a module into the system</p>
 <dl><dt><b>Exceptions:</b></dt><dd>
   <table class="exception">
-    <tr><td class="paramname">Exception</td><td>- if loading a module failed</td></tr>
+    <tr><td class="paramname"><a class="el" href="class_module_not_found_exception.html">ModuleNotFoundException</a></td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -143,30 +165,11 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a71da93628d8cc592ca0f9ca7b615477d"></a><!-- doxytag: member="Modules::load_automatic_modules" ref="a71da93628d8cc592ca0f9ca7b615477d" args="()" -->
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">static load_automatic_modules </td>
-          <td>(</td>
-          <td class="paramname">&#160;)</td>
-          <td><code> [static, protected]</code></td>
-        </tr>
-      </table>
-</div>
-<div class="memdoc">
-<p>load_automatic_modules Loads the modules defined in application.modules.autoload</p>
-<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
-<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>system/classes/Modules.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:54 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:13 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

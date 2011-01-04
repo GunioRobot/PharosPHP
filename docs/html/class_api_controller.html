@@ -68,9 +68,10 @@ Public Member Functions</h2></td></tr>
 &#160;</td><td class="memItemRight" valign="bottom"><b>version</b> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9b80bb36f89498eac4f43bf08461240d"></a><!-- doxytag: member="ApiController::content" ref="a9b80bb36f89498eac4f43bf08461240d" args="()" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>content</b> ()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#a728c573e418d1f979340a4669524cacd">__missingControllerAction</a> ($class, $method)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#aa79cd4ca11ccf2da0fa3a0fd4810fada">__missingControllerAction</a> ($class, $method, array $params=array())</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#ad86994d2463ea27cab892176e6509bdb">__preRender</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_controller.html#adc3c9cc4788f7ba7d1368fdc43568b1d">__postRender</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pub-attribs"></a>
 Data Fields</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ada57e7bb7c152edad18fe2f166188691"></a><!-- doxytag: member="ApiController::$title" ref="ada57e7bb7c152edad18fe2f166188691" args="" -->
@@ -148,7 +149,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$FAILED_PASSWORD_RE
 </div>
 </div>
 <hr/><h2>Member Function Documentation</h2>
-<a class="anchor" id="a728c573e418d1f979340a4669524cacd"></a><!-- doxytag: member="ApiController::__missingControllerAction" ref="a728c573e418d1f979340a4669524cacd" args="($class, $method)" -->
+<a class="anchor" id="aa79cd4ca11ccf2da0fa3a0fd4810fada"></a><!-- doxytag: member="ApiController::__missingControllerAction" ref="aa79cd4ca11ccf2da0fa3a0fd4810fada" args="($class, $method, array $params=array())" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
@@ -162,7 +163,13 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$FAILED_PASSWORD_RE
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">$&#160;</td>
-          <td class="paramname"> <em>method</em>&#160;</td>
+          <td class="paramname"> <em>method</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">array $&#160;</td>
+          <td class="paramname"> <em>params</em> = <code>array()</code>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -177,6 +184,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$FAILED_PASSWORD_RE
   <table class="params">
     <tr><td class="paramtype">string</td><td class="paramname">$class</td><td></td></tr>
     <tr><td class="paramtype">string</td><td class="paramname">$method</td><td></td></tr>
+    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td></td></tr>
   </table>
   </dd>
 </dl>
@@ -188,6 +196,8 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$FAILED_PASSWORD_RE
 </dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+<p>Reimplemented in <a class="el" href="class_error_controller.html#aa79cd4ca11ccf2da0fa3a0fd4810fada">ErrorController</a>.</p>
 
 </div>
 </div>
@@ -224,6 +234,25 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$FAILED_PASSWORD_RE
 </div>
 <div class="memdoc">
 <p>__preRender Called after the constructer, but before the corresponding method is called (determined by the <a class="el" href="class_router.html">Router</a>) Note that this is not called if the Route was cached</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a19dd44fe063cfd1cbafe97452e57666c"></a><!-- doxytag: member="ApiController::__wakeup" ref="a19dd44fe063cfd1cbafe97452e57666c" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">__wakeup </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [inherited]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>__wakeup Called after the object has been unserialized</p>
 <dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
 
@@ -363,7 +392,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$FAILED_PASSWORD_RE
 <li>application/controllers/ApiController.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Nov 29 2010 16:46:52 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:11 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>
