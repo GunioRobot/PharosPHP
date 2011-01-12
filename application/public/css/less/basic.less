@@ -1,0 +1,100 @@
+@import "colors";
+
+body {
+	margin:0px;
+	padding:0px;
+	background:#FFF;
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:11px;
+}
+
+.clearRight {
+	clear:right;
+	font-size:0px;
+	width:0px;
+	height:0px;
+}
+
+.clearLeft {
+	clear:left;
+	font-size:0px;
+	width:0px;
+	height:0px;
+}
+
+.clearBoth, .clear {
+	clear:both;
+	font-size:0px;
+	width:0px;
+	height:0px;
+}
+
+.hidden {
+	display:none;
+}
+
+.disabled {
+	opacity:0.5;
+//	filter: alpha(opacity = 50);
+  	zoom:1;
+	cursor:default;
+}
+
+.faded {
+	opacity:0.5;
+//	filter: alpha(opacity = 50);
+  	zoom:1;
+}
+
+.floatLeft {
+	float:left;
+}
+
+.floatRight {
+	float:right;
+}
+
+.center {
+	text-align:center;
+}
+
+h2 {
+	margin:12px 0px;
+}
+
+h3 {
+	margin:14px 0px;
+}
+
+ul.inline li {
+	display:inline;
+	margin-right:15px;
+}
+
+img {
+	border:none;
+}
+
+ul {
+	margin:0px;
+	padding:0px;
+}
+
+li {
+	margin:0px;
+	padding:0px;
+	list-style:none;
+}
+
+a {
+	color:@link_color;
+	&:hover {
+		color:(@link_color + #222);
+	}
+	&:active {
+		color:(@link_color - #222) * 1.2;
+	}
+	&:visited {
+		color:(@link_color - #444) * 0.8;
+	}
+}

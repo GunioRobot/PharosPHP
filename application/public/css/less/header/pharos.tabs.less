@@ -1,0 +1,250 @@
+@import "../utils";
+@import "../gradients";
+@import "../colors";
+
+.tab {
+
+	font-size:12px;
+	color:#ffffff;
+	float:left;
+	padding:10px;
+	margin:0 2px;
+	cursor:pointer;
+	font-weight:normal !important;
+	text-shadow:#789789 1px 1px 1px;
+	.radius(3px, 3px, 0px, 0px);
+	
+	&:first-child {
+		margin-left:10px
+	}
+	
+	&:hover, &:visited {
+		font-weight:normal !important;
+		color:#fff;
+	}
+	
+}
+
+
+/* Blue */
+.tab.blue {
+	
+	.inactive-gradient(@blue_bg);
+	
+	&:hover {
+		.inactive-hover-gradient(@blue_bg);
+	}
+	
+	&:active {
+		.inactive-click-gradient(@blue_bg);
+	}
+	
+	&.active {
+		.active-gradient(@blue_bg);
+	}
+	
+	&.active:hover {
+		.active-hover-gradient(@blue_bg);
+	}
+	
+	&.active:active {
+		.active-click-gradient(@blue_bg);
+	}
+	
+}
+
+
+/* Charcoal */
+.tab.charcoal {
+	
+	.inactive-gradient(@charcoal_bg);
+	
+	&:hover {
+		.inactive-hover-gradient(@charcoal_bg);
+	}
+	
+	&:active {
+		.inactive-click-gradient(@charcoal_bg);
+	}
+	
+	&.active {
+		.active-gradient(@charcoal_bg);
+	}
+	
+	&.active:hover {
+		.active-hover-gradient(@charcoal_bg);
+	}
+	
+	&.active:active {
+		.active-click-gradient(@charcoal_bg);
+	}
+	
+}
+
+
+/* Gray */
+.tab.gray {
+	
+	.inactive-gradient(@gray_bg);
+	
+	&:hover {
+		.inactive-hover-gradient(@gray_bg);
+	}
+	
+	&:active {
+		.inactive-click-gradient(@gray_bg);
+	}
+	
+	&.active {
+		.active-gradient(@gray_bg);
+	}
+	
+	&.active:hover {
+		.active-hover-gradient(@gray_bg);
+	}
+	
+	&.active:active {
+		.active-click-gradient(@gray_bg);
+	}
+	
+}
+
+
+/* Green */
+.tab.green {
+	
+	.inactive-gradient(@green_bg);
+	
+	&:hover {
+		.inactive-hover-gradient(@green_bg);
+	}
+	
+	&:active {
+		.inactive-click-gradient(@green_bg);
+	}
+	
+	&.active {
+		.active-gradient(@green_bg);
+	}
+	
+	&.active:hover {
+		.active-hover-gradient(@green_bg);
+	}
+	
+	&.active:active {
+		.active-click-gradient(@green_bg);
+	}
+	
+}
+
+
+/* Orange */
+.tab.orange {
+	
+	.inactive-gradient(@orange_bg);
+	
+	&:hover {
+		.inactive-hover-gradient(@orange_bg);
+	}
+	
+	&:active {
+		.inactive-click-gradient(@orange_bg);
+	}
+	
+	&.active {
+		.active-gradient(@orange_bg);
+	}
+	
+	&.active:hover {
+		.active-hover-gradient(@orange_bg);
+	}
+	
+	&.active:active {
+		.active-click-gradient(@orange_bg);
+	}
+	
+}
+
+
+/* Purple */
+.tab.purple {
+	
+	.inactive-gradient(@purple_bg);
+	
+	&:hover {
+		.inactive-hover-gradient(@purple_bg);
+	}
+	
+	&:active {
+		.inactive-click-gradient(@purple_bg);
+	}
+	
+	&.active {
+		.active-gradient(@purple_bg);
+	}
+	
+	&.active:hover {
+		.active-hover-gradient(@purple_bg);
+	}
+	
+	&.active:active {
+		.active-click-gradient(@purple_bg);
+	}
+	
+}
+
+
+/* Red */
+.tab.red {
+	
+	.inactive-gradient(@red_bg);
+	
+	&:hover {
+		.inactive-hover-gradient(@red_bg);
+	}
+	
+	&:active {
+		.inactive-click-gradient(@red_bg);
+	}
+	
+	&.active {
+		.active-gradient(@red_bg);
+	}
+	
+	&.active:hover {
+		.active-hover-gradient(@red_bg);
+	}
+	
+	&.active:active {
+		.active-click-gradient(@red_bg);
+	}
+	
+}
+
+
+/* Yellow */
+.tab.yellow {
+	
+	.inactive-gradient(@yellow_bg);
+	
+	&:hover {
+		.inactive-hover-gradient(@yellow_bg);
+	}
+	
+	&:active {
+		.inactive-click-gradient(@yellow_bg);
+	}
+	
+	&.active {
+		.active-gradient(@yellow_bg);
+	}
+	
+	&.active:hover {
+		.active-hover-gradient(@yellow_bg);
+	}
+	
+	&.active:active {
+		.active-click-gradient(@yellow_bg);
+	}
+	
+}

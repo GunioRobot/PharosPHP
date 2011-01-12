@@ -6,19 +6,23 @@
 	PharosPHP.PUBLIC_URL = "<?=PUBLIC_URL?>";
 	PharosPHP.UPLOAD_URL = "<?=UPLOAD_URL?>";
 	PharosPHP.SITE_NAME = "<?=Settings::get('application.system.site.name')?>";
+	<? if ( Authentication::get()->logged_in() ): $user = Authentication::get()->user(); ?>
+	PharosPHP.USER = {
+		id: <?=$user->user_id?>,
+		firstName: "<?=$user->user_first_name?>",
+		lastName: "<?=$user->user_last_name?>",
+		name: "<?=$user->user_first_name . ' ' . $user->user_last_name?>"
+	};
+	<? else : ?>
+	PharosPHP.USER = false;
+	<? endif ?>
 
 	$(function() {	
 		
 		setTimeout(function() {
 			$('#alert').slideUp("15000")
 		}, 3500);
-		
-		$('#application').change(function() {
-			$.post(PharosPHP.ROOT_URL+'Applications/change/'+$(this).val()+'/', {redirect:window.location.href}, function(data) {
-				window.location.href = data.redirect;
-			}, "json");
-		})
-		
+				
 	});
 	
 

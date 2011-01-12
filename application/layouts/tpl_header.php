@@ -1,50 +1,59 @@
-
 <body>
-<div id="bodyWrapper">
+	
+	<div id="header-container">
+		<div class="container">
+			<div id="header">
+			
+				<div id="extra-nav">
+					Welcome, <a href="<?=Template::edit("Users", Authentication::get()->user()->user_id)?>"><?=Authentication::get()->user()->user_first_name?></a> | <a href="<?=Template::controller_link("Session", "logout/")?>">Log Out</a>
+				</div><div class="clearBoth"></div>
 
-	<div id="DCheader">
+				<div id="menu">
 					
-		
-	    <a id="logo" href="<?=Template::site_link()?>" title="Home"></a>
-    	<div class="clearBoth"></div>
-        <br clear="all" />
-		
-		<div id="meta-area">
-			<a href="<?=Template::site_link("users/edit/".Authentication::get()->user()->user_id."/")?>" title="Edit My Account Information">My Account</a>
-			&nbsp;|&nbsp;
-			<a href="<?=Template::site_link("session/logout/")?>" title="Sign Out Now">Sign Out</a>
-		</div>
-		
-		
-		<div id="nav">
-			<?
+					<?
 
-				Loader::load_class("Sidebar");
-				$sidebar = new Sidebar();
-				$sidebar->build();	
+					Loader::load_class("Sidebar");
+					$sidebar = new Sidebar();
+					$sidebar->build();	
 
-				$pages = $sidebar->pages();
-				$i = 0;
-				$count = count($pages);
-				foreach($pages as $pid => $parent) : ?>
-					<a href="#" class="topNav<? if ( Template::is_current_parent_nav($parent) ): ?> current<? endif?>" id="nav<?=$parent->id?>"><?=$parent->name?></a>
-					<? if ( ++$i != $count ): ?><span class="divider">|</span><? endif ?>
-				<? endforeach ?>
-				
-				<div class="clearBoth"></div>
-				<div id="pointer"><img src="<?=PUBLIC_URL?>images/nav-pointer.png" alt="v" /></div>
-				
-				
-				<?foreach($pages as $pid => $parent) : ?>
-					<div id="nav<?=$parent->id?>Sub" class="subNav">
-						<? if ( isset($parent->children) && is_array($parent->children) && !empty($parent->children)): ?>
-						<? $i = 0; $count = count($parent->children); foreach($parent->children as $c) : ?>
-						<a href="<?=Template::site_link($c->page)?>" id="<?=$c->id?>-nav"><?=$c->name?></a>
-						<? if ( ++$i != $count ): ?><span class="divider">|</span><? endif ?>
-					<? endforeach; endif; ?>
+					$pages = $sidebar->pages();
+					$parent_obj = null;
+					foreach($pages as $pid => $parent) : ?>
+						<? if ( Template::is_current_parent_nav($parent) ) $parent_obj = $parent; ?>
+						<a href="<?=Template::site_link($parent->page)?>" class="tab <?=$parent->color?> <? if ( $parent == $parent_obj ): ?> active<? endif?>" id="nav<?=$parent->id?>">
+							<? if ($parent->icon != "" ): ?>
+							<div class="icon <?=$parent->icon?>"></div>
+							<? endif ?>
+							<?=$parent->name?>
+						</a>
+					<? endforeach ?>
+
 					<div class="clearBoth"></div>
+					
+				</div>
+				
+				<div id="sub-menu" class="<?=$parent_obj->color ? $parent_obj->color : "charcoal"?>">
+					
+					<? if ( isset($parent_obj->children) && is_array($parent_obj->children) && !empty($parent_obj->children)): ?>
+					<? foreach($parent_obj->children as $child) : ?>
+					<div class="button <? if ( Template::site_link($child->page) == Template::site_link(Input::Server("REDIRECT_URL"))) echo 'pressed'?>">
+						<div class="button-inner">
+							<a href="<?=Template::site_link($child->page)?>"><?=$child->name?></a>
+						</div>
 					</div>
-				<? endforeach ?>
+						
+					<? endforeach; endif; ?>
+					
+					<div class="clear"></div>
+				
+				</div>
+				
+			</div>
 		</div>
+	</div>
+	
+	<div class="container">
 		
-    </div>
+	
+
+

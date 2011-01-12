@@ -1,0 +1,41 @@
+.gradient(@start: #000, @stop: #333) {
+	background-color: @stop;
+	background: -webkit-gradient(linear, left top, left bottom, from(@start), to(@stop));
+	background: -moz-linear-gradient(top, @start, @stop);
+}
+
+.active-gradient(@stop: @blue_bg) {
+	@start:(@stop - #444) * 1.2;
+	.gradient(@start, @stop);
+}
+
+.inactive-gradient(@stop: @blue_bg) {
+	@start:(@stop + #111) * 1.4;
+	.gradient(@start, @stop);
+}
+
+.active-hover-gradient(@stop: @blue_bg) {
+	@start:(@stop - #444) * 0.9;
+	.gradient(@start, @stop);
+}
+
+.inactive-hover-gradient(@stop: @blue_bg) {
+	@start:(@stop + #222) * 1.5;
+	.gradient(@start, @stop);
+}
+
+.active-click-gradient(@stop: @blue_bg) {
+	@start:(@stop - #444) * 0.7;
+	.gradient(@start, @stop);
+}
+
+.inactive-click-gradient(@stop: @blue_bg) {
+	@start:(@stop + #555) * 0.85;
+	.gradient(@start, @stop);
+}
+
+.submenu-gradient(@stop: @blue_bg) {
+	@start:(@stop + #111) * 1.2;
+	@end:(@start - #333) * 0.7;
+	.gradient(@start, @end);
+}

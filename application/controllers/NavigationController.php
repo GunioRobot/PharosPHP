@@ -9,6 +9,73 @@
 	
 	class NavigationController extends TableController {
 		
+		static $colors = array(
+			"blue" => "blue",
+			"charcoal" => "charcoal",
+			"gray" => "gray",
+			"green" => "green",
+			"orange" => "orange",
+			"purple" => "purple",
+			"red" => "red",
+			"yellow" => "yellow"			
+		);
+		
+		static $icons = array(
+			"add-to-cloud" => "add-to-cloud",
+			"airplane" => "airplane",
+			"atm-card" => "atm-card",
+			"bookmark" => "bookmark",
+			"briefcase" => "briefcase",
+			"brightness" => "brightness",
+			"calendar-day-of-week" => "calendar-day-of-week",
+			"calendar-day" => "calendar-day",
+			"calendar-month" => "calendar-month",
+			"calendar-week" => "calendar-week",
+			"chat" => "chat",
+			"chats" => "chats",
+			"checkmark" => "checkmark",
+			"clipboard" => "clipboard",
+			"clock" => "clock",
+			"closed-mail" => "closed-mail",
+			"cloud" => "cloud",
+			"contrast" => "contrast",
+			"crop" => "crop",
+			"cut" => "cut",
+			"film-roll" => "film-roll",
+			"folder" => "folder",
+			"gear" => "gear",
+			"go-light" => "go-light",
+			"grocery-bag" => "grocery-bag",
+			"key" => "key",
+			"license" => "license",
+			"link" => "link",
+			"lock" => "lock",
+			"marker" => "marker",
+			"microphone" => "microphone",
+			"monitor" => "monitor",
+			"movie" => "movie",
+			"music" => "music",
+			"open-mail" => "open-mail",
+			"paste" => "paste",
+			"picture" => "picture",
+			"polaroid" => "polaroid",
+			"portfolio" => "portfolio",
+			"radio-tower" => "radio-tower",
+			"radio" => "radio",
+			"remove-from-cloud" => "remove-from-cloud",
+			"scanner" => "scanner",
+			"shopping-bag" => "shopping-bag",
+			"stop-light" => "stop-light",
+			"tag" => "tag",
+			"tools" => "tools",
+			"tv" => "tv",
+			"unlocked" => "unlocked",
+			"wallet" => "wallet",
+			"widescreen" => "widescreen"			
+		);
+		
+		protected $parents = array(0 => "(No Parent)");
+		
 		
 		//////////////////////////////////////////////////////////////////
 		//
@@ -19,6 +86,10 @@
 		public function __construct() {
 			
 			parent::__construct("Navigation","admin_nav");
+			
+			for ( $info = $this->db->Execute(sprintf("SELECT * FROM `%s` WHERE parent_id = '0'", $this->table->id)); !$info->EOF; $info->moveNext() ) {
+				$this->parents[$info->fields['id']] = $info->fields['name'];
+			}
 						
 			$this->dataKey = "id";			
 			$this->tableColumns();
@@ -36,7 +107,7 @@
 		protected function tableColumns() {
 			$this->table->columns = array();
 			$this->table->columns[] = array('name' => "ID", "key" => $this->dataKey, "class" => "listCheckBox center");
-			$this->table->columns[] = array('name' => 'Name', 'key' => 'name');
+			$this->table->columns[] = array('name' => 'Name', 'key' => 'name', 'class' => 'center');
 			$this->table->columns[] = array('name' => 'Min', 'key' => 'min_lvl', 'class' => 'center');
 			$this->table->columns[] = array('name' => 'Max', 'key' => 'max_lvl', 'class' => 'center');
 			$this->table->columns[] = array('name' => 'Date Added', 'key' => 'date_added', 'class' => 'center');
@@ -157,13 +228,15 @@
 				array('name' => '{form_link}', 'type' => 'static', 'value' => Template::save(__CLASS__,$id)),
 				array('name' => '{data_key}', 'type' => 'static', 'value' => PROFILE_ID),
 				
-				array('name' => 'parent_id' ,'type' => 'text', 'size' => '3' , 'max' => '3'),
+				array('name' => 'parent_id' ,'type' => 'dropdown', 'option' => $this->parents, 'default' => 0),
 				array('name' => 'name' ,'type' => 'text', 'size' => '50' , 'max' => '200'),
 				array('name' => 'page' ,'type' => 'text', 'size' => '50' , 'max' => '100'),
 				array('name' => 'order_num' ,'type' => 'text', 'size' => '2' , 'max' => '2'),
 				array('name' => 'display', 'type' => 'dropdown', 'option' => array('hidden' => 'None', 'visible' => 'Visible'), 'default' => 'visible'),
 				array('name' => 'min_lvl', 'type' => 'dropdown', 'option' => $levels, 'default' => Settings::get('application.users.levels.admin')),
 				array('name' => 'max_lvl', 'type' => 'dropdown', 'option' => $levels, 'default' => Settings::get('application.users.levels.super')),
+				array('name' => 'icon', 'type' => 'dropdown', 'option' => self::$icons),
+				array('name' => 'color', 'type' => 'dropdown', 'option' => self::$colors, 'default' => 'charcoal'),
 				
 				array('name' => 'description', 'type' => 'text_area', 'row' => '8', 'col' => '89', 'width' => '738px', 'height' => '100px'),
 				array('name' => 'date_added', 'type' => 'date_added'),
@@ -193,10 +266,6 @@
 			
 			if ( ($confirmed = Input::post("confirmed")) === "true" ) {
 				
-				// Delete the tracking info 
-				$sql = "DELETE FROM tracking WHERE content_type_id = '".NAVIGATION_TYPE_ID."' AND table_index = '$id'";
-				$this->db->Execute($sql);
-
 				// Delete the navigtaion entry itself
 				$sql = "DELETE FROM ".$this->table->id." WHERE $this->dataKey = '$id' LIMIT 1";
 				$this->db->Execute($sql);

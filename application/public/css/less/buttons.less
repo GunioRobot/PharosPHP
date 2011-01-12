@@ -1,0 +1,52 @@
+.button {
+	
+	background:transparent url(../images/1.5/buttons/transparent-left.png) no-repeat;
+	padding-left:22px;
+	float:left;
+	height:31px;
+	margin-right:15px;
+	cursor:pointer;
+	
+	&.pressed {
+		background-position:0 -31px;
+		.button-inner {
+			background-position:right -31px;
+		}
+	}
+	
+	a {
+		font-weight:normal !important;
+		color:#fff;
+		font-size:13px;
+		text-shadow:#789789 1px 1px 1px;
+	}
+	
+}
+
+.button-inner {
+	background:transparent url(../images/1.5/buttons/transparent-right.png) no-repeat;
+	background-position:top right;
+	padding-right:22px;
+	padding-top:7px;
+	height:24px;
+}
+
+.buttonWrap {
+	width:200px;
+}
+
+a.buttons, a.buttons2 {
+	background:url(../images/btn_main.png) no-repeat;
+	color:#FFFFFF;
+	display:inline-block;
+	width:200px;
+	height:30px;
+	font-size:11px;
+	line-height:30px;
+	border:none;
+	margin-top:5px;
+}
+
+a.buttons:hover, a.buttons2:hover {
+	background-position:0 -30px;
+}

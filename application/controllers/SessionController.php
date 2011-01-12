@@ -14,8 +14,16 @@
 			$this->auth->login_required(false);
 			$this->title = "Login";
 		}
+		
+		public function index() {
+			$this->login();
+		}
 
 		public function login() {
+			
+			if ( $this->auth->logged_in() ) {
+				redirect(Template::site_link());
+			}
 			
 			$this->title = "Login";
 			$this->output->cache(1 * Cache::WEEKS);

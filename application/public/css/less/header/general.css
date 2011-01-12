@@ -1,0 +1,15 @@
+@import "pharos.tabs.css";
+#sub-menu{height:45px;margin:0px 8px;padding:16px 10px 0 10px;-moz-border-radius:3px 3px 0px 0px;-webkit-border-radius:3px 3px 0px 0px;border-radius:3px 3px 0px 0px;}
+#sub-menu.charcoal{background-color:#232020;background:-webkit-gradient(linear, left top, left bottom, from(#656161), to(#232020));background:-moz-linear-gradient(top, #656161, #232020);}
+#sub-menu.gray{background-color:#696969;background:-webkit-gradient(linear, left top, left bottom, from(#c8c8ca), to(#696969));background:-moz-linear-gradient(top, #c8c8ca, #696969);}
+#sub-menu.blue{background-color:#0060ab;background:-webkit-gradient(linear, left top, left bottom, from(#31bcff), to(#0060ab));background:-moz-linear-gradient(top, #31bcff, #0060ab);}
+#sub-menu.green{background-color:#2f8e22;background:-webkit-gradient(linear, left top, left bottom, from(#77fd64), to(#2f8e22));background:-moz-linear-gradient(top, #77fd64, #2f8e22);}
+#sub-menu.red{background-color:#b61212;background:-webkit-gradient(linear, left top, left bottom, from(#ff4d4d), to(#b61212));background:-moz-linear-gradient(top, #ff4d4d, #b61212);}
+#sub-menu.purple{background-color:#ab30a3;background:-webkit-gradient(linear, left top, left bottom, from(#ff78ff), to(#ab30a3));background:-moz-linear-gradient(top, #ff78ff, #ab30a3);}
+#sub-menu.orange{background-color:#ad6e1a;background:-webkit-gradient(linear, left top, left bottom, from(#ffd058), to(#ad6e1a));background:-moz-linear-gradient(top, #ffd058, #ad6e1a);}
+#sub-menu.yellow{background-color:#98930e;background:-webkit-gradient(linear, left top, left bottom, from(#ffff47), to(#98930e));background:-moz-linear-gradient(top, #ffff47, #98930e);}
+#header-container{background:transparent url(../images/1.5/menu/top-bg.png) repeat-x;height:130px;color:#7c87a5;}
+#login-header{height:50px;margin-left:15px;margin-top:-15px;}#login-header h1{font-size:32px;color:#DDDDDD;text-shadow:#565656 1px 2px 3px;margin-top:0px;}
+#extra-nav{float:right;font-size:12px;margin-top:10px;padding-right:10px;}#extra-nav a{color:#1f95d5;}
+#menu{position:relative;margin-top:10px;}
+#shadow{height:1px;width:100%;background:transparent url(../images/1.5/menu/shadow.png) repeat-x;position:absolute;bottom:4px;left:0;}
