@@ -17,6 +17,24 @@
 	
 	final class Loader extends Object {
 		
+		/**
+		 * model
+		 * Will load a model from the models directory
+		 *
+		 * @throws ClassNotFoundException
+		 *
+		 * @param string $model_name
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public function model($model) {
+			$info = pathinfo($model);
+			$file = $info['filename'];
+			$path = $info['dirname'] == "." ? MODELS_PATH . $model . ".php" : $file . ".php";
+			self::_load_class($path);
+		}
+		
 				
 		/**
 		 * module
