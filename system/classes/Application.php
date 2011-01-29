@@ -9,7 +9,10 @@
 	 * @author Matt Brewer
 	 **/
 	
+	NotificationCenter::define(Application::PAGE_LOOKUP_SQL_FILTER);
 	final class Application extends Object {
+		
+		const PAGE_LOOKUP_SQL_FILTER = "page_lookup_sql_notification";
 		
 		protected static $controller = null;
 		
@@ -162,9 +165,10 @@
 			try {
 
 				ob_start();
-
-				// Find the page to include, takes care of page_slug = '' for the homepage automatically...
-				$page = $db->Execute("SELECT * FROM pages WHERE LOWER(slug) = '".strtolower(Template::controller_slug($controllerClass))."' LIMIT 1");
+				
+				$slug = strtolower(Template::controller_slug($controllerClass));
+				$sql = "SELECT * FROM `pages` WHERE LOWER(`slug`) = '" . $slug . "' LIMIT 1";
+				$page = $db->Execute(NotificationCenter::execute(Application::PAGE_LOOKUP_SQL_FILTER, $sql, $slug));
 				if ( !$page->EOF ) {
 
 					$page = clean_object($page->fields);
