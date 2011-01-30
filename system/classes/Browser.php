@@ -275,7 +275,7 @@
 				$aresult = explode('/',stristr(self::$_agent,'googlebot'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion(str_replace(';','',$aversion[0]));
-				self::$browser_name = self::BROWSER_GOOGLEBOT;
+				self::$_browser_name = self::BROWSER_GOOGLEBOT;
                 self::setRobot();
 				$retval = true;
 			}
