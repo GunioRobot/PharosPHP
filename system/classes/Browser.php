@@ -292,7 +292,7 @@
 				$aresult = explode('/',stristr(self::$_agent,'W3C-checklink'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
-				self::$browser_name = self::BROWSER_W3CVALIDATOR;
+				self::$_browser_name = self::BROWSER_W3CVALIDATOR;
 				$retval = true;
 			}
 			return $retval;
@@ -308,7 +308,7 @@
 				$aresult = explode('/',stristr(self::$_agent,'Slurp'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
-				self::$browser_name = self::BROWSER_SLURP;
+				self::$_browser_name = self::BROWSER_SLURP;
                 self::setRobot();
 				$retval = true;
 			}
@@ -370,14 +370,14 @@
 					$aresult = explode('/',$resultant);
 					$aversion = explode(' ',$aresult[1]); 
 					self::setVersion($aversion[0]);
-					self::$browser_name = self::BROWSER_OPERA_MINI;
+					self::$_browser_name = self::BROWSER_OPERA_MINI;
 					self::setMobile();
                     $retval = true;
 				}
 				else {
 					$aversion = explode(' ',stristr($resultant,'opera mini'));
 					self::setVersion($aversion[1]);
-					self::$browser_name = self::BROWSER_OPERA_MINI;
+					self::$_browser_name = self::BROWSER_OPERA_MINI;
 					self::setMobile();
 					$retval = true;
 				}
@@ -386,20 +386,20 @@
 				$resultant = stristr(self::$_agent, 'opera');
 				if( preg_match('/Version\/(10.*)$/',$resultant,$matches) ) {
 					self::setVersion($matches[1]);
-					self::$browser_name = self::BROWSER_OPERA;
+					self::$_browser_name = self::BROWSER_OPERA;
 					$retval = true;
 				}
 				else if( preg_match('/\//',$resultant) ) {
 					$aresult = explode('/',$resultant);
 					$aversion = explode(' ',$aresult[1]); 
 					self::setVersion($aversion[0]);
-					self::$browser_name = self::BROWSER_OPERA;
+					self::$_browser_name = self::BROWSER_OPERA;
 					$retval = true;
 				}
 				else {
 					$aversion = explode(' ',stristr($resultant,'opera'));
 					self::setVersion($aversion[1]);
-					self::$browser_name = self::BROWSER_OPERA;
+					self::$_browser_name = self::BROWSER_OPERA;
 					$retval = true;
 				}
 			}
@@ -416,7 +416,7 @@
 				$aresult = explode('/',stristr(self::$_agent,'webtv'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion($aversion[0]);
-				self::$browser_name = self::BROWSER_WEBTV;
+				self::$_browser_name = self::BROWSER_WEBTV;
 				$retval = true;
 			}
 			return $retval;
@@ -432,7 +432,7 @@
 				$aresult = explode('/',stristr(self::$_agent,'NetPositive'));
 				$aversion = explode(' ',$aresult[1]);
 				self::setVersion(str_replace(array('(',')',';'),'',$aversion[0]));
-				self::$browser_name = self::BROWSER_NETPOSITIVE;
+				self::$_browser_name = self::BROWSER_NETPOSITIVE;
 				self::$_platform = self::PLATFORM_BEOS;
 				$retval = true;
 			}
