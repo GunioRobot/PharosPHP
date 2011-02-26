@@ -9,7 +9,6 @@
 	 * @author Matt Brewer
 	 **/
 	
-	NotificationCenter::define(Application::PAGE_LOOKUP_SQL_FILTER);
 	final class Application extends Object {
 		
 		const PAGE_LOOKUP_SQL_FILTER = "page_lookup_sql_notification";
@@ -62,6 +61,8 @@
 		 **/
 
 		public static function pre_bootstrap() {
+			
+			NotificationCenter::define(Application::PAGE_LOOKUP_SQL_FILTER);
 			
 			Loader::load_class('Input');
 			Loader::load_class('HTTPResponse');
