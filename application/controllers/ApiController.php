@@ -20,7 +20,7 @@
 		protected static $ERROR_REGISTER_INVALID_USERNAME = array("code" => 6, "message" => "Username is already registered");
 		
 		// Locking Account
-		protected static $SUCCESSFUL_LOCK_ACCOUNT = array("code" => 7, "message" => "Your account has been locked after three invalid login attempts.  Please contact the administrator at <a href=\"mailto:innvideohelp@cooperindustries.com\">innvideohelp@cooperindustries.com</a> to re-activate this account. Thank you.");
+		protected static $SUCCESSFUL_LOCK_ACCOUNT = array("code" => 7, "message" => "Your account has been locked after three invalid login attempts.  Please contact the administrator at <a href=\"mailto:%s\">%s</a> to re-activate this account. Thank you.");
 		
 		// Password Reset
 		protected static $SUCCESSFUL_PASSWORD_RESET = array("code" => 8, "message" => "Your password has been reset and emailed to the email address you registered");
@@ -274,7 +274,7 @@
 				
 				$el = $dom->createElement("status");
 				$el->setAttribute("code", self::$SUCCESSFUL_LOCK_ACCOUNT['code']);		
-				$el->appendChild($dom->createCDATASection(self::$SUCCESSFUL_LOCK_ACCOUNT['message']));
+				$el->appendChild($dom->createCDATASection(sprintf(self::$SUCCESSFUL_LOCK_ACCOUNT['message']), $this->password_reset_email, $this->password_reset_email));
 				$holder->appendChild($el);
 				
 				$el = $dom->createElement("status");
@@ -307,6 +307,7 @@
 					responseXML(false,"",$dom,$root);
 					$message = $dom->createElement("status");
 					$status = self::$SUCCESSFUL_LOCK_ACCOUNT;
+					$status['message'] = sprintf($status['message'], $this->password_reset_email, $this->password_reset_email);
 					
 					$username = $user->getElementsByTagName('username')->item(0)->nodeValue;
 
