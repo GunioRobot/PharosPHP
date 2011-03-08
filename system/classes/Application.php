@@ -212,7 +212,7 @@
 							self::$controller->pageText($page->text);
 						}
 
-						echo self::$controller->index();
+						self::_execute();
 
 					}
 
