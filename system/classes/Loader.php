@@ -17,6 +17,22 @@
 	
 	final class Loader extends Object {
 		
+		protected static $shared = null;
+		
+		/**
+		 * sharedLoader
+		 * Returns the static instance of the Loader class
+		 *
+		 * @return Loader $shared
+		 * @author Matt Brewer
+		 **/
+		
+		public function sharedLoader() {
+			if ( is_null(self::$shared) ) {
+				self::$shared = new __CLASS__;
+			} return self::$shared;
+		}
+		
 		/**
 		 * model
 		 * Will load a model from the models directory
