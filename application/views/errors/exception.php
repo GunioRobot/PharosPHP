@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>Pharos PHP | Uncaught Exception</title>
-	<link rel="stylesheet" type="text/css" href="<?=ROOT_URL . APP_DIR . DS . PUBLIC_DIR . DS . 'css' . DS?>styles.css" />
+	<link rel="stylesheet" type="text/css" href="<?=ROOT_URL . APP_DIR . DS . PUBLIC_DIR . DS . 'css' . DS?>style_site.css" />
 </head>
 
 <body>
