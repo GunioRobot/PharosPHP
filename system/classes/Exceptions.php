@@ -212,6 +212,10 @@
 		 **/
 
 		public $path = "";
+		public function __construct($path="") {
+			parent::__construct(sprintf("Path not found: [%s]", $path));
+			$this->path = $path;
+		}
 	
 	}
 	
@@ -254,7 +258,7 @@
 		protected $message = "Module not found";
 	}
 	
-	
+
 	/**
 	 * ReadOnlyPropertyException
 	 * Raised when code attempts to access protected or private instance vars not protected by the language
