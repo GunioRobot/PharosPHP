@@ -70,26 +70,30 @@ Here is a list of all documented struct and union fields with links to the struc
 , <a class="el" href="class_api_controller.html#a095c5d389db211932136b53f25f39685">ApiController</a>
 , <a class="el" href="class_cron_controller.html#a095c5d389db211932136b53f25f39685">CronController</a>
 , <a class="el" href="class_settings_controller.html#a095c5d389db211932136b53f25f39685">SettingsController</a>
+, <a class="el" href="class_keypath.html#a0217decd1cd518128e64cc6cd637b526">Keypath</a>
+, <a class="el" href="class_language.html#af17309d915b39fc86c6a0f5876d1e20b">Language</a>
+, <a class="el" href="class_users_controller.html#a095c5d389db211932136b53f25f39685">UsersController</a>
 , <a class="el" href="class_object.html#a095c5d389db211932136b53f25f39685">Object</a>
 , <a class="el" href="class_r_s_s.html#aed4b1eae06bbde7650390405ef11f5ed">RSS</a>
-, <a class="el" href="class_users_controller.html#a095c5d389db211932136b53f25f39685">UsersController</a>
 , <a class="el" href="class_error_controller.html#a095c5d389db211932136b53f25f39685">ErrorController</a>
 , <a class="el" href="class_image_processor.html#a025fface9738730639d72d61f4961838">ImageProcessor</a>
 , <a class="el" href="class_controller.html#a095c5d389db211932136b53f25f39685">Controller</a>
 , <a class="el" href="class_assets_controller.html#a095c5d389db211932136b53f25f39685">AssetsController</a>
 , <a class="el" href="class_navigation_controller.html#a095c5d389db211932136b53f25f39685">NavigationController</a>
+, <a class="el" href="class_database_column.html#a3e25051959790ddc90d4e0c224f66a8d">DatabaseColumn</a>
+, <a class="el" href="class_pharos_model.html#a1de6c3dce822ddb6e0af2c9356c7241c">PharosModel</a>
+, <a class="el" href="class_session_controller.html#a095c5d389db211932136b53f25f39685">SessionController</a>
 , <a class="el" href="class_f_t_p_client.html#a7b039c120cfd23322f2853d9218f9e5b">FTPClient</a>
 , <a class="el" href="class_h_t_t_p_response.html#a095c5d389db211932136b53f25f39685">HTTPResponse</a>
-, <a class="el" href="class_session_controller.html#a095c5d389db211932136b53f25f39685">SessionController</a>
-, <a class="el" href="class_keypath.html#a0217decd1cd518128e64cc6cd637b526">Keypath</a>
-, <a class="el" href="class_language.html#af17309d915b39fc86c6a0f5876d1e20b">Language</a>
 </li>
 <li>__destruct()
 : <a class="el" href="class_f_t_p_client.html#a421831a265621325e1fdd19aace0c758">FTPClient</a>
 , <a class="el" href="class_h_t_t_p_response.html#a421831a265621325e1fdd19aace0c758">HTTPResponse</a>
 </li>
 <li>__get()
-: <a class="el" href="class_h_t_t_p_response.html#a4537dad3b44254124991341cc91b28fb">HTTPResponse</a>
+: <a class="el" href="class_database_column.html#a4537dad3b44254124991341cc91b28fb">DatabaseColumn</a>
+, <a class="el" href="class_pharos_model.html#a4537dad3b44254124991341cc91b28fb">PharosModel</a>
+, <a class="el" href="class_h_t_t_p_response.html#a4537dad3b44254124991341cc91b28fb">HTTPResponse</a>
 </li>
 <li>__missingControllerAction()
 : <a class="el" href="class_error_controller.html#aa79cd4ca11ccf2da0fa3a0fd4810fada">ErrorController</a>
@@ -104,15 +108,22 @@ Here is a list of all documented struct and union fields with links to the struc
 <li>__set()
 : <a class="el" href="class_language.html#a3b2a9ac447bf0c26d962d219e7a0d3f5">Language</a>
 , <a class="el" href="class_h_t_t_p_response.html#a79b36d71c6f1d4f9e6c4c3e34c081456">HTTPResponse</a>
+, <a class="el" href="class_database_column.html#a79b36d71c6f1d4f9e6c4c3e34c081456">DatabaseColumn</a>
+, <a class="el" href="class_pharos_model.html#a79b36d71c6f1d4f9e6c4c3e34c081456">PharosModel</a>
 </li>
 <li>__toString()
-: <a class="el" href="class_keypath.html#a7516ca30af0db3cdbf9a7739b48ce91d">Keypath</a>
+: <a class="el" href="class_database_column.html#a7516ca30af0db3cdbf9a7739b48ce91d">DatabaseColumn</a>
+, <a class="el" href="class_pharos_model.html#a7516ca30af0db3cdbf9a7739b48ce91d">PharosModel</a>
+, <a class="el" href="class_keypath.html#a7516ca30af0db3cdbf9a7739b48ce91d">Keypath</a>
 </li>
 <li>__wakeup()
 : <a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">Object</a>
 </li>
 <li>_execute()
 : <a class="el" href="class_application.html#a6ac4f15b4f6a1c98eb2e38413279aee1">Application</a>
+</li>
+<li>_insertSQL()
+: <a class="el" href="class_pharos_model.html#ad2564206568562a1d11b9fdaf68ee03c">PharosModel</a>
 </li>
 <li>_load()
 : <a class="el" href="class_modules.html#a5d45011cda3d16c13bbc81242e540dca">Modules</a>
@@ -123,9 +134,12 @@ Here is a list of all documented struct and union fields with links to the struc
 <li>_size()
 : <a class="el" href="class_f_t_p_client.html#a39c177afa6c7c4a42fa41e282911d556">FTPClient</a>
 </li>
+<li>_updateSQL()
+: <a class="el" href="class_pharos_model.html#a72c2935f8ce5ba74b9313bbaf4b598e4">PharosModel</a>
+</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:11 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Mar 27 2011 18:41:55 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

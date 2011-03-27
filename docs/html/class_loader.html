@@ -32,7 +32,8 @@
 <a href="#pub-methods">Public Member Functions</a> &#124;
 <a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-static-methods">Static Protected Member Functions</a> &#124;
-<a href="#pro-attribs">Protected Attributes</a>  </div>
+<a href="#pro-attribs">Protected Attributes</a> &#124;
+<a href="#pro-static-attribs">Static Protected Attributes</a>  </div>
   <div class="headertitle">
 <h1>Loader Class Reference</h1>  </div>
 </div>
@@ -49,6 +50,8 @@ Inheritance diagram for Loader:<!-- endSectionHeader --></div>
 <table class="memberdecls">
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#a8acf526a85257c2d7660b93a8cd80a31">sharedLoader</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#ac531eb761b130b1925a8bae5c33af2fc">model</a> ($model)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#abc6be440e54582b55d57a55b0a20415d">module</a> ($name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#a4685e3ef6b0bf19ebdbe9ecc502e5dc1">klass</a> ($name)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_loader.html#aaad68183dd74b4723de4b7f3ec1195e3">config</a> ($filename)</td></tr>
@@ -63,6 +66,10 @@ Static Protected Member Functions</h2></td></tr>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fa3127fc82f96b1436d871ef02be319"></a><!-- doxytag: member="Loader::$db" ref="a1fa3127fc82f96b1436d871ef02be319" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>$db</b> = null</td></tr>
+<tr><td colspan="2"><h2><a name="pro-static-attribs"></a>
+Static Protected Attributes</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a6ba42381f4694c65f00457197aa13446"></a><!-- doxytag: member="Loader::$shared" ref="a6ba42381f4694c65f00457197aa13446" args="" -->
+static&#160;</td><td class="memItemRight" valign="bottom"><b>$shared</b> = null</td></tr>
 </table>
 <hr/><h2>Member Function Documentation</h2>
 <a class="anchor" id="a19dd44fe063cfd1cbafe97452e57666c"></a><!-- doxytag: member="Loader::__wakeup" ref="a19dd44fe063cfd1cbafe97452e57666c" args="()" -->
@@ -213,6 +220,38 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac531eb761b130b1925a8bae5c33af2fc"></a><!-- doxytag: member="Loader::model" ref="ac531eb761b130b1925a8bae5c33af2fc" args="($model)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">model </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"> <em>model</em>&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>model Will load a model from the models directory</p>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_class_not_found_exception.html">ClassNotFoundException</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">string</td><td class="paramname">$model_name</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="abc6be440e54582b55d57a55b0a20415d"></a><!-- doxytag: member="Loader::module" ref="abc6be440e54582b55d57a55b0a20415d" args="($name)" -->
 <div class="memitem">
 <div class="memproto">
@@ -245,11 +284,30 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="a8acf526a85257c2d7660b93a8cd80a31"></a><!-- doxytag: member="Loader::sharedLoader" ref="a8acf526a85257c2d7660b93a8cd80a31" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">sharedLoader </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>sharedLoader Returns the static instance of the <a class="el" href="class_loader.html">Loader</a> class</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd><a class="el" href="class_loader.html">Loader</a> $shared </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>system/classes/Loader.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Mon Jan 3 2011 20:56:13 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Mar 27 2011 18:41:55 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>
