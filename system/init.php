@@ -66,7 +66,7 @@
 	Loader::load_class('Language');
 	Loader::load_class('Router');
 	Loader::load_class('Template');
-	Loader::load_class('QueryFactory');
+	Loader::load_class('Database/QueryFactory');
 	Loader::load_class('Controller');
 	Loader::load_class('ApplicationController');
 	Loader::load_class('ApplicationGenericPageController');
