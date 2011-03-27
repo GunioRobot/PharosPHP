@@ -63,7 +63,7 @@
 		
 		
 		/**
-		 * __constuct
+		 * __construct
 		 *
 		 * @return HTTPResponse
 		 * @author Matt Brewer
