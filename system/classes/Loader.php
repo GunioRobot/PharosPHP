@@ -29,7 +29,7 @@
 		
 		public function sharedLoader() {
 			if ( is_null(self::$shared) ) {
-				self::$shared = new __CLASS__;
+				self::$shared = new Loader();
 			} return self::$shared;
 		}
 		
@@ -158,13 +158,13 @@
 			} else {
 				
 				if ( !class_exists($klass) ) {
+					$name .= stripos($name, ".php") === false ? ".php" : "";
 					@include_once $name;
+					if ( !class_exists($klass) ) {
+						throw new ClassNotFoundException(sprintf("Attempted to load class (%s) from file: %s", $klass, $name));
+					}
 				}
-				
-				if ( !class_exists($klass) ) {
-					throw new ClassNotFoundException(sprintf("Attempted to load class (%s) from file: %s", $klass, $name));
-				}
-				
+
 			}
 			
 		}
