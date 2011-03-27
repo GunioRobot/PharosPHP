@@ -258,7 +258,20 @@
 		protected $message = "Module not found";
 	}
 	
+	
+	/**
+	 * PharosModelInvalidLoadException
+	 * Raised when a model cannot be loaded correctly
+	 *
+	 * @package default
+	 * @author Matt Brewer
+	 **/
 
+	class PharosModelInvalidLoadException extends PharosBaseException {
+		protected $message = "Model could not be loaded";
+	}
+	
+	
 	/**
 	 * ReadOnlyPropertyException
 	 * Raised when code attempts to access protected or private instance vars not protected by the language
