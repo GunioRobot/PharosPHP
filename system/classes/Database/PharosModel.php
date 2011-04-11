@@ -161,10 +161,16 @@
 					break;
 					
 				default:
-					if ( $this->fields[$key]->value != $value ) {
+					if ( isset($this->fields[$key]) ) {
+						if ( $this->fields[$key]->value != $value ) {
+							$this->fields[$key]->value = $value;
+							$this->dirty = true;
+						} 
+					} else {
+						$this->fields[$key] = new DatabaseColumn($this->table, $key);
 						$this->fields[$key]->value = $value;
 						$this->dirty = true;
-					} 
+					}
 					break;
 			}
 		}
@@ -266,11 +272,12 @@
 		protected function _insertSQL() {
 			static $auto_update = array("date_added", "last_updated", "created_at", "modified_at");
 			$update = array();
-			foreach($this->fields as $key => $info) {
+			$visible = $this->visibleFields();
+			foreach($visible as $key => $info) {
 				if ( in_array($key, $auto_update) ) {
 					$info->addAttribute(DatabaseColumn::ATTRIBUTE_NOW);
 				} $update[] = $info->sql();
-			} return 'INSERT INTO `' . $this->table . '` (`' . implode("`,`", array_keys($this->fields)) . '`) VALUES(`' . implode('`,`', $update) . '`)';
+			} return 'INSERT INTO `' . $this->table . '` (`' . implode("`,`", array_keys($visible)) . '`) VALUES(' . implode(",", $update) . ')';
 		}
 	
 		/**
@@ -284,11 +291,38 @@
 		protected function _updateSQL() {
 			static $auto_update = array("last_updated", "modified_at");
 			$update = array();
-			foreach($this->fields as $key => $info) {
+			$visible = $this->visibleFields();
+			foreach($visible as $key => $info) {
 				if ( in_array($key, $auto_update) ) {
 					$info->addAttribute(DatabaseColumn::ATTRIBUTE_NOW);
 				} $update[] = "`$key` = " . $info->sql();
 			} return 'UPDATE `' . $this->table . '` SET ' . implode(", ", $update) . ' WHERE `' . $this->key . '` = ' . $this->{$this->key} . ' LIMIT 1';
+		}
+		
+		
+		/**
+		 * visibleFields
+		 * Returns only the fields for the object which are to be saved directly on this table
+		 *
+		 * @return array $filtered
+		 * @author Matt Brewer
+		 **/
+		protected function visibleFields() {
+			return array_filter($this->fields, array(__CLASS__, "_removeIgnoredFields"));
+		}
+		
+		/**
+		 * _removeIgnoredFields
+		 * array_filter() callback function
+		 *
+		 * @param DatabaseColumn $comparisonObject
+		 * 
+		 * @return bool $inclusion
+		 * @author Matt Brewer
+		 **/
+		
+		public static function _removeIgnoredFields(DatabaseColumn $d) {
+			return !$d->hasAttribute(DatabaseColumn::ATTRIBUTE_IGNORE);
 		}
 
 	}
