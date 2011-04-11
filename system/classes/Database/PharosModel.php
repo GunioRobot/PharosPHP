@@ -125,6 +125,8 @@
 				case "table":
 				case "key":
 				case "saved":
+				case "fields":
+				case "dirty":
 					return $this->{$key};
 					break;
 				
@@ -153,6 +155,8 @@
 				case "table":
 				case "key":
 				case "saved":
+				case "fields":
+				case "dirty":
 					throw new ReadOnlyPropertyException($key);
 					break;
 					
