@@ -25,6 +25,7 @@
 		const TYPE_ENUM = "enum";
 		
 		const ATTRIBUTE_NOW = "attribute_now";
+		const ATTRIBUTE_IGNORE = "attribute_ignore";
 		const ATTRIBUTE_ESCAPE = "attribute_escape";
 		const ATTRIBUTE_UNESCAPE = "attribute_unescape";
 		const ATTRIBUTE_CALLBACK = "attribute_callback";
@@ -67,7 +68,7 @@
 		 * @var array
 		 **/
 		
-		protected $attributes = array(self::ATTRIBUTE_ESCAPE);
+		protected $attributes = array(self::ATTRIBUTE_ESCAPE => null);
 		
 		/**
 		 * Class variable storing array of tables for caching & minimizing database calls
@@ -123,7 +124,7 @@
 					break;
 					
 				case self::TYPE_DATE:
-					return array_key_exists(self::ATTRIBUTE_NOW, $this->attributes) ? 'DATE()' : $value;
+					return array_key_exists(self::ATTRIBUTE_NOW, $this->attributes) ? 'CURDATE()' : $value;
 					break;	
 										
 				default:
@@ -147,6 +148,19 @@
 		
 		public function addAttribute($att, $opt=null) {
 			$this->attributes[$att] = $opt;
+		}
+		
+		
+		/**
+		 * hasAttribute
+		 * Determines if the object has the specified attribute
+		 *
+		 * @return bool $contains
+		 * @author Matt Brewer
+		 **/
+		
+		public function hasAttribute($att) {
+			return array_key_exists($att, $this->attributes);
 		}
 		
 		
