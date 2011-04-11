@@ -76,6 +76,10 @@
 			$this->table = $table;
 			$this->key = $key;
 			
+			foreach(DatabaseColumn::columns($table) as $name => $value) {
+				$this->fields[strtolower($name)] = $value;
+			}
+			
 			if ( is_array($opt) ) {		// Array of DatabaseColumn objects, or just of raw record data
 				
 				foreach(DatabaseColumn::columns($table) as $name => $value) {
@@ -99,13 +103,7 @@
 				$this->{$this->key} = intval($opt);
 				$this->reset();
 				
-			} else {	// Populate object with empty data, not from storage (null field values)
-				
-				foreach(DatabaseColumn::columns($table) as $name => $value) {
-					$this->fields[strtolower($name)] = $value;
-				}
-				
-			}
+			} 
 			
 		}
 
