@@ -163,7 +163,7 @@
 		 * the result returned by the first function is passed in to the next function, etc - the hook returns the last
 		 * value, allowing developers to "refine" the return value. 
 		 *
-		 * @throws InvalidHookException
+		 * @throws InvalidNotificationException
 		 *
 		 * @param string $notification
 		 * @param ... va_args
@@ -200,7 +200,7 @@
 								} else if ( count($obj->callback) == 1 ) {	// Function
 									if ( function_exists($obj->callback) ) {
 										$value = call_user_func_array($obj->callback, $args);
-									} else throw new InvalidHookException(sprintf("NotificationCenter::execute(%s): skipping function (%s) - undefined.", $notification, $obj->callback));
+									} else throw new InvalidNotificationException(sprintf("NotificationCenter::execute(%s): skipping function (%s) - undefined.", $notification, $obj->callback));
 								}
 
 							}
@@ -213,7 +213,7 @@
 				
 				return $value !== "__ignore__" ? $value : reset($params);
 
-			} else throw new InvalidHookException(sprintf("NotificationCenter::execute(%s). Hook was undefined.", $notification));
+			} else throw new InvalidNotificationException(sprintf("NotificationCenter::execute(%s). Hook was undefined.", $notification));
 
 		}
 		
@@ -222,7 +222,7 @@
 		 * define
 		 * Register a new action so other modules can attach to this action in your code
 		 * 
-		 * @throws InvalidHookException - when attempting to redefine a hook
+		 * @throws InvalidNotificationException - when attempting to redefine a hook
 		 * 
 		 * @param string $notification
 		 *
@@ -233,7 +233,7 @@
 		public static function define($notification) {
 
 			if ( self::_valid_hook($notification) ) {
-				throw new InvalidHookException("Hook ($notification) already registered!");
+				throw new InvalidNotificationException("Hook ($notification) already registered!");
 			} else {
 				self::$hooks[$notification] = null;
 			}

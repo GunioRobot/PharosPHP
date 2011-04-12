@@ -7,7 +7,7 @@
 	 * @author Matt Brewer
 	 **/
 	
-	NotificationCenter::register_callback(NotificationCenter::APPLICATION_CORE_LOADED_NOTIFICATION, array("UsersController", "register_notifications"));
+	NotificationCenter::register_callback(NotificationCenter::APPLICATION_CONTROLLER_LOADED_NOTIFICATION, array("UsersController", "register_notifications"));
 	class UsersController extends TableController {
 		
 		const USER_CREATED_NOTIFICATION = "user_created_notification";	// function($user_id) {}
