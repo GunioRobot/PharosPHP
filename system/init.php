@@ -5,6 +5,8 @@
 	 * @brief Begins the application initialization process and provides several useful filesystem path constants
 	 * @author Matt Brewer
 	 */
+	
+	define('PHAROS_VERSION', '1.3.6');
 
 	session_start();	
 	

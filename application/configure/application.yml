@@ -65,7 +65,6 @@ routes:
 
 
 system:
-    version: 1.5
     salt: DYhG93b0qyJfIxfs2guVoUubWwvniR2G0FgaC9mi
     timezone: "America/New_York"
     language: en
