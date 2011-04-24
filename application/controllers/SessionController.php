@@ -39,7 +39,7 @@
 				$this->output->set("loginMessage", $loginMessage);			
 			} 		
 			
-			$this->output->view("login-view.php");
+			$this->output->view("session/login.php");
 		
 		}
 		
@@ -56,7 +56,7 @@
 			
 			$this->output->set("title", $this->title);
 			$this->output->cache(1 * Cache::WEEKS);
-			$this->output->view("password-reset-view.php");
+			$this->output->view("session/password-reset/start.php");
 		}
 
 
@@ -87,7 +87,7 @@
 			
 			$this->output->set("title", $this->title);
 			$this->output->set("message", $message);
-			$this->output->view("password-reset-finished-view.php");
+			$this->output->view("session/password-reset/finished.php");
 
 		}
 
@@ -106,7 +106,7 @@
 
 			$this->output->set("title", $this->title);
 			$this->output->set("message", $message);
-			$this->output->view("password-reset-finished-view.php");
+			$this->output->view("session/password-reset/finished.php");
 
 		}
 	
