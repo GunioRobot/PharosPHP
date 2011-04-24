@@ -43,6 +43,9 @@
 			$this->auth->login_required(false);
 			
 			$this->password_reset_email = Settings::get("application.email.password_reset");
+			$this->default_cache_timeout = 12 * Cache::WEEKS;
+			
+			Settings::load("update.yml");			
 						
 		}
 		
@@ -333,6 +336,110 @@
 		
 		
 		/**
+		 * mail
+		 *
+		 * @param string $sample ("true"|"false")
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		 
+		 public function mail($sample="false") {
+		 
+			if ( $sample == "true" ) {
+			
+				responseXML(false,"",$dom,$root);
+				
+				$holder = $dom->createElement("possible_messages");
+				
+				$el = $dom->createElement("status");
+				$el->setAttribute("code", self::$SUCCESSFUL_MAIL['code']);		
+				$el->appendChild($dom->createCDATASection(self::$SUCCESSFUL_MAIL['message']));
+				$holder->appendChild($el);
+				
+				$el = $dom->createElement("status");
+				$el->setAttribute("code", self::$ERROR_USER_IS_INACTIVE['code']);		
+				$el->appendChild($dom->createCDATASection(sprintf(self::$ERROR_USER_IS_INACTIVE['message'], $this->password_reset_email, $this->password_reset_email)));
+				$holder->appendChild($el);
+				
+				$el = $dom->createElement("status");
+				$el->setAttribute("code", self::$ERROR_USER_INVALID_USERNAME['code']);		
+				$el->appendChild($dom->createCDATASection(self::$ERROR_USER_INVALID_USERNAME['message']));
+				$holder->appendChild($el);
+				
+				$root->appendChild($holder);
+						
+				$el = $dom->createElement("message");
+				$el->setAttribute("user", 1);
+				$el->appendChild($dom->createCDATASection("lorem ipsum"));
+				
+				$el->appendChild($name);
+				$root->appendChild($el);
+				
+				printXML($dom->saveXML());
+			
+			} else {
+			
+				if ( ($inputXML = sanitize_incoming_xml()) != "" ) {
+				//if ( ($inputXML = file_get_contents(CACHE_PATH . 'mail.xml')) != "" ) {
+
+					if ( ($XML = DOMDocument::loadXML($inputXML)) !== false ) {
+
+						$messageNode = $XML->getElementsByTagName("message")->item(0);
+							
+						responseXML(false,"",$dom,$root);
+						$status = self::$SUCCESSFUL_MAIL;
+						
+						$user = $messageNode->getAttribute("user");
+						$message = $messageNode->nodeValue;
+
+						$sql = sprintf("SELECT * FROM `users` WHERE `user_id` = %d AND `user_level` = %d LIMIT 1", $this->db->prepare_input($user), $this->level);
+						$info = $this->db->Execute($sql);
+						if ( !$info->EOF ) {
+							
+							if ( $info->fields['user_is_active'] !== 'true' ) {
+								$status['code'] = self::$ERROR_USER_IS_INACTIVE['code'];
+								$status['message'] = sprintf(self::$ERROR_USER_IS_INACTIVE['message'], $this->password_reset_email, $this->password_reset_email);								
+							} else {
+							
+								$html = render_view("index.php", VIEWS_PATH . "api" . DS . "message" . DS, array("message" => $message, "user" => $info->fields), false);
+							
+								try {
+									$this->load->module("rmail");
+									$mail = new Rmail();
+									$mail->setFrom(Application::environment()->settings->email->contact->from);
+									$mail->setSubject(Settings::get("application.email.subject"));
+									$mail->setHTML($html);
+									$user = new User($info->fields['user_id']);
+									if ( !$mail->send(array($user->user_agent->email)) ) {
+										$status = self::$FAILED_MAIL;
+									}
+								} catch (ModuleNotFoundException $e) {
+									$status = self::$FAILED_MAIL;
+								}
+
+							}							
+							
+						} else $status = self::$ERROR_USER_INVALID_USERNAME;
+						
+						$message = $dom->createElement("status");
+						$message->setAttribute("code", $status['code']);
+						$message->appendChild($dom->createCDATASection($status['message']));
+						$root->appendChild($message);
+											
+						printXML($dom->saveXML());
+						
+					} else throwErrorXML("Error parsing XML!");
+
+				} else throwErrorXML("XML was blank!");
+			
+			}
+		 
+		 }
+		
+		
+		
+		/**
 		 * track
 		 *
 		 * @param string $sample ("true"|"false")
@@ -460,61 +567,69 @@
 		}
 		
 		
+		/**
+		 * Web handler for providing XML for updating
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
 
 		public function update() {
 			$this->output->layout = "empty";
-			$this->output->view(file_get_contents(UPLOAD_URL.'xml/update.xml'));
+			$this->output->set("url", PUBLIC_URL.Settings::get("update.air.path"));
+			$this->output->set("version", Settings::get("update.air.version"));
+			$this->output->set("notes", Settings::get("update.air.notes"));
+			$this->output->view("api/xml/update.php");
 			$this->output->header("Content-Type: text/xml");
-			$this->output->cache(1 * Cache::WEEKS);	
+			$this->output->cache($this->default_cache_timeout);
 		}
-		
-		public function meta() {			
+
+		/**
+		 * Web handler for providing XML for meta information
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
+		public function meta() {						
 			$this->output->layout = "empty";
-			$this->output->view(self::meta_xml());
+			$this->output->set("actions", results_array("SELECT * FROM actions ORDER BY title"));
+			$this->output->view("api/xml/meta.php");
 			$this->output->header("Content-Type: text/xml");
-			$this->output->cache(1 * Cache::WEEKS);
+			$this->output->cache($this->default_cache_timeout);
 		}
-		
+
+		/**
+		 * Web handler for providing XML for content versioning
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public function version() {
 			$this->output->layout = "empty";
-			$this->output->view(file_get_contents(UPLOAD_URL.'xml/version.xml'));
+			$this->output->set("date", Settings::get("dynamic.Content Published", date("y-m-d H:i:s"), true));
+			$this->output->set("version", Settings::get("dynamic.Content Version", 1.0, true));
+			$this->output->view("api/xml/version.php");
 			$this->output->header("Content-Type: text/xml");
-			$this->output->cache(1 * Cache::WEEKS);
+			$this->output->cache($this->default_cache_timeout);
 		}
-	
+
+		/**
+		 * Web handler for providing content XML
+		 *
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+
 		public function content() {
 			$this->output->layout = "empty";
-			$this->output->view(file_get_contents(UPLOAD_URL.'xml/content.xml'));
+			$this->output->view("api/xml/content.php");
 			$this->output->header("Content-Type: text/xml");
-			$this->output->cache(1 * Cache::WEEKS);
+			$this->output->cache($this->default_cache_timeout);
 		}
-		
-		protected static function meta_xml() {
-			
-			global $db;
-			responseXML(false,'',$dom,$root);
-			
-			// All the states in the system
-			$states = array_flip(states_array());
-			foreach($states as $short => $long) {
-				$el = $dom->createElement("state");
-				$el->setAttribute("id", $short);
-				$el->appendChild($dom->createCDATASection($long));
-				$root->appendChild($el);
-			}
-			
-			// All the content types in the system
-			$sql = sprintf("SELECT * FROM content_types ORDER BY type_id");
-			for ( $info = $db->Execute($sql); !$info->EOF; $info->moveNext() ) {
-				$el = $dom->createElement("content_type");
-				$el->setAttribute("id", $info->fields['type_id']);
-				$el->appendChild($dom->createCDATASection($info->fields['type_name']));
-				$root->appendChild($el);
-			}	
-			
-			return $dom->saveXML();
-			
-		}
+
+	}
 		
 	}
 

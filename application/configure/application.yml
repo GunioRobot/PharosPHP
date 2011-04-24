@@ -9,6 +9,10 @@ environment:
             username: 'db_username'
             password: 'db_password'
             name: 'db_name'
+        email:
+            contact:
+                from: "matt@pharosphp.com"
+                to: "spam@pharosphp.com"
             
     testing:
         enabled: false
@@ -19,6 +23,10 @@ environment:
             username: 'db_username'
             password: 'db_password'
             name: 'db_name'
+        email:
+            contact:
+                from: "matt@pharosphp.com"
+                to: "spam@pharosphp.com"
             
     production:
         enabled: false
@@ -29,9 +37,15 @@ environment:
             username: 'db_username'
             password: 'db_password'
             name: 'db_name'
+        email:
+            contact:
+                from: "matt@pharosphp.com"
+                to: "spam@pharosphp.com"
             
 filesystem:
 
+email:
+    subject: "Default Subject from PharosPHP!"
     
 modules:
     autoload:
