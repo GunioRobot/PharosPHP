@@ -54,11 +54,11 @@
 						$d = new DateTime($value);
 						$value = $d->format('U');
 					} catch (Exception $e) {
-						$value = html_entity_decode(stripslashes($value));
+						$value = html_entity_decode(stripslashes($value), ENT_QUOTES, 'UTF-8');
 					}
 
 				} else {
-					$value = html_entity_decode(stripslashes($value));
+					$value = html_entity_decode(stripslashes($value), ENT_QUOTES, 'UTF-8');
 				}
 
 			} else if ( is_array($value) ) {
