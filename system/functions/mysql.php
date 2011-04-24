@@ -69,4 +69,29 @@
 	}
 	
 	
+	/**
+	 * results_array
+	 * Returns an array containing simple stdClass objects that have been sanitized, recursively from the database.
+	 * If you provide a $pkid, the array keys will be the pkid for even quicker indexing of the array
+	 * 
+	 * @param string $sql
+	 * @param string $pkid (optional)
+	 *
+	 * @return void
+	 * @author Matt Brewer
+	 **/
+	
+	function results_array($sql, $pkid=null) {
+		global $db;
+		for ( $ret = array(), $info = $db->Execute($sql); !$info->EOF; $info->moveNext() ) {
+			$obj = clean_object($info->fields);
+			if ( $pkid !== null ) {
+				$ret[$obj->{$pkid}] = $obj;
+			} else {
+				$ret[] = $obj;
+			}
+		} return $ret;
+	}
+	
+	
 ?>
