@@ -28,8 +28,22 @@
 					if ( r ) {
 						$.post(okButtonLink, {confirmed:"true"},function(data) {
 							
-							if ( data.error && console ) {
-								console.log("Error "+action+" "+type+"!");
+							if ( data.error ) {
+								
+								if ( typeof console == "object" ) {
+									console.log("Error "+action+" "+type+"!");
+								}
+								
+								var _retMessage = typeof data.message != "undefined" ? data.message : "There was an error performing: " + action + " " + type + ".";
+								var _retDebug = typeof data.debug != "undefined" ? data.debug : null;
+								
+								$.alerts.okButton = "&nbsp;Continue&nbsp;";
+								jAlert(_retMessage);
+							
+								if ( _retDebug && typeof console == "object" ) {
+									console.log(_retDebug);
+								}
+								
 							} else {
 								window.location.replace(data.redirect);
 							}
