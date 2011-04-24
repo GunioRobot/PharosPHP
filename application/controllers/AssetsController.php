@@ -42,7 +42,7 @@
 			$this->output->set("data", $data);
 			$this->output->set("all", $all);
 			$this->output->set("tab", $tab);
-			$this->output->view("add-media-asset.php");
+			$this->output->view("assets/add.php");
 			
 		}
 		
