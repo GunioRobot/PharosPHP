@@ -37,7 +37,7 @@
 	function NSLogf() {
 		global $db;
 		$args = func_get_args();
-		$db->Execute("INSERT INTO `nslog_messages` (`message`, `timestamp`), VALUES('%s', NOW())", $db->prepare_input(sNSLog($args)));
+		$db->Execute(sprintf("INSERT INTO `nslog_messages` (`message`, `timestamp`) VALUES('%s', NOW())", $db->prepare_input(array_pop(sNSLog($args)))));
 	}
 	
 	
