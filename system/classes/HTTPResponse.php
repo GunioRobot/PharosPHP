@@ -84,6 +84,21 @@
 			
 		}
 		
+		
+		/**
+		 * Merges the contents of the current internal view ivars with the incoming array
+		 * Quick, convenience method for making multiple values accessible inside a view 
+		 *
+		 * @param array $params
+		 * 
+		 * @return void
+		 * @author Matt Brewer
+		 **/
+		
+		public function add(array $params) {
+			$this->_members = array_merge($this->_members, $params);
+		}
+		
 	
 		/**
 		 * css
