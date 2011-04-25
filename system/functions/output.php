@@ -87,12 +87,16 @@
 	 **/
 	function render_view($view, $dir=VIEWS_PATH, array $params=array(), $controller=true) {
 		
-		$output = $controller === true ? Application::controller()->output : new HTTPResponse();
-		foreach($params as $key => $value) {
-			$output->set($key, $value);
+		if ( $controller === true ) {
+			$output = Application::controller()->output;
+			foreach($params as $key => $value) {
+				$output->set($key, $value);
+			}
+			return $output->view($view, $dir);
+			
+		} else {
+			return _HTTPResponseRenderViewExtractionMethodHelper($dir . $view, $params);
 		}
-		
-		return $output->view($view, $dir);
 		
 	}
 	

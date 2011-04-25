@@ -318,10 +318,7 @@
 				
 				$info = pathinfo($file);
 				if ( strtolower($info['extension']) == "php" ) {
-					extract($this->members);	// Import the data members into a clean namespace
-					ob_start();
-					require $file;		// Include the view (which only has access to the local clean namespace )
-					$_content = ob_get_clean();
+					$_content = _HTTPResponseRenderViewExtractionMethodHelper($file, $this->members);
 					$this->content .= $_content;
 					return $_content;
 				} else {
@@ -528,6 +525,24 @@
 			}
 		}
 				
+	}
+	
+	
+	/**
+	 * Function used to render the particular file with the provided members, providing data member privacy outside of a class
+	 * 
+	 * @param string $path
+	 * @param array $members
+	 *
+	 * @return string $html
+	 * @author Matt Brewer
+	 **/
+	
+	function _HTTPResponseRenderViewExtractionMethodHelper($file, array $members) {
+		ob_start();
+		extract($members);
+		require $file;
+		return ob_get_clean();
 	}
 
 ?>
