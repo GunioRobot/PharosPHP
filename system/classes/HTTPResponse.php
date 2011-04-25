@@ -29,16 +29,16 @@
 		 *
 		 */
 		
-		protected $layout=null;
+		protected $_layout=null;
 		
 		/**
 		*
 		*	Caching members
 		*
 		*/
-		protected $enabled = false;
-		protected $cached_file;
-		protected $cache_duration = 0;		// In Minutes
+		protected $_enabled = false;
+		protected $_cached_file;
+		protected $_cache_duration = 0;		// In Minutes
 		
 		
 		/**
@@ -46,8 +46,8 @@
 		*	HTTP head members
 		*
 		*/
-		protected $css = array();
-		protected $javascript = array();
+		protected $_css = array();
+		protected $_javascript = array();
 		
 		
 		/** 
@@ -55,11 +55,11 @@
 		*	HTTPResponse from the controller
 		*
 		*/
-		protected $content = "";
-		protected $meta = array();
-		protected $members = array();
-		protected $headers = array();
-		protected $flash = array();
+		protected $_content = "";
+		protected $_meta = array();
+		protected $_members = array();
+		protected $_headers = array();
+		protected $_flash = array();
 		
 		
 		/**
@@ -72,13 +72,13 @@
 		public function __construct() {
 			
 			if ( Cache::enabled() ) {
-				$this->enabled = true;
-				$this->cached_file = self::cached_name();
+				$this->_enabled = true;
+				$this->_cached_file = self::cached_name();
 			}
 		
 			if ( ($items = Input::session(self::FLASH_SESSION_KEY)) !== false && is_array($items) ) {
 				foreach($items as $value) {
-					$this->flash[] = (object)array("save" => false, "value" => $value);
+					$this->_flash[] = (object)array("save" => false, "value" => $value);
 				}
 			}
 			
@@ -101,7 +101,7 @@
 			if ( $path != '' ) {
 
 				// Don't keep adding the same thing
-				if ( in_array($path,$this->css) ) {
+				if ( in_array($path,$this->_css) ) {
 					return false;
 				}
 
@@ -116,13 +116,13 @@
 				}
 				
 				if ( stripos($path, "http") === false ) {
-					$path = (is_null($dir) ? PUBLIC_URL.'css'.DIRECTORY_SEPARATOR : ROOT_URL.$dir).$path;
+					$path = (is_null($dir) ? PUBLIC_URL.'css'.DS : ROOT_URL.$dir).$path;
 				}
 
-				$this->css[] = compact("path","type");
+				$this->_css[] = compact("path","type");
 
 			} else {
-				return $this->css;
+				return $this->_css;
 			}
 
 		}
@@ -146,10 +146,10 @@
 			if ( $path != '' ) {
 
 				// Don't keep adding the same thing
-				if ( ($index = array_search($path, $this->javascript)) !== false ) {
+				if ( ($index = array_search($path, $this->_javascript)) !== false ) {
 
 					// Replace data array if called a second time
-					$this->javascript[$index]['data'] = $data;
+					$this->_javascript[$index]['data'] = $data;
 					return true;
 
 				} else {
@@ -159,12 +159,12 @@
 						$path = ROOT_URL . (is_null($dir) ? APP_DIR . DS . PUBLIC_DIR . DS . 'js' . DS : $dir) . $path;
 					} 
 					
-					$this->javascript[] = compact("path", "type", "data");
+					$this->_javascript[] = compact("path", "type", "data");
 				}
 
 			} else {
 
-				return $this->javascript;
+				return $this->_javascript;
 
 			}
 
@@ -183,8 +183,8 @@
 
 		public function meta($meta=null) {
 			if ( !is_null($meta) ) {
-				return $this->meta[$meta['name']] = $meta;
-			} else return $this->meta;
+				return $this->_meta[$meta['name']] = $meta;
+			} else return $this->_meta;
 		}
 		
 		
@@ -216,9 +216,9 @@
 
 		public function content($string='') {
 			if ( $string != '' || $string === null ) {
-				return $this->content = $string;
+				return $this->_content = $string;
 			} else {
-				return $this->content;
+				return $this->_content;
 			}
 		}
 		
@@ -236,8 +236,8 @@
 		 **/
 		
 		public function header($str=null) {
-			if ( $str ) $this->headers[] = $str;
-			else return $this->headers;
+			if ( $str ) $this->_headers[] = $str;
+			else return $this->_headers;
 		}
 		
 		
@@ -253,7 +253,7 @@
 		 **/
 		
 		public function flash($value) {
-			$this->flash[] = (object)array("save" => true, "value" => $value);
+			$this->_flash[] = (object)array("save" => true, "value" => $value);
 		}
 		
 		
@@ -269,7 +269,7 @@
 		public function flash_contents() {
 			
 			$ret = array();
-			foreach($this->flash as $f) {
+			foreach($this->_flash as $f) {
 				if ( !$f->save ) $ret[] = $f->value;
 			}
 			
@@ -287,12 +287,14 @@
 		 * @param string $key
 		 * @param mixed $value
 		 * 
+		 * @deprecated 1.3.6
+		 * 
 		 * @return void
 		 *
 		**/
 		
 		public function set($key, $value) {
-			$this->members[$key] = $value;
+			$this->_members[$key] = $value;
 		}
 		
 			
@@ -318,19 +320,19 @@
 				
 				$info = pathinfo($file);
 				if ( strtolower($info['extension']) == "php" ) {
-					$_content = _HTTPResponseRenderViewExtractionMethodHelper($file, $this->members);
-					$this->content .= $_content;
+					$_content = _HTTPResponseRenderViewExtractionMethodHelper($file, $this->_members);
+					$this->_content .= $_content;
 					return $_content;
 				} else {
 					if ( ($contents = @file_get_contents($file)) !== false ) {
-						$this->content .= $contents;
+						$this->_content .= $contents;
 						return $contents;
 					} else throw new InvalidFileSystemPathException(sprintf("Provided %s of type %s and was unable to get contents.", $file, $info['extension']));
 				}
 							
 			} else {
 				
-				$this->content .= $str;
+				$this->_content .= $str;
 				return $str;
 				
 			}
@@ -352,14 +354,14 @@
 									
 			if ( is_string($mixed) ) {
 			
-				if ( $this->enabled ) {
+				if ( $this->_enabled ) {
 					$this->_write_to_cache($mixed);
 					return self::cached_content();
 				} else return false;
 				
 			} else {
 				
-				$this->cache_duration = intval($mixed);
+				$this->_cache_duration = intval($mixed);
 				
 			}
 			
@@ -375,7 +377,7 @@
 		 **/
 
 		public function cache_enabled() {
-			return Cache::enabled() && $this->cache_duration > 0;
+			return Cache::enabled() && $this->_cache_duration > 0;
 		}
 		
 		
@@ -422,7 +424,7 @@
 		 **/
 
 		public function delete() {
-			Cache::delete($this->cached_file);
+			Cache::delete($this->_cached_file);
 		}
 		
 
@@ -436,8 +438,8 @@
 
 		private function _write_to_cache($str) {
 			try {
-				if ( Cache::expired($this->cached_file) ) {
-					Cache::write($str, $this->cached_file, $this->cache_duration, $this->headers);
+				if ( Cache::expired($this->_cached_file) ) {
+					Cache::write($str, $this->_cached_file, $this->_cache_duration, $this->_headers);
 				}
 			} catch(CacheNotEnabledException $e) {}	
 		}	
@@ -455,7 +457,7 @@
 		public function __destruct() {
 			
 			$to_save = array();
-			foreach($this->flash as $f) {
+			foreach($this->_flash as $f) {
 				if ( $f->save ) $to_save[] = $f->value;
 			}
 		
@@ -478,8 +480,8 @@
 			switch ($key) {
 				case "layout":
 					
-					if ( !is_null($this->layout) && @file_exists(LAYOUTS_PATH . $this->layout . ".php") ) {
-						return LAYOUTS_PATH . $this->layout . ".php";
+					if ( !is_null($this->_layout) && @file_exists(LAYOUTS_PATH . $this->_layout . ".php") ) {
+						return LAYOUTS_PATH . $this->_layout . ".php";
 					} else {
 						
 						$layout = strtolower(implode('-', split_camel_case(Router::controller())));
@@ -498,7 +500,7 @@
 					break;
 					
 				default:
-					return $this->{$key};
+					return substr($key, 0, 1) === "_" ? $this->{$key} : $this->_members[$key];
 			}
 		}
 		
@@ -509,19 +511,26 @@
 		 * 
 		 * @param string $key
 		 * @param mixed $value
+		 * 
+		 * @throws ReadOnlyPropertyException
 		 *
 		 * @return void
 		 * @author Matt Brewer
 		 **/
 		
 		public function __set($key, $value) {
+			if ( substr($key, 0, 1) == "_" ) {
+				throw new ReadOnlyPropertyException($key);
+			}
+			
 			switch ($key) {
 				case "layout":
 					$this->{$key} = $value;
 					break;
 				
 				default:
-					throw new ReadOnlyPropertyException($key);
+					$this->_members[$key] = $value;
+					break;
 			}
 		}
 				
