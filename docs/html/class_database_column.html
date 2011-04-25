@@ -54,6 +54,7 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_column.html#a3e25051959790ddc90d4e0c224f66a8d">__construct</a> ($table, $column=&quot;&quot;)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_column.html#aac66f1670a1258beaf6f5278880d269c">sql</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_column.html#a9703c7bf89f8f93594ae1a6987d085a9">addAttribute</a> ($att, $opt=null)</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_column.html#aadc1b488c0a7b1fd9bcacb6b1b6cc149">hasAttribute</a> ($att)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_column.html#a79e555dcd8222779af02e35f661a7e89">removeAttribute</a> ($att)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_column.html#a4537dad3b44254124991341cc91b28fb">__get</a> ($key)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_database_column.html#a79b36d71c6f1d4f9e6c4c3e34c081456">__set</a> ($key, $value)</td></tr>
@@ -82,6 +83,8 @@ const&#160;</td><td class="memItemRight" valign="bottom"><b>TYPE_TIMESTAMP</b> =
 const&#160;</td><td class="memItemRight" valign="bottom"><b>TYPE_ENUM</b> = &quot;enum&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a768e5d11bd404e593a98f617a78b371b"></a><!-- doxytag: member="DatabaseColumn::ATTRIBUTE_NOW" ref="a768e5d11bd404e593a98f617a78b371b" args="" -->
 const&#160;</td><td class="memItemRight" valign="bottom"><b>ATTRIBUTE_NOW</b> = &quot;attribute_now&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ad6e2433b2032863542e6ac58bc281b2b"></a><!-- doxytag: member="DatabaseColumn::ATTRIBUTE_IGNORE" ref="ad6e2433b2032863542e6ac58bc281b2b" args="" -->
+const&#160;</td><td class="memItemRight" valign="bottom"><b>ATTRIBUTE_IGNORE</b> = &quot;attribute_ignore&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a675eb548c1d7bf03bdda23e9aacc3be5"></a><!-- doxytag: member="DatabaseColumn::ATTRIBUTE_ESCAPE" ref="a675eb548c1d7bf03bdda23e9aacc3be5" args="" -->
 const&#160;</td><td class="memItemRight" valign="bottom"><b>ATTRIBUTE_ESCAPE</b> = &quot;attribute_escape&quot;</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9ae020b098e7af02b711f5c6c4a1b6e4"></a><!-- doxytag: member="DatabaseColumn::ATTRIBUTE_UNESCAPE" ref="a9ae020b098e7af02b711f5c6c4a1b6e4" args="" -->
@@ -102,7 +105,7 @@ Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a48c01c8cae9e7c683f03899c087d010c"></a><!-- doxytag: member="DatabaseColumn::$dirty" ref="a48c01c8cae9e7c683f03899c087d010c" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>$dirty</b> = false</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="adc851f7a62250e75df0490c0280aef4c"></a><!-- doxytag: member="DatabaseColumn::$attributes" ref="adc851f7a62250e75df0490c0280aef4c" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$attributes</b> = array(self::ATTRIBUTE_ESCAPE)</td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><b>$attributes</b> = array(self::ATTRIBUTE_ESCAPE =&gt; null)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fa3127fc82f96b1436d871ef02be319"></a><!-- doxytag: member="DatabaseColumn::$db" ref="a1fa3127fc82f96b1436d871ef02be319" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>$db</b> = null</td></tr>
 <tr><td colspan="2"><h2><a name="pro-static-attribs"></a>
@@ -320,6 +323,26 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$tables</b> = array
 
 </div>
 </div>
+<a class="anchor" id="aadc1b488c0a7b1fd9bcacb6b1b6cc149"></a><!-- doxytag: member="DatabaseColumn::hasAttribute" ref="aadc1b488c0a7b1fd9bcacb6b1b6cc149" args="($att)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">hasAttribute </td>
+          <td>(</td>
+          <td class="paramtype">$&#160;</td>
+          <td class="paramname"> <em>att</em>&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>hasAttribute Determines if the object has the specified attribute</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>bool $contains </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a79e555dcd8222779af02e35f661a7e89"></a><!-- doxytag: member="DatabaseColumn::removeAttribute" ref="a79e555dcd8222779af02e35f661a7e89" args="($att)" -->
 <div class="memitem">
 <div class="memproto">
@@ -412,7 +435,7 @@ static&#160;</td><td class="memItemRight" valign="bottom"><b>$tables</b> = array
 <li>system/classes/Database/DatabaseColumn.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Mar 27 2011 18:41:55 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Apr 24 2011 20:23:07 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

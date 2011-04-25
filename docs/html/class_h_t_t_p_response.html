@@ -50,6 +50,7 @@ Inheritance diagram for HTTPResponse:<!-- endSectionHeader --></div>
 <tr><td colspan="2"><h2><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a095c5d389db211932136b53f25f39685">__construct</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a8537c9ed4fa12f617f4b95a7c7862fd8">add</a> (array $params)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a81954b9eb41cfda9df0b6b866a92d6ba">css</a> ($path='', $type=self::CSS_TYPE_ALL, $dir=null)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#ac359bc09a619bc17984e72505da60e8a">javascript</a> ($path='', $data=array(), $dir=null)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a53d74dafd94eb89bcb6eb54b9c5c39b5">meta</a> ($meta=null)</td></tr>
@@ -87,25 +88,25 @@ const&#160;</td><td class="memItemRight" valign="bottom"><b>JAVASCRIPT_INCLUDE</
 const&#160;</td><td class="memItemRight" valign="bottom"><b>JAVASCRIPT_EXTERNAL</b> = &quot;link_js&quot;</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2b0d08e73a90b9443ce37506b7c6a544"></a><!-- doxytag: member="HTTPResponse::$layout" ref="a2b0d08e73a90b9443ce37506b7c6a544" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$layout</b> = null</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a8d376199cc641e3e7af6e1a0d5c736d9">$enabled</a> = false</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a65e0bc16303487a8ed6dc4ddf2c910ba"></a><!-- doxytag: member="HTTPResponse::$cached_file" ref="a65e0bc16303487a8ed6dc4ddf2c910ba" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$cached_file</b></td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a2d404df21a2e6155219a43570e94800e"></a><!-- doxytag: member="HTTPResponse::$cache_duration" ref="a2d404df21a2e6155219a43570e94800e" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$cache_duration</b> = 0</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a5619065f778cf71da2d43cbc4c47a1c4">$css</a> = array()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a687855b3cefd1fc1232e0f457ff7e41b"></a><!-- doxytag: member="HTTPResponse::$javascript" ref="a687855b3cefd1fc1232e0f457ff7e41b" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$javascript</b> = array()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a57b284fe00866494b33afa80ba729bed">$content</a> = &quot;&quot;</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a9e6fc1ae0498be7d1e682f8bcc9299df"></a><!-- doxytag: member="HTTPResponse::$meta" ref="a9e6fc1ae0498be7d1e682f8bcc9299df" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$meta</b> = array()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae2118b67db555e724032d6b8c057e272"></a><!-- doxytag: member="HTTPResponse::$members" ref="ae2118b67db555e724032d6b8c057e272" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$members</b> = array()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a52500036ee807241b8b4b7e2367c49ef"></a><!-- doxytag: member="HTTPResponse::$headers" ref="a52500036ee807241b8b4b7e2367c49ef" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$headers</b> = array()</td></tr>
-<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a11e2a205d2151dc5076c63ef15911950"></a><!-- doxytag: member="HTTPResponse::$flash" ref="a11e2a205d2151dc5076c63ef15911950" args="" -->
-&#160;</td><td class="memItemRight" valign="bottom"><b>$flash</b> = array()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a7b6bdb042d5d650c70c74ee40e7a0a71"></a><!-- doxytag: member="HTTPResponse::$_layout" ref="a7b6bdb042d5d650c70c74ee40e7a0a71" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>$_layout</b> = null</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#af8233d47e8ad3e624ba168154d2f383d">$_enabled</a> = false</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ae52a79d79c9779527a48e0135af02581"></a><!-- doxytag: member="HTTPResponse::$_cached_file" ref="ae52a79d79c9779527a48e0135af02581" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>$_cached_file</b></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="aed534758cfe4f97867830bf9b298ec56"></a><!-- doxytag: member="HTTPResponse::$_cache_duration" ref="aed534758cfe4f97867830bf9b298ec56" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>$_cache_duration</b> = 0</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a50dd92407cedeeea5d48b9aeafc0dce3">$_css</a> = array()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="ab9723fa0dfe60c4e95597edcf05eebaf"></a><!-- doxytag: member="HTTPResponse::$_javascript" ref="ab9723fa0dfe60c4e95597edcf05eebaf" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>$_javascript</b> = array()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_h_t_t_p_response.html#a921d8b4050e6b39e1507f14dea363ebf">$_content</a> = &quot;&quot;</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a04404da03b92c2a4277305fcb9f3668d"></a><!-- doxytag: member="HTTPResponse::$_meta" ref="a04404da03b92c2a4277305fcb9f3668d" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>$_meta</b> = array()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="af9f4d37a47aa6efe934e3350b27585f7"></a><!-- doxytag: member="HTTPResponse::$_members" ref="af9f4d37a47aa6efe934e3350b27585f7" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>$_members</b> = array()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1481ae63a7fb295087c3a668a0359500"></a><!-- doxytag: member="HTTPResponse::$_headers" ref="a1481ae63a7fb295087c3a668a0359500" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>$_headers</b> = array()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a57183ced8145c26d27cd79c670507089"></a><!-- doxytag: member="HTTPResponse::$_flash" ref="a57183ced8145c26d27cd79c670507089" args="" -->
+&#160;</td><td class="memItemRight" valign="bottom"><b>$_flash</b> = array()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top"><a class="anchor" id="a1fa3127fc82f96b1436d871ef02be319"></a><!-- doxytag: member="HTTPResponse::$db" ref="a1fa3127fc82f96b1436d871ef02be319" args="" -->
 &#160;</td><td class="memItemRight" valign="bottom"><b>$db</b> = null</td></tr>
 </table>
@@ -209,6 +210,12 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl><dt><b>Exceptions:</b></dt><dd>
+  <table class="exception">
+    <tr><td class="paramname"><a class="el" href="class_read_only_property_exception.html">ReadOnlyPropertyException</a></td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
 
@@ -228,6 +235,32 @@ Protected Attributes</h2></td></tr>
 </div>
 <div class="memdoc">
 <p>__wakeup Called after the object has been unserialized</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
+<a class="anchor" id="a8537c9ed4fa12f617f4b95a7c7862fd8"></a><!-- doxytag: member="HTTPResponse::add" ref="a8537c9ed4fa12f617f4b95a7c7862fd8" args="(array $params)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">add </td>
+          <td>(</td>
+          <td class="paramtype">array $&#160;</td>
+          <td class="paramname"> <em>params</em>&#160;)</td>
+          <td></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>Merges the contents of the current internal view ivars with the incoming array Quick, convenience method for making multiple values accessible inside a view</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype">array</td><td class="paramname">$params</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
 <dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
 
@@ -602,6 +635,7 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
+<dl class="deprecated"><dt><b><a class="el" href="deprecated.html#_deprecated000001">Deprecated:</a></b></dt><dd>1.3.6</dd></dl>
 <dl class="return"><dt><b>Returns:</b></dt><dd>void </dd></dl>
 
 </div>
@@ -650,12 +684,12 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <hr/><h2>Field Documentation</h2>
-<a class="anchor" id="a57b284fe00866494b33afa80ba729bed"></a><!-- doxytag: member="HTTPResponse::$content" ref="a57b284fe00866494b33afa80ba729bed" args="" -->
+<a class="anchor" id="a921d8b4050e6b39e1507f14dea363ebf"></a><!-- doxytag: member="HTTPResponse::$_content" ref="a921d8b4050e6b39e1507f14dea363ebf" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">$content = &quot;&quot;<code> [protected]</code></td>
+          <td class="memname">$_content = &quot;&quot;<code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -664,12 +698,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a5619065f778cf71da2d43cbc4c47a1c4"></a><!-- doxytag: member="HTTPResponse::$css" ref="a5619065f778cf71da2d43cbc4c47a1c4" args="" -->
+<a class="anchor" id="a50dd92407cedeeea5d48b9aeafc0dce3"></a><!-- doxytag: member="HTTPResponse::$_css" ref="a50dd92407cedeeea5d48b9aeafc0dce3" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">$css = array()<code> [protected]</code></td>
+          <td class="memname">$_css = array()<code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -678,12 +712,12 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a class="anchor" id="a8d376199cc641e3e7af6e1a0d5c736d9"></a><!-- doxytag: member="HTTPResponse::$enabled" ref="a8d376199cc641e3e7af6e1a0d5c736d9" args="" -->
+<a class="anchor" id="af8233d47e8ad3e624ba168154d2f383d"></a><!-- doxytag: member="HTTPResponse::$_enabled" ref="af8233d47e8ad3e624ba168154d2f383d" args="" -->
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">$enabled = false<code> [protected]</code></td>
+          <td class="memname">$_enabled = false<code> [protected]</code></td>
         </tr>
       </table>
 </div>
@@ -696,7 +730,7 @@ Protected Attributes</h2></td></tr>
 <li>system/classes/HTTPResponse.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Mar 27 2011 18:41:55 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Apr 24 2011 20:23:07 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>

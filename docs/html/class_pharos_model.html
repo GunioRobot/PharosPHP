@@ -30,6 +30,7 @@
 <div class="header">
   <div class="summary">
 <a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pro-methods">Protected Member Functions</a> &#124;
 <a href="#pro-attribs">Protected Attributes</a>  </div>
   <div class="headertitle">
@@ -57,10 +58,14 @@ Public Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pharos_model.html#ac7bba85d6202eac339c18f1348fb253d">sql</a> ($sql)</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pharos_model.html#afc8a3c62679cf00ade9f15fb2a6d6132">save</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_object.html#a19dd44fe063cfd1cbafe97452e57666c">__wakeup</a> ()</td></tr>
+<tr><td colspan="2"><h2><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">static&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pharos_model.html#ac989dbe1e0fd4744ec7d0432a74e6920">_removeIgnoredFields</a> (<a class="el" href="class_database_column.html">DatabaseColumn</a> $d)</td></tr>
 <tr><td colspan="2"><h2><a name="pro-methods"></a>
 Protected Member Functions</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pharos_model.html#ad2564206568562a1d11b9fdaf68ee03c">_insertSQL</a> ()</td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pharos_model.html#a72c2935f8ce5ba74b9313bbaf4b598e4">_updateSQL</a> ()</td></tr>
+<tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pharos_model.html#aa747fddbd2215a9c7e3c69e6189fc61b">visibleFields</a> ()</td></tr>
 <tr><td colspan="2"><h2><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
 <tr><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="class_pharos_model.html#a5b5fc1f3aeb164b306361a520aaef425">$fields</a> = array()</td></tr>
@@ -252,6 +257,32 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="ac989dbe1e0fd4744ec7d0432a74e6920"></a><!-- doxytag: member="PharosModel::_removeIgnoredFields" ref="ac989dbe1e0fd4744ec7d0432a74e6920" args="(DatabaseColumn $d)" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">static _removeIgnoredFields </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="class_database_column.html">DatabaseColumn</a> $&#160;</td>
+          <td class="paramname"> <em>d</em>&#160;)</td>
+          <td><code> [static]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>_removeIgnoredFields array_filter() callback function</p>
+<dl><dt><b>Parameters:</b></dt><dd>
+  <table class="params">
+    <tr><td class="paramtype"><a class="el" href="class_database_column.html">DatabaseColumn</a></td><td class="paramname">$comparisonObject</td><td></td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="return"><dt><b>Returns:</b></dt><dd>bool $inclusion </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <a class="anchor" id="a72c2935f8ce5ba74b9313bbaf4b598e4"></a><!-- doxytag: member="PharosModel::_updateSQL" ref="a72c2935f8ce5ba74b9313bbaf4b598e4" args="()" -->
 <div class="memitem">
 <div class="memproto">
@@ -360,6 +391,25 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a class="anchor" id="aa747fddbd2215a9c7e3c69e6189fc61b"></a><!-- doxytag: member="PharosModel::visibleFields" ref="aa747fddbd2215a9c7e3c69e6189fc61b" args="()" -->
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">visibleFields </td>
+          <td>(</td>
+          <td class="paramname">&#160;)</td>
+          <td><code> [protected]</code></td>
+        </tr>
+      </table>
+</div>
+<div class="memdoc">
+<p>visibleFields Returns only the fields for the object which are to be saved directly on this table</p>
+<dl class="return"><dt><b>Returns:</b></dt><dd>array $filtered </dd></dl>
+<dl class="author"><dt><b>Author:</b></dt><dd>Matt Brewer </dd></dl>
+
+</div>
+</div>
 <hr/><h2>Field Documentation</h2>
 <a class="anchor" id="a9fa8c2cb7da91a610c3ab5d05a6fe933"></a><!-- doxytag: member="PharosModel::$dirty" ref="a9fa8c2cb7da91a610c3ab5d05a6fe933" args="" -->
 <div class="memitem">
@@ -393,7 +443,7 @@ Protected Attributes</h2></td></tr>
 <li>system/classes/Database/PharosModel.php</li>
 </ul>
 </div>
-<hr class="footer"/><address class="footer"><small>Generated on Sun Mar 27 2011 18:41:56 for PharosPHP by&#160;
+<hr class="footer"/><address class="footer"><small>Generated on Sun Apr 24 2011 20:23:08 for PharosPHP by&#160;
 <a href="http://www.doxygen.org/index.html">
 <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.7.2 </small></address>
 </body>
